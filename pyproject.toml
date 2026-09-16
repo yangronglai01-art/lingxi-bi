@@ -1,0 +1,65 @@
+[project]
+name = "lingxi-bi"
+version = "1.0.0"
+description = "恒岳汽车零部件经营分析智能问数系统：AI Text-to-SQL + DuckDB 数仓 + FastAPI + Streamlit 可视化"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "恒岳 BI 项目组" }]
+keywords = ["text-to-sql", "duckdb", "llm", "bi", "fastapi", "streamlit"]
+dependencies = [
+    # 数据层
+    "duckdb>=1.0.0",
+    "pandas>=2.0.0",
+    # 引擎层
+    "pydantic>=2.0.0",          # 数据模型（QueryResult / Answer / ChartConfig）
+    "requests>=2.28.0",         # OpenAI 兼容接口 HTTP 客户端
+    "python-dotenv>=1.0.0",     # 读取 .env 环境变量
+    # 接口层 + 前端工作台
+    "fastapi>=0.110.0",         # Web API 框架
+    "uvicorn[standard]>=0.27.0",# ASGI 服务器
+    "streamlit>=1.32.0",        # 前端工作台
+    "plotly>=5.19.0",           # 交互式图表
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "ruff>=0.6.0",
+]
+
+# ---------------------------------------------------------------------------
+# 说明：本文件与 requirements.txt 并存。
+#   - requirements.txt：老式 pip install -r requirements.txt 安装（保留，供习惯用）
+#   - pyproject.toml：现代打包元数据 + 依赖声明（pip install -e . 或 pip install .）
+#   两者依赖清单保持一致；以 pyproject.toml 为唯一真源，requirements.txt 同步维护。
+# ---------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+# 默认启用 E/F/W 规则集（错误、Pyflakes、警告）
+lint.select = ["E", "F", "W", "I"]
+# 忽略规则（说明）：
+#   E501 行过长 —— line-length=100 已足够，SQL/prompt 长字符串难免超长，
+#         强行拆分会破坏可读性，故全局忽略。
+lint.ignore = ["E501"]
+# 排除目录：第三方/生成物不入库检查
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "env",
+    "__pycache__",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# 脚本入口：允许顶层 sys.path 操作与 try/except 兜底（为脚本式运行服务）
+"scripts/*.py" = ["E402"]

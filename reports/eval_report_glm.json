@@ -1,0 +1,863 @@
+{
+  "meta": {
+    "project": "恒岳汽车零部件经营分析智能问数系统",
+    "generated_at": "2026-09-16T20:19:12",
+    "mode": "llm",
+    "model": "glm-5.3",
+    "tolerance": {
+      "rel": 0.01,
+      "abs": 0.01
+    }
+  },
+  "metrics": {
+    "total": 18,
+    "executed": 18,
+    "sql_exec_success_rate": 1.0,
+    "hit": 18,
+    "accuracy": 1.0,
+    "accuracy_of_executed": 1.0
+  },
+  "items": [
+    {
+      "id": "E01",
+      "question": "全年总销售额是多少？",
+      "categories": [
+        "求和"
+      ],
+      "expected": {
+        "type": "scalar",
+        "value": 92203175.0
+      },
+      "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "total_amount"
+        ],
+        "rows": [
+          [
+            92203175.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "elapsed_seconds": 15.979
+    },
+    {
+      "id": "E02",
+      "question": "制动类产品的销售额是多少？",
+      "categories": [
+        "求和",
+        "条件过滤",
+        "多表关联"
+      ],
+      "expected": {
+        "type": "scalar",
+        "value": 41434875.0
+      },
+      "sql": "SELECT ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '制动' LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "total_amount"
+        ],
+        "rows": [
+          [
+            41434875.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "elapsed_seconds": 19.177
+    },
+    {
+      "id": "E03",
+      "question": "平均每天的销售额是多少？",
+      "categories": [
+        "平均"
+      ],
+      "expected": {
+        "type": "scalar",
+        "value": 252611.44
+      },
+      "sql": "SELECT ROUND(SUM(amount) / COUNT(DISTINCT sale_date), 2) AS avg_daily_amount FROM fact_sales LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "avg_daily_amount"
+        ],
+        "rows": [
+          [
+            252611.44
+          ]
+        ],
+        "row_count": 1
+      },
+      "elapsed_seconds": 28.372
+    },
+    {
+      "id": "E04",
+      "question": "各区域的销售额分别是多少？",
+      "categories": [
+        "分组",
+        "多表关联"
+      ],
+      "expected": {
+        "type": "rows",
+        "ordered": false,
+        "rows": [
+          [
+            "华东",
+            38740955.0
+          ],
+          [
+            "华南",
+            25821435.0
+          ],
+          [
+            "华北",
+            18491920.0
+          ],
+          [
+            "西南",
+            9148865.0
+          ]
+        ]
+      },
+      "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "region_name",
+          "total_amount"
+        ],
+        "rows": [
+          [
+            "华东",
+            38740955.0
+          ],
+          [
+            "华南",
+            25821435.0
+          ],
+          [
+            "华北",
+            18491920.0
+          ],
+          [
+            "西南",
+            9148865.0
+          ]
+        ],
+        "row_count": 4
+      },
+      "elapsed_seconds": 13.861
+    },
+    {
+      "id": "E05",
+      "question": "各产品类别的销售额分别是多少？",
+      "categories": [
+        "分组",
+        "多表关联"
+      ],
+      "expected": {
+        "type": "rows",
+        "ordered": false,
+        "rows": [
+          [
+            "制动",
+            41434875.0
+          ],
+          [
+            "传动",
+            29405360.0
+          ],
+          [
+            "电子件",
+            13157640.0
+          ],
+          [
+            "密封",
+            8205300.0
+          ]
+        ]
+      },
+      "sql": "SELECT p.category, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.category ORDER BY total_amount DESC LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "category",
+          "total_amount"
+        ],
+        "rows": [
+          [
+            "制动",
+            41434875.0
+          ],
+          [
+            "传动",
+            29405360.0
+          ],
+          [
+            "电子件",
+            13157640.0
+          ],
+          [
+            "密封",
+            8205300.0
+          ]
+        ],
+        "row_count": 4
+      },
+      "elapsed_seconds": 19.374
+    },
+    {
+      "id": "E06",
+      "question": "销售额最高的5个产品是哪些？",
+      "categories": [
+        "排序",
+        "TopN",
+        "多表关联"
+      ],
+      "expected": {
+        "type": "rows",
+        "ordered": true,
+        "rows": [
+          [
+            "陶瓷刹车片",
+            24853575.0
+          ],
+          [
+            "盘式制动器总成",
+            16581300.0
+          ],
+          [
+            "传动轴万向节",
+            15876960.0
+          ],
+          [
+            "变速箱同步器总成",
+            13528400.0
+          ],
+          [
+            "轮速传感器",
+            13157640.0
+          ]
+        ]
+      },
+      "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "product_name",
+          "total_amount"
+        ],
+        "rows": [
+          [
+            "陶瓷刹车片",
+            24853575.0
+          ],
+          [
+            "盘式制动器总成",
+            16581300.0
+          ],
+          [
+            "传动轴万向节",
+            15876960.0
+          ],
+          [
+            "变速箱同步器总成",
+            13528400.0
+          ],
+          [
+            "轮速传感器",
+            13157640.0
+          ]
+        ],
+        "row_count": 5
+      },
+      "elapsed_seconds": 15.463
+    },
+    {
+      "id": "E07",
+      "question": "2026年上半年每个月的销售额趋势？",
+      "categories": [
+        "时间范围",
+        "分组"
+      ],
+      "expected": {
+        "type": "rows",
+        "ordered": true,
+        "rows": [
+          [
+            "2026-01",
+            7893160.0
+          ],
+          [
+            "2026-02",
+            5410860.0
+          ],
+          [
+            "2026-03",
+            7849240.0
+          ],
+          [
+            "2026-04",
+            7746090.0
+          ],
+          [
+            "2026-05",
+            7967290.0
+          ],
+          [
+            "2026-06",
+            7965160.0
+          ]
+        ]
+      },
+      "sql": "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s WHERE s.sale_date BETWEEN '2026-01-01' AND '2026-06-30' GROUP BY ym ORDER BY ym LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "ym",
+          "total_amount"
+        ],
+        "rows": [
+          [
+            "2026-01",
+            7893160.0
+          ],
+          [
+            "2026-02",
+            5410860.0
+          ],
+          [
+            "2026-03",
+            7849240.0
+          ],
+          [
+            "2026-04",
+            7746090.0
+          ],
+          [
+            "2026-05",
+            7967290.0
+          ],
+          [
+            "2026-06",
+            7965160.0
+          ]
+        ],
+        "row_count": 6
+      },
+      "elapsed_seconds": 20.304
+    },
+    {
+      "id": "E08",
+      "question": "2026年2月和3月的销售额分别是多少（用于环比对比）？",
+      "categories": [
+        "同比环比",
+        "时间范围"
+      ],
+      "expected": {
+        "type": "rows",
+        "ordered": true,
+        "rows": [
+          [
+            "2026-02",
+            5410860.0
+          ],
+          [
+            "2026-03",
+            7849240.0
+          ]
+        ]
+      },
+      "sql": "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s WHERE strftime(s.sale_date, '%Y-%m') IN ('2026-02', '2026-03') GROUP BY ym ORDER BY ym LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "ym",
+          "total_amount"
+        ],
+        "rows": [
+          [
+            "2026-02",
+            5410860.0
+          ],
+          [
+            "2026-03",
+            7849240.0
+          ]
+        ],
+        "row_count": 2
+      },
+      "elapsed_seconds": 15.385
+    },
+    {
+      "id": "E09",
+      "question": "各产品的缺陷率是多少？",
+      "categories": [
+        "分组",
+        "多表关联"
+      ],
+      "expected": {
+        "type": "rows",
+        "ordered": false,
+        "rows": [
+          [
+            "轮速传感器",
+            4.58
+          ],
+          [
+            "盘式制动器总成",
+            2.51
+          ],
+          [
+            "传动轴万向节",
+            2.51
+          ],
+          [
+            "发动机密封垫片",
+            2.5
+          ],
+          [
+            "陶瓷刹车片",
+            2.49
+          ],
+          [
+            "变速箱同步器总成",
+            2.43
+          ]
+        ]
+      },
+      "sql": "SELECT p.product_name, ROUND(SUM(q.defect_count) * 100.0 / SUM(q.checked_count), 2) AS defect_rate FROM fact_quality q JOIN dim_product p ON q.product_id = p.product_id GROUP BY p.product_name ORDER BY defect_rate DESC LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "product_name",
+          "defect_rate"
+        ],
+        "rows": [
+          [
+            "轮速传感器",
+            4.58
+          ],
+          [
+            "传动轴万向节",
+            2.51
+          ],
+          [
+            "盘式制动器总成",
+            2.51
+          ],
+          [
+            "发动机密封垫片",
+            2.5
+          ],
+          [
+            "陶瓷刹车片",
+            2.49
+          ],
+          [
+            "变速箱同步器总成",
+            2.43
+          ]
+        ],
+        "row_count": 6
+      },
+      "elapsed_seconds": 8.687
+    },
+    {
+      "id": "E10",
+      "question": "华东地区的销售额是多少？",
+      "categories": [
+        "条件过滤",
+        "多表关联"
+      ],
+      "expected": {
+        "type": "scalar",
+        "value": 38740955.0
+      },
+      "sql": "SELECT ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id WHERE r.region_name = '华东' LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "total_amount"
+        ],
+        "rows": [
+          [
+            38740955.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "elapsed_seconds": 28.134
+    },
+    {
+      "id": "E11",
+      "question": "整体毛利率是多少？",
+      "categories": [
+        "求和"
+      ],
+      "expected": {
+        "type": "scalar",
+        "value": 35.3
+      },
+      "sql": "SELECT ROUND((SUM(amount) - SUM(cost)) * 100.0 / SUM(amount), 2) AS gross_margin_rate FROM fact_sales LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "gross_margin_rate"
+        ],
+        "rows": [
+          [
+            35.3
+          ]
+        ],
+        "row_count": 1
+      },
+      "elapsed_seconds": 24.512
+    },
+    {
+      "id": "E12",
+      "question": "各区域的销售数量分别是多少？",
+      "categories": [
+        "分组",
+        "多表关联"
+      ],
+      "expected": {
+        "type": "rows",
+        "ordered": false,
+        "rows": [
+          [
+            "华东",
+            300926.0
+          ],
+          [
+            "华南",
+            200486.0
+          ],
+          [
+            "华北",
+            143691.0
+          ],
+          [
+            "西南",
+            70888.0
+          ]
+        ]
+      },
+      "sql": "SELECT r.region_name, SUM(s.quantity) AS total_quantity FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_quantity DESC LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "region_name",
+          "total_quantity"
+        ],
+        "rows": [
+          [
+            "华东",
+            300926
+          ],
+          [
+            "华南",
+            200486
+          ],
+          [
+            "华北",
+            143691
+          ],
+          [
+            "西南",
+            70888
+          ]
+        ],
+        "row_count": 4
+      },
+      "elapsed_seconds": 14.183
+    },
+    {
+      "id": "E13",
+      "question": "销售额最高的5个客户是哪些？",
+      "categories": [
+        "排序",
+        "TopN",
+        "多表关联"
+      ],
+      "expected": {
+        "type": "rows",
+        "ordered": true,
+        "rows": [
+          [
+            "华东汽车集团",
+            13260380.0
+          ],
+          [
+            "恒跃出口贸易",
+            12747475.0
+          ],
+          [
+            "华北配件经销",
+            11098945.0
+          ],
+          [
+            "南方出口贸易",
+            8677700.0
+          ],
+          [
+            "南方客车制造",
+            8608140.0
+          ]
+        ]
+      },
+      "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 5",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "customer_name",
+          "total_amount"
+        ],
+        "rows": [
+          [
+            "华东汽车集团",
+            13260380.0
+          ],
+          [
+            "恒跃出口贸易",
+            12747475.0
+          ],
+          [
+            "华北配件经销",
+            11098945.0
+          ],
+          [
+            "南方出口贸易",
+            8677700.0
+          ],
+          [
+            "南方客车制造",
+            8608140.0
+          ]
+        ],
+        "row_count": 5
+      },
+      "elapsed_seconds": 15.24
+    },
+    {
+      "id": "E14",
+      "question": "2026年1月的销售额是多少？",
+      "categories": [
+        "时间范围",
+        "条件过滤"
+      ],
+      "expected": {
+        "type": "scalar",
+        "value": 7893160.0
+      },
+      "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales WHERE sale_date BETWEEN '2026-01-01' AND '2026-01-31' LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "total_amount"
+        ],
+        "rows": [
+          [
+            7893160.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "elapsed_seconds": 33.286
+    },
+    {
+      "id": "E15",
+      "question": "2026年上半年每个月的产量达成率？",
+      "categories": [
+        "时间范围",
+        "分组",
+        "多表关联"
+      ],
+      "expected": {
+        "type": "rows",
+        "ordered": true,
+        "rows": [
+          [
+            "2026-01",
+            95.34
+          ],
+          [
+            "2026-02",
+            94.97
+          ],
+          [
+            "2026-03",
+            94.82
+          ],
+          [
+            "2026-04",
+            94.75
+          ],
+          [
+            "2026-05",
+            95.68
+          ],
+          [
+            "2026-06",
+            94.91
+          ]
+        ]
+      },
+      "sql": "SELECT strftime(prod_date, '%Y-%m') AS ym, ROUND(SUM(actual_qty) * 100.0 / SUM(planned_qty), 2) AS achievement_rate FROM fact_production WHERE prod_date BETWEEN '2026-01-01' AND '2026-06-30' GROUP BY ym ORDER BY ym LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "ym",
+          "achievement_rate"
+        ],
+        "rows": [
+          [
+            "2026-01",
+            95.34
+          ],
+          [
+            "2026-02",
+            94.97
+          ],
+          [
+            "2026-03",
+            94.82
+          ],
+          [
+            "2026-04",
+            94.75
+          ],
+          [
+            "2026-05",
+            95.68
+          ],
+          [
+            "2026-06",
+            94.91
+          ]
+        ],
+        "row_count": 6
+      },
+      "elapsed_seconds": 13.64
+    },
+    {
+      "id": "E16",
+      "question": "电子件类产品的销售额是多少？",
+      "categories": [
+        "条件过滤",
+        "多表关联"
+      ],
+      "expected": {
+        "type": "scalar",
+        "value": 13157640.0
+      },
+      "sql": "SELECT ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '电子件' LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "total_amount"
+        ],
+        "rows": [
+          [
+            13157640.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "elapsed_seconds": 17.086
+    },
+    {
+      "id": "E17",
+      "question": "单笔销售金额最高是多少？",
+      "categories": [
+        "排序"
+      ],
+      "expected": {
+        "type": "scalar",
+        "value": 34340.0
+      },
+      "sql": "SELECT ROUND(MAX(amount), 2) AS max_single_amount FROM fact_sales LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "max_single_amount"
+        ],
+        "rows": [
+          [
+            34340.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "elapsed_seconds": 21.081
+    },
+    {
+      "id": "E18",
+      "question": "大客户的销售额占总销售额的比例是多少？",
+      "categories": [
+        "条件过滤",
+        "多表关联",
+        "求和"
+      ],
+      "expected": {
+        "type": "scalar",
+        "value": 60.44
+      },
+      "sql": "SELECT ROUND(SUM(CASE WHEN c.tier = '大客户' THEN s.amount ELSE 0 END) * 100.0 / SUM(s.amount), 2) AS key_customer_sales_ratio FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id LIMIT 1000",
+      "mock_used": false,
+      "error": "",
+      "hit": true,
+      "result": {
+        "columns": [
+          "key_customer_sales_ratio"
+        ],
+        "rows": [
+          [
+            60.44
+          ]
+        ],
+        "row_count": 1
+      },
+      "elapsed_seconds": 13.259
+    }
+  ]
+}
