@@ -122,7 +122,7 @@ def run_evaluation(use_mock: bool) -> Dict[str, Any]:
     }
 
     meta = {
-        "project": "恒岳汽车零部件经营分析智能问数系统",
+        "project": "宁波鲍斯能源装备智能问数平台",
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "mode": "mock" if use_mock else "llm",
         "model": config.MODEL_NAME if not use_mock else "mock-rules",
@@ -134,7 +134,7 @@ def run_evaluation(use_mock: bool) -> Dict[str, Any]:
 
 def main() -> None:
     """解析命令行参数并执行评测，落盘 JSON 报告。"""
-    parser = argparse.ArgumentParser(description="恒岳 BI Text-to-SQL 评测脚本")
+    parser = argparse.ArgumentParser(description="灵犀智能问数平台 Text-to-SQL 评测脚本")
     parser.add_argument(
         "--mock",
         action="store_true",

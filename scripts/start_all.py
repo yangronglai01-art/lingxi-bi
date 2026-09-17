@@ -37,7 +37,7 @@ def main() -> None:
         cwd=str(ROOT),
     )
 
-    print("✅ 恒岳 BI 已启动：")
+    print("✅ 灵犀 · 智能问数平台已启动：")
     print("   · API 接口：http://localhost:8000/docs")
     print("   · 工作台  ：http://localhost:8501")
     print("按 Ctrl+C 退出……")

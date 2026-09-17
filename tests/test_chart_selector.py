@@ -60,7 +60,7 @@ def test_bar_group_comparison():
 def test_pie_proportion():
     r = _mk(
         ["category", "total_amount"],
-        [["制动", 40.0], ["传动", 30.0], ["密封", 20.0], ["电子件", 10.0]],
+        [["压缩机", 40.0], ["真空设备", 30.0], ["液压件", 20.0], ["精密件", 10.0]],
     )
     c = select_chart(r, "各产品类别销售占比")
     assert c.chart_type == "pie"
@@ -79,7 +79,7 @@ def test_bar_too_many_categories():
 def test_table_detail_columns():
     r = _mk(
         ["product_name", "category", "unit_price"],
-        [["盘式制动器总成", "制动", 380.0]],
+        [["螺杆式空气压缩机", "压缩机", 68000.0]],
     )
     c = select_chart(r, "产品明细")
     assert c.chart_type == "table"
