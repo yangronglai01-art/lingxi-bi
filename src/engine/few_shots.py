@@ -45,11 +45,11 @@ FEW_SHOTS: List[Dict[str, str]] = [
         "sql": "SELECT ROUND(SUM(amount) / COUNT(DISTINCT sale_date), 2) AS avg_daily_amount FROM fact_sales",
     },
     {
-        "question": "制动类产品的销售额是多少？",
+        "question": "压缩机类产品的销售额是多少？",
         "sql": (
             "SELECT ROUND(SUM(s.amount), 2) AS total_amount "
             "FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id "
-            "WHERE p.category = '制动'"
+            "WHERE p.category = '压缩机'"
         ),
     },
     {
