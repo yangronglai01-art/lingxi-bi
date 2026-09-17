@@ -48,12 +48,12 @@ TABLES: dict = {
     # ------------------------------------------------------------------ 维度表
     "dim_product": Table(
         name="dim_product",
-        comment="产品维度表：恒岳汽车零部件 6 款核心产品",
+        comment="产品维度表：宁波鲍斯能源装备 6 款核心产品",
         columns=[
             Column("product_id", "VARCHAR", "产品编码（主键）", "P001", primary_key=True),
-            Column("product_name", "VARCHAR", "产品名称", "盘式制动器总成"),
-            Column("category", "VARCHAR", "产品类别（制动/传动/密封/电子件）", "制动"),
-            Column("unit_price", "DECIMAL(10,2)", "销售单价（元）", "380.00"),
+            Column("product_name", "VARCHAR", "产品名称", "螺杆式空气压缩机"),
+            Column("category", "VARCHAR", "产品类别（压缩机/真空设备/液压件/精密件）", "压缩机"),
+            Column("unit_price", "DECIMAL(10,2)", "销售单价（元）", "68000.00"),
         ],
     ),
     "dim_region": Table(
@@ -62,17 +62,17 @@ TABLES: dict = {
         columns=[
             Column("region_id", "VARCHAR", "区域编码（主键）", "R001", primary_key=True),
             Column("region_name", "VARCHAR", "区域名称（华东/华南/华北/西南）", "华东"),
-            Column("province", "VARCHAR", "区域中心省份", "上海"),
+            Column("province", "VARCHAR", "区域中心省份", "浙江"),
         ],
     ),
     "dim_customer": Table(
         name="dim_customer",
-        comment="客户维度表：整车厂 / 售后 / 出口等客户",
+        comment="客户维度表：设备制造商 / 工业服务 / 经销商 / 出口等客户",
         columns=[
             Column("customer_id", "VARCHAR", "客户编码（主键）", "C001", primary_key=True),
-            Column("customer_name", "VARCHAR", "客户名称", "华东汽车集团"),
+            Column("customer_name", "VARCHAR", "客户名称", "华东装备集团"),
             Column("tier", "VARCHAR", "客户层级（大客户/中小客户）", "大客户"),
-            Column("industry", "VARCHAR", "所属行业（整车厂/售后维修/售后市场/出口贸易）", "整车厂"),
+            Column("industry", "VARCHAR", "所属行业（设备制造商/工业服务/经销商/出口贸易）", "设备制造商"),
         ],
     ),
     # ------------------------------------------------------------------ 事实表
@@ -84,9 +84,9 @@ TABLES: dict = {
             Column("product_id", "VARCHAR", "产品编码（外键→dim_product）", "P001"),
             Column("region_id", "VARCHAR", "区域编码（外键→dim_region）", "R001"),
             Column("customer_id", "VARCHAR", "客户编码（外键→dim_customer）", "C001"),
-            Column("quantity", "INTEGER", "销售数量（件）", "120"),
-            Column("amount", "DECIMAL(12,2)", "销售额（元）= 数量 × 单价", "45600.00"),
-            Column("cost", "DECIMAL(12,2)", "销售成本（元）", "31008.00"),
+            Column("quantity", "INTEGER", "销售数量（件）", "6"),
+            Column("amount", "DECIMAL(12,2)", "销售额（元）= 数量 × 单价", "408000.00"),
+            Column("cost", "DECIMAL(12,2)", "销售成本（元）", "285600.00"),
         ],
     ),
     "fact_quality": Table(
