@@ -1,7 +1,7 @@
 {
   "meta": {
-    "project": "恒岳汽车零部件经营分析智能问数系统",
-    "generated_at": "2026-09-16T19:44:01",
+    "project": "宁波鲍斯能源装备智能问数平台",
+    "generated_at": "2026-09-17T21:10:02",
     "mode": "llm",
     "model": "deepseek-v4-pro",
     "tolerance": {
@@ -26,7 +26,7 @@
       ],
       "expected": {
         "type": "scalar",
-        "value": 92203175.0
+        "value": 303407880.0
       },
       "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000",
       "mock_used": false,
@@ -38,16 +38,16 @@
         ],
         "rows": [
           [
-            92203175.0
+            303407880.0
           ]
         ],
         "row_count": 1
       },
-      "elapsed_seconds": 13.957
+      "elapsed_seconds": 22.897
     },
     {
       "id": "E02",
-      "question": "制动类产品的销售额是多少？",
+      "question": "压缩机类产品的销售额是多少？",
       "categories": [
         "求和",
         "条件过滤",
@@ -55,9 +55,9 @@
       ],
       "expected": {
         "type": "scalar",
-        "value": 41434875.0
+        "value": 127893400.0
       },
-      "sql": "SELECT ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '制动' LIMIT 1000",
+      "sql": "SELECT ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '压缩机' LIMIT 1000",
       "mock_used": false,
       "error": "",
       "hit": true,
@@ -67,12 +67,12 @@
         ],
         "rows": [
           [
-            41434875.0
+            127893400.0
           ]
         ],
         "row_count": 1
       },
-      "elapsed_seconds": 13.845
+      "elapsed_seconds": 22.348
     },
     {
       "id": "E03",
@@ -82,7 +82,7 @@
       ],
       "expected": {
         "type": "scalar",
-        "value": 252611.44
+        "value": 831254.47
       },
       "sql": "SELECT ROUND(SUM(amount) / COUNT(DISTINCT sale_date), 2) AS avg_daily_amount FROM fact_sales LIMIT 1000",
       "mock_used": false,
@@ -94,12 +94,12 @@
         ],
         "rows": [
           [
-            252611.44
+            831254.47
           ]
         ],
         "row_count": 1
       },
-      "elapsed_seconds": 14.169
+      "elapsed_seconds": 21.664
     },
     {
       "id": "E04",
@@ -114,19 +114,19 @@
         "rows": [
           [
             "华东",
-            38740955.0
+            127432610.0
           ],
           [
             "华南",
-            25821435.0
+            85137450.0
           ],
           [
             "华北",
-            18491920.0
+            60927490.0
           ],
           [
             "西南",
-            9148865.0
+            29910330.0
           ]
         ]
       },
@@ -142,24 +142,24 @@
         "rows": [
           [
             "华东",
-            38740955.0
+            127432610.0
           ],
           [
             "华南",
-            25821435.0
+            85137450.0
           ],
           [
             "华北",
-            18491920.0
+            60927490.0
           ],
           [
             "西南",
-            9148865.0
+            29910330.0
           ]
         ],
         "row_count": 4
       },
-      "elapsed_seconds": 17.517
+      "elapsed_seconds": 17.735
     },
     {
       "id": "E05",
@@ -173,20 +173,20 @@
         "ordered": false,
         "rows": [
           [
-            "制动",
-            41434875.0
+            "压缩机",
+            127893400.0
           ],
           [
-            "传动",
-            29405360.0
+            "真空设备",
+            138310400.0
           ],
           [
-            "电子件",
-            13157640.0
+            "液压件",
+            21853500.0
           ],
           [
-            "密封",
-            8205300.0
+            "精密件",
+            15350580.0
           ]
         ]
       },
@@ -201,25 +201,25 @@
         ],
         "rows": [
           [
-            "制动",
-            41434875.0
+            "真空设备",
+            138310400.0
           ],
           [
-            "传动",
-            29405360.0
+            "压缩机",
+            127893400.0
           ],
           [
-            "电子件",
-            13157640.0
+            "液压件",
+            21853500.0
           ],
           [
-            "密封",
-            8205300.0
+            "精密件",
+            15350580.0
           ]
         ],
         "row_count": 4
       },
-      "elapsed_seconds": 22.815
+      "elapsed_seconds": 16.483
     },
     {
       "id": "E06",
@@ -234,24 +234,24 @@
         "ordered": true,
         "rows": [
           [
-            "陶瓷刹车片",
-            24853575.0
+            "罗茨真空泵机组",
+            97660000.0
           ],
           [
-            "盘式制动器总成",
-            16581300.0
+            "螺杆式空气压缩机",
+            74188000.0
           ],
           [
-            "传动轴万向节",
-            15876960.0
+            "无油涡旋压缩机",
+            53705400.0
           ],
           [
-            "变速箱同步器总成",
-            13528400.0
+            "旋片式真空泵",
+            40650400.0
           ],
           [
-            "轮速传感器",
-            13157640.0
+            "液压齿轮泵",
+            21853500.0
           ]
         ]
       },
@@ -266,29 +266,29 @@
         ],
         "rows": [
           [
-            "陶瓷刹车片",
-            24853575.0
+            "罗茨真空泵机组",
+            97660000.0
           ],
           [
-            "盘式制动器总成",
-            16581300.0
+            "螺杆式空气压缩机",
+            74188000.0
           ],
           [
-            "传动轴万向节",
-            15876960.0
+            "无油涡旋压缩机",
+            53705400.0
           ],
           [
-            "变速箱同步器总成",
-            13528400.0
+            "旋片式真空泵",
+            40650400.0
           ],
           [
-            "轮速传感器",
-            13157640.0
+            "液压齿轮泵",
+            21853500.0
           ]
         ],
         "row_count": 5
       },
-      "elapsed_seconds": 24.101
+      "elapsed_seconds": 21.214
     },
     {
       "id": "E07",
@@ -303,27 +303,27 @@
         "rows": [
           [
             "2026-01",
-            7893160.0
+            25982460.0
           ],
           [
             "2026-02",
-            5410860.0
+            17885190.0
           ],
           [
             "2026-03",
-            7849240.0
+            25749000.0
           ],
           [
             "2026-04",
-            7746090.0
+            25542160.0
           ],
           [
             "2026-05",
-            7967290.0
+            26152330.0
           ],
           [
             "2026-06",
-            7965160.0
+            26331800.0
           ]
         ]
       },
@@ -339,32 +339,32 @@
         "rows": [
           [
             "2026-01",
-            7893160.0
+            25982460.0
           ],
           [
             "2026-02",
-            5410860.0
+            17885190.0
           ],
           [
             "2026-03",
-            7849240.0
+            25749000.0
           ],
           [
             "2026-04",
-            7746090.0
+            25542160.0
           ],
           [
             "2026-05",
-            7967290.0
+            26152330.0
           ],
           [
             "2026-06",
-            7965160.0
+            26331800.0
           ]
         ],
         "row_count": 6
       },
-      "elapsed_seconds": 14.573
+      "elapsed_seconds": 1186.142
     },
     {
       "id": "E08",
@@ -379,11 +379,11 @@
         "rows": [
           [
             "2026-02",
-            5410860.0
+            17885190.0
           ],
           [
             "2026-03",
-            7849240.0
+            25749000.0
           ]
         ]
       },
@@ -399,16 +399,16 @@
         "rows": [
           [
             "2026-02",
-            5410860.0
+            17885190.0
           ],
           [
             "2026-03",
-            7849240.0
+            25749000.0
           ]
         ],
         "row_count": 2
       },
-      "elapsed_seconds": 10.622
+      "elapsed_seconds": 21.092
     },
     {
       "id": "E09",
@@ -422,28 +422,28 @@
         "ordered": false,
         "rows": [
           [
-            "轮速传感器",
-            4.58
+            "精密齿轮轴",
+            4.74
           ],
           [
-            "盘式制动器总成",
-            2.51
+            "液压齿轮泵",
+            2.66
           ],
           [
-            "传动轴万向节",
-            2.51
+            "旋片式真空泵",
+            2.57
           ],
           [
-            "发动机密封垫片",
-            2.5
-          ],
-          [
-            "陶瓷刹车片",
+            "螺杆式空气压缩机",
             2.49
           ],
           [
-            "变速箱同步器总成",
-            2.43
+            "无油涡旋压缩机",
+            2.44
+          ],
+          [
+            "罗茨真空泵机组",
+            2.44
           ]
         ]
       },
@@ -458,33 +458,33 @@
         ],
         "rows": [
           [
-            "轮速传感器",
-            4.58
+            "精密齿轮轴",
+            4.74
           ],
           [
-            "传动轴万向节",
-            2.51
+            "液压齿轮泵",
+            2.66
           ],
           [
-            "盘式制动器总成",
-            2.51
+            "旋片式真空泵",
+            2.57
           ],
           [
-            "发动机密封垫片",
-            2.5
-          ],
-          [
-            "陶瓷刹车片",
+            "螺杆式空气压缩机",
             2.49
           ],
           [
-            "变速箱同步器总成",
-            2.43
+            "罗茨真空泵机组",
+            2.44
+          ],
+          [
+            "无油涡旋压缩机",
+            2.44
           ]
         ],
         "row_count": 6
       },
-      "elapsed_seconds": 14.059
+      "elapsed_seconds": 26.498
     },
     {
       "id": "E10",
@@ -495,7 +495,7 @@
       ],
       "expected": {
         "type": "scalar",
-        "value": 38740955.0
+        "value": 127432610.0
       },
       "sql": "SELECT ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id WHERE r.region_name = '华东' LIMIT 1000",
       "mock_used": false,
@@ -507,12 +507,12 @@
         ],
         "rows": [
           [
-            38740955.0
+            127432610.0
           ]
         ],
         "row_count": 1
       },
-      "elapsed_seconds": 14.932
+      "elapsed_seconds": 19.815
     },
     {
       "id": "E11",
@@ -522,7 +522,7 @@
       ],
       "expected": {
         "type": "scalar",
-        "value": 35.3
+        "value": 33.03
       },
       "sql": "SELECT ROUND((SUM(amount) - SUM(cost)) * 100.0 / SUM(amount), 2) AS gross_margin_rate FROM fact_sales LIMIT 1000",
       "mock_used": false,
@@ -534,12 +534,12 @@
         ],
         "rows": [
           [
-            35.3
+            33.03
           ]
         ],
         "row_count": 1
       },
-      "elapsed_seconds": 17.619
+      "elapsed_seconds": 22.605
     },
     {
       "id": "E12",
@@ -554,23 +554,23 @@
         "rows": [
           [
             "华东",
-            300926.0
+            78634.0
           ],
           [
             "华南",
-            200486.0
+            52507.0
           ],
           [
             "华北",
-            143691.0
+            37501.0
           ],
           [
             "西南",
-            70888.0
+            18638.0
           ]
         ]
       },
-      "sql": "SELECT r.region_name, SUM(s.quantity) AS total_quantity FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_quantity DESC LIMIT 1000",
+      "sql": "SELECT r.region_name, SUM(s.quantity) AS total_quantity\nFROM fact_sales s\nJOIN dim_region r ON s.region_id = r.region_id\nGROUP BY r.region_name\nORDER BY total_quantity DESC LIMIT 1000",
       "mock_used": false,
       "error": "",
       "hit": true,
@@ -582,24 +582,24 @@
         "rows": [
           [
             "华东",
-            300926
+            78634
           ],
           [
             "华南",
-            200486
+            52507
           ],
           [
             "华北",
-            143691
+            37501
           ],
           [
             "西南",
-            70888
+            18638
           ]
         ],
         "row_count": 4
       },
-      "elapsed_seconds": 17.14
+      "elapsed_seconds": 25.049
     },
     {
       "id": "E13",
@@ -614,28 +614,28 @@
         "ordered": true,
         "rows": [
           [
-            "华东汽车集团",
-            13260380.0
+            "华东装备集团",
+            43874360.0
           ],
           [
-            "恒跃出口贸易",
-            12747475.0
+            "宁波出口贸易",
+            41663120.0
           ],
           [
-            "华北配件经销",
-            11098945.0
+            "华北工控经销",
+            36537740.0
           ],
           [
-            "南方出口贸易",
-            8677700.0
+            "华南出口贸易",
+            28526420.0
           ],
           [
-            "南方客车制造",
-            8608140.0
+            "华南重工股份",
+            28257510.0
           ]
         ]
       },
-      "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_id, c.customer_name ORDER BY total_amount DESC LIMIT 5",
+      "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount\nFROM fact_sales s\nJOIN dim_customer c ON s.customer_id = c.customer_id\nGROUP BY c.customer_name\nORDER BY total_amount DESC\nLIMIT 5",
       "mock_used": false,
       "error": "",
       "hit": true,
@@ -646,29 +646,29 @@
         ],
         "rows": [
           [
-            "华东汽车集团",
-            13260380.0
+            "华东装备集团",
+            43874360.0
           ],
           [
-            "恒跃出口贸易",
-            12747475.0
+            "宁波出口贸易",
+            41663120.0
           ],
           [
-            "华北配件经销",
-            11098945.0
+            "华北工控经销",
+            36537740.0
           ],
           [
-            "南方出口贸易",
-            8677700.0
+            "华南出口贸易",
+            28526420.0
           ],
           [
-            "南方客车制造",
-            8608140.0
+            "华南重工股份",
+            28257510.0
           ]
         ],
         "row_count": 5
       },
-      "elapsed_seconds": 19.027
+      "elapsed_seconds": 28.661
     },
     {
       "id": "E14",
@@ -679,7 +679,7 @@
       ],
       "expected": {
         "type": "scalar",
-        "value": 7893160.0
+        "value": 25982460.0
       },
       "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales WHERE sale_date BETWEEN '2026-01-01' AND '2026-01-31' LIMIT 1000",
       "mock_used": false,
@@ -691,12 +691,12 @@
         ],
         "rows": [
           [
-            7893160.0
+            25982460.0
           ]
         ],
         "row_count": 1
       },
-      "elapsed_seconds": 13.038
+      "elapsed_seconds": 20.844
     },
     {
       "id": "E15",
@@ -712,31 +712,31 @@
         "rows": [
           [
             "2026-01",
-            95.34
+            96.14
           ],
           [
             "2026-02",
-            94.97
+            93.68
           ],
           [
             "2026-03",
-            94.82
+            94.29
           ],
           [
             "2026-04",
-            94.75
+            94.21
           ],
           [
             "2026-05",
-            95.68
+            94.84
           ],
           [
             "2026-06",
-            94.91
+            95.42
           ]
         ]
       },
-      "sql": "SELECT strftime(prod_date, '%Y-%m') AS ym, ROUND(SUM(actual_qty) * 100.0 / SUM(planned_qty), 2) AS production_achievement_rate FROM fact_production WHERE prod_date BETWEEN '2026-01-01' AND '2026-06-30' GROUP BY ym ORDER BY ym LIMIT 1000",
+      "sql": "SELECT strftime(f.prod_date, '%Y-%m') AS ym,\n       ROUND(SUM(f.actual_qty) * 100.0 / SUM(f.planned_qty), 2) AS production_achievement_rate\nFROM fact_production f\nWHERE f.prod_date BETWEEN '2026-01-01' AND '2026-06-30'\nGROUP BY ym\nORDER BY ym LIMIT 1000",
       "mock_used": false,
       "error": "",
       "hit": true,
@@ -748,45 +748,45 @@
         "rows": [
           [
             "2026-01",
-            95.34
+            96.14
           ],
           [
             "2026-02",
-            94.97
+            93.68
           ],
           [
             "2026-03",
-            94.82
+            94.29
           ],
           [
             "2026-04",
-            94.75
+            94.21
           ],
           [
             "2026-05",
-            95.68
+            94.84
           ],
           [
             "2026-06",
-            94.91
+            95.42
           ]
         ],
         "row_count": 6
       },
-      "elapsed_seconds": 13.143
+      "elapsed_seconds": 31.401
     },
     {
       "id": "E16",
-      "question": "电子件类产品的销售额是多少？",
+      "question": "精密件类产品的销售额是多少？",
       "categories": [
         "条件过滤",
         "多表关联"
       ],
       "expected": {
         "type": "scalar",
-        "value": 13157640.0
+        "value": 15350580.0
       },
-      "sql": "SELECT ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '电子件' LIMIT 1000",
+      "sql": "SELECT ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '精密件' LIMIT 1000",
       "mock_used": false,
       "error": "",
       "hit": true,
@@ -796,12 +796,12 @@
         ],
         "rows": [
           [
-            13157640.0
+            15350580.0
           ]
         ],
         "row_count": 1
       },
-      "elapsed_seconds": 17.665
+      "elapsed_seconds": 26.139
     },
     {
       "id": "E17",
@@ -811,7 +811,7 @@
       ],
       "expected": {
         "type": "scalar",
-        "value": 34340.0
+        "value": 133000.0
       },
       "sql": "SELECT ROUND(MAX(amount), 2) AS max_amount FROM fact_sales LIMIT 1000",
       "mock_used": false,
@@ -823,12 +823,12 @@
         ],
         "rows": [
           [
-            34340.0
+            133000.0
           ]
         ],
         "row_count": 1
       },
-      "elapsed_seconds": 16.953
+      "elapsed_seconds": 26.805
     },
     {
       "id": "E18",
@@ -840,24 +840,24 @@
       ],
       "expected": {
         "type": "scalar",
-        "value": 60.44
+        "value": 60.36
       },
-      "sql": "SELECT ROUND(SUM(CASE WHEN c.tier = '大客户' THEN s.amount ELSE 0 END) * 100.0 / SUM(s.amount), 2) AS big_customer_pct FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id LIMIT 1000",
+      "sql": "SELECT ROUND(SUM(CASE WHEN c.tier = '大客户' THEN s.amount ELSE 0 END) * 100.0 / SUM(s.amount), 2) AS big_customer_ratio FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id LIMIT 1000",
       "mock_used": false,
       "error": "",
       "hit": true,
       "result": {
         "columns": [
-          "big_customer_pct"
+          "big_customer_ratio"
         ],
         "rows": [
           [
-            60.44
+            60.36
           ]
         ],
         "row_count": 1
       },
-      "elapsed_seconds": 17.434
+      "elapsed_seconds": 23.363
     }
   ]
 }
