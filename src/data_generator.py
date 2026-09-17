@@ -242,7 +242,8 @@ def generate_fact_quality(dates: List[date], rng: random.Random) -> pd.DataFrame
                     and QUALITY_ISSUE_START <= d <= QUALITY_ISSUE_END):
                 rate = rng.uniform(0.09, 0.13)
 
-            defect = min(checked, int(round(checked * rate * rng.uniform(0.85, 1.15))))
+            # 二项抽样生成缺陷数：低产量产品也能得到符合真实缺陷率的计数
+            defect = sum(1 for _ in range(checked) if rng.random() < rate)
             rows.append((d, p.product_id, p.line, checked, defect))
 
     return pd.DataFrame(rows, columns=[
