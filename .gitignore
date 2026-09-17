@@ -28,3 +28,6 @@ data/*.duckdb
 .vscode/
 *.swp
 .DS_Store
+
+# 面试讲解稿（仅本地留存，不随仓库分发）
+docs/interview_guide.md
