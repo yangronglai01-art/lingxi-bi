@@ -33,7 +33,7 @@ EVAL_CASES: List[Dict[str, Any]] = [
         "question": "全年总销售额是多少？",
         "categories": ["求和"],
         "reference_sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales",
-        "expected": {"type": "scalar", "value": 574887240.0},
+        "expected": {"type": "scalar", "value": 303407880.0},
     },
     {
         "id": "E02",
@@ -43,7 +43,7 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "SELECT ROUND(SUM(s.amount), 2) FROM fact_sales s "
             "JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '压缩机'"
         ),
-        "expected": {"type": "scalar", "value": 337208000.0},
+        "expected": {"type": "scalar", "value": 127893400.0},
     },
     {
         "id": "E03",
@@ -53,7 +53,7 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "SELECT ROUND(SUM(amount) / COUNT(DISTINCT sale_date), 2) "
             "AS avg_daily_amount FROM fact_sales"
         ),
-        "expected": {"type": "scalar", "value": 1575033.53},
+        "expected": {"type": "scalar", "value": 831254.47},
     },
     {
         "id": "E04",
@@ -67,10 +67,10 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "type": "rows",
             "ordered": False,
             "rows": [
-                ["华东", 237669980.0],
-                ["华南", 196169100.0],
-                ["华北", 112032920.0],
-                ["西南", 29015240.0],
+                ["华东", 127432610.0],
+                ["华南", 85137450.0],
+                ["华北", 60927490.0],
+                ["西南", 29910330.0],
             ],
         },
     },
@@ -86,10 +86,10 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "type": "rows",
             "ordered": False,
             "rows": [
-                ["压缩机", 337208000.0],
-                ["真空设备", 167350400.0],
-                ["液压件", 43837200.0],
-                ["精密件", 26491640.0],
+                ["压缩机", 127893400.0],
+                ["真空设备", 138310400.0],
+                ["液压件", 21853500.0],
+                ["精密件", 15350580.0],
             ],
         },
     },
@@ -106,11 +106,11 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "type": "rows",
             "ordered": True,
             "rows": [
-                ["螺杆式空气压缩机", 194072000.0],
-                ["无油涡旋压缩机", 143136000.0],
-                ["罗茨真空泵机组", 117078000.0],
-                ["旋片式真空泵", 50272400.0],
-                ["液压齿轮泵", 43837200.0],
+                ["罗茨真空泵机组", 97660000.0],
+                ["螺杆式空气压缩机", 74188000.0],
+                ["无油涡旋压缩机", 53705400.0],
+                ["旋片式真空泵", 40650400.0],
+                ["液压齿轮泵", 21853500.0],
             ],
         },
     },
@@ -127,12 +127,12 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "type": "rows",
             "ordered": True,
             "rows": [
-                ["2026-01", 48969880.0],
-                ["2026-02", 35313140.0],
-                ["2026-03", 48479020.0],
-                ["2026-04", 48623080.0],
-                ["2026-05", 49205060.0],
-                ["2026-06", 49691820.0],
+                ["2026-01", 25982460.0],
+                ["2026-02", 17885190.0],
+                ["2026-03", 25749000.0],
+                ["2026-04", 25542160.0],
+                ["2026-05", 26152330.0],
+                ["2026-06", 26331800.0],
             ],
         },
     },
@@ -148,7 +148,7 @@ EVAL_CASES: List[Dict[str, Any]] = [
         "expected": {
             "type": "rows",
             "ordered": True,
-            "rows": [["2026-02", 35313140.0], ["2026-03", 48479020.0]],
+            "rows": [["2026-02", 17885190.0], ["2026-03", 25749000.0]],
         },
     },
     {
@@ -164,12 +164,12 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "type": "rows",
             "ordered": False,
             "rows": [
-                ["精密齿轮轴", 4.66],
-                ["无油涡旋压缩机", 2.85],
-                ["罗茨真空泵机组", 2.75],
-                ["旋片式真空泵", 2.64],
-                ["螺杆式空气压缩机", 2.37],
-                ["液压齿轮泵", 2.36],
+                ["精密齿轮轴", 4.74],
+                ["液压齿轮泵", 2.66],
+                ["旋片式真空泵", 2.57],
+                ["螺杆式空气压缩机", 2.49],
+                ["无油涡旋压缩机", 2.44],
+                ["罗茨真空泵机组", 2.44],
             ],
         },
     },
@@ -181,7 +181,7 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "SELECT ROUND(SUM(s.amount), 2) FROM fact_sales s "
             "JOIN dim_region r ON s.region_id = r.region_id WHERE r.region_name = '华东'"
         ),
-        "expected": {"type": "scalar", "value": 237669980.0},
+        "expected": {"type": "scalar", "value": 127432610.0},
     },
     {
         "id": "E11",
@@ -191,7 +191,7 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "SELECT ROUND((SUM(amount) - SUM(cost)) * 100.0 / SUM(amount), 2) "
             "AS gross_margin_rate FROM fact_sales"
         ),
-        "expected": {"type": "scalar", "value": 32.71},
+        "expected": {"type": "scalar", "value": 33.03},
     },
     {
         "id": "E12",
@@ -205,10 +205,10 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "type": "rows",
             "ordered": False,
             "rows": [
-                ["华东", 55082.0],
-                ["华南", 37879.0],
-                ["华北", 26634.0],
-                ["西南", 12707.0],
+                ["华东", 78634.0],
+                ["华南", 52507.0],
+                ["华北", 37501.0],
+                ["西南", 18638.0],
             ],
         },
     },
@@ -225,11 +225,11 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "type": "rows",
             "ordered": True,
             "rows": [
-                ["华东装备集团", 72817620.0],
-                ["宁波出口贸易", 69334560.0],
-                ["华北工控经销", 59829460.0],
-                ["华南出口贸易", 54041420.0],
-                ["华南重工股份", 53043120.0],
+                ["华东装备集团", 43874360.0],
+                ["宁波出口贸易", 41663120.0],
+                ["华北工控经销", 36537740.0],
+                ["华南出口贸易", 28526420.0],
+                ["华南重工股份", 28257510.0],
             ],
         },
     },
@@ -241,7 +241,7 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "SELECT ROUND(SUM(amount), 2) FROM fact_sales "
             "WHERE strftime(sale_date, '%Y-%m') = '2026-01'"
         ),
-        "expected": {"type": "scalar", "value": 48969880.0},
+        "expected": {"type": "scalar", "value": 25982460.0},
     },
     {
         "id": "E15",
@@ -256,12 +256,12 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "type": "rows",
             "ordered": True,
             "rows": [
-                ["2026-01", 94.7],
-                ["2026-02", 96.16],
-                ["2026-03", 94.34],
-                ["2026-04", 93.93],
-                ["2026-05", 94.85],
-                ["2026-06", 95.06],
+                ["2026-01", 96.14],
+                ["2026-02", 93.68],
+                ["2026-03", 94.29],
+                ["2026-04", 94.21],
+                ["2026-05", 94.84],
+                ["2026-06", 95.42],
             ],
         },
     },
@@ -273,14 +273,14 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "SELECT ROUND(SUM(s.amount), 2) FROM fact_sales s "
             "JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '精密件'"
         ),
-        "expected": {"type": "scalar", "value": 26491640.0},
+        "expected": {"type": "scalar", "value": 15350580.0},
     },
     {
         "id": "E17",
         "question": "单笔销售金额最高是多少？",
         "categories": ["排序"],
         "reference_sql": "SELECT MAX(amount) FROM fact_sales",
-        "expected": {"type": "scalar", "value": 204000.0},
+        "expected": {"type": "scalar", "value": 133000.0},
     },
     {
         "id": "E18",
@@ -291,7 +291,7 @@ EVAL_CASES: List[Dict[str, Any]] = [
             "/ SUM(s.amount), 2) FROM fact_sales s "
             "JOIN dim_customer c ON s.customer_id = c.customer_id"
         ),
-        "expected": {"type": "scalar", "value": 55.04},
+        "expected": {"type": "scalar", "value": 60.36},
     },
 ]
 
