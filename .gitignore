@@ -31,3 +31,7 @@ data/*.duckdb
 
 # 面试讲解稿（仅本地留存，不随仓库分发）
 docs/interview_guide.md
+
+# 评测运行日志（构建产物）
+reports/*.log
+reports/*.err
