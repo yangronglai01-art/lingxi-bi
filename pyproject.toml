@@ -1,11 +1,11 @@
 [project]
-name = "lingxi-bi"
+name = "lingxi"
 version = "1.0.0"
-description = "恒岳汽车零部件经营分析智能问数系统：AI Text-to-SQL + DuckDB 数仓 + FastAPI + Streamlit 可视化"
+description = "宁波鲍斯能源装备智能问数平台（灵犀 Lingxi）：AI Text-to-SQL + DuckDB 数仓 + FastAPI + Streamlit 可视化"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "恒岳 BI 项目组" }]
+authors = [{ name = "灵犀项目组" }]
 keywords = ["text-to-sql", "duckdb", "llm", "bi", "fastapi", "streamlit"]
 dependencies = [
     # 数据层
