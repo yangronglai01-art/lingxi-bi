@@ -53,7 +53,7 @@ TABLES: dict = {
             Column("product_id", "VARCHAR", "产品编码（主键）", "P001", primary_key=True),
             Column("product_name", "VARCHAR", "产品名称", "螺杆式空气压缩机"),
             Column("category", "VARCHAR", "产品类别（压缩机/真空设备/液压件/精密件）", "压缩机"),
-            Column("unit_price", "DECIMAL(10,2)", "销售单价（元）", "68000.00"),
+            Column("unit_price", "DECIMAL(10,2)", "销售单价（元）", "6800.00"),
         ],
     ),
     "dim_region": Table(
@@ -84,9 +84,9 @@ TABLES: dict = {
             Column("product_id", "VARCHAR", "产品编码（外键→dim_product）", "P001"),
             Column("region_id", "VARCHAR", "区域编码（外键→dim_region）", "R001"),
             Column("customer_id", "VARCHAR", "客户编码（外键→dim_customer）", "C001"),
-            Column("quantity", "INTEGER", "销售数量（件）", "6"),
-            Column("amount", "DECIMAL(12,2)", "销售额（元）= 数量 × 单价", "408000.00"),
-            Column("cost", "DECIMAL(12,2)", "销售成本（元）", "285600.00"),
+            Column("quantity", "INTEGER", "销售数量（件）", "30"),
+            Column("amount", "DECIMAL(12,2)", "销售额（元）= 数量 × 单价", "204000.00"),
+            Column("cost", "DECIMAL(12,2)", "销售成本（元）", "142800.00"),
         ],
     ),
     "fact_quality": Table(
