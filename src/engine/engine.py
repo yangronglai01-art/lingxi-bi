@@ -52,16 +52,20 @@ class QueryEngine:
         guarded = sql_guard.check(sql)
         if not guarded.ok:
             return Answer(
-                question=question, sql=sql,
-                error=f"SQL 安全校验未通过：{guarded.reason}", mock_used=mock_used,
+                question=question,
+                sql=sql,
+                error=f"SQL 安全校验未通过：{guarded.reason}",
+                mock_used=mock_used,
             )
 
         # 3) 执行（失败则自动修正一次）
         result, final_sql, exec_err = self._execute_with_retry(question, guarded.sql, mock_used)
         if exec_err:
             return Answer(
-                question=question, sql=final_sql or guarded.sql,
-                error=exec_err, mock_used=mock_used,
+                question=question,
+                sql=final_sql or guarded.sql,
+                error=exec_err,
+                mock_used=mock_used,
             )
 
         # 4) 自动选图
@@ -71,8 +75,12 @@ class QueryEngine:
         insights = insight.generate_insights(question, result, force_mock=mock_used)
 
         return Answer(
-            question=question, sql=final_sql, result=result, chart=chart,
-            insights=insights, mock_used=mock_used,
+            question=question,
+            sql=final_sql,
+            result=result,
+            chart=chart,
+            insights=insights,
+            mock_used=mock_used,
         )
 
     def _execute_with_retry(

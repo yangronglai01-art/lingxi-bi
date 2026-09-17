@@ -57,7 +57,17 @@ def test_eval_case_required_fields():
 
 def test_eval_case_coverage():
     """评测集应覆盖要求的能力标签：求和/平均/同比环比、分组、排序、TopN、时间范围、条件过滤、多表关联。"""
-    required = {"求和", "平均", "同比环比", "分组", "排序", "TopN", "时间范围", "条件过滤", "多表关联"}
+    required = {
+        "求和",
+        "平均",
+        "同比环比",
+        "分组",
+        "排序",
+        "TopN",
+        "时间范围",
+        "条件过滤",
+        "多表关联",
+    }
     covered = {tag for c in EVAL_CASES for tag in c["categories"]}
     missing = required - covered
     assert not missing, f"缺少能力标签：{missing}"
@@ -169,7 +179,9 @@ def test_compare_rows_miss_value():
 
 def test_evaluate_result_scalar_end_to_end():
     """端到端：scalar 期望 + 实际结果命中。"""
-    assert evaluate_result(["total_amount"], [[92203175.0]], {"type": "scalar", "value": 92203175.0})
+    assert evaluate_result(
+        ["total_amount"], [[92203175.0]], {"type": "scalar", "value": 92203175.0}
+    )
 
 
 def test_evaluate_result_rows_end_to_end():

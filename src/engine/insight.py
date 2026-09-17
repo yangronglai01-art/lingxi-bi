@@ -65,7 +65,9 @@ def _fmt(v: Any) -> str:
 
 
 def _looks_time_col(name: str) -> bool:
-    return any(h in name.lower() for h in ("date", "日期", "月", "year", "month", "day", "日", "周"))
+    return any(
+        h in name.lower() for h in ("date", "日期", "月", "year", "month", "day", "日", "周")
+    )
 
 
 def _dim_desc(columns: Sequence[str], row: Sequence, skip_idx: int) -> str:
@@ -103,7 +105,9 @@ def _mock_insights(result: QueryResult) -> List[str]:
         if pairs:
             mv, mr = max(pairs, key=lambda p: p[0])
             dim = _dim_desc(cols, mr, i)
-            insights.append(f"{cols[i]} 最大值为 {_fmt(mv)}" + (f"，出现在 {dim}" if dim else "") + "。")
+            insights.append(
+                f"{cols[i]} 最大值为 {_fmt(mv)}" + (f"，出现在 {dim}" if dim else "") + "。"
+            )
 
     # 3) 时间趋势：首行与末行对比（首列像时间列时）
     if len(rows) >= 2 and num_idx and _looks_time_col(cols[0]):
@@ -112,7 +116,9 @@ def _mock_insights(result: QueryResult) -> List[str]:
         if _is_num(first) and _is_num(last) and first:
             chg = (last - first) / abs(first) * 100
             direction = "增长" if chg >= 0 else "下降"
-            insights.append(f"{cols[i]} 从 {_fmt(first)} 变为 {_fmt(last)}（{direction} {abs(chg):.2f}%）。")
+            insights.append(
+                f"{cols[i]} 从 {_fmt(first)} 变为 {_fmt(last)}（{direction} {abs(chg):.2f}%）。"
+            )
 
     # 4) 合计与均值
     if num_idx and len(rows) > 1:

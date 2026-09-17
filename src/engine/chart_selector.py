@@ -68,7 +68,9 @@ def _column_kind(result: QueryResult, col_idx: int) -> str:
     if all(_is_number(v) or v is None for v in values) and any(_is_number(v) for v in values):
         return "measure"
     # 全为日期字符串 → 时间列
-    if all(_looks_like_date(v) or v is None for v in values) and any(_looks_like_date(v) for v in values):
+    if all(_looks_like_date(v) or v is None for v in values) and any(
+        _looks_like_date(v) for v in values
+    ):
         return "date"
     return "dimension"
 
@@ -105,13 +107,19 @@ def select_chart(result: QueryResult, question: str = "") -> ChartConfig:
         x = result.columns[date_idx[0]]
         y = [result.columns[i] for i in measure_idx]
         labels = [str(row[date_idx[0]]) for row in result.rows if date_idx[0] < len(row)]
-        values = (
-            [float(row[measure_idx[0]]) for row in result.rows
-             if measure_idx[0] < len(row) and _is_number(row[measure_idx[0]])]
-        )
+        values = [
+            float(row[measure_idx[0]])
+            for row in result.rows
+            if measure_idx[0] < len(row) and _is_number(row[measure_idx[0]])
+        ]
         return ChartConfig(
-            chart_type="line", title=question or "时间趋势", x=x, y=y,
-            labels=labels, values=values, reason="包含日期/时间列，适合折线图展示趋势",
+            chart_type="line",
+            title=question or "时间趋势",
+            x=x,
+            y=y,
+            labels=labels,
+            values=values,
+            reason="包含日期/时间列，适合折线图展示趋势",
         )
 
     # 3) 1 个维度 + 1 个数值 → 柱状图 / 饼图
@@ -121,8 +129,7 @@ def select_chart(result: QueryResult, question: str = "") -> ChartConfig:
         y = [result.columns[meas]]
         labels = [str(row[dim]) for row in result.rows if dim < len(row)]
         values = [
-            float(row[meas]) for row in result.rows
-            if meas < len(row) and _is_number(row[meas])
+            float(row[meas]) for row in result.rows if meas < len(row) and _is_number(row[meas])
         ]
         distinct = len(set(labels))
         # 占比有意义：类别少 且 数值全非负 且 语义含占比
@@ -133,16 +140,27 @@ def select_chart(result: QueryResult, question: str = "") -> ChartConfig:
             and _hints_proportion(question + y[0])
         ):
             return ChartConfig(
-                chart_type="pie", title=question or "占比", x=x, y=y,
-                labels=labels, values=values, reason="单维度单数值、类别少且语义为占比，适合饼图",
+                chart_type="pie",
+                title=question or "占比",
+                x=x,
+                y=y,
+                labels=labels,
+                values=values,
+                reason="单维度单数值、类别少且语义为占比，适合饼图",
             )
         return ChartConfig(
-            chart_type="bar", title=question or "分组对比", x=x, y=y,
-            labels=labels, values=values, reason="单维度单数值，适合柱状图展示分组对比",
+            chart_type="bar",
+            title=question or "分组对比",
+            x=x,
+            y=y,
+            labels=labels,
+            values=values,
+            reason="单维度单数值，适合柱状图展示分组对比",
         )
 
     # 4) 其余 → 表格
     return ChartConfig(
-        chart_type="table", title=question or "明细数据",
+        chart_type="table",
+        title=question or "明细数据",
         reason="多列明细或结构复杂，适合表格展示",
     )

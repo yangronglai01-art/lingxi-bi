@@ -68,9 +68,7 @@ def validate_and_summarize(conn: duckdb.DuckDBPyConnection) -> None:
         JOIN dim_product p ON s.product_id = p.product_id
         WHERE ABS(s.amount - s.quantity * p.unit_price) > 0.001
     """).fetchone()[0]
-    bad_cost = conn.execute(
-        "SELECT COUNT(*) FROM fact_sales WHERE cost >= amount"
-    ).fetchone()[0]
+    bad_cost = conn.execute("SELECT COUNT(*) FROM fact_sales WHERE cost >= amount").fetchone()[0]
     bad_fk = conn.execute("""
         SELECT COUNT(*) FROM fact_sales s
         LEFT JOIN dim_customer c ON s.customer_id = c.customer_id
@@ -82,9 +80,11 @@ def validate_and_summarize(conn: duckdb.DuckDBPyConnection) -> None:
 
     # [3] 日期范围
     print("\n[3] 各事实表日期范围")
-    for tbl, col in [("fact_sales", "sale_date"),
-                     ("fact_quality", "check_date"),
-                     ("fact_production", "prod_date")]:
+    for tbl, col in [
+        ("fact_sales", "sale_date"),
+        ("fact_quality", "check_date"),
+        ("fact_production", "prod_date"),
+    ]:
         mn, mx = conn.execute(f"SELECT MIN({col}), MAX({col}) FROM {tbl}").fetchone()
         print(f"    {tbl:<16} {mn} ~ {mx}")
 

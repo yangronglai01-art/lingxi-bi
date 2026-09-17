@@ -160,8 +160,9 @@ def main() -> None:
 
     m = report["metrics"]
     print("=" * 56)
-    print(f"SQL 执行成功率：{m['sql_exec_success_rate'] * 100:.1f}%  "
-          f"({m['executed']}/{m['total']})")
+    print(
+        f"SQL 执行成功率：{m['sql_exec_success_rate'] * 100:.1f}%  ({m['executed']}/{m['total']})"
+    )
     print(f"结果准确率    ：{m['accuracy'] * 100:.1f}%  ({m['hit']}/{m['total']})")
     print(f"  （相对成功执行：{m['accuracy_of_executed'] * 100:.1f}%）")
     print(f"报告已写入：{out_path}")

@@ -24,20 +24,20 @@ from typing import List
 class Column:
     """表字段定义。"""
 
-    name: str            # 字段名
-    dtype: str           # DuckDB 类型（VARCHAR / INTEGER / DECIMAL(10,2) / DATE ...）
-    description: str     # 字段中文说明
-    example: str         # 示例值（字符串形式，供文档展示）
-    nullable: bool = False      # 是否允许为空（事实表外键默认非空）
-    primary_key: bool = False   # 是否为主键
+    name: str  # 字段名
+    dtype: str  # DuckDB 类型（VARCHAR / INTEGER / DECIMAL(10,2) / DATE ...）
+    description: str  # 字段中文说明
+    example: str  # 示例值（字符串形式，供文档展示）
+    nullable: bool = False  # 是否允许为空（事实表外键默认非空）
+    primary_key: bool = False  # 是否为主键
 
 
 @dataclass(frozen=True)
 class Table:
     """表定义。"""
 
-    name: str              # 表名
-    comment: str           # 表中文说明
+    name: str  # 表名
+    comment: str  # 表中文说明
     columns: List[Column]  # 字段列表（顺序即建表列顺序）
 
 
@@ -72,7 +72,12 @@ TABLES: dict = {
             Column("customer_id", "VARCHAR", "客户编码（主键）", "C001", primary_key=True),
             Column("customer_name", "VARCHAR", "客户名称", "华东装备集团"),
             Column("tier", "VARCHAR", "客户层级（大客户/中小客户）", "大客户"),
-            Column("industry", "VARCHAR", "所属行业（设备制造商/工业服务/经销商/出口贸易）", "设备制造商"),
+            Column(
+                "industry",
+                "VARCHAR",
+                "所属行业（设备制造商/工业服务/经销商/出口贸易）",
+                "设备制造商",
+            ),
         ],
     ),
     # ------------------------------------------------------------------ 事实表

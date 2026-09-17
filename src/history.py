@@ -88,7 +88,11 @@ class HistoryStore:
     ) -> int:
         """保存一条问数记录，返回新记录 ID。"""
         columns = json.dumps(result.columns, ensure_ascii=False) if result is not None else None
-        sample = json.dumps(result.rows[:SAMPLE_ROWS], ensure_ascii=False) if result is not None else None
+        sample = (
+            json.dumps(result.rows[:SAMPLE_ROWS], ensure_ascii=False)
+            if result is not None
+            else None
+        )
         insight_json = json.dumps(insights or [], ensure_ascii=False)
         chart_type = chart.chart_type if chart is not None else ""
 
@@ -102,8 +106,15 @@ class HistoryStore:
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)
                 """,
                 (
-                    question, sql, self._summary_text(result), columns, sample,
-                    chart_type, insight_json, error, int(mock_used),
+                    question,
+                    sql,
+                    self._summary_text(result),
+                    columns,
+                    sample,
+                    chart_type,
+                    insight_json,
+                    error,
+                    int(mock_used),
                     datetime.now().isoformat(timespec="seconds"),
                 ),
             )
@@ -149,7 +160,9 @@ class HistoryStore:
         """收藏 / 取消收藏，返回新的 favorited 值（不存在返回 None）。"""
         conn = self._connect()
         try:
-            row = conn.execute("SELECT favorited FROM history WHERE id = ?", (history_id,)).fetchone()
+            row = conn.execute(
+                "SELECT favorited FROM history WHERE id = ?", (history_id,)
+            ).fetchone()
             if row is None:
                 return None
             new_val = 1 - int(row["favorited"])

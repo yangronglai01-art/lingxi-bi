@@ -338,9 +338,7 @@ def extract_scalar(rows: List[List[Any]]) -> Optional[float]:
     return None
 
 
-def extract_pairs(
-    columns: List[str], rows: List[List[Any]]
-) -> Optional[List[Tuple[str, float]]]:
+def extract_pairs(columns: List[str], rows: List[List[Any]]) -> Optional[List[Tuple[str, float]]]:
     """把「标签列 + 数值列」的结果规整为 (label, value) 对列表。
 
     参数:

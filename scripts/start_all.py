@@ -29,7 +29,16 @@ ROOT = Path(__file__).resolve().parent.parent
 def main() -> None:
     """并行启动 API 与前端，并自动打开浏览器。"""
     api = subprocess.Popen(
-        [sys.executable, "-m", "uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"],
+        [
+            sys.executable,
+            "-m",
+            "uvicorn",
+            "src.api.main:app",
+            "--host",
+            "0.0.0.0",
+            "--port",
+            "8000",
+        ],
         cwd=str(ROOT),
     )
     ui = subprocess.Popen(

@@ -79,7 +79,9 @@ def render_chart(chart):
     if ct == "line":
         fig = go.Figure(
             go.Scatter(
-                x=chart.labels, y=chart.values, mode="lines+markers",
+                x=chart.labels,
+                y=chart.values,
+                mode="lines+markers",
                 name=chart.y[0] if chart.y else "数值",
             )
         )
@@ -199,7 +201,8 @@ with st.sidebar:
     st.divider()
 
     panel = st.radio(
-        "侧栏功能", ["📖 数据字典", "🕘 历史记录", "⭐ 我的收藏"],
+        "侧栏功能",
+        ["📖 数据字典", "🕘 历史记录", "⭐ 我的收藏"],
         label_visibility="collapsed",
     )
     st.divider()

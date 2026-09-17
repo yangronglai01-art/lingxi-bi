@@ -39,18 +39,18 @@ RANDOM_SEED = 20240916
 # ---------------------------------------------------------------------------
 # 数据时间范围：最近 12 个月（固定区间，保证可复现）
 # ---------------------------------------------------------------------------
-START_DATE = "2025-09-01"   # 起始日期（含）
-END_DATE = "2026-08-31"     # 结束日期（含）
+START_DATE = "2025-09-01"  # 起始日期（含）
+END_DATE = "2026-08-31"  # 结束日期（含）
 
 # ---------------------------------------------------------------------------
 # 大模型（LLM）配置：OpenAI 兼容接口（Text-to-SQL / AI 洞察用）
 # ---------------------------------------------------------------------------
-MODEL_PROVIDER = os.getenv("MODEL_PROVIDER", "deepseek")          # 服务商（仅记录）
-MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-v4-pro")           # 模型名
-API_KEY = os.getenv("API_KEY", "")                                # API Key
-BASE_URL = os.getenv("BASE_URL", "https://api.deepseek.com/v1")   # 兼容接口根地址
-REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "60"))         # 请求超时（秒）
-MAX_RETRIES = int(os.getenv("MAX_RETRIES", "1"))                  # SQL 自动修正重试次数
+MODEL_PROVIDER = os.getenv("MODEL_PROVIDER", "deepseek")  # 服务商（仅记录）
+MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-v4-pro")  # 模型名
+API_KEY = os.getenv("API_KEY", "")  # API Key
+BASE_URL = os.getenv("BASE_URL", "https://api.deepseek.com/v1")  # 兼容接口根地址
+REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "60"))  # 请求超时（秒）
+MAX_RETRIES = int(os.getenv("MAX_RETRIES", "1"))  # SQL 自动修正重试次数
 
 # mock 降级开关：为 true 时，即使无 API/无网络也用「规则生成 SQL」跑通全流程
 ENABLE_MOCK = os.getenv("ENABLE_MOCK", "false").strip().lower() in ("true", "1", "yes")
@@ -58,4 +58,4 @@ ENABLE_MOCK = os.getenv("ENABLE_MOCK", "false").strip().lower() in ("true", "1",
 # ---------------------------------------------------------------------------
 # 查询引擎配置
 # ---------------------------------------------------------------------------
-MAX_RESULT_ROWS = 1000   # SQL 安全校验强制的结果行数上限（LIMIT）
+MAX_RESULT_ROWS = 1000  # SQL 安全校验强制的结果行数上限（LIMIT）

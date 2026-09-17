@@ -35,22 +35,22 @@ from src import config
 class Product:
     """产品定义。"""
 
-    product_id: str      # 产品编码
-    product_name: str    # 产品名称
-    category: str        # 产品类别
-    unit_price: float    # 单价（元）
-    line: str            # 生产/检测产线
-    base_demand: int     # 全区域合计的日均需求量（件）
+    product_id: str  # 产品编码
+    product_name: str  # 产品名称
+    category: str  # 产品类别
+    unit_price: float  # 单价（元）
+    line: str  # 生产/检测产线
+    base_demand: int  # 全区域合计的日均需求量（件）
     gross_margin: float  # 基准毛利率（cost = amount × (1 - margin)）
 
 
 PRODUCTS: List[Product] = [
-    Product("P001", "螺杆式空气压缩机", "压缩机",   6800.00, "产线1",  30, 0.30),
-    Product("P002", "无油涡旋压缩机",   "压缩机",   4200.00, "产线1",  35, 0.33),
-    Product("P003", "旋片式真空泵",     "真空设备", 2800.00, "产线2",  40, 0.35),
-    Product("P004", "罗茨真空泵机组",   "真空设备", 9500.00, "产线2",  28, 0.32),
-    Product("P005", "液压齿轮泵",       "液压件",    750.00, "产线3",  80, 0.38),
-    Product("P006", "精密齿轮轴",       "精密件",    140.00, "产线3", 300, 0.42),
+    Product("P001", "螺杆式空气压缩机", "压缩机", 6800.00, "产线1", 30, 0.30),
+    Product("P002", "无油涡旋压缩机", "压缩机", 4200.00, "产线1", 35, 0.33),
+    Product("P003", "旋片式真空泵", "真空设备", 2800.00, "产线2", 40, 0.35),
+    Product("P004", "罗茨真空泵机组", "真空设备", 9500.00, "产线2", 28, 0.32),
+    Product("P005", "液压齿轮泵", "液压件", 750.00, "产线3", 80, 0.38),
+    Product("P006", "精密齿轮轴", "精密件", 140.00, "产线3", 300, 0.42),
 ]
 
 
@@ -58,10 +58,10 @@ PRODUCTS: List[Product] = [
 class Region:
     """区域定义。"""
 
-    region_id: str    # 区域编码
+    region_id: str  # 区域编码
     region_name: str  # 区域名称
-    province: str     # 区域中心省份
-    weight: float     # 区域销量权重（合计约 1.0）
+    province: str  # 区域中心省份
+    weight: float  # 区域销量权重（合计约 1.0）
 
 
 REGIONS: List[Region] = [
@@ -76,27 +76,27 @@ REGIONS: List[Region] = [
 class Customer:
     """客户定义。"""
 
-    customer_id: str    # 客户编码
+    customer_id: str  # 客户编码
     customer_name: str  # 客户名称
-    tier: str           # 客户层级
-    industry: str       # 所属行业
-    region_id: str      # 所属区域
-    weight: float       # 区域内采购份额权重（同区域内合计约 1.0）
+    tier: str  # 客户层级
+    industry: str  # 所属行业
+    region_id: str  # 所属区域
+    weight: float  # 区域内采购份额权重（同区域内合计约 1.0）
 
 
 CUSTOMERS: List[Customer] = [
-    Customer("C001", "华东装备集团",   "大客户",   "设备制造商", "R001", 0.35),
-    Customer("C002", "华南重工股份",   "大客户",   "设备制造商", "R002", 0.35),
-    Customer("C003", "华北机械制造",   "大客户",   "设备制造商", "R003", 0.40),
-    Customer("C004", "西南工业装备",   "大客户",   "设备制造商", "R004", 0.55),
-    Customer("C005", "华东工业服务A",  "中小客户", "工业服务",   "R001", 0.12),
-    Customer("C006", "华南工业服务B",  "中小客户", "工业服务",   "R002", 0.12),
-    Customer("C007", "华东机电贸易",   "中小客户", "经销商",     "R001", 0.18),
-    Customer("C008", "华南机电市场",   "中小客户", "经销商",     "R002", 0.18),
-    Customer("C009", "华北工控经销",   "中小客户", "经销商",     "R003", 0.60),
-    Customer("C010", "西南机电商贸",   "中小客户", "经销商",     "R004", 0.45),
-    Customer("C011", "宁波出口贸易",   "大客户",   "出口贸易",   "R001", 0.35),
-    Customer("C012", "华南出口贸易",   "大客户",   "出口贸易",   "R002", 0.35),
+    Customer("C001", "华东装备集团", "大客户", "设备制造商", "R001", 0.35),
+    Customer("C002", "华南重工股份", "大客户", "设备制造商", "R002", 0.35),
+    Customer("C003", "华北机械制造", "大客户", "设备制造商", "R003", 0.40),
+    Customer("C004", "西南工业装备", "大客户", "设备制造商", "R004", 0.55),
+    Customer("C005", "华东工业服务A", "中小客户", "工业服务", "R001", 0.12),
+    Customer("C006", "华南工业服务B", "中小客户", "工业服务", "R002", 0.12),
+    Customer("C007", "华东机电贸易", "中小客户", "经销商", "R001", 0.18),
+    Customer("C008", "华南机电市场", "中小客户", "经销商", "R002", 0.18),
+    Customer("C009", "华北工控经销", "中小客户", "经销商", "R003", 0.60),
+    Customer("C010", "西南机电商贸", "中小客户", "经销商", "R004", 0.45),
+    Customer("C011", "宁波出口贸易", "大客户", "出口贸易", "R001", 0.35),
+    Customer("C012", "华南出口贸易", "大客户", "出口贸易", "R002", 0.35),
 ]
 
 # 良率异常窗口：精密齿轮轴(P006) 在产线3 缺陷率阶段性偏高的时间段
@@ -123,11 +123,11 @@ def _seasonal_factor(d: date) -> float:
     """按月份返回季节性系数（模拟真实行业淡旺季）。"""
     m = d.month
     if m == 2:
-        return 0.78     # 春节月：需求低谷
+        return 0.78  # 春节月：需求低谷
     if m in (11, 12):
-        return 1.12     # 年末旺季
+        return 1.12  # 年末旺季
     if m == 1:
-        return 1.05     # 年初备货
+        return 1.05  # 年初备货
     return 1.0
 
 
@@ -136,40 +136,46 @@ def _seasonal_factor(d: date) -> float:
 # ===========================================================================
 def generate_dim_product() -> pd.DataFrame:
     """生成产品维度表（6 行）。"""
-    return pd.DataFrame([
-        {
-            "product_id": p.product_id,
-            "product_name": p.product_name,
-            "category": p.category,
-            "unit_price": p.unit_price,
-        }
-        for p in PRODUCTS
-    ])
+    return pd.DataFrame(
+        [
+            {
+                "product_id": p.product_id,
+                "product_name": p.product_name,
+                "category": p.category,
+                "unit_price": p.unit_price,
+            }
+            for p in PRODUCTS
+        ]
+    )
 
 
 def generate_dim_region() -> pd.DataFrame:
     """生成区域维度表（4 行）。"""
-    return pd.DataFrame([
-        {
-            "region_id": r.region_id,
-            "region_name": r.region_name,
-            "province": r.province,
-        }
-        for r in REGIONS
-    ])
+    return pd.DataFrame(
+        [
+            {
+                "region_id": r.region_id,
+                "region_name": r.region_name,
+                "province": r.province,
+            }
+            for r in REGIONS
+        ]
+    )
 
 
 def generate_dim_customer() -> pd.DataFrame:
     """生成客户维度表（12 行）。"""
-    return pd.DataFrame([
-        {
-            "customer_id": c.customer_id,
-            "customer_name": c.customer_name,
-            "tier": c.tier,
-            "industry": c.industry,
-        }
-        for c in CUSTOMERS
-    ])
+    return pd.DataFrame(
+        [
+            {
+                "customer_id": c.customer_id,
+                "customer_name": c.customer_name,
+                "tier": c.tier,
+                "industry": c.industry,
+            }
+            for c in CUSTOMERS
+        ]
+    )
 
 
 # ===========================================================================
@@ -195,8 +201,14 @@ def generate_fact_sales(dates: List[date], rng: random.Random) -> pd.DataFrame:
 
         for p in PRODUCTS:
             for r in REGIONS:
-                demand = (p.base_demand * r.weight * trend * seasonal
-                          * weekday_factor * rng.uniform(0.80, 1.20))
+                demand = (
+                    p.base_demand
+                    * r.weight
+                    * trend
+                    * seasonal
+                    * weekday_factor
+                    * rng.uniform(0.80, 1.20)
+                )
                 if demand < 1.0:
                     continue  # 需求过小，该日该区域该产品无销售
 
@@ -207,19 +219,24 @@ def generate_fact_sales(dates: List[date], rng: random.Random) -> pd.DataFrame:
                 w_sum = sum(c.weight for c in chosen)
 
                 for c in chosen:
-                    qty = max(1, int(round(
-                        demand * (c.weight / w_sum) * rng.uniform(0.70, 1.30)
-                    )))
+                    qty = max(1, int(round(demand * (c.weight / w_sum) * rng.uniform(0.70, 1.30))))
                     amount = round(qty * p.unit_price, 2)
                     margin = min(0.60, max(0.10, p.gross_margin + rng.uniform(-0.04, 0.04)))
                     cost = round(amount * (1.0 - margin), 2)
-                    rows.append((d, p.product_id, r.region_id, c.customer_id,
-                                 qty, amount, cost))
+                    rows.append((d, p.product_id, r.region_id, c.customer_id, qty, amount, cost))
 
-    return pd.DataFrame(rows, columns=[
-        "sale_date", "product_id", "region_id", "customer_id",
-        "quantity", "amount", "cost",
-    ])
+    return pd.DataFrame(
+        rows,
+        columns=[
+            "sale_date",
+            "product_id",
+            "region_id",
+            "customer_id",
+            "quantity",
+            "amount",
+            "cost",
+        ],
+    )
 
 
 def generate_fact_quality(dates: List[date], rng: random.Random) -> pd.DataFrame:
@@ -238,17 +255,27 @@ def generate_fact_quality(dates: List[date], rng: random.Random) -> pd.DataFrame
             rate = rng.uniform(0.02, 0.03)
 
             # 良率波动：P006 在产线3 于异常窗口缺陷率阶段性偏高
-            if (p.product_id == "P006" and p.line == "产线3"
-                    and QUALITY_ISSUE_START <= d <= QUALITY_ISSUE_END):
+            if (
+                p.product_id == "P006"
+                and p.line == "产线3"
+                and QUALITY_ISSUE_START <= d <= QUALITY_ISSUE_END
+            ):
                 rate = rng.uniform(0.09, 0.13)
 
             # 二项抽样生成缺陷数：低产量产品也能得到符合真实缺陷率的计数
             defect = sum(1 for _ in range(checked) if rng.random() < rate)
             rows.append((d, p.product_id, p.line, checked, defect))
 
-    return pd.DataFrame(rows, columns=[
-        "check_date", "product_id", "line", "checked_count", "defect_count",
-    ])
+    return pd.DataFrame(
+        rows,
+        columns=[
+            "check_date",
+            "product_id",
+            "line",
+            "checked_count",
+            "defect_count",
+        ],
+    )
 
 
 def generate_fact_production(dates: List[date], rng: random.Random) -> pd.DataFrame:
@@ -265,8 +292,11 @@ def generate_fact_production(dates: List[date], rng: random.Random) -> pd.DataFr
         for p in PRODUCTS:
             planned = int(round(p.base_demand * rng.uniform(0.95, 1.05)))
 
-            issue = (p.product_id == "P006" and p.line == "产线3"
-                     and QUALITY_ISSUE_START <= d <= QUALITY_ISSUE_END)
+            issue = (
+                p.product_id == "P006"
+                and p.line == "产线3"
+                and QUALITY_ISSUE_START <= d <= QUALITY_ISSUE_END
+            )
             downtime_prob = 0.18 if issue else 0.08
             downtime = 0.0
             if rng.random() < downtime_prob:
@@ -280,9 +310,17 @@ def generate_fact_production(dates: List[date], rng: random.Random) -> pd.DataFr
 
             rows.append((d, p.product_id, p.line, planned, actual, downtime))
 
-    return pd.DataFrame(rows, columns=[
-        "prod_date", "product_id", "line", "planned_qty", "actual_qty", "downtime_hours",
-    ])
+    return pd.DataFrame(
+        rows,
+        columns=[
+            "prod_date",
+            "product_id",
+            "line",
+            "planned_qty",
+            "actual_qty",
+            "downtime_hours",
+        ],
+    )
 
 
 # ===========================================================================

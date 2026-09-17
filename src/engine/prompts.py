@@ -104,9 +104,7 @@ def build_insight_messages(
     header = " | ".join(columns)
     body = "\n".join(" | ".join(_fmt_cell(v) for v in row) for row in rows)
     user = (
-        f"用户问题：{question}\n"
-        f"查询结果列：{header}\n"
-        f"查询结果数据（共 {len(rows)} 行）：\n{body}"
+        f"用户问题：{question}\n查询结果列：{header}\n查询结果数据（共 {len(rows)} 行）：\n{body}"
     )
     return [
         {"role": "system", "content": _INSIGHT_SYSTEM},
