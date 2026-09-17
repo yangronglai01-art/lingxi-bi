@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """评测集定义：18 条中文问数 + 参考答案 + 结果比对逻辑。
 
-评测集是「恒岳汽车零部件」经营分析智能问数系统的离线评测基准，覆盖
+评测集是「宁波鲍斯能源装备」智能问数平台的离线评测基准，覆盖
 求和 / 平均 / 同比环比、分组、排序、TopN、时间范围、条件过滤、多表关联
 等 Text-to-SQL 常见能力。每条用例都基于 docs/schema.md 与真实数仓数据，
 给出「有明确可验证答案」的参考答案（关键指标值），供 scripts/eval.py
@@ -37,11 +37,11 @@ EVAL_CASES: List[Dict[str, Any]] = [
     },
     {
         "id": "E02",
-        "question": "制动类产品的销售额是多少？",
+        "question": "压缩机类产品的销售额是多少？",
         "categories": ["求和", "条件过滤", "多表关联"],
         "reference_sql": (
             "SELECT ROUND(SUM(s.amount), 2) FROM fact_sales s "
-            "JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '制动'"
+            "JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '压缩机'"
         ),
         "expected": {"type": "scalar", "value": 41434875.0},
     },
@@ -267,11 +267,11 @@ EVAL_CASES: List[Dict[str, Any]] = [
     },
     {
         "id": "E16",
-        "question": "电子件类产品的销售额是多少？",
+        "question": "精密件类产品的销售额是多少？",
         "categories": ["条件过滤", "多表关联"],
         "reference_sql": (
             "SELECT ROUND(SUM(s.amount), 2) FROM fact_sales s "
-            "JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '电子件'"
+            "JOIN dim_product p ON s.product_id = p.product_id WHERE p.category = '精密件'"
         ),
         "expected": {"type": "scalar", "value": 13157640.0},
     },
