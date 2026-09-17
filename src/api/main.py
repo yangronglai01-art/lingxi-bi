@@ -36,7 +36,7 @@ from src.history import HistoryStore
 # 应用与全局对象
 # ---------------------------------------------------------------------------
 app = FastAPI(
-    title="恒岳汽车零部件 · 经营分析智能问数系统 API",
+    title="宁波鲍斯能源装备 · 智能问数平台 API",
     description="中文自然语言问数接口：问题 → SQL → 结果 → 图表 → 洞察",
     version="1.0.0",
 )

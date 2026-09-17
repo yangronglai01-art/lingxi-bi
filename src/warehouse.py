@@ -124,7 +124,7 @@ def validate_and_summarize(conn: duckdb.DuckDBPyConnection) -> None:
         print(f"    {line} {pid} {pname:<12} 缺陷率 {rate}%")
 
     # [7] P006/产线3 缺陷率按月（验证异常窗口 2026-03 ~ 05）
-    print("\n[7] 轮速传感器(P006)/产线3 缺陷率按月（验证 2026-03~05 偏高）")
+    print("\n[7] 精密齿轮轴(P006)/产线3 缺陷率按月（验证 2026-03~05 偏高）")
     for ym, dft, chk, rate in conn.execute("""
         SELECT strftime(q.check_date, '%Y-%m'),
                SUM(q.defect_count), SUM(q.checked_count),
