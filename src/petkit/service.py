@@ -109,7 +109,10 @@ def ask(question,principal=None):
                 raw=llm_client.chat_completion(_messages(question,context,proposal,last_error),
                     temperature=0,max_tokens=3000,timeout=min(config.REQUEST_TIMEOUT,max(1,int(remaining))),
                     response_format={"type":"json_object"},
-                    thinking=os.getenv("PETKIT_THINKING","disabled") if urlsplit(config.BASE_URL).hostname=="api.deepseek.com" else None)
+                    thinking=os.getenv("PETKIT_THINKING","disabled") if (
+                        urlsplit(config.BASE_URL).hostname=="api.deepseek.com"
+                        or config.MODEL_PROVIDER=="ai_platform"
+                    ) else None)
                 generated=_decode(raw)
                 if generated["status"]=="clarification":
                     answer.status="clarification"; answer.error=generated.get("message","请进一步明确指标口径")
