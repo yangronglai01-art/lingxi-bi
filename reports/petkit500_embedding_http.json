@@ -1,0 +1,7 @@
+{
+  "transport": "real localhost HTTP",
+  "semantic_retrieval": true,
+  "rows": 12,
+  "children_stopped": true,
+  "query_and_cleanup_seconds": 6.48
+}

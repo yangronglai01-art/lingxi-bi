@@ -1,0 +1,24 @@
+{
+  "generation": "petkit-v1.3-aa1a375a40",
+  "tables": 500,
+  "orders": 3202,
+  "rows": 205383,
+  "tests_passed": 257,
+  "new_shipments": 2,
+  "new_stock_units_out": 4,
+  "source_events": 19,
+  "source_batches": 3,
+  "business_oracle_cases": 32,
+  "duplicate_safe": true,
+  "rollback_replay_passed": true,
+  "region_isolation_passed": true,
+  "inventory_model_passed": true,
+  "restore_sources_passed": true,
+  "restored_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\37fbbbfc43bd",
+  "limits": [
+    "仅自建模拟数据",
+    "新增来源发货逐笔对账，不覆盖历史种子全量物流",
+    "只支持同区域全单一次发货",
+    "单机应用，未做长期负载与高可用验收"
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "parent": "petkit-v1.3-587f2c8f8d",
+  "real_llm_called": false,
+  "completed": true,
+  "batch_file": "D:\\projects\\lingxi\\data\\petkit500\\ingestion\\inbox\\landing-d5edff4af6.json",
+  "batch_id": "landing-d5edff4af6",
+  "events": 9,
+  "before": {
+    "fact_refund": 205,
+    "fact_device_activation": 5469,
+    "fact_device_binding": 5469,
+    "fact_service_ticket": 556,
+    "fact_ticket_status": 1110,
+    "fact_support_contact": 556,
+    "refund_amount": 179717.84
+  },
+  "first_unpublished": {
+    "attempt": "3c3a50922f504c51b62bb0511b0d41ca",
+    "source": "simulated_gateway",
+    "batch_id": "landing-d5edff4af6",
+    "parent": "petkit-v1.3-587f2c8f8d",
+    "candidate": "petkit-v1.3-7e4e24fd87",
+    "state": "staged",
+    "applied": 9,
+    "skipped": 0
+  },
+  "second_unpublished": {
+    "attempt": "79dee57d8a004817b1ede6eb875093c3",
+    "source": "simulated_gateway",
+    "batch_id": "landing-d5edff4af6",
+    "parent": "petkit-v1.3-587f2c8f8d",
+    "candidate": "petkit-v1.3-e31fc5e098",
+    "state": "staged",
+    "applied": 9,
+    "skipped": 0
+  },
+  "unpublished_retry_not_lost": true,
+  "after": {
+    "fact_refund": 208,
+    "fact_device_activation": 5472,
+    "fact_device_binding": 5472,
+    "fact_service_ticket": 559,
+    "fact_ticket_status": 1113,
+    "fact_support_contact": 559,
+    "refund_amount": 179747.84
+  },
+  "published_duplicate_noop": true,
+  "conflicting_batch_quarantined": true,
+  "invalid_batch_atomic_quarantine": true,
+  "rollback_replay_not_lost": true,
+  "replay_exactly_once": true,
+  "stale_parent_rejected": true,
+  "final_generation": "petkit-v1.3-24708285df",
+  "replay": {
+    "attempt": "5bfacbaf96524c428514bb3379e73a82",
+    "source": "simulated_gateway",
+    "batch_id": "landing-d5edff4af6",
+    "parent": "petkit-v1.3-587f2c8f8d",
+    "candidate": "petkit-v1.3-24708285df",
+    "state": "staged",
+    "applied": 9,
+    "skipped": 0
+  },
+  "release_gates": {
+    "lineage": {
+      "events": 9,
+      "batches": 1,
+      "parent": "petkit-v1.3-587f2c8f8d"
+    },
+    "source_reconciliation": {
+      "events": 9,
+      "source_batches": 1,
+      "source_and_rows_verified": true,
+      "source_files": {
+        "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1"
+      }
+    },
+    "data_quality": {
+      "tables": 500,
+      "total_rows": 205351,
+      "orders": 3200,
+      "foreign_keys": 511
+    },
+    "business_oracle": {
+      "passed": 32,
+      "source": "independent Python arithmetic over raw records"
+    },
+    "embedding": {
+      "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+      "vectors": 506,
+      "dimensions": 1024
+    }
+  },
+  "final_validation_id": "6b29d1707e4e",
+  "source_integrity_verified": true,
+  "final_integrity_publications": [
+    "6d26ae22e2d348b88a92040c5c34b53a",
+    "72d5ecc39e0f4a1eab9f157e1f43dcdb"
+  ]
+}

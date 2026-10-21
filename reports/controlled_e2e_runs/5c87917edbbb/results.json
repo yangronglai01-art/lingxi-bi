@@ -1,0 +1,276 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "model": "deepseek-v4-pro",
+  "embedding": "local BGE-M3",
+  "case_sha256": "5d83d3dc0db8cbd1a0505bf9125f3a8a339f6799b8dbc1a77a3453ac4228e38a",
+  "external_independent_benchmark": false,
+  "load_test": false,
+  "code_sha256": {
+    "src/petkit/service.py": "1a95b385ea23851ddd0c4d97613450d6fa288801533d40ce37afd18be5e252fa",
+    "src/petkit/reference.py": "5cd149d42a2fd1fc0f46eab15b7bd2c65e3abaabd591c82ea0299034b3ea15b2",
+    "src/petkit/row_policy.py": "87c5d09dbf5a6628942a2c64ce1e06833777a284ba9c8088a10a04bc2e7b48c7",
+    "scripts/eval_petkit_controlled_e2e.py": "543b21ba53edb73bee8f9d1ddfb97527b82304a3fec36d16ff66770bab610ba3"
+  },
+  "rows": [
+    {
+      "id": "E05",
+      "subject": "global_analyst",
+      "regions": [],
+      "metric_id": "tickets",
+      "question": "2026年6月各产品型号新建的售后工单数是多少？同一设备的多张工单分别计数，返回型号名和工单条数。",
+      "status": "success",
+      "passed": true,
+      "reason": "exact group set and numeric multiset matched independent Python arithmetic",
+      "error": "",
+      "sql": "SELECT \"dp\".\"product_name\" AS \"产品型号\", COUNT(\"fst\".\"ticket_id\") AS \"工单条数\" FROM \"fact_service_ticket\" AS \"fst\" JOIN \"dim_device\" AS \"dd\" ON \"fst\".\"device_id\" = \"dd\".\"device_id\" JOIN \"dim_product\" AS \"dp\" ON \"dd\".\"product_id\" = \"dp\".\"product_id\" WHERE \"fst\".\"created_date\" >= CAST('2026-06-01' AS DATE) AND \"fst\".\"created_date\" <= CAST('2026-06-30' AS DATE) GROUP BY \"dp\".\"product_name\" ORDER BY \"产品型号\" LIMIT 1001",
+      "bound_metric": "tickets",
+      "columns": [
+        "产品型号",
+        "工单条数"
+      ],
+      "result_rows": [
+        [
+          "模拟喂食器1型",
+          7
+        ],
+        [
+          "模拟喂食器2型",
+          6
+        ],
+        [
+          "模拟喂食器3型",
+          11
+        ],
+        [
+          "模拟喂食器4型",
+          3
+        ],
+        [
+          "模拟猫砂盆1型",
+          3
+        ],
+        [
+          "模拟猫砂盆2型",
+          1
+        ],
+        [
+          "模拟猫砂盆3型",
+          1
+        ],
+        [
+          "模拟猫砂盆4型",
+          3
+        ],
+        [
+          "模拟饮水机1型",
+          2
+        ],
+        [
+          "模拟饮水机2型",
+          3
+        ],
+        [
+          "模拟饮水机3型",
+          2
+        ],
+        [
+          "模拟饮水机4型",
+          7
+        ]
+      ],
+      "reference": {
+        "模拟喂食器4型": [
+          3
+        ],
+        "模拟饮水机4型": [
+          7
+        ],
+        "模拟饮水机2型": [
+          3
+        ],
+        "模拟喂食器3型": [
+          11
+        ],
+        "模拟猫砂盆2型": [
+          1
+        ],
+        "模拟喂食器1型": [
+          7
+        ],
+        "模拟饮水机3型": [
+          2
+        ],
+        "模拟饮水机1型": [
+          2
+        ],
+        "模拟喂食器2型": [
+          6
+        ],
+        "模拟猫砂盆4型": [
+          3
+        ],
+        "模拟猫砂盆1型": [
+          3
+        ],
+        "模拟猫砂盆3型": [
+          1
+        ]
+      },
+      "generation_attempts": 1,
+      "elapsed_seconds": 10.703,
+      "mock_used": false
+    },
+    {
+      "id": "E06",
+      "subject": "global_analyst",
+      "regions": [],
+      "metric_id": "inventory",
+      "question": "2026年6月各型号的期末库存是多少？每个SKU、每个仓库分别取当月最新快照，再汇总到型号，不累计每日库存。返回型号名和件数。",
+      "status": "success",
+      "passed": true,
+      "reason": "exact group set and numeric multiset matched independent Python arithmetic",
+      "error": "",
+      "sql": "SELECT \"dp\".\"product_name\" AS \"product_name\", SUM(\"latest\".\"quantity\") AS \"total_quantity\" FROM (SELECT \"fid\".\"sku_id\" AS \"sku_id\", \"fid\".\"warehouse_id\" AS \"warehouse_id\", \"fid\".\"quantity\" AS \"quantity\", ROW_NUMBER() OVER (PARTITION BY \"fid\".\"sku_id\", \"fid\".\"warehouse_id\" ORDER BY \"fid\".\"stock_date\" DESC) AS \"rn\" FROM \"fact_inventory_day\" AS \"fid\" WHERE \"fid\".\"stock_date\" >= CAST('2026-06-01' AS DATE) AND \"fid\".\"stock_date\" <= CAST('2026-06-30' AS DATE)) AS \"latest\" JOIN \"dim_sku\" AS \"ds\" ON \"latest\".\"sku_id\" = \"ds\".\"sku_id\" JOIN \"dim_product\" AS \"dp\" ON \"ds\".\"product_id\" = \"dp\".\"product_id\" WHERE \"latest\".\"rn\" = 1 GROUP BY \"dp\".\"product_name\" ORDER BY \"product_name\" LIMIT 1001",
+      "bound_metric": "inventory",
+      "columns": [
+        "product_name",
+        "total_quantity"
+      ],
+      "result_rows": [
+        [
+          "模拟喂食器1型",
+          1376
+        ],
+        [
+          "模拟喂食器2型",
+          1481
+        ],
+        [
+          "模拟喂食器3型",
+          1249
+        ],
+        [
+          "模拟喂食器4型",
+          1147
+        ],
+        [
+          "模拟猫砂盆1型",
+          1398
+        ],
+        [
+          "模拟猫砂盆2型",
+          1315
+        ],
+        [
+          "模拟猫砂盆3型",
+          1522
+        ],
+        [
+          "模拟猫砂盆4型",
+          1157
+        ],
+        [
+          "模拟饮水机1型",
+          1336
+        ],
+        [
+          "模拟饮水机2型",
+          1504
+        ],
+        [
+          "模拟饮水机3型",
+          1667
+        ],
+        [
+          "模拟饮水机4型",
+          1371
+        ]
+      ],
+      "reference": {
+        "模拟喂食器1型": [
+          1376
+        ],
+        "模拟喂食器2型": [
+          1481
+        ],
+        "模拟喂食器3型": [
+          1249
+        ],
+        "模拟喂食器4型": [
+          1147
+        ],
+        "模拟饮水机1型": [
+          1336
+        ],
+        "模拟饮水机2型": [
+          1504
+        ],
+        "模拟饮水机3型": [
+          1667
+        ],
+        "模拟饮水机4型": [
+          1371
+        ],
+        "模拟猫砂盆1型": [
+          1398
+        ],
+        "模拟猫砂盆2型": [
+          1315
+        ],
+        "模拟猫砂盆3型": [
+          1522
+        ],
+        "模拟猫砂盆4型": [
+          1157
+        ]
+      },
+      "generation_attempts": 1,
+      "elapsed_seconds": 4.055,
+      "mock_used": false
+    },
+    {
+      "id": "E07",
+      "subject": "regional_supply",
+      "regions": [
+        "R1"
+      ],
+      "metric_id": "received_units",
+      "question": "2026年9月我权限范围内，各仓库采购收货数量是多少？按收货日期汇总实际收到的quantity，不是单据数或订购量，返回仓库名和件数。",
+      "status": "success",
+      "passed": true,
+      "reason": "exact group set and numeric multiset matched independent Python arithmetic",
+      "error": "",
+      "sql": "SELECT \"dim_warehouse\".\"warehouse_name\" AS \"warehouse_name\", SUM(\"fact_receipt\".\"quantity\") AS \"received_units\" FROM \"fact_receipt\" AS \"fact_receipt\" INNER JOIN \"dim_warehouse\" AS \"dim_warehouse\" ON \"fact_receipt\".\"warehouse_id\" = \"dim_warehouse\".\"warehouse_id\" WHERE \"fact_receipt\".\"receipt_date\" >= CAST('2026-09-01' AS DATE) AND \"fact_receipt\".\"receipt_date\" < CAST('2026-10-01' AS DATE) GROUP BY \"dim_warehouse\".\"warehouse_name\" LIMIT 1001",
+      "bound_metric": "received_units",
+      "columns": [
+        "warehouse_name",
+        "received_units"
+      ],
+      "result_rows": [
+        [
+          "模拟华东仓",
+          10
+        ]
+      ],
+      "reference": {
+        "模拟华东仓": [
+          10
+        ]
+      },
+      "generation_attempts": 1,
+      "elapsed_seconds": 3.128,
+      "mock_used": false
+    }
+  ],
+  "completed": true,
+  "isolated_directory": "D:\\projects\\lingxi\\reports\\controlled_e2e_runs\\5c87917edbbb\\isolated_data",
+  "maximum_questions": 3,
+  "maximum_generation_attempts": 6,
+  "selected_ids": "E05,E06,E07",
+  "not_new_blind_score": true,
+  "passed": 3,
+  "attempted": 3,
+  "generation_attempts": 3,
+  "original_warehouse_unchanged": true,
+  "original_pointer_unchanged": true
+}

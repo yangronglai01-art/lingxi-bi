@@ -1,0 +1,292 @@
+{
+  "version": "expanded-v1",
+  "mode": "behavior",
+  "generation": "petkit-v1.3-638f0e235a",
+  "model": "deepseek-v4-pro",
+  "case_sha256": "04fb4db97d788a8f613fdece4eca5c5197498fb3de774c007fe541d5e4966aed",
+  "selected_ids": [
+    "B01",
+    "B02",
+    "B03",
+    "B04",
+    "B05",
+    "B06",
+    "B07",
+    "B08",
+    "C01",
+    "C02",
+    "C03",
+    "C04"
+  ],
+  "frozen_before_execution": true,
+  "external_independent_benchmark": false,
+  "load_test": false,
+  "developer_authored": true,
+  "generation_budget": 0,
+  "rows": [
+    {
+      "id": "B01",
+      "question": "2026年5月各型号净销售额是多少？",
+      "subject": "restricted_viewer",
+      "regions": [],
+      "expected_status": "denied",
+      "status": "denied",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 7.91,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "所需指标依赖超出当前主体授权范围"
+    },
+    {
+      "id": "B02",
+      "question": "2026年3月各仓库采购收货数量是多少？",
+      "subject": "restricted_viewer",
+      "regions": [],
+      "expected_status": "denied",
+      "status": "denied",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 0.127,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "所需指标依赖超出当前主体授权范围"
+    },
+    {
+      "id": "B03",
+      "question": "2026年9月各型号期末库存是多少？",
+      "subject": "regional_sales",
+      "regions": [
+        "R1"
+      ],
+      "expected_status": "denied",
+      "status": "denied",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 0.158,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "所需指标依赖超出当前主体授权范围"
+    },
+    {
+      "id": "B04",
+      "question": "2026年5月各型号设备离线率是多少？",
+      "subject": "regional_sales",
+      "regions": [
+        "R1"
+      ],
+      "expected_status": "denied",
+      "status": "denied",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 0.126,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "所需指标依赖超出当前主体授权范围"
+    },
+    {
+      "id": "B05",
+      "question": "2026年7月各故障分类工单数是多少？",
+      "subject": "regional_supply",
+      "regions": [
+        "R1"
+      ],
+      "expected_status": "denied",
+      "status": "denied",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 0.108,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "所需指标依赖超出当前主体授权范围"
+    },
+    {
+      "id": "B06",
+      "question": "2026年7月各渠道净销售额是多少？",
+      "subject": "regional_supply",
+      "regions": [
+        "R1"
+      ],
+      "expected_status": "denied",
+      "status": "denied",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 0.102,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "所需指标依赖超出当前主体授权范围"
+    },
+    {
+      "id": "B07",
+      "question": "2026年9月各型号售出30天激活率是多少？",
+      "subject": "restricted_viewer",
+      "regions": [],
+      "expected_status": "denied",
+      "status": "denied",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 0.122,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "所需指标依赖超出当前主体授权范围"
+    },
+    {
+      "id": "B08",
+      "question": "2026年9月各型号售出30天售后设备率是多少？",
+      "subject": "restricted_viewer",
+      "regions": [],
+      "expected_status": "denied",
+      "status": "denied",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 0.126,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "所需指标依赖超出当前主体授权范围"
+    },
+    {
+      "id": "C01",
+      "question": "各产品型号的激活率是多少？",
+      "subject": "global_analyst",
+      "regions": [],
+      "expected_status": "clarification",
+      "status": "clarification",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 0.007,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "请确认：按售出后30天内激活设备数/观察满30天售出设备数计算吗？示例：各型号售出30天激活率"
+    },
+    {
+      "id": "C02",
+      "question": "各型号故障率最近如何？",
+      "subject": "global_analyst",
+      "regions": [],
+      "expected_status": "clarification",
+      "status": "clarification",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 0.006,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "请明确是工单数、售后设备数还是售出30天售后设备率；三者口径不同。"
+    },
+    {
+      "id": "C03",
+      "question": "同时列出各型号净销售额和期末库存。",
+      "subject": "global_analyst",
+      "regions": [],
+      "expected_status": "clarification",
+      "status": "clarification",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 0.006,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "本次问题涉及多个指标，请先拆成一个明确指标的问题。"
+    },
+    {
+      "id": "C04",
+      "question": "一起算各型号30天激活率和30天售后设备率。",
+      "subject": "global_analyst",
+      "regions": [],
+      "expected_status": "clarification",
+      "status": "clarification",
+      "assessment": {
+        "passed": true,
+        "reason": "expected terminal policy/ambiguity state"
+      },
+      "generation_attempts": 0,
+      "elapsed_seconds": 0.006,
+      "bound_metric": null,
+      "sql": "",
+      "columns": null,
+      "result_rows": null,
+      "reference": null,
+      "error": "本次问题涉及多个指标，请先拆成一个明确指标的问题。"
+    }
+  ],
+  "completed": true,
+  "code_sha256": {
+    "scripts/eval_petkit_expanded.py": "2b95e28801ccd1796d6b447d0d0a6a5e65dc39e85c9dcf53bce73b3e7a4cd7a8",
+    "scripts/expanded_eval_support.py": "8956dc67f4ecb084de39f9a5d3981ae0f1a9feaf5ec12817740e05540903e31e",
+    "src/petkit/planning.py": "1fbd1ee106b9916a0db4ecd238f904dcaa7e3e60e8a57997c6db9a359df8f6ce",
+    "src/petkit/service.py": "1a95b385ea23851ddd0c4d97613450d6fa288801533d40ce37afd18be5e252fa",
+    "src/petkit/semantic.py": "c5f0612c4758b1fae6dda9266e1a864fc6fb53ba07a0daee49323a5ac65173e6",
+    "src/petkit/reference.py": "5cd149d42a2fd1fc0f46eab15b7bd2c65e3abaabd591c82ea0299034b3ea15b2"
+  },
+  "passed": 12,
+  "attempted": 12,
+  "generation_attempts": 0,
+  "blocked_generation_attempts": 0,
+  "original_pointer_unchanged": true,
+  "original_warehouse_unchanged": true,
+  "original_jobs_unchanged": true
+}

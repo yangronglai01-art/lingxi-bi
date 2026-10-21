@@ -1,0 +1,50 @@
+{
+  "started": 1792200942.5214922,
+  "baseline": "petkit-v1.3-2dc93c9e1c",
+  "real_llm_called": false,
+  "operations": [
+    {
+      "action": "publish",
+      "id": "753fe6a7f03e44d8863697d292f48201",
+      "target": "petkit-v1.3-587f2c8f8d"
+    },
+    {
+      "action": "rollback",
+      "id": "864e5f49d43e4cfd89ee759f938322c6",
+      "target": "petkit-v1.3-2dc93c9e1c"
+    },
+    {
+      "action": "republish",
+      "id": "bcfd700fee6d4caeb6811190851976c9",
+      "target": "petkit-v1.3-587f2c8f8d"
+    }
+  ],
+  "baseline_orders": 3000,
+  "candidate": "petkit-v1.3-587f2c8f8d",
+  "candidate_gates": {
+    "data_quality": {
+      "tables": 500,
+      "total_rows": 205333,
+      "orders": 3200,
+      "foreign_keys": 511
+    },
+    "business_oracle": {
+      "passed": 32,
+      "source": "independent Python arithmetic over raw records"
+    },
+    "embedding": {
+      "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+      "vectors": 506,
+      "dimensions": 1024
+    }
+  },
+  "old_queued_job_superseded": true,
+  "completed": true,
+  "final_generation": "petkit-v1.3-587f2c8f8d",
+  "orders": 3200,
+  "business_reference_passed": 32,
+  "final_sealed_operations": [
+    "261f7817152e474a88a7645f0a4df81d",
+    "84afd9ebb46d49ef87de168fcbce7e36"
+  ]
+}

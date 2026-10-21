@@ -1,0 +1,327 @@
+{
+  "generation": "petkit-v1.3-f661af1372",
+  "job_id": "0a95e170e2d7424f98216f887b4065f5",
+  "real_model": true,
+  "regions": [
+    "R1"
+  ],
+  "passed": true,
+  "oracle": "independent per-product raw-row Python arithmetic with trusted regional filter",
+  "answer": {
+    "status": "success",
+    "request_id": "d9c6c2aed754404fa344b9c04997e47a",
+    "generation": "petkit-v1.3-f661af1372",
+    "elapsed_ms": 17568.89,
+    "context": {
+      "generation": "petkit-v1.3-f661af1372",
+      "version": "petkit-v1.3",
+      "relationships": [
+        {
+          "left": "dim_sku",
+          "left_key": "product_id",
+          "right": "dim_product",
+          "right_key": "product_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "fact_order",
+          "left_key": "channel_id",
+          "right": "dim_channel",
+          "right_key": "channel_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "fact_order_item",
+          "left_key": "order_id",
+          "right": "fact_order",
+          "right_key": "order_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "fact_order_item",
+          "left_key": "sku_id",
+          "right": "dim_sku",
+          "right_key": "sku_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "fact_refund",
+          "left_key": "item_id",
+          "right": "fact_order_item",
+          "right_key": "item_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "bridge_order_device",
+          "left_key": "item_id",
+          "right": "fact_order_item",
+          "right_key": "item_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "fact_product_price",
+          "left_key": "sku_id",
+          "right": "dim_sku",
+          "right_key": "sku_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        }
+      ],
+      "metric": {
+        "id": "net_sales",
+        "name": "净销售额",
+        "aliases": [
+          "销售额",
+          "收入",
+          "销售趋势"
+        ],
+        "definition": "订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分",
+        "dependencies": [
+          "fact_order",
+          "fact_order_item",
+          "fact_refund",
+          "dim_sku",
+          "dim_product",
+          "dim_channel"
+        ],
+        "grain": "订单行先汇总退款再关联；按支付日统计",
+        "version": "petkit-v1.3"
+      },
+      "evidence": [
+        {
+          "table": "dim_channel",
+          "score": 0.039344,
+          "reason": "metric_dependency:net_sales",
+          "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "dim_product",
+          "score": 0.03871,
+          "reason": "metric_dependency:net_sales",
+          "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "dim_sku",
+          "score": 0.038095,
+          "reason": "metric_dependency:net_sales",
+          "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "fact_refund",
+          "score": 0.0375,
+          "reason": "metric_dependency:net_sales",
+          "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "fact_order_item",
+          "score": 0.036923,
+          "reason": "metric_dependency:net_sales",
+          "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "fact_order",
+          "score": 0.036364,
+          "reason": "metric_dependency:net_sales",
+          "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "bridge_order_device",
+          "score": 0.032438,
+          "reason": "table",
+          "text": "bridge_order_device 订单行与实际设备桥接 每台售出设备只对应一行 每售出设备一行 ",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "fact_product_price",
+          "score": 0.0263,
+          "reason": "table",
+          "text": "fact_product_price 商品价格历史 每SKU生效日一行 ",
+          "table_role_weight": 1.2
+        }
+      ],
+      "selection": [
+        {
+          "table": "fact_order",
+          "reason": "检索命中"
+        },
+        {
+          "table": "fact_order_item",
+          "reason": "检索命中"
+        },
+        {
+          "table": "fact_refund",
+          "reason": "检索命中"
+        },
+        {
+          "table": "dim_sku",
+          "reason": "检索命中"
+        },
+        {
+          "table": "dim_product",
+          "reason": "检索命中"
+        },
+        {
+          "table": "dim_channel",
+          "reason": "检索命中"
+        },
+        {
+          "table": "bridge_order_device",
+          "reason": "检索命中"
+        },
+        {
+          "table": "fact_product_price",
+          "reason": "检索命中"
+        }
+      ],
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "data_as_of": "2026-10-16",
+      "synthetic": true,
+      "table_names": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_sku",
+        "dim_product",
+        "dim_channel",
+        "bridge_order_device",
+        "fact_product_price"
+      ],
+      "catalog_size": 500
+    },
+    "plan": {
+      "metric": "净销售额",
+      "dimensions": [
+        "dim_product.product_name"
+      ],
+      "time_range": "未指定，默认全部时间",
+      "filters": [],
+      "joins": [
+        "fact_order_item -> dim_sku -> dim_product",
+        "fact_order_item -> fact_refund (按 item_id 汇总退款)"
+      ],
+      "grain": "dim_product.product_name",
+      "assumptions": [
+        "净销售额 = 订单行实付金额 - 对应退款金额",
+        "退款按订单行汇总后从订单行金额中扣除",
+        "未指定时间范围，默认包含所有数据"
+      ]
+    },
+    "truncated": false,
+    "question": "请按产品型号列出各型号净销售额，按订单行实付减去对应退款。",
+    "sql": "SELECT \"p\".\"product_name\" AS \"product_name\", SUM(\"oi\".\"amount\" - COALESCE(\"r\".\"total_refund\", 0)) AS \"net_sales\" FROM \"fact_order_item\" AS \"oi\" JOIN \"dim_sku\" AS \"s\" ON \"oi\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"total_refund\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") AS \"r\" ON \"oi\".\"item_id\" = \"r\".\"item_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"product_name\" LIMIT 1001",
+    "result": {
+      "columns": [
+        "product_name",
+        "net_sales"
+      ],
+      "rows": [
+        [
+          "模拟喂食器1型",
+          45017.65000000001
+        ],
+        [
+          "模拟喂食器2型",
+          62325.09999999997
+        ],
+        [
+          "模拟喂食器3型",
+          73392.48000000001
+        ],
+        [
+          "模拟喂食器4型",
+          93351.45000000007
+        ],
+        [
+          "模拟猫砂盆1型",
+          190553.31
+        ],
+        [
+          "模拟猫砂盆2型",
+          166620.90000000008
+        ],
+        [
+          "模拟猫砂盆3型",
+          157132.68000000008
+        ],
+        [
+          "模拟猫砂盆4型",
+          226138.58000000002
+        ],
+        [
+          "模拟饮水机1型",
+          24715.79999999999
+        ],
+        [
+          "模拟饮水机2型",
+          37507.01999999998
+        ],
+        [
+          "模拟饮水机3型",
+          47949.799999999996
+        ],
+        [
+          "模拟饮水机4型",
+          54765.25
+        ]
+      ],
+      "row_count": 12
+    },
+    "chart": {
+      "chart_type": "bar",
+      "title": "请按产品型号列出各型号净销售额，按订单行实付减去对应退款。",
+      "x": "product_name",
+      "y": [
+        "net_sales"
+      ],
+      "labels": [
+        "模拟喂食器1型",
+        "模拟喂食器2型",
+        "模拟喂食器3型",
+        "模拟喂食器4型",
+        "模拟猫砂盆1型",
+        "模拟猫砂盆2型",
+        "模拟猫砂盆3型",
+        "模拟猫砂盆4型",
+        "模拟饮水机1型",
+        "模拟饮水机2型",
+        "模拟饮水机3型",
+        "模拟饮水机4型"
+      ],
+      "values": [
+        45017.65000000001,
+        62325.09999999997,
+        73392.48000000001,
+        93351.45000000007,
+        190553.31,
+        166620.90000000008,
+        157132.68000000008,
+        226138.58000000002,
+        24715.79999999999,
+        37507.01999999998,
+        47949.799999999996,
+        54765.25
+      ],
+      "reason": "单维度单数值，适合柱状图展示分组对比"
+    },
+    "insights": [
+      "基于自建模拟数据返回12行，数据观察截止2026-10-16。",
+      "计算口径：订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分"
+    ],
+    "error": "",
+    "mock_used": false
+  },
+  "worker_state": "completed",
+  "children_stopped": true
+}

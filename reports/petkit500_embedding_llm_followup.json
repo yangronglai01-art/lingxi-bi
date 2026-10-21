@@ -1,0 +1,21 @@
+{
+  "retrieval": "BM25+BGE-M3+RRF",
+  "sql_generation": "real LLM",
+  "not_blind_benchmark": true,
+  "rows": [
+    {
+      "question": "请核算2026年7月各型号在售出30天内的激活率，排除观察期不满30天的设备，给出分子、分母和百分数。",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"sales_devices\" AS (SELECT \"bd\".\"device_id\" AS \"device_id\", \"dp\".\"product_id\" AS \"product_id\", \"dp\".\"product_name\" AS \"product_name\", \"fo\".\"paid_date\" AS \"paid_date\" FROM \"fact_order\" AS \"fo\" INNER JOIN \"fact_order_item\" AS \"foi\" ON \"fo\".\"order_id\" = \"foi\".\"order_id\" INNER JOIN \"bridge_order_device\" AS \"bd\" ON \"foi\".\"item_id\" = \"bd\".\"item_id\" INNER JOIN \"dim_device\" AS \"dd\" ON \"bd\".\"device_id\" = \"dd\".\"device_id\" INNER JOIN \"dim_product\" AS \"dp\" ON \"dd\".\"product_id\" = \"dp\".\"product_id\" WHERE \"fo\".\"paid_date\" >= CAST('2026-07-01' AS DATE) AND \"fo\".\"paid_date\" <= CAST('2026-07-31' AS DATE) AND \"fo\".\"paid_date\" <= CAST('2026-09-16' AS DATE)), \"activation_events\" AS (SELECT \"sd\".\"device_id\" AS \"device_id\", \"sd\".\"product_id\" AS \"product_id\", \"sd\".\"product_name\" AS \"product_name\", \"sd\".\"paid_date\" AS \"paid_date\", \"fa\".\"activation_date\" AS \"activation_date\" FROM \"sales_devices\" AS \"sd\" LEFT JOIN \"fact_device_activation\" AS \"fa\" ON \"sd\".\"device_id\" = \"fa\".\"device_id\") SELECT \"activation_events\".\"product_id\" AS \"product_id\", \"activation_events\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"activation_events\".\"device_id\") AS \"denominator\", COUNT(DISTINCT CASE WHEN NOT \"activation_events\".\"activation_date\" IS NULL AND \"activation_events\".\"activation_date\" >= \"activation_events\".\"paid_date\" AND \"activation_events\".\"activation_date\" <= \"activation_events\".\"paid_date\" + INTERVAL '30' DAY THEN \"activation_events\".\"device_id\" END) AS \"numerator\", ROUND(COUNT(DISTINCT CASE WHEN NOT \"activation_events\".\"activation_date\" IS NULL AND \"activation_events\".\"activation_date\" >= \"activation_events\".\"paid_date\" AND \"activation_events\".\"activation_date\" <= \"activation_events\".\"paid_date\" + INTERVAL '30' DAY THEN \"activation_events\".\"device_id\" END) * 100.0 / COUNT(DISTINCT \"activation_events\".\"device_id\"), 2) AS \"activation_rate_pct\" FROM \"activation_events\" AS \"activation_events\" GROUP BY \"activation_events\".\"product_id\", \"activation_events\".\"product_name\" ORDER BY \"product_id\" LIMIT 1001",
+      "mock_used": false,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 12.481
+    }
+  ],
+  "passed": 1,
+  "attempted": 1
+}

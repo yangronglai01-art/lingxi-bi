@@ -1,0 +1,1012 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "case_sha256": "bb8ec7850dff2937c5ec5002977a2b3eba8d8140fed81dae9ee7d9665251e3d4",
+  "code_sha256": {
+    "scripts/validate_petkit_schema_context.py": "e089803cf6ab087fc140f1b66f490b008e64ac6173ce1db1c2fd5a8e4433bc1f",
+    "src/petkit/retrieval.py": "ff7e7e8cfb57e7f1284cbc249d4de82f6cd634a24c2d248b16938650fcdc4880",
+    "src/petkit/access.py": "345174ba9a456b43c31ce288ff8bea95a18044bb480a27480b2d022a15c2f8d0"
+  },
+  "embedding_model": "D:\\projects\\Zhixi\\models\\bge-m3",
+  "real_llm_called": false,
+  "load_test": false,
+  "external_independent_benchmark": false,
+  "field_ranking_evaluated": false,
+  "rows": [
+    {
+      "id": "net_sales-1",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "net_sales-1",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "net_sales-2",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "net_sales-2",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "net_sales-3",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "net_sales-3",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "activation30-1",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "activation30-1",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 11,
+        "passed": true
+      }
+    },
+    {
+      "id": "activation30-2",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "activation30-2",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 11,
+        "passed": true
+      }
+    },
+    {
+      "id": "activation30-3",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "activation30-3",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 11,
+        "passed": true
+      }
+    },
+    {
+      "id": "service30-1",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "service30-1",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 11,
+        "passed": true
+      }
+    },
+    {
+      "id": "service30-2",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "service30-2",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 11,
+        "passed": true
+      }
+    },
+    {
+      "id": "service30-3",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "service30-3",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 11,
+        "passed": true
+      }
+    },
+    {
+      "id": "offline_rate-1",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "offline_rate-1",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "offline_rate-2",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "offline_rate-2",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "offline_rate-3",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "offline_rate-3",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "tickets-1",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "tickets-1",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "tickets-2",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "tickets-2",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "tickets-3",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "tickets-3",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "inventory-1",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "inventory-1",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "inventory-2",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "inventory-2",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "inventory-3",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "inventory-3",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "received_units-1",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 9,
+        "passed": true
+      }
+    },
+    {
+      "id": "received_units-1",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "received_units-2",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "received_units-2",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "received_units-3",
+      "kind": "context",
+      "metric_completion": false,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "received_units-3",
+      "kind": "context",
+      "metric_completion": true,
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true
+      }
+    },
+    {
+      "id": "global:net_sales",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "global:activation30",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 11,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "global:service30",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 11,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "global:offline_rate",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "global:tickets",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "global:received_units",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "global:inventory",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "sales-r1:net_sales",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "sales-r1:activation30",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "sales-r1:service30",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "sales-r1:offline_rate",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "sales-r1:tickets",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "sales-r1:received_units",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "sales-r1:inventory",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "service-r2:net_sales",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "service-r2:activation30",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 9,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "service-r2:service30",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 9,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "service-r2:offline_rate",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "service-r2:tickets",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "service-r2:received_units",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "service-r2:inventory",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "supply-r1:net_sales",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "supply-r1:activation30",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "supply-r1:service30",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "supply-r1:offline_rate",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "supply-r1:tickets",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "supply-r1:received_units",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "supply-r1:inventory",
+      "kind": "permission",
+      "assessment": {
+        "missing_columns": [],
+        "disconnected_tables": [],
+        "bad_relationships": [],
+        "unauthorized_tables": [],
+        "unauthorized_evidence": [],
+        "table_count": 8,
+        "passed": true,
+        "expected_allowed": true,
+        "denied": false
+      }
+    },
+    {
+      "id": "viewer:net_sales",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "viewer:activation30",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "viewer:service30",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "viewer:offline_rate",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "viewer:tickets",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "viewer:received_units",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    },
+    {
+      "id": "viewer:inventory",
+      "kind": "permission",
+      "assessment": {
+        "passed": true,
+        "denied": true,
+        "expected_allowed": false
+      }
+    }
+  ],
+  "completed": true,
+  "passed": 77,
+  "total": 77
+}

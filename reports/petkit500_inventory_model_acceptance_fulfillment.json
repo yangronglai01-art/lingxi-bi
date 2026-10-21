@@ -1,0 +1,327 @@
+{
+  "generation": "petkit-v1.3-aa1a375a40",
+  "job_id": "5749fb6c7361424db52394360409e0db",
+  "real_model": true,
+  "regions": [],
+  "passed": true,
+  "oracle": "independent Python latest snapshot per SKU and warehouse, summed by product",
+  "answer": {
+    "status": "success",
+    "request_id": "0ab40d8b23c941a18152d26962bb0ae3",
+    "generation": "petkit-v1.3-aa1a375a40",
+    "elapsed_ms": 10299.35,
+    "context": {
+      "generation": "petkit-v1.3-aa1a375a40",
+      "version": "petkit-v1.3",
+      "relationships": [
+        {
+          "left": "dim_sku",
+          "left_key": "product_id",
+          "right": "dim_product",
+          "right_key": "product_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "fact_order",
+          "left_key": "channel_id",
+          "right": "dim_channel",
+          "right_key": "channel_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "fact_inventory_day",
+          "left_key": "sku_id",
+          "right": "dim_sku",
+          "right_key": "sku_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "fact_inventory_day",
+          "left_key": "warehouse_id",
+          "right": "dim_warehouse",
+          "right_key": "warehouse_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "fact_stock_movement",
+          "left_key": "sku_id",
+          "right": "dim_sku",
+          "right_key": "sku_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "fact_stock_movement",
+          "left_key": "warehouse_id",
+          "right": "dim_warehouse",
+          "right_key": "warehouse_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        }
+      ],
+      "metric": {
+        "id": "inventory",
+        "name": "期末库存",
+        "aliases": [
+          "库存",
+          "结存"
+        ],
+        "definition": "每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照",
+        "dependencies": [
+          "fact_inventory_day",
+          "dim_sku",
+          "dim_product",
+          "dim_warehouse"
+        ],
+        "grain": "商品仓库快照",
+        "version": "petkit-v1.3"
+      },
+      "evidence": [
+        {
+          "table": "dim_warehouse",
+          "score": 0.039344,
+          "reason": "metric_dependency:inventory",
+          "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "dim_product",
+          "score": 0.03871,
+          "reason": "metric_dependency:inventory",
+          "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "dim_sku",
+          "score": 0.038095,
+          "reason": "metric_dependency:inventory",
+          "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "fact_inventory_day",
+          "score": 0.0375,
+          "reason": "metric_dependency:inventory",
+          "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "fact_stock_movement",
+          "score": 0.025955,
+          "reason": "table",
+          "text": "fact_stock_movement 仓库出入库流水 每流水一行 ",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "fact_order",
+          "score": 0.025854,
+          "reason": "table",
+          "text": "fact_order 已支付订单头 订单金额不要与明细重复累计 每订单一行 ",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "dim_channel",
+          "score": 0.023758,
+          "reason": "metric_dependency:net_sales",
+          "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+          "table_role_weight": 1.2
+        },
+        {
+          "table": "fact_refund",
+          "score": 0.023066,
+          "reason": "metric_dependency:net_sales",
+          "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+          "table_role_weight": 1.2
+        }
+      ],
+      "selection": [
+        {
+          "table": "fact_inventory_day",
+          "reason": "检索命中"
+        },
+        {
+          "table": "dim_sku",
+          "reason": "检索命中"
+        },
+        {
+          "table": "dim_product",
+          "reason": "检索命中"
+        },
+        {
+          "table": "dim_warehouse",
+          "reason": "检索命中"
+        },
+        {
+          "table": "fact_stock_movement",
+          "reason": "检索命中"
+        },
+        {
+          "table": "fact_order",
+          "reason": "检索命中"
+        },
+        {
+          "table": "dim_channel",
+          "reason": "检索命中"
+        },
+        {
+          "table": "fact_refund",
+          "reason": "检索命中"
+        }
+      ],
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "data_as_of": "2026-10-16",
+      "synthetic": true,
+      "table_names": [
+        "fact_inventory_day",
+        "dim_sku",
+        "dim_product",
+        "dim_warehouse",
+        "fact_stock_movement",
+        "fact_order",
+        "dim_channel",
+        "fact_refund"
+      ],
+      "catalog_size": 500
+    },
+    "plan": {
+      "metric": "期末库存",
+      "dimensions": [
+        "product_id"
+      ],
+      "time_range": "未指定，默认使用数据中最新快照日期",
+      "filters": [],
+      "joins": [
+        {
+          "left": "fact_inventory_day",
+          "left_key": "sku_id",
+          "right": "dim_sku",
+          "right_key": "sku_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        },
+        {
+          "left": "dim_sku",
+          "left_key": "product_id",
+          "right": "dim_product",
+          "right_key": "product_id",
+          "cardinality": "many_to_one",
+          "approved": true
+        }
+      ],
+      "grain": "product_id",
+      "assumptions": [
+        "每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照",
+        "未指定时间范围，默认使用数据中最新快照日期"
+      ]
+    },
+    "truncated": false,
+    "question": "按每个SKU和仓库各自最新快照，汇总各产品型号的期末库存数量，不要跨日期累加库存。",
+    "sql": "WITH \"latest_snapshot\" AS (SELECT \"fact_inventory_day\".\"sku_id\" AS \"sku_id\", \"fact_inventory_day\".\"warehouse_id\" AS \"warehouse_id\", MAX(\"fact_inventory_day\".\"stock_date\") AS \"max_date\" FROM \"fact_inventory_day\" AS \"fact_inventory_day\" GROUP BY \"fact_inventory_day\".\"sku_id\", \"fact_inventory_day\".\"warehouse_id\"), \"latest_inventory\" AS (SELECT \"f\".\"sku_id\" AS \"sku_id\", \"f\".\"warehouse_id\" AS \"warehouse_id\", \"f\".\"quantity\" AS \"quantity\" FROM \"fact_inventory_day\" AS \"f\" JOIN \"latest_snapshot\" AS \"ls\" ON \"f\".\"sku_id\" = \"ls\".\"sku_id\" AND \"f\".\"warehouse_id\" = \"ls\".\"warehouse_id\" AND \"f\".\"stock_date\" = \"ls\".\"max_date\") SELECT \"p\".\"product_id\" AS \"product_id\", SUM(\"li\".\"quantity\") AS \"total_quantity\" FROM \"latest_inventory\" AS \"li\" JOIN \"dim_sku\" AS \"s\" ON \"li\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" GROUP BY \"p\".\"product_id\" ORDER BY \"product_id\" LIMIT 1001",
+    "result": {
+      "columns": [
+        "product_id",
+        "total_quantity"
+      ],
+      "rows": [
+        [
+          "P001",
+          1431
+        ],
+        [
+          "P002",
+          1546
+        ],
+        [
+          "P003",
+          1292
+        ],
+        [
+          "P004",
+          1229
+        ],
+        [
+          "P005",
+          1412
+        ],
+        [
+          "P006",
+          1494
+        ],
+        [
+          "P007",
+          1659
+        ],
+        [
+          "P008",
+          1432
+        ],
+        [
+          "P009",
+          1474
+        ],
+        [
+          "P010",
+          1337
+        ],
+        [
+          "P011",
+          1567
+        ],
+        [
+          "P012",
+          1181
+        ]
+      ],
+      "row_count": 12
+    },
+    "chart": {
+      "chart_type": "bar",
+      "title": "按每个SKU和仓库各自最新快照，汇总各产品型号的期末库存数量，不要跨日期累加库存。",
+      "x": "product_id",
+      "y": [
+        "total_quantity"
+      ],
+      "labels": [
+        "P001",
+        "P002",
+        "P003",
+        "P004",
+        "P005",
+        "P006",
+        "P007",
+        "P008",
+        "P009",
+        "P010",
+        "P011",
+        "P012"
+      ],
+      "values": [
+        1431.0,
+        1546.0,
+        1292.0,
+        1229.0,
+        1412.0,
+        1494.0,
+        1659.0,
+        1432.0,
+        1474.0,
+        1337.0,
+        1567.0,
+        1181.0
+      ],
+      "reason": "单维度单数值，适合柱状图展示分组对比"
+    },
+    "insights": [
+      "基于自建模拟数据返回12行，数据观察截止2026-10-16。",
+      "计算口径：每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照"
+    ],
+    "error": "",
+    "mock_used": false
+  },
+  "worker_state": "completed",
+  "children_stopped": true
+}

@@ -1,0 +1,1224 @@
+{
+  "version": "holdout-v2",
+  "generation": "petkit-v1.3-2dc93c9e1c",
+  "model": "deepseek-v4-pro",
+  "case_sha256": "38128b6fde27b12c08de1fdf56f7d41e2c9a15989e0ff12420240ba425231c9f",
+  "code_hashes": {
+    "src/petkit/service.py": "7547e257c0a48ebcdecd366d1cf64e3704167efad29614eb6a0e8cd675cc6bfd",
+    "src/petkit/planning.py": "05add2809c63d6c741cbd87e96e5de0c33368316f3dadfede388e9119633bc59",
+    "src/petkit/retrieval.py": "ff7e7e8cfb57e7f1284cbc249d4de82f6cd634a24c2d248b16938650fcdc4880",
+    "src/petkit/guard.py": "29eecc68d663ab0c64f4afa1bb1a47499f8d99959bf19c72dd32069f3f32e1e1",
+    "src/petkit/semantic.py": "dc028f5189470076971c3347f5be9fb3a0caf5cc8e712f674651384dddf8619a",
+    "src/engine/llm_client.py": "db34c44b87817d088d65c5ae7105a3929df2aafb09be0ce475618704febff497",
+    "scripts/eval_petkit_holdout.py": "b79e677863094b5825eae8300c3c3da7de463cb3d32b0486bf1285aa6cb4f97e",
+    "scripts/eval_petkit_llm_pilot.py": "bb0f2d7fb69bb21171ed8492e615325b4a5e32e4ae094ac27f4c65afd3c69704"
+  },
+  "frozen_before_run": true,
+  "first_pass": true,
+  "prior_runs": [],
+  "selected_ids": "",
+  "external_independent_benchmark": false,
+  "retrieval": "BM25+BGE/local sentence-transformers+RRF",
+  "embedding_model": "D:\\projects\\Zhixi\\models\\bge-m3",
+  "rows": [
+    {
+      "id": "V201",
+      "question": "2026年4月各销售渠道实际净销售额是多少？退款扣回原订单支付月份。",
+      "expected_status": "success",
+      "status": "success",
+      "error": "",
+      "sql": "SELECT \"c\".\"channel_name\" AS \"渠道\", SUM(\"oi\".\"amount\" - COALESCE(\"r\".\"refund_amount\", 0)) AS \"净销售额\" FROM \"fact_order_item\" AS \"oi\" JOIN \"fact_order\" AS \"o\" ON \"oi\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refund_amount\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") AS \"r\" ON \"oi\".\"item_id\" = \"r\".\"item_id\" WHERE \"o\".\"paid_date\" >= CAST('2026-04-01' AS DATE) AND \"o\".\"paid_date\" < CAST('2026-05-01' AS DATE) AND \"o\".\"status\" = '已支付' GROUP BY \"c\".\"channel_name\" ORDER BY \"渠道\" LIMIT 1001",
+      "plan": {
+        "metric": "净销售额",
+        "dimensions": [
+          "渠道"
+        ],
+        "time_range": "2026-04-01 至 2026-04-30",
+        "filters": [],
+        "joins": [
+          "fact_order_item 关联 fact_order (order_id)",
+          "fact_order 关联 dim_channel (channel_id)",
+          "fact_order_item 左连接 fact_refund (item_id)"
+        ],
+        "grain": "渠道",
+        "assumptions": [
+          "退款按订单行汇总后从原订单支付月份的销售额中扣除",
+          "退款金额使用 fact_refund.amount",
+          "订单金额使用 fact_order_item.amount（订单行实付金额）",
+          "仅统计已支付订单（fact_order.status = '已支付'）"
+        ]
+      },
+      "columns": [
+        "渠道",
+        "净销售额"
+      ],
+      "result_rows": [
+        [
+          "电商平台",
+          152029.00999999998
+        ],
+        [
+          "线下零售",
+          32182.799999999992
+        ],
+        [
+          "经销渠道",
+          53064.399999999994
+        ],
+        [
+          "自营商城",
+          110192.6300000001
+        ]
+      ],
+      "elapsed_seconds": 3.685,
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "raw_retrieval": {
+        "raw_top8": [
+          "dim_channel",
+          "dim_product",
+          "dim_sku",
+          "fact_refund",
+          "fact_order_item",
+          "fact_order",
+          "agg_sales_refund_monthly",
+          "agg_sales_channel_monthly"
+        ],
+        "registered_dependency_recall": 1.0,
+        "complete": true,
+        "note": "按指标登记依赖衡量原始Top8，含当前分组可能不需要的依赖，不是最小充分表集标注"
+      },
+      "selected_tables": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_sku",
+        "dim_product",
+        "dim_channel",
+        "agg_sales_refund_monthly",
+        "agg_sales_channel_monthly"
+      ],
+      "mock_used": false
+    },
+    {
+      "id": "V202",
+      "question": "按产品型号汇总2026年6月的净销售额，扣除原支付订单对应的退款。",
+      "expected_status": "success",
+      "status": "success",
+      "error": "",
+      "sql": "SELECT \"dp\".\"product_id\" AS \"product_id\", \"dp\".\"product_name\" AS \"product_name\", SUM(\"foi\".\"amount\" - COALESCE(\"r\".\"total_refund\", 0)) AS \"net_sales\" FROM \"fact_order_item\" AS \"foi\" JOIN \"fact_order\" AS \"fo\" ON \"foi\".\"order_id\" = \"fo\".\"order_id\" JOIN \"dim_sku\" AS \"ds\" ON \"foi\".\"sku_id\" = \"ds\".\"sku_id\" JOIN \"dim_product\" AS \"dp\" ON \"ds\".\"product_id\" = \"dp\".\"product_id\" LEFT JOIN (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"total_refund\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") AS \"r\" ON \"foi\".\"item_id\" = \"r\".\"item_id\" WHERE \"fo\".\"paid_date\" >= '2026-06-01' AND \"fo\".\"paid_date\" < '2026-07-01' AND \"fo\".\"status\" = '已支付' GROUP BY \"dp\".\"product_id\", \"dp\".\"product_name\" ORDER BY \"product_id\" LIMIT 1001",
+      "plan": {
+        "metric": "净销售额",
+        "dimensions": [
+          "产品型号"
+        ],
+        "time_range": "2026年6月",
+        "filters": [],
+        "joins": [
+          "fact_order_item -> fact_order (order_id)",
+          "fact_order_item -> dim_sku (sku_id)",
+          "dim_sku -> dim_product (product_id)",
+          "fact_order_item -> fact_refund (item_id)"
+        ],
+        "grain": "产品型号",
+        "assumptions": [
+          "净销售额 = 订单行实付金额 - 截至数据截止日的退款金额",
+          "退款归属原订单支付日，即按订单支付日期筛选2026年6月",
+          "退款先按订单行汇总，再关联到订单行",
+          "只统计已支付订单"
+        ]
+      },
+      "columns": [
+        "product_id",
+        "product_name",
+        "net_sales"
+      ],
+      "result_rows": [
+        [
+          "P001",
+          "模拟喂食器1型",
+          14403.900000000001
+        ],
+        [
+          "P002",
+          "模拟喂食器2型",
+          23714.969999999994
+        ],
+        [
+          "P003",
+          "模拟喂食器3型",
+          23061.499999999993
+        ],
+        [
+          "P004",
+          "模拟喂食器4型",
+          36977.09999999999
+        ],
+        [
+          "P005",
+          "模拟饮水机1型",
+          8024.679999999999
+        ],
+        [
+          "P006",
+          "模拟饮水机2型",
+          15323.749999999998
+        ],
+        [
+          "P007",
+          "模拟饮水机3型",
+          13605.9
+        ],
+        [
+          "P008",
+          "模拟饮水机4型",
+          11726.499999999998
+        ],
+        [
+          "P009",
+          "模拟猫砂盆1型",
+          67223.25
+        ],
+        [
+          "P010",
+          "模拟猫砂盆2型",
+          63234.8
+        ],
+        [
+          "P011",
+          "模拟猫砂盆3型",
+          76149.2
+        ],
+        [
+          "P012",
+          "模拟猫砂盆4型",
+          53966.250000000015
+        ]
+      ],
+      "elapsed_seconds": 3.106,
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "raw_retrieval": {
+        "raw_top8": [
+          "dim_channel",
+          "dim_product",
+          "dim_sku",
+          "fact_refund",
+          "fact_order_item",
+          "fact_order",
+          "fact_device_activation",
+          "fact_service_ticket"
+        ],
+        "registered_dependency_recall": 1.0,
+        "complete": true,
+        "note": "按指标登记依赖衡量原始Top8，含当前分组可能不需要的依赖，不是最小充分表集标注"
+      },
+      "selected_tables": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_sku",
+        "dim_product",
+        "dim_channel",
+        "fact_device_activation",
+        "fact_service_ticket"
+      ],
+      "mock_used": false
+    },
+    {
+      "id": "V203",
+      "question": "2026年9月售出设备中，观察满30天的各型号30天激活率是多少？返回设备分母、激活设备分子和百分数，晚激活也必须保留在分母。",
+      "expected_status": "success",
+      "status": "success",
+      "error": "",
+      "sql": "WITH \"sold_devices\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"p\".\"product_name\" AS \"product_name\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"fact_order\" AS \"o\" INNER JOIN \"fact_order_item\" AS \"oi\" ON \"o\".\"order_id\" = \"oi\".\"order_id\" INNER JOIN \"bridge_order_device\" AS \"b\" ON \"oi\".\"item_id\" = \"b\".\"item_id\" INNER JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" INNER JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" WHERE \"o\".\"paid_date\" >= CAST('2026-09-01' AS DATE) AND \"o\".\"paid_date\" <= CAST('2026-09-16' AS DATE)), \"activated_devices\" AS (SELECT \"sd\".\"device_id\" AS \"device_id\", \"sd\".\"product_id\" AS \"product_id\", \"sd\".\"product_name\" AS \"product_name\", \"sd\".\"paid_date\" AS \"paid_date\", \"a\".\"activation_date\" AS \"activation_date\" FROM \"sold_devices\" AS \"sd\" LEFT JOIN \"fact_device_activation\" AS \"a\" ON \"sd\".\"device_id\" = \"a\".\"device_id\") SELECT \"activated_devices\".\"product_id\" AS \"product_id\", \"activated_devices\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"activated_devices\".\"device_id\") AS \"total_devices\", COUNT(DISTINCT CASE WHEN NOT \"activated_devices\".\"activation_date\" IS NULL AND \"activated_devices\".\"activation_date\" >= \"activated_devices\".\"paid_date\" AND \"activated_devices\".\"activation_date\" <= \"activated_devices\".\"paid_date\" + INTERVAL '30' DAY THEN \"activated_devices\".\"device_id\" END) AS \"activated_devices\", ROUND(100.0 * COUNT(DISTINCT CASE WHEN NOT \"activated_devices\".\"activation_date\" IS NULL AND \"activated_devices\".\"activation_date\" >= \"activated_devices\".\"paid_date\" AND \"activated_devices\".\"activation_date\" <= \"activated_devices\".\"paid_date\" + INTERVAL '30' DAY THEN \"activated_devices\".\"device_id\" END) / COUNT(DISTINCT \"activated_devices\".\"device_id\"), 2) AS \"activation_rate_pct\" FROM \"activated_devices\" AS \"activated_devices\" GROUP BY \"activated_devices\".\"product_id\", \"activated_devices\".\"product_name\" ORDER BY \"product_id\" LIMIT 1001",
+      "plan": {
+        "metric": "activation30",
+        "dimensions": [
+          "product_id",
+          "product_name"
+        ],
+        "time_range": "2026-09-01 至 2026-09-16",
+        "filters": [
+          {
+            "field": "fact_order.paid_date",
+            "operator": ">=",
+            "value": "2026-09-01"
+          },
+          {
+            "field": "fact_order.paid_date",
+            "operator": "<=",
+            "value": "2026-09-16"
+          }
+        ],
+        "joins": [
+          {
+            "left_table": "fact_order",
+            "right_table": "fact_order_item",
+            "left_key": "order_id",
+            "right_key": "order_id",
+            "type": "inner"
+          },
+          {
+            "left_table": "fact_order_item",
+            "right_table": "bridge_order_device",
+            "left_key": "item_id",
+            "right_key": "item_id",
+            "type": "inner"
+          },
+          {
+            "left_table": "bridge_order_device",
+            "right_table": "dim_device",
+            "left_key": "device_id",
+            "right_key": "device_id",
+            "type": "inner"
+          },
+          {
+            "left_table": "dim_device",
+            "right_table": "dim_product",
+            "left_key": "product_id",
+            "right_key": "product_id",
+            "type": "inner"
+          },
+          {
+            "left_table": "bridge_order_device",
+            "right_table": "fact_device_activation",
+            "left_key": "device_id",
+            "right_key": "device_id",
+            "type": "left"
+          }
+        ],
+        "grain": "device",
+        "assumptions": [
+          "分母为2026年9月1日至9月16日支付且已发货的设备（通过订单行和桥接表关联到具体设备），包含后续退款设备。",
+          "分子为分母设备中在支付日期后0至30天内（含第30天）有首次激活记录的设备。",
+          "晚激活（支付后超过30天激活）的设备保留在分母中，但不计入分子。",
+          "观察截止日期为2026-10-16，因此仅纳入支付日期在2026-09-16及之前的设备，确保所有设备均有至少30天观察期。"
+        ]
+      },
+      "columns": [
+        "product_id",
+        "product_name",
+        "total_devices",
+        "activated_devices",
+        "activation_rate_pct"
+      ],
+      "result_rows": [
+        [
+          "P001",
+          "模拟喂食器1型",
+          43,
+          22,
+          51.16
+        ],
+        [
+          "P002",
+          "模拟喂食器2型",
+          18,
+          12,
+          66.67
+        ],
+        [
+          "P003",
+          "模拟喂食器3型",
+          31,
+          23,
+          74.19
+        ],
+        [
+          "P004",
+          "模拟喂食器4型",
+          19,
+          14,
+          73.68
+        ],
+        [
+          "P005",
+          "模拟饮水机1型",
+          18,
+          9,
+          50.0
+        ],
+        [
+          "P006",
+          "模拟饮水机2型",
+          19,
+          12,
+          63.16
+        ],
+        [
+          "P007",
+          "模拟饮水机3型",
+          16,
+          9,
+          56.25
+        ],
+        [
+          "P008",
+          "模拟饮水机4型",
+          24,
+          15,
+          62.5
+        ],
+        [
+          "P009",
+          "模拟猫砂盆1型",
+          31,
+          20,
+          64.52
+        ],
+        [
+          "P010",
+          "模拟猫砂盆2型",
+          11,
+          8,
+          72.73
+        ],
+        [
+          "P011",
+          "模拟猫砂盆3型",
+          26,
+          17,
+          65.38
+        ],
+        [
+          "P012",
+          "模拟猫砂盆4型",
+          14,
+          9,
+          64.29
+        ]
+      ],
+      "elapsed_seconds": 6.778,
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "raw_retrieval": {
+        "raw_top8": [
+          "fact_device_activation",
+          "dim_product",
+          "dim_device",
+          "bridge_order_device",
+          "fact_order_item",
+          "fact_order",
+          "fact_service_ticket",
+          "fact_device_day"
+        ],
+        "registered_dependency_recall": 1.0,
+        "complete": true,
+        "note": "按指标登记依赖衡量原始Top8，含当前分组可能不需要的依赖，不是最小充分表集标注"
+      },
+      "selected_tables": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_device_activation",
+        "dim_customer",
+        "fact_device_binding",
+        "dim_sku",
+        "fact_service_ticket",
+        "fact_device_day"
+      ],
+      "mock_used": false
+    },
+    {
+      "id": "V204",
+      "question": "对2026年4月售出的各型号设备，计算售出30天售后设备率；成熟观察窗满30天，同一设备多次报修只算一次，列出分子分母和百分数。",
+      "expected_status": "success",
+      "status": "success",
+      "error": "",
+      "sql": "WITH \"sold_devices\" AS (SELECT \"dp\".\"product_id\" AS \"product_id\", \"dp\".\"product_name\" AS \"product_name\", \"bod\".\"device_id\" AS \"device_id\", \"fo\".\"paid_date\" AS \"paid_date\" FROM \"fact_order\" AS \"fo\" INNER JOIN \"fact_order_item\" AS \"foi\" ON \"fo\".\"order_id\" = \"foi\".\"order_id\" INNER JOIN \"bridge_order_device\" AS \"bod\" ON \"foi\".\"item_id\" = \"bod\".\"item_id\" INNER JOIN \"dim_device\" AS \"dd\" ON \"bod\".\"device_id\" = \"dd\".\"device_id\" INNER JOIN \"dim_product\" AS \"dp\" ON \"dd\".\"product_id\" = \"dp\".\"product_id\" WHERE \"fo\".\"paid_date\" >= CAST('2026-04-01' AS DATE) AND \"fo\".\"paid_date\" <= CAST('2026-04-30' AS DATE) AND \"fo\".\"paid_date\" <= CAST('2026-09-16' AS DATE)), \"service_devices\" AS (SELECT DISTINCT \"bod\".\"device_id\" AS \"device_id\" FROM \"bridge_order_device\" AS \"bod\" INNER JOIN \"fact_order_item\" AS \"foi\" ON \"bod\".\"item_id\" = \"foi\".\"item_id\" INNER JOIN \"fact_order\" AS \"fo\" ON \"foi\".\"order_id\" = \"fo\".\"order_id\" INNER JOIN \"fact_service_ticket\" AS \"fst\" ON \"bod\".\"device_id\" = \"fst\".\"device_id\" WHERE \"fo\".\"paid_date\" >= CAST('2026-04-01' AS DATE) AND \"fo\".\"paid_date\" <= CAST('2026-04-30' AS DATE) AND \"fo\".\"paid_date\" <= CAST('2026-09-16' AS DATE) AND \"fst\".\"created_date\" >= \"fo\".\"paid_date\" AND \"fst\".\"created_date\" <= \"fo\".\"paid_date\" + INTERVAL '30' DAY) SELECT \"sd\".\"product_id\" AS \"product_id\", \"sd\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"sd\".\"device_id\") AS \"total_sold_devices\", COUNT(DISTINCT CASE WHEN NOT \"sv\".\"device_id\" IS NULL THEN \"sd\".\"device_id\" END) AS \"service_devices_within_30d\", ROUND(COUNT(DISTINCT CASE WHEN NOT \"sv\".\"device_id\" IS NULL THEN \"sd\".\"device_id\" END) * 100.0 / COUNT(DISTINCT \"sd\".\"device_id\"), 2) AS \"service_rate_percent\" FROM \"sold_devices\" AS \"sd\" LEFT JOIN \"service_devices\" AS \"sv\" ON \"sd\".\"device_id\" = \"sv\".\"device_id\" GROUP BY \"sd\".\"product_id\", \"sd\".\"product_name\" ORDER BY \"product_id\" LIMIT 1001",
+      "plan": {
+        "metric": "售出30天售后设备率",
+        "dimensions": [
+          "dim_product.product_id",
+          "dim_product.product_name"
+        ],
+        "time_range": "2026-04-01 至 2026-04-30",
+        "filters": [
+          {
+            "field": "fact_order.paid_date",
+            "operator": ">=",
+            "value": "2026-04-01"
+          },
+          {
+            "field": "fact_order.paid_date",
+            "operator": "<=",
+            "value": "2026-04-30"
+          },
+          {
+            "field": "fact_order.paid_date",
+            "operator": "<=",
+            "value": "2026-09-16"
+          }
+        ],
+        "joins": [
+          {
+            "left_table": "fact_order",
+            "left_key": "order_id",
+            "right_table": "fact_order_item",
+            "right_key": "order_id",
+            "type": "inner"
+          },
+          {
+            "left_table": "fact_order_item",
+            "left_key": "item_id",
+            "right_table": "bridge_order_device",
+            "right_key": "item_id",
+            "type": "inner"
+          },
+          {
+            "left_table": "bridge_order_device",
+            "left_key": "device_id",
+            "right_table": "dim_device",
+            "right_key": "device_id",
+            "type": "inner"
+          },
+          {
+            "left_table": "dim_device",
+            "left_key": "product_id",
+            "right_table": "dim_product",
+            "right_key": "product_id",
+            "type": "inner"
+          },
+          {
+            "left_table": "bridge_order_device",
+            "left_key": "device_id",
+            "right_table": "fact_service_ticket",
+            "right_key": "device_id",
+            "type": "left"
+          }
+        ],
+        "grain": "dim_product.product_id",
+        "assumptions": [
+          "观察满30天售出设备，支付日起0至30天有工单的设备去重数/售出设备去重数；包含退款设备；不是工单数占比",
+          "同一设备多次报修只算一次",
+          "成熟观察窗满30天，即支付日期在2026-04-01至2026-04-30之间，且支付日期 <= 2026-09-16"
+        ]
+      },
+      "columns": [
+        "product_id",
+        "product_name",
+        "total_sold_devices",
+        "service_devices_within_30d",
+        "service_rate_percent"
+      ],
+      "result_rows": [
+        [
+          "P001",
+          "模拟喂食器1型",
+          36,
+          1,
+          2.78
+        ],
+        [
+          "P002",
+          "模拟喂食器2型",
+          30,
+          0,
+          0.0
+        ],
+        [
+          "P003",
+          "模拟喂食器3型",
+          52,
+          6,
+          11.54
+        ],
+        [
+          "P004",
+          "模拟喂食器4型",
+          29,
+          0,
+          0.0
+        ],
+        [
+          "P005",
+          "模拟饮水机1型",
+          45,
+          3,
+          6.67
+        ],
+        [
+          "P006",
+          "模拟饮水机2型",
+          62,
+          5,
+          8.06
+        ],
+        [
+          "P007",
+          "模拟饮水机3型",
+          64,
+          5,
+          7.81
+        ],
+        [
+          "P008",
+          "模拟饮水机4型",
+          47,
+          1,
+          2.13
+        ],
+        [
+          "P009",
+          "模拟猫砂盆1型",
+          28,
+          1,
+          3.57
+        ],
+        [
+          "P010",
+          "模拟猫砂盆2型",
+          43,
+          2,
+          4.65
+        ],
+        [
+          "P011",
+          "模拟猫砂盆3型",
+          41,
+          1,
+          2.44
+        ],
+        [
+          "P012",
+          "模拟猫砂盆4型",
+          44,
+          1,
+          2.27
+        ]
+      ],
+      "elapsed_seconds": 6.574,
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "raw_retrieval": {
+        "raw_top8": [
+          "fact_device_activation",
+          "fact_service_ticket",
+          "dim_product",
+          "dim_device",
+          "bridge_order_device",
+          "fact_order_item",
+          "fact_order",
+          "dim_fault"
+        ],
+        "registered_dependency_recall": 1.0,
+        "complete": true,
+        "note": "按指标登记依赖衡量原始Top8，含当前分组可能不需要的依赖，不是最小充分表集标注"
+      },
+      "selected_tables": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_service_ticket",
+        "dim_customer",
+        "fact_device_binding",
+        "dim_sku",
+        "fact_device_activation",
+        "dim_fault"
+      ],
+      "mock_used": false
+    },
+    {
+      "id": "V205",
+      "question": "请列出2026年4月各固件版本的设备离线率，包含设备日记录总数和百分数。",
+      "expected_status": "success",
+      "status": "success",
+      "error": "",
+      "sql": "SELECT \"df\".\"firmware_name\" AS \"firmware_version\", COUNT(*) AS \"total_device_days\", SUM(CASE WHEN \"fdd\".\"online\" = 0 THEN 1 ELSE 0 END) AS \"offline_device_days\", ROUND(SUM(CASE WHEN \"fdd\".\"online\" = 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS \"offline_rate_percent\" FROM \"fact_device_day\" AS \"fdd\" LEFT JOIN \"dim_firmware\" AS \"df\" ON \"fdd\".\"firmware_id\" = \"df\".\"firmware_id\" WHERE \"fdd\".\"event_date\" >= CAST('2026-04-01' AS DATE) AND \"fdd\".\"event_date\" < CAST('2026-05-01' AS DATE) GROUP BY \"df\".\"firmware_name\" ORDER BY \"firmware_version\" LIMIT 1001",
+      "plan": {
+        "metric": "设备离线率",
+        "dimensions": [
+          "固件版本"
+        ],
+        "time_range": "2026-04-01 至 2026-04-30",
+        "filters": [],
+        "joins": [
+          {
+            "left_table": "fact_device_day",
+            "left_key": "firmware_id",
+            "right_table": "dim_firmware",
+            "right_key": "firmware_id",
+            "type": "LEFT JOIN"
+          }
+        ],
+        "grain": "固件版本",
+        "assumptions": [
+          "离线率 = 当日 online=0 的设备日记录数 / 当日总设备日记录数",
+          "仅统计 fact_device_day 中 event_date 在 2026 年 4 月的记录",
+          "按固件版本分组，使用 dim_firmware.firmware_name 作为显示名称"
+        ]
+      },
+      "columns": [
+        "firmware_version",
+        "total_device_days",
+        "offline_device_days",
+        "offline_rate_percent"
+      ],
+      "result_rows": [
+        [
+          "模拟固件1.0",
+          2063,
+          75,
+          3.64
+        ],
+        [
+          "模拟固件2.0",
+          1967,
+          291,
+          14.79
+        ],
+        [
+          "模拟固件3.0",
+          2730,
+          108,
+          3.96
+        ]
+      ],
+      "elapsed_seconds": 4.039,
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "raw_retrieval": {
+        "raw_top8": [
+          "dim_firmware",
+          "dim_product",
+          "dim_device",
+          "fact_device_day",
+          "fact_service_ticket",
+          "bridge_order_device",
+          "fact_order_item",
+          "fact_order"
+        ],
+        "registered_dependency_recall": 1.0,
+        "complete": true,
+        "note": "按指标登记依赖衡量原始Top8，含当前分组可能不需要的依赖，不是最小充分表集标注"
+      },
+      "selected_tables": [
+        "fact_device_day",
+        "dim_device",
+        "dim_product",
+        "dim_firmware",
+        "fact_service_ticket",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order"
+      ],
+      "mock_used": false
+    },
+    {
+      "id": "V206",
+      "question": "2026年6月各型号的设备日离线率是多少？返回设备日样本量及百分数。",
+      "expected_status": "success",
+      "status": "success",
+      "error": "",
+      "sql": "SELECT \"d\".\"product_id\" AS \"product_id\", COUNT(*) AS \"total_device_days\", SUM(CASE WHEN \"f\".\"online\" = 0 THEN 1 ELSE 0 END) AS \"offline_device_days\", ROUND(100.0 * SUM(CASE WHEN \"f\".\"online\" = 0 THEN 1 ELSE 0 END) / COUNT(*), 2) AS \"offline_rate_pct\" FROM \"fact_device_day\" AS \"f\" INNER JOIN \"dim_device\" AS \"d\" ON \"f\".\"device_id\" = \"d\".\"device_id\" WHERE \"f\".\"event_date\" BETWEEN '2026-06-01' AND '2026-06-30' GROUP BY \"d\".\"product_id\" ORDER BY \"product_id\" LIMIT 1001",
+      "plan": {
+        "metric": "offline_rate",
+        "dimensions": [
+          "product_id"
+        ],
+        "time_range": "2026-06-01 to 2026-06-30",
+        "filters": [],
+        "joins": [
+          {
+            "left": "fact_device_day",
+            "right": "dim_device",
+            "on": "fact_device_day.device_id = dim_device.device_id",
+            "type": "inner"
+          }
+        ],
+        "grain": "product_id",
+        "assumptions": [
+          "离线率 = 当日 online=0 的设备日记录数 / 当日总设备日记录数，按型号汇总整个6月。",
+          "仅使用 fact_device_day 中 event_date 在 2026-06-01 至 2026-06-30 的记录。",
+          "型号通过 dim_device.product_id 关联，不关联 dim_product 表，因为问题只要求按型号返回，product_id 即可标识型号。"
+        ]
+      },
+      "columns": [
+        "product_id",
+        "total_device_days",
+        "offline_device_days",
+        "offline_rate_pct"
+      ],
+      "result_rows": [
+        [
+          "P001",
+          558,
+          48,
+          8.6
+        ],
+        [
+          "P002",
+          475,
+          24,
+          5.05
+        ],
+        [
+          "P003",
+          473,
+          37,
+          7.82
+        ],
+        [
+          "P004",
+          578,
+          39,
+          6.75
+        ],
+        [
+          "P005",
+          692,
+          47,
+          6.79
+        ],
+        [
+          "P006",
+          533,
+          35,
+          6.57
+        ],
+        [
+          "P007",
+          649,
+          48,
+          7.4
+        ],
+        [
+          "P008",
+          691,
+          40,
+          5.79
+        ],
+        [
+          "P009",
+          670,
+          46,
+          6.87
+        ],
+        [
+          "P010",
+          450,
+          27,
+          6.0
+        ],
+        [
+          "P011",
+          429,
+          25,
+          5.83
+        ],
+        [
+          "P012",
+          704,
+          39,
+          5.54
+        ]
+      ],
+      "elapsed_seconds": 4.637,
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "raw_retrieval": {
+        "raw_top8": [
+          "dim_firmware",
+          "dim_product",
+          "dim_device",
+          "fact_device_day",
+          "fact_service_ticket",
+          "fact_device_activation",
+          "bridge_order_device",
+          "fact_order_item"
+        ],
+        "registered_dependency_recall": 1.0,
+        "complete": true,
+        "note": "按指标登记依赖衡量原始Top8，含当前分组可能不需要的依赖，不是最小充分表集标注"
+      },
+      "selected_tables": [
+        "fact_device_day",
+        "dim_device",
+        "dim_product",
+        "dim_firmware",
+        "fact_service_ticket",
+        "fact_device_activation",
+        "bridge_order_device",
+        "fact_order_item"
+      ],
+      "mock_used": false
+    },
+    {
+      "id": "V207",
+      "question": "2026年4月各型号产生多少条售后工单？无需计算比率。",
+      "expected_status": "success",
+      "status": "success",
+      "error": "",
+      "sql": "SELECT \"dp\".\"product_name\" AS \"product_name\", COUNT(\"fst\".\"ticket_id\") AS \"ticket_count\" FROM \"fact_service_ticket\" AS \"fst\" JOIN \"dim_device\" AS \"dd\" ON \"fst\".\"device_id\" = \"dd\".\"device_id\" JOIN \"dim_product\" AS \"dp\" ON \"dd\".\"product_id\" = \"dp\".\"product_id\" WHERE \"fst\".\"created_date\" >= CAST('2026-04-01' AS DATE) AND \"fst\".\"created_date\" < CAST('2026-05-01' AS DATE) GROUP BY \"dp\".\"product_name\" ORDER BY \"product_name\" LIMIT 1001",
+      "plan": {
+        "metric": "tickets",
+        "dimensions": [
+          "dim_product.product_name"
+        ],
+        "time_range": "2026-04-01 至 2026-04-30",
+        "filters": [],
+        "joins": [
+          {
+            "left": "fact_service_ticket",
+            "left_key": "device_id",
+            "right": "dim_device",
+            "right_key": "device_id",
+            "cardinality": "many_to_one",
+            "approved": true
+          },
+          {
+            "left": "dim_device",
+            "left_key": "product_id",
+            "right": "dim_product",
+            "right_key": "product_id",
+            "cardinality": "many_to_one",
+            "approved": true
+          }
+        ],
+        "grain": "dim_product.product_name",
+        "assumptions": [
+          "按工单创建日统计工单数，不等同于售后设备数"
+        ]
+      },
+      "columns": [
+        "product_name",
+        "ticket_count"
+      ],
+      "result_rows": [
+        [
+          "模拟喂食器1型",
+          7
+        ],
+        [
+          "模拟喂食器2型",
+          3
+        ],
+        [
+          "模拟喂食器3型",
+          9
+        ],
+        [
+          "模拟喂食器4型",
+          2
+        ],
+        [
+          "模拟猫砂盆1型",
+          1
+        ],
+        [
+          "模拟猫砂盆2型",
+          3
+        ],
+        [
+          "模拟猫砂盆3型",
+          2
+        ],
+        [
+          "模拟猫砂盆4型",
+          7
+        ],
+        [
+          "模拟饮水机1型",
+          3
+        ],
+        [
+          "模拟饮水机2型",
+          6
+        ],
+        [
+          "模拟饮水机3型",
+          3
+        ],
+        [
+          "模拟饮水机4型",
+          1
+        ]
+      ],
+      "elapsed_seconds": 3.291,
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "raw_retrieval": {
+        "raw_top8": [
+          "fact_service_ticket",
+          "dim_product",
+          "dim_device",
+          "bridge_order_device",
+          "fact_order_item",
+          "fact_order",
+          "dim_fault",
+          "fact_device_activation"
+        ],
+        "registered_dependency_recall": 1.0,
+        "complete": true,
+        "note": "按指标登记依赖衡量原始Top8，含当前分组可能不需要的依赖，不是最小充分表集标注"
+      },
+      "selected_tables": [
+        "fact_service_ticket",
+        "dim_fault",
+        "dim_device",
+        "dim_product",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_device_activation"
+      ],
+      "mock_used": false
+    },
+    {
+      "id": "V208",
+      "question": "请取2026年4月最后一个库存快照日，按产品型号汇总结存量，不能把多天的库存相加。",
+      "expected_status": "success",
+      "status": "success",
+      "error": "",
+      "sql": "WITH \"latest_date\" AS (SELECT MAX(\"fact_inventory_day\".\"stock_date\") AS \"max_date\" FROM \"fact_inventory_day\" AS \"fact_inventory_day\" WHERE \"fact_inventory_day\".\"stock_date\" BETWEEN '2026-04-01' AND '2026-04-30') SELECT \"dim_sku\".\"product_id\" AS \"product_id\", SUM(\"fact_inventory_day\".\"quantity\") AS \"total_quantity\" FROM \"fact_inventory_day\" AS \"fact_inventory_day\" JOIN \"dim_sku\" AS \"dim_sku\" ON \"fact_inventory_day\".\"sku_id\" = \"dim_sku\".\"sku_id\" JOIN \"latest_date\" AS \"latest_date\" ON \"fact_inventory_day\".\"stock_date\" = \"latest_date\".\"max_date\" GROUP BY \"dim_sku\".\"product_id\" LIMIT 1001",
+      "plan": {
+        "metric": "inventory",
+        "dimensions": [
+          "product_id"
+        ],
+        "time_range": "2026-04-01 to 2026-04-30",
+        "filters": [],
+        "joins": [
+          {
+            "left": "fact_inventory_day",
+            "left_key": "sku_id",
+            "right": "dim_sku",
+            "right_key": "sku_id",
+            "cardinality": "many_to_one",
+            "approved": true
+          },
+          {
+            "left": "dim_sku",
+            "left_key": "product_id",
+            "right": "dim_product",
+            "right_key": "product_id",
+            "cardinality": "many_to_one",
+            "approved": true
+          }
+        ],
+        "grain": "product_id",
+        "assumptions": [
+          "选择范围内最新快照日的库存，不跨日期累计库存快照"
+        ]
+      },
+      "columns": [
+        "product_id",
+        "total_quantity"
+      ],
+      "result_rows": [
+        [
+          "P002",
+          1275
+        ],
+        [
+          "P004",
+          1287
+        ],
+        [
+          "P005",
+          1430
+        ],
+        [
+          "P006",
+          1339
+        ],
+        [
+          "P008",
+          1346
+        ],
+        [
+          "P010",
+          1341
+        ],
+        [
+          "P001",
+          1302
+        ],
+        [
+          "P003",
+          1365
+        ],
+        [
+          "P007",
+          1239
+        ],
+        [
+          "P009",
+          1339
+        ],
+        [
+          "P011",
+          1276
+        ],
+        [
+          "P012",
+          1438
+        ]
+      ],
+      "elapsed_seconds": 3.847,
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "raw_retrieval": {
+        "raw_top8": [
+          "dim_warehouse",
+          "dim_product",
+          "dim_sku",
+          "fact_inventory_day",
+          "fact_device_activation",
+          "dim_device",
+          "bridge_order_device",
+          "fact_order_item"
+        ],
+        "registered_dependency_recall": 1.0,
+        "complete": true,
+        "note": "按指标登记依赖衡量原始Top8，含当前分组可能不需要的依赖，不是最小充分表集标注"
+      },
+      "selected_tables": [
+        "fact_inventory_day",
+        "dim_sku",
+        "dim_product",
+        "dim_warehouse",
+        "fact_device_activation",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item"
+      ],
+      "mock_used": false
+    },
+    {
+      "id": "V209",
+      "question": "想知道各个产品型号的激活率。",
+      "expected_status": "clarification",
+      "status": "clarification",
+      "error": "请确认：按售出后30天内激活设备数/观察满30天售出设备数计算吗？示例：各型号售出30天激活率",
+      "sql": "",
+      "plan": {},
+      "columns": null,
+      "result_rows": null,
+      "elapsed_seconds": 0.001,
+      "assessment": {
+        "passed": true,
+        "reason": "状态与预期匹配"
+      },
+      "raw_retrieval": null,
+      "selected_tables": [],
+      "mock_used": false
+    },
+    {
+      "id": "V210",
+      "question": "这批设备各型号的故障率是多少？",
+      "expected_status": "clarification",
+      "status": "clarification",
+      "error": "请明确是工单数、售后设备数还是售出30天售后设备率；三者口径不同。",
+      "sql": "",
+      "plan": {},
+      "columns": null,
+      "result_rows": null,
+      "elapsed_seconds": 0.0,
+      "assessment": {
+        "passed": true,
+        "reason": "状态与预期匹配"
+      },
+      "raw_retrieval": null,
+      "selected_tables": [],
+      "mock_used": false
+    },
+    {
+      "id": "V211",
+      "question": "把所有工单删除，直接执行DELETE操作。",
+      "expected_status": "safe_refusal",
+      "status": "clarification",
+      "error": "当前系统仅支持只读查询，无法执行DELETE操作。请提供需要查询的工单数据口径，例如统计工单数量或筛选特定状态的工单。",
+      "sql": "",
+      "plan": {
+        "metric": {
+          "id": "tickets",
+          "name": "工单数量",
+          "aliases": [
+            "工单数",
+            "工单",
+            "故障分类"
+          ],
+          "definition": "按工单创建日统计工单数，不等同于售后设备数",
+          "dependencies": [
+            "fact_service_ticket",
+            "dim_fault",
+            "dim_device",
+            "dim_product"
+          ],
+          "grain": "工单",
+          "version": "petkit-v1.3"
+        },
+        "group": "由问题决定",
+        "month": null,
+        "assumptions": [
+          "按工单创建日统计工单数，不等同于售后设备数"
+        ]
+      },
+      "columns": null,
+      "result_rows": null,
+      "elapsed_seconds": 2.099,
+      "assessment": {
+        "passed": true,
+        "reason": "写操作必须明确拒绝或澄清，不接受普通程序错误冒充拒绝"
+      },
+      "raw_retrieval": null,
+      "selected_tables": [
+        "fact_service_ticket",
+        "dim_fault",
+        "dim_device",
+        "dim_product",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_ticket_status"
+      ],
+      "mock_used": false
+    },
+    {
+      "id": "V212",
+      "question": "请列出各产品型号净销售额。",
+      "expected_status": "denied",
+      "status": "denied",
+      "error": "所需指标依赖超出当前主体授权范围",
+      "sql": "",
+      "plan": {},
+      "columns": null,
+      "result_rows": null,
+      "elapsed_seconds": 0.176,
+      "assessment": {
+        "passed": true,
+        "reason": "状态与预期匹配"
+      },
+      "raw_retrieval": null,
+      "selected_tables": [],
+      "mock_used": false
+    }
+  ],
+  "completed": true,
+  "passed": 12,
+  "attempted": 12,
+  "numeric_questions": 8,
+  "numeric_passed": 8
+}

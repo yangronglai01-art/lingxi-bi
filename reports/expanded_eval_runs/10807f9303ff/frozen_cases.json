@@ -1,0 +1,233 @@
+{
+  "version": "expanded-v1",
+  "purpose": "开发者编写且执行前冻结；跨表、区域、趋势、TopN、权限与歧义开发评测；非外部盲测",
+  "cases": [
+    {
+      "id": "N01",
+      "subject": "global_analyst",
+      "metric_id": "net_sales",
+      "group": "model",
+      "month": "2026-05",
+      "question": "2026年5月，各产品型号实际净销售额分别是多少？按订单行实付扣除截至截止日的对应退款，退款归原支付月份。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N02",
+      "subject": "global_analyst",
+      "metric_id": "received_units",
+      "group": "warehouse",
+      "month": "2026-03",
+      "question": "请按仓库列出2026年3月采购收货数量，汇总收货明细的实际件数，不是采购订购量或单据数。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N03",
+      "subject": "regional_supply",
+      "metric_id": "inventory",
+      "group": "model",
+      "month": "2026-09",
+      "question": "我权限范围内2026年9月各产品型号期末库存有多少件？每个SKU和仓库分别取当月最新快照，再按型号汇总。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N04",
+      "subject": "regional_service",
+      "metric_id": "tickets",
+      "group": "fault",
+      "month": "2026-07",
+      "question": "2026年7月我权限范围内各故障分类新建多少条工单？同一台设备多张工单分别计数。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N05",
+      "subject": "regional_service",
+      "metric_id": "offline_rate",
+      "group": "model",
+      "month": "2026-05",
+      "question": "2026年5月我能查看的设备，按产品型号计算设备日离线率，返回型号名称、总设备日样本量和百分数；online=0算离线。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N06",
+      "subject": "regional_service",
+      "metric_id": "activation30",
+      "group": "model",
+      "month": "2026-09",
+      "question": "2026年9月我权限内售出设备按型号计算30天激活率，只纳入观察满30天的设备，未激活和晚激活留在分母，列出设备分母、激活分子和百分数。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N07",
+      "subject": "regional_service",
+      "metric_id": "service30",
+      "group": "model",
+      "month": "2026-09",
+      "question": "按产品型号看2026年9月我权限内售出设备的30天售后设备率。只取成熟队列，含退款设备；多次报修按一台设备计，列出设备分母、售后分子、百分数。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N08",
+      "subject": "regional_sales",
+      "metric_id": "net_sales",
+      "group": "channel",
+      "month": "2026-07",
+      "question": "请按渠道名称统计2026年7月我权限范围内的净销售额，退款扣回原支付月份，不是按退款发生月份记账。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N09",
+      "subject": "global_analyst",
+      "metric_id": "net_sales",
+      "group": "month",
+      "month": null,
+      "question": "把现有数据每月净销售额列成趋势，月份显示YYYY-MM，订单行实付减对应退款，退款归原订单支付月份。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N10",
+      "subject": "global_analyst",
+      "metric_id": "net_sales",
+      "group": "model",
+      "month": "2026-09",
+      "question": "2026年9月净销售额最高的三个产品型号是什么？按金额降序，只返回型号名称和净销售额，退款扣回原支付月份。",
+      "expected_status": "success",
+      "top_n": 3,
+      "descending": true
+    },
+    {
+      "id": "N11",
+      "subject": "global_analyst",
+      "metric_id": "inventory",
+      "group": "model",
+      "month": "2026-07",
+      "question": "我想看2026年7月各产品型号的期末库存件数。商品和仓库分别选当月最后一次快照，不能把每日余额累加。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N12",
+      "subject": "global_analyst",
+      "metric_id": "offline_rate",
+      "group": "firmware",
+      "month": "2026-07",
+      "question": "2026年7月各固件版本设备日离线率各是多少？返回固件名称、全部设备日记录数及离线百分数。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N13",
+      "subject": "regional_supply",
+      "metric_id": "received_units",
+      "group": "warehouse",
+      "month": "2026-08",
+      "question": "在我的仓库权限内，2026年8月各仓库采购收货数量是多少件？按收货日期汇总实际quantity。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N14",
+      "subject": "global_analyst",
+      "metric_id": "activation30",
+      "group": "model",
+      "month": "2026-09",
+      "question": "对2026年9月售出批次，分型号列30天激活率和分子分母，排除未观察满30天样本，保留没有事件的设备。",
+      "expected_status": "success"
+    },
+    {
+      "id": "N15",
+      "subject": "global_analyst",
+      "metric_id": "net_sales",
+      "group": "channel",
+      "month": "2026-02",
+      "question": "请列2026年2月各销售渠道的净销售额并按金额降序，退款归原订单支付月份。",
+      "expected_status": "success",
+      "descending": true
+    },
+    {
+      "id": "N16",
+      "subject": "global_analyst",
+      "metric_id": "service30",
+      "group": "model",
+      "month": "2026-07",
+      "question": "2026年7月各型号售出设备的30天售后设备率如何？成熟观察窗满30天，去重售后设备除完整售出设备，返回型号、分母、分子和百分数。",
+      "expected_status": "success"
+    },
+    {
+      "id": "B01",
+      "subject": "restricted_viewer",
+      "metric_id": "net_sales",
+      "question": "2026年5月各型号净销售额是多少？",
+      "expected_status": "denied"
+    },
+    {
+      "id": "B02",
+      "subject": "restricted_viewer",
+      "metric_id": "received_units",
+      "question": "2026年3月各仓库采购收货数量是多少？",
+      "expected_status": "denied"
+    },
+    {
+      "id": "B03",
+      "subject": "regional_sales",
+      "metric_id": "inventory",
+      "question": "2026年9月各型号期末库存是多少？",
+      "expected_status": "denied"
+    },
+    {
+      "id": "B04",
+      "subject": "regional_sales",
+      "metric_id": "offline_rate",
+      "question": "2026年5月各型号设备离线率是多少？",
+      "expected_status": "denied"
+    },
+    {
+      "id": "B05",
+      "subject": "regional_supply",
+      "metric_id": "tickets",
+      "question": "2026年7月各故障分类工单数是多少？",
+      "expected_status": "denied"
+    },
+    {
+      "id": "B06",
+      "subject": "regional_supply",
+      "metric_id": "net_sales",
+      "question": "2026年7月各渠道净销售额是多少？",
+      "expected_status": "denied"
+    },
+    {
+      "id": "B07",
+      "subject": "restricted_viewer",
+      "metric_id": "activation30",
+      "question": "2026年9月各型号售出30天激活率是多少？",
+      "expected_status": "denied"
+    },
+    {
+      "id": "B08",
+      "subject": "restricted_viewer",
+      "metric_id": "service30",
+      "question": "2026年9月各型号售出30天售后设备率是多少？",
+      "expected_status": "denied"
+    },
+    {
+      "id": "C01",
+      "subject": "global_analyst",
+      "question": "各产品型号的激活率是多少？",
+      "expected_status": "clarification"
+    },
+    {
+      "id": "C02",
+      "subject": "global_analyst",
+      "question": "各型号故障率最近如何？",
+      "expected_status": "clarification"
+    },
+    {
+      "id": "C03",
+      "subject": "global_analyst",
+      "question": "同时列出各型号净销售额和期末库存。",
+      "expected_status": "clarification"
+    },
+    {
+      "id": "C04",
+      "subject": "global_analyst",
+      "question": "一起算各型号30天激活率和30天售后设备率。",
+      "expected_status": "clarification"
+    }
+  ]
+}

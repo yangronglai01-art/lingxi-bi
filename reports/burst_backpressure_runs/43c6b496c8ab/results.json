@@ -1,0 +1,718 @@
+{
+  "mode": "demo",
+  "real_llm_called": false,
+  "completed": true,
+  "http_concurrency": 16,
+  "offered_burst_requests": 64,
+  "artificial_worker_pause": false,
+  "original_jobs_before": {
+    "count": 28,
+    "sha": "43ef259d29f563b72a2ccf7be72a60b49e8347db3ef79135a14082b4e81b50bd"
+  },
+  "generation": "petkit-v1.3-638f0e235a",
+  "isolated_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\1b0e1c3d8572",
+  "burst_seconds": 1.05,
+  "accepted": 22,
+  "rejected_429": 42,
+  "rejected_jobs_not_persisted": true,
+  "all_429_retry_after_seconds": 5,
+  "quota_scope": "employee",
+  "duplicate_requests": 16,
+  "duplicate_unique_jobs": 1,
+  "idempotency_conflict_http": 409,
+  "responses": [
+    {
+      "index": 0,
+      "key": "43c6b496c8ab-burst-0",
+      "status": 202,
+      "id": "3da7851887824fdc99b4337ae80aa731",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 1,
+      "key": "43c6b496c8ab-burst-1",
+      "status": 202,
+      "id": "1f0dba51f79d435d94dc7f441db1a909",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 2,
+      "key": "43c6b496c8ab-burst-2",
+      "status": 202,
+      "id": "01d713aaf3d443d4a78faafe170ae41e",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 3,
+      "key": "43c6b496c8ab-burst-3",
+      "status": 202,
+      "id": "44e02b4c95e34a9ebcab6e8e0d2baa8d",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 4,
+      "key": "43c6b496c8ab-burst-4",
+      "status": 202,
+      "id": "cfa671cad6564bafa4ebc0f2b16d96fb",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 5,
+      "key": "43c6b496c8ab-burst-5",
+      "status": 202,
+      "id": "3cd1cc9fa54e40e0af5a04bbcf9d5118",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 6,
+      "key": "43c6b496c8ab-burst-6",
+      "status": 202,
+      "id": "e08eb6d62b2040f99e54f8089150fda8",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 7,
+      "key": "43c6b496c8ab-burst-7",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 8,
+      "key": "43c6b496c8ab-burst-8",
+      "status": 202,
+      "id": "be318da1deb5409db9f97e7aa157409e",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 9,
+      "key": "43c6b496c8ab-burst-9",
+      "status": 202,
+      "id": "8a12677289c845e1a46760aa39b90b4f",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 10,
+      "key": "43c6b496c8ab-burst-10",
+      "status": 202,
+      "id": "db80130cf6854f218d7ebd3aa95f1f8c",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 11,
+      "key": "43c6b496c8ab-burst-11",
+      "status": 202,
+      "id": "bc19e8dfa22649188362f3f7cd396c7f",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 12,
+      "key": "43c6b496c8ab-burst-12",
+      "status": 202,
+      "id": "194f6fc4b00b4e3fba0acba97038f568",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 13,
+      "key": "43c6b496c8ab-burst-13",
+      "status": 202,
+      "id": "aa16abbcbcb8406591cae810836429f8",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 14,
+      "key": "43c6b496c8ab-burst-14",
+      "status": 202,
+      "id": "4ef58361b34e4e1e9e9c193b20c91635",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 15,
+      "key": "43c6b496c8ab-burst-15",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 16,
+      "key": "43c6b496c8ab-burst-16",
+      "status": 202,
+      "id": "ca4422c2fbb04a4f8e7af29219e48115",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 17,
+      "key": "43c6b496c8ab-burst-17",
+      "status": 202,
+      "id": "06d7398646f64e2cbed7a25147a6ee04",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 18,
+      "key": "43c6b496c8ab-burst-18",
+      "status": 202,
+      "id": "89d2dffb25e440618d18ab8aece7d82d",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 19,
+      "key": "43c6b496c8ab-burst-19",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 20,
+      "key": "43c6b496c8ab-burst-20",
+      "status": 202,
+      "id": "d4ddf19b0b6c4409a61b032ee811ef9c",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 21,
+      "key": "43c6b496c8ab-burst-21",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 22,
+      "key": "43c6b496c8ab-burst-22",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 23,
+      "key": "43c6b496c8ab-burst-23",
+      "status": 202,
+      "id": "12739c90ad0e49f5821d750c73e302ab",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 24,
+      "key": "43c6b496c8ab-burst-24",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 25,
+      "key": "43c6b496c8ab-burst-25",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 26,
+      "key": "43c6b496c8ab-burst-26",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 27,
+      "key": "43c6b496c8ab-burst-27",
+      "status": 202,
+      "id": "a501080fba284ea89fe08a28ff0646d4",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 28,
+      "key": "43c6b496c8ab-burst-28",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 29,
+      "key": "43c6b496c8ab-burst-29",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 30,
+      "key": "43c6b496c8ab-burst-30",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 31,
+      "key": "43c6b496c8ab-burst-31",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 32,
+      "key": "43c6b496c8ab-burst-32",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 33,
+      "key": "43c6b496c8ab-burst-33",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 34,
+      "key": "43c6b496c8ab-burst-34",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 35,
+      "key": "43c6b496c8ab-burst-35",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 36,
+      "key": "43c6b496c8ab-burst-36",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 37,
+      "key": "43c6b496c8ab-burst-37",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 38,
+      "key": "43c6b496c8ab-burst-38",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 39,
+      "key": "43c6b496c8ab-burst-39",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 40,
+      "key": "43c6b496c8ab-burst-40",
+      "status": 202,
+      "id": "df979519c27b439ba07b5911106b6ad4",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 41,
+      "key": "43c6b496c8ab-burst-41",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 42,
+      "key": "43c6b496c8ab-burst-42",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 43,
+      "key": "43c6b496c8ab-burst-43",
+      "status": 202,
+      "id": "e2077cc3bb3a4206b07ff75b8cd5c357",
+      "detail": null,
+      "retry_after": null
+    },
+    {
+      "index": 44,
+      "key": "43c6b496c8ab-burst-44",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 45,
+      "key": "43c6b496c8ab-burst-45",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 46,
+      "key": "43c6b496c8ab-burst-46",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 47,
+      "key": "43c6b496c8ab-burst-47",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 48,
+      "key": "43c6b496c8ab-burst-48",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 49,
+      "key": "43c6b496c8ab-burst-49",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 50,
+      "key": "43c6b496c8ab-burst-50",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 51,
+      "key": "43c6b496c8ab-burst-51",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 52,
+      "key": "43c6b496c8ab-burst-52",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 53,
+      "key": "43c6b496c8ab-burst-53",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 54,
+      "key": "43c6b496c8ab-burst-54",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 55,
+      "key": "43c6b496c8ab-burst-55",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 56,
+      "key": "43c6b496c8ab-burst-56",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 57,
+      "key": "43c6b496c8ab-burst-57",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 58,
+      "key": "43c6b496c8ab-burst-58",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 59,
+      "key": "43c6b496c8ab-burst-59",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 60,
+      "key": "43c6b496c8ab-burst-60",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 61,
+      "key": "43c6b496c8ab-burst-61",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 62,
+      "key": "43c6b496c8ab-burst-62",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    },
+    {
+      "index": 63,
+      "key": "43c6b496c8ab-burst-63",
+      "status": 429,
+      "id": null,
+      "detail": {
+        "code": "queue_full",
+        "scope": "employee",
+        "message": "待处理队列已达配额：employee"
+      },
+      "retry_after": "5"
+    }
+  ],
+  "accepted_jobs_oracle_verified": 22,
+  "peak_sampled_employee_pending": 20,
+  "rejected_key_retry_succeeded": true,
+  "retried_key_duplicate_same_job": true,
+  "recovery_regional_received_units": 10,
+  "final_queue_pending": 0,
+  "worker_restarts": 0,
+  "post_burst_ready": true,
+  "restored_warehouse_unchanged": true,
+  "original_jobs_unchanged": true,
+  "original_pointer_unchanged": true,
+  "original_warehouse_unchanged": true,
+  "children_stopped": true
+}

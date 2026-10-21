@@ -1,0 +1,80 @@
+{
+  "report": "reports\\ramped_load_runs\\a852bf43a0f4\\results.json",
+  "generation": "petkit-v1.3-638f0e235a",
+  "completed": true,
+  "total_tasks": 450,
+  "successful_queries": 361,
+  "expected_denied": 89,
+  "unexpected_errors": 0,
+  "http_429": 0,
+  "real_llm_called": false,
+  "production_capacity_measured": false,
+  "final_queue_pending": 0,
+  "worker_restarts": 0,
+  "original_jobs_unchanged": true,
+  "original_pointer_unchanged": true,
+  "original_warehouse_unchanged": true,
+  "children_stopped": true,
+  "stages": [
+    {
+      "concurrency": 1,
+      "offering_seconds": 15,
+      "completed": 27,
+      "success_tasks_per_second": 1.452,
+      "successful_end_to_end_seconds": {
+        "count": 22,
+        "p50": 0.3902,
+        "p95": 0.4791,
+        "maximum": 0.6393
+      }
+    },
+    {
+      "concurrency": 4,
+      "offering_seconds": 15,
+      "completed": 59,
+      "success_tasks_per_second": 2.982,
+      "successful_end_to_end_seconds": {
+        "count": 47,
+        "p50": 0.9104,
+        "p95": 1.0704,
+        "maximum": 1.099
+      }
+    },
+    {
+      "concurrency": 8,
+      "offering_seconds": 15,
+      "completed": 60,
+      "success_tasks_per_second": 2.934,
+      "successful_end_to_end_seconds": {
+        "count": 49,
+        "p50": 2.0301,
+        "p95": 2.1942,
+        "maximum": 2.2611
+      }
+    },
+    {
+      "concurrency": 16,
+      "offering_seconds": 15,
+      "completed": 69,
+      "success_tasks_per_second": 2.892,
+      "successful_end_to_end_seconds": {
+        "count": 55,
+        "p50": 4.1333,
+        "p95": 4.2458,
+        "maximum": 4.3545
+      }
+    },
+    {
+      "concurrency": 16,
+      "offering_seconds": 60,
+      "completed": 235,
+      "success_tasks_per_second": 2.947,
+      "successful_end_to_end_seconds": {
+        "count": 188,
+        "p50": 4.1414,
+        "p95": 4.3532,
+        "maximum": 4.4642
+      }
+    }
+  ]
+}

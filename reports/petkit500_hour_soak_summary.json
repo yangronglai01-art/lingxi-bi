@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-21",
+  "source_report": "reports/soak_runs/9f77a9ad3627/results.json",
+  "completed": true,
+  "seconds": 3600,
+  "mode": "demo",
+  "real_llm_called": false,
+  "completed_tasks": 14134,
+  "successful_tasks": 11308,
+  "expected_denied": 2826,
+  "successful_end_to_end_seconds": {
+    "count": 11308,
+    "p50": 0.8832,
+    "p95": 1.2452,
+    "maximum": 1.9791
+  },
+  "success_tasks_per_second": 3.14,
+  "resource_summary": {
+    "worker": {
+      "baseline": {
+        "rss_mb": 1933.738,
+        "private_commit_mb": 5341.324,
+        "handles": 313,
+        "cpu_seconds": 15.3281
+      },
+      "last": {
+        "rss_mb": 1574.273,
+        "private_commit_mb": 4445.957,
+        "handles": 306,
+        "cpu_seconds": 12870.8281
+      },
+      "peak_rss_mb": 1995.875,
+      "peak_handles": 317,
+      "rss_growth_mb": -359.465,
+      "handle_growth": -7
+    },
+    "api": {
+      "baseline": {
+        "rss_mb": 73.98,
+        "private_commit_mb": 55.035,
+        "handles": 197,
+        "cpu_seconds": 1.1562
+      },
+      "last": {
+        "rss_mb": 56.402,
+        "private_commit_mb": 63.176,
+        "handles": 205,
+        "cpu_seconds": 1042.625
+      },
+      "peak_rss_mb": 82.625,
+      "peak_handles": 223,
+      "rss_growth_mb": -17.578,
+      "handle_growth": 8
+    },
+    "ui": {
+      "baseline": {
+        "rss_mb": 79.117,
+        "private_commit_mb": 63.363,
+        "handles": 196,
+        "cpu_seconds": 1.0469
+      },
+      "last": {
+        "rss_mb": 22.137,
+        "private_commit_mb": 63.109,
+        "handles": 185,
+        "cpu_seconds": 25.125
+      },
+      "peak_rss_mb": 79.125,
+      "peak_handles": 196,
+      "rss_growth_mb": -56.98,
+      "handle_growth": -11
+    }
+  },
+  "final_queue_pending": 0,
+  "worker_restarts": 0,
+  "root_business_state_unchanged": true,
+  "children_stopped": true,
+  "run_precedes_event_window_fix": true,
+  "production_capacity_measured": false
+}

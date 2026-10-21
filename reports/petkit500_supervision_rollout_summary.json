@@ -1,0 +1,33 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "tables": 500,
+  "orders": 3202,
+  "rows": 205397,
+  "simulated_users": 5,
+  "tests_passed": 333,
+  "source_events": 25,
+  "business_oracle_cases": 37,
+  "automatic_worker_restart": true,
+  "default_supervision": true,
+  "restart_ready_seconds": 0.842,
+  "old_heartbeat_cannot_report_ready": true,
+  "recovery_seconds": 60.175,
+  "automatic_task_replay": false,
+  "restart_budget": 3,
+  "budget_exhaustion_stops_all_owned_processes": true,
+  "duplicate_launcher_rejected": true,
+  "normal_shutdown_does_not_restart": true,
+  "windows_real_pid_and_venv_verified": true,
+  "original_jobs_unchanged": true,
+  "business_warehouse_unchanged": true,
+  "all_acceptance_children_stopped": true,
+  "final_restore_passed": true,
+  "final_restored_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\8d4683a432fb",
+  "real_llm_called": false,
+  "production_capacity_measured": false,
+  "limits": [
+    "仅守护工作进程退出，API/UI退出则停止全部自有进程",
+    "不自动重放中断任务，不保证已开始调用停止计费",
+    "不覆盖守护进程自身崩溃、断电、系统重启或多机高可用"
+  ]
+}

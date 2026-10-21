@@ -1,0 +1,26 @@
+{
+  "source": "D:\\projects\\lingxi\\reports\\controlled_e2e_runs\\d9122a192b4a\\results.json",
+  "id": "E04",
+  "original_automated_passed": false,
+  "reassessed_passed": true,
+  "reason": "Known extra offline_device_days column independently verified, as well as all requested values",
+  "original_record_unchanged": true,
+  "paid_model_called": false,
+  "reference": {
+    "模拟固件2.0": [
+      2127,
+      290,
+      13.63
+    ],
+    "模拟固件3.0": [
+      2784,
+      116,
+      4.17
+    ],
+    "模拟固件1.0": [
+      2412,
+      85,
+      3.52
+    ]
+  }
+}

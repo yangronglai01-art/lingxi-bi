@@ -1,0 +1,4230 @@
+{
+  "kind": "bounded Windows resource and durable-job soak",
+  "mode": "demo",
+  "real_llm_called": false,
+  "production_capacity_measured": false,
+  "completed": false,
+  "stages": [
+    {
+      "concurrency": 4,
+      "offering_seconds": 600,
+      "elapsed_including_drain_seconds": 71.832,
+      "completed": 217,
+      "success": 174,
+      "expected_denied": 43,
+      "success_tasks_per_second": 2.422,
+      "all_terminal_tasks_per_second": 3.021,
+      "submission_seconds": {
+        "count": 217,
+        "p50": 0.0292,
+        "p95": 0.0639,
+        "maximum": 0.1754
+      },
+      "successful_end_to_end_seconds": {
+        "count": 174,
+        "p50": 1.142,
+        "p95": 1.361,
+        "maximum": 1.4753
+      },
+      "all_terminal_end_to_end_seconds": {
+        "count": 217,
+        "p50": 1.1347,
+        "p95": 1.3488,
+        "maximum": 1.4753
+      },
+      "peak_sampled_pending": 4,
+      "health_samples": 68,
+      "errors": [
+        "lane:URLError:<urlopen error timed out>"
+      ],
+      "counts": {
+        "submitted": 217,
+        "rejected_429": 0,
+        "polls": 1123,
+        "monitor_errors": 0
+      },
+      "details": [
+        {
+          "subject": "global_analyst",
+          "id": "c37d8d34465946f9b8888bed6ee98e69",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 0.568,
+          "submission_seconds": 0.014008300029672682,
+          "end_to_end_seconds": 0.41383981704711914,
+          "worker_execution_seconds": 0.16461
+        },
+        {
+          "subject": "regional_sales",
+          "id": "4a53dbd341a44fcba1c6c100c8c392e2",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 0.929,
+          "submission_seconds": 0.06388090003747493,
+          "end_to_end_seconds": 0.599494218826294,
+          "worker_execution_seconds": 0.15955000000000003
+        },
+        {
+          "subject": "regional_supply",
+          "id": "bac76c12d7b74030b6a1e961b85bc273",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 0.93,
+          "submission_seconds": 0.11533940001390874,
+          "end_to_end_seconds": 0.7575259208679199,
+          "worker_execution_seconds": 0.15092
+        },
+        {
+          "subject": "regional_service",
+          "id": "109a807abc464ce8bd774685a1b9e8dd",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 1.269,
+          "submission_seconds": 0.17544360004831105,
+          "end_to_end_seconds": 0.9237384796142578,
+          "worker_execution_seconds": 0.15505000000000002
+        },
+        {
+          "subject": "regional_sales",
+          "id": "2f92bfffb1044468ab9ce60bff823cc3",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 1.446,
+          "submission_seconds": 0.03203929995652288,
+          "end_to_end_seconds": 0.7325284481048584,
+          "worker_execution_seconds": 0.146
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "693e7194e03c471fbc4c128b2c5f1cfa",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 1.753,
+          "submission_seconds": 0.008251899969764054,
+          "end_to_end_seconds": 0.5699653625488281,
+          "worker_execution_seconds": 0.09686
+        },
+        {
+          "subject": "regional_service",
+          "id": "1ee2bfe58c8a467fa473ccde57dd80ec",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 1.84,
+          "submission_seconds": 0.06074910005554557,
+          "end_to_end_seconds": 0.8029999732971191,
+          "worker_execution_seconds": 0.20847
+        },
+        {
+          "subject": "regional_supply",
+          "id": "d6d1f5b207584e89a9d1be77844d6f41",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 2.096,
+          "submission_seconds": 0.006387499975971878,
+          "end_to_end_seconds": 0.7654566764831543,
+          "worker_execution_seconds": 0.18797
+        },
+        {
+          "subject": "regional_service",
+          "id": "50f337ce26bc4cb0b287462da21a4973",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 2.342,
+          "submission_seconds": 0.030679500079713762,
+          "end_to_end_seconds": 0.7730674743652344,
+          "worker_execution_seconds": 0.15193
+        },
+        {
+          "subject": "global_analyst",
+          "id": "c48456c3fa774f9e9b6269023369bdd6",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 2.647,
+          "submission_seconds": 0.009264699998311698,
+          "end_to_end_seconds": 0.7756876945495605,
+          "worker_execution_seconds": 0.16949
+        },
+        {
+          "subject": "regional_supply",
+          "id": "67c38bf433fe48bda3a8aefcbb5038da",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 2.976,
+          "submission_seconds": 0.03466570004820824,
+          "end_to_end_seconds": 0.8985641002655029,
+          "worker_execution_seconds": 0.14789
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "0023f8dfc23a4cd0b9f50db018b2b6b2",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 2.977,
+          "submission_seconds": 0.02163170010317117,
+          "end_to_end_seconds": 0.8087158203125,
+          "worker_execution_seconds": 0.07787999999999999
+        },
+        {
+          "subject": "regional_supply",
+          "id": "3cc59c2b5f314deb9cbbecab95d26224",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 3.252,
+          "submission_seconds": 0.034185700002126396,
+          "end_to_end_seconds": 0.7792720794677734,
+          "worker_execution_seconds": 0.16285
+        },
+        {
+          "subject": "regional_sales",
+          "id": "990e0fbcd4c14e768620f3146b7e2758",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 3.509,
+          "submission_seconds": 0.009095199988223612,
+          "end_to_end_seconds": 0.737159252166748,
+          "worker_execution_seconds": 0.14282
+        },
+        {
+          "subject": "global_analyst",
+          "id": "d26d1f8925ce4f37ab9a67dc55c4907f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 3.837,
+          "submission_seconds": 0.010287199984304607,
+          "end_to_end_seconds": 0.6414320468902588,
+          "worker_execution_seconds": 0.14928
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "343c9bc2115640ea92af9a4b8ea612e0",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 3.863,
+          "submission_seconds": 0.06366590003017336,
+          "end_to_end_seconds": 0.7505860328674316,
+          "worker_execution_seconds": 0.07972
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "a1c3188b126d4467ac559f03ea2a82ec",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 4.101,
+          "submission_seconds": 0.03166500001680106,
+          "end_to_end_seconds": 0.666085958480835,
+          "worker_execution_seconds": 0.08776
+        },
+        {
+          "subject": "regional_service",
+          "id": "04234b39fb6a4e69a738415220eb1a86",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 4.402,
+          "submission_seconds": 0.00997590005863458,
+          "end_to_end_seconds": 0.6335611343383789,
+          "worker_execution_seconds": 0.15315
+        },
+        {
+          "subject": "regional_sales",
+          "id": "f49b4a47aae344b6aa5aac1c6d4276fc",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 4.464,
+          "submission_seconds": 0.03189460001885891,
+          "end_to_end_seconds": 0.494159460067749,
+          "worker_execution_seconds": 0.1448
+        },
+        {
+          "subject": "global_analyst",
+          "id": "50af24df055347ed8056cae4f15fff96",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 4.757,
+          "submission_seconds": 0.03204290010035038,
+          "end_to_end_seconds": 0.6978540420532227,
+          "worker_execution_seconds": 0.15778999999999999
+        },
+        {
+          "subject": "global_analyst",
+          "id": "bf9bdc121f774148bf92aea20dd82167",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 4.926,
+          "submission_seconds": 0.0071489999536424875,
+          "end_to_end_seconds": 0.7403113842010498,
+          "worker_execution_seconds": 0.17622
+        },
+        {
+          "subject": "regional_supply",
+          "id": "d19cd8d2f0d94f5eb3bd1debac05a8c1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 5.239,
+          "submission_seconds": 0.013986499980092049,
+          "end_to_end_seconds": 0.6207330226898193,
+          "worker_execution_seconds": 0.14263
+        },
+        {
+          "subject": "regional_service",
+          "id": "9d8b7913b51d46a7a47d5dcff8a3e40c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 5.351,
+          "submission_seconds": 0.009797099977731705,
+          "end_to_end_seconds": 0.8116800785064697,
+          "worker_execution_seconds": 0.1716
+        },
+        {
+          "subject": "regional_sales",
+          "id": "28af0114c3584adab4012c049226c130",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 5.608,
+          "submission_seconds": 0.006284500006586313,
+          "end_to_end_seconds": 0.7545297145843506,
+          "worker_execution_seconds": 0.14917
+        },
+        {
+          "subject": "regional_sales",
+          "id": "8bcc28c7fb3a4450a82a787fc7e0e9a2",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 5.77,
+          "submission_seconds": 0.022022099932655692,
+          "end_to_end_seconds": 0.7998447418212891,
+          "worker_execution_seconds": 0.15369
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "6a12680c13f242c88507247bb26d0294",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 6.159,
+          "submission_seconds": 0.0070720999501645565,
+          "end_to_end_seconds": 0.6511554718017578,
+          "worker_execution_seconds": 0.0844
+        },
+        {
+          "subject": "regional_supply",
+          "id": "68881d7999734c10a6a67fd6f02bbe0a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 6.211,
+          "submission_seconds": 0.006679899990558624,
+          "end_to_end_seconds": 0.7348647117614746,
+          "worker_execution_seconds": 0.13068000000000002
+        },
+        {
+          "subject": "regional_service",
+          "id": "a1debd46cf5a421190b58816372e8b59",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 6.484,
+          "submission_seconds": 0.009395400062203407,
+          "end_to_end_seconds": 0.7711246013641357,
+          "worker_execution_seconds": 0.22349000000000002
+        },
+        {
+          "subject": "regional_service",
+          "id": "86e4ba8904114930a72fe4d6ca21da8d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 6.984,
+          "submission_seconds": 0.06652410002425313,
+          "end_to_end_seconds": 0.9396276473999023,
+          "worker_execution_seconds": 0.30578
+        },
+        {
+          "subject": "global_analyst",
+          "id": "27506a9841184327bb0d0dbfee8ca014",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 7.377,
+          "submission_seconds": 0.03052539995405823,
+          "end_to_end_seconds": 0.9756386280059814,
+          "worker_execution_seconds": 0.27923000000000003
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "b636d5fbbf624e4193596e260fbebcd5",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 7.474,
+          "submission_seconds": 0.04259480000473559,
+          "end_to_end_seconds": 1.154188871383667,
+          "worker_execution_seconds": 0.15753999999999999
+        },
+        {
+          "subject": "regional_supply",
+          "id": "37d50c76aa8d41e88b6112fb375ef1ef",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 7.927,
+          "submission_seconds": 0.03535380004905164,
+          "end_to_end_seconds": 1.2472736835479736,
+          "worker_execution_seconds": 0.26876
+        },
+        {
+          "subject": "regional_supply",
+          "id": "93e41d39dcb64bcc803628dee71190b1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 8.143,
+          "submission_seconds": 0.01997050002682954,
+          "end_to_end_seconds": 1.0783185958862305,
+          "worker_execution_seconds": 0.2275
+        },
+        {
+          "subject": "regional_sales",
+          "id": "a0a91e548d9443a6a029ade6156ebf43",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 8.643,
+          "submission_seconds": 0.07453909993637353,
+          "end_to_end_seconds": 0.9706754684448242,
+          "worker_execution_seconds": 0.24402000000000001
+        },
+        {
+          "subject": "global_analyst",
+          "id": "5605787e1dbb450dbb2884d32bfe1c97",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 8.792,
+          "submission_seconds": 0.033348699915222824,
+          "end_to_end_seconds": 1.2581300735473633,
+          "worker_execution_seconds": 0.26449
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "66b7aa68127843b0aad1c77ceeac062c",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 9.12,
+          "submission_seconds": 0.02916209993418306,
+          "end_to_end_seconds": 1.0596935749053955,
+          "worker_execution_seconds": 0.15389
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "6dceed81afdd47fb8e09f195698a1cd9",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 9.377,
+          "submission_seconds": 0.013002199935726821,
+          "end_to_end_seconds": 1.1509230136871338,
+          "worker_execution_seconds": 0.19166999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "f2b498c6fc7549a385984772c34a4b8f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 9.802,
+          "submission_seconds": 0.0359523999504745,
+          "end_to_end_seconds": 0.9927244186401367,
+          "worker_execution_seconds": 0.27248
+        },
+        {
+          "subject": "regional_sales",
+          "id": "b45e5b64a9cd4f63b1659f341c218a70",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 10.07,
+          "submission_seconds": 0.08678359992336482,
+          "end_to_end_seconds": 1.1418545246124268,
+          "worker_execution_seconds": 0.24747
+        },
+        {
+          "subject": "global_analyst",
+          "id": "c39792bff0c2473abd8d916ccb43db9f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 10.611,
+          "submission_seconds": 0.01944309996906668,
+          "end_to_end_seconds": 1.214162826538086,
+          "worker_execution_seconds": 0.24184
+        },
+        {
+          "subject": "global_analyst",
+          "id": "ff8d5fcdb47b47129e107803c6d2a2fd",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 10.874,
+          "submission_seconds": 0.03807860007509589,
+          "end_to_end_seconds": 1.2923011779785156,
+          "worker_execution_seconds": 0.24889
+        },
+        {
+          "subject": "regional_supply",
+          "id": "7f9d1eaacb9248839f6b195fb6974f83",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 11.262,
+          "submission_seconds": 0.03229589993134141,
+          "end_to_end_seconds": 1.1822497844696045,
+          "worker_execution_seconds": 0.23771
+        },
+        {
+          "subject": "regional_service",
+          "id": "0cd2b11e5d784c52a4db8ff950b6354e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 11.528,
+          "submission_seconds": 0.034880599938333035,
+          "end_to_end_seconds": 1.2726237773895264,
+          "worker_execution_seconds": 0.24900999999999998
+        },
+        {
+          "subject": "regional_sales",
+          "id": "0b8c81d89c9446c4b0ce6f9744ebad69",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 11.792,
+          "submission_seconds": 0.009963200078345835,
+          "end_to_end_seconds": 1.126277208328247,
+          "worker_execution_seconds": 0.24991
+        },
+        {
+          "subject": "regional_sales",
+          "id": "ac4f35fb205b4b659d020f874620f4fd",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 12.138,
+          "submission_seconds": 0.03661509999074042,
+          "end_to_end_seconds": 1.17348313331604,
+          "worker_execution_seconds": 0.24755000000000002
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "297d18f55b574723bfcc0780f5b313d3",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 12.448,
+          "submission_seconds": 0.020396800013259053,
+          "end_to_end_seconds": 1.0432462692260742,
+          "worker_execution_seconds": 0.14658000000000002
+        },
+        {
+          "subject": "regional_supply",
+          "id": "fa3ebc5bf0ba47bb9ad4da90cf86776f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 12.731,
+          "submission_seconds": 0.017631600028835237,
+          "end_to_end_seconds": 1.1387264728546143,
+          "worker_execution_seconds": 0.23346
+        },
+        {
+          "subject": "regional_service",
+          "id": "2fecbc22377545be84f5fd33e8b3b94a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 13.277,
+          "submission_seconds": 0.04202620009891689,
+          "end_to_end_seconds": 1.217752456665039,
+          "worker_execution_seconds": 0.26758
+        },
+        {
+          "subject": "regional_service",
+          "id": "f5d5786730234d4fa17431f332a10bb0",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 13.644,
+          "submission_seconds": 0.030859599937684834,
+          "end_to_end_seconds": 1.2785325050354004,
+          "worker_execution_seconds": 0.28766
+        },
+        {
+          "subject": "global_analyst",
+          "id": "3d4e7213540743c283922ae888c47e67",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 13.864,
+          "submission_seconds": 0.019707100000232458,
+          "end_to_end_seconds": 1.3497862815856934,
+          "worker_execution_seconds": 0.27541000000000004
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "3a480a027f6c485ba70d963dbba6246f",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 14.209,
+          "submission_seconds": 0.033000600058585405,
+          "end_to_end_seconds": 1.348294734954834,
+          "worker_execution_seconds": 0.20191
+        },
+        {
+          "subject": "regional_supply",
+          "id": "da3352241b00499da0613528a04a7bed",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 14.701,
+          "submission_seconds": 0.02098509995266795,
+          "end_to_end_seconds": 1.1793696880340576,
+          "worker_execution_seconds": 0.2788
+        },
+        {
+          "subject": "regional_supply",
+          "id": "b474609946314e1a98df66dfe89281c2",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 14.878,
+          "submission_seconds": 0.021676800097338855,
+          "end_to_end_seconds": 1.1684815883636475,
+          "worker_execution_seconds": 0.27712
+        },
+        {
+          "subject": "regional_sales",
+          "id": "2a98ff496fb24698b2ddca2439775766",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 15.319,
+          "submission_seconds": 0.027123200008645654,
+          "end_to_end_seconds": 1.2608489990234375,
+          "worker_execution_seconds": 0.23148
+        },
+        {
+          "subject": "global_analyst",
+          "id": "6b47caf9533e442e87674a91292b6974",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 15.774,
+          "submission_seconds": 0.03407079994212836,
+          "end_to_end_seconds": 1.3113102912902832,
+          "worker_execution_seconds": 0.30061
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "2a27c9b5c31a4607afcca516ffae7f32",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 15.876,
+          "submission_seconds": 0.015920200035907328,
+          "end_to_end_seconds": 1.0806097984313965,
+          "worker_execution_seconds": 0.15366
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "cf673e7f3c5843dcb8989d19fbb00623",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 16.298,
+          "submission_seconds": 0.02066229993943125,
+          "end_to_end_seconds": 1.2114617824554443,
+          "worker_execution_seconds": 0.14868
+        },
+        {
+          "subject": "regional_service",
+          "id": "0995a4292ef742b4837869335427fbff",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 16.557,
+          "submission_seconds": 0.0385717999888584,
+          "end_to_end_seconds": 1.12959885597229,
+          "worker_execution_seconds": 0.27504
+        },
+        {
+          "subject": "regional_sales",
+          "id": "6360ea6200314e7a9ca96218f2a4d038",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 17.003,
+          "submission_seconds": 0.08749810000881553,
+          "end_to_end_seconds": 0.9701159000396729,
+          "worker_execution_seconds": 0.24974000000000002
+        },
+        {
+          "subject": "global_analyst",
+          "id": "971c11b68b6c40458ef2829598e84899",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 17.351,
+          "submission_seconds": 0.010669299983419478,
+          "end_to_end_seconds": 1.3332209587097168,
+          "worker_execution_seconds": 0.27224
+        },
+        {
+          "subject": "global_analyst",
+          "id": "dca6f6a1fc36439e884215f042050d1e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 17.737,
+          "submission_seconds": 0.043984999996609986,
+          "end_to_end_seconds": 1.2484016418457031,
+          "worker_execution_seconds": 0.25761
+        },
+        {
+          "subject": "regional_supply",
+          "id": "6f7a4b05b261427b85c09ef64fd6238b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 18.008,
+          "submission_seconds": 0.03405469993595034,
+          "end_to_end_seconds": 1.3362979888916016,
+          "worker_execution_seconds": 0.23618
+        },
+        {
+          "subject": "regional_service",
+          "id": "d76b64ffd2584db59d5bff6bb5cfe14a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 18.539,
+          "submission_seconds": 0.03817319998051971,
+          "end_to_end_seconds": 1.2356414794921875,
+          "worker_execution_seconds": 0.24012999999999998
+        },
+        {
+          "subject": "regional_sales",
+          "id": "25c1c81deffa4a35a53696b5409171de",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 18.685,
+          "submission_seconds": 0.032874199911020696,
+          "end_to_end_seconds": 1.2581586837768555,
+          "worker_execution_seconds": 0.25881
+        },
+        {
+          "subject": "regional_sales",
+          "id": "7aee725b166a48568bc2674745a6afd1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 19.051,
+          "submission_seconds": 0.018401100067421794,
+          "end_to_end_seconds": 1.2314512729644775,
+          "worker_execution_seconds": 0.25483
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "a6dcba9b9bd54dfb89e6ea5418d5b1ea",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 19.514,
+          "submission_seconds": 0.02870330004952848,
+          "end_to_end_seconds": 1.2293200492858887,
+          "worker_execution_seconds": 0.16884
+        },
+        {
+          "subject": "regional_supply",
+          "id": "4c75c68d3f18437f8c9f05dd561ddd56",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 19.72,
+          "submission_seconds": 0.027906299917958677,
+          "end_to_end_seconds": 1.0514240264892578,
+          "worker_execution_seconds": 0.24766
+        },
+        {
+          "subject": "regional_service",
+          "id": "d79b5f04971c43309b51339e853c8bb1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 20.185,
+          "submission_seconds": 0.03659230004996061,
+          "end_to_end_seconds": 1.257692575454712,
+          "worker_execution_seconds": 0.27098
+        },
+        {
+          "subject": "regional_service",
+          "id": "de8f0bcd18ff4a47b6c8d00be3bd1697",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 20.542,
+          "submission_seconds": 0.029781399993225932,
+          "end_to_end_seconds": 1.2537977695465088,
+          "worker_execution_seconds": 0.27237
+        },
+        {
+          "subject": "global_analyst",
+          "id": "e911ed9b66394e7ea6c632b94e123c0c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 20.955,
+          "submission_seconds": 0.03662040003109723,
+          "end_to_end_seconds": 1.15895676612854,
+          "worker_execution_seconds": 0.27455
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "d078680541a64465a0db36d690439893",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 21.214,
+          "submission_seconds": 0.02211589994840324,
+          "end_to_end_seconds": 1.2443320751190186,
+          "worker_execution_seconds": 0.16776
+        },
+        {
+          "subject": "regional_supply",
+          "id": "9dca1fcf1cc84d51a3dad67276e1f41e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 21.384,
+          "submission_seconds": 0.015897899982519448,
+          "end_to_end_seconds": 1.115964412689209,
+          "worker_execution_seconds": 0.23595
+        },
+        {
+          "subject": "regional_supply",
+          "id": "60553ddd1b2049879f0a8ffea61c1afa",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 21.714,
+          "submission_seconds": 0.021511800005100667,
+          "end_to_end_seconds": 1.0829992294311523,
+          "worker_execution_seconds": 0.24292
+        },
+        {
+          "subject": "regional_sales",
+          "id": "de0cbc994a68482981d217a1402f61da",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 22.168,
+          "submission_seconds": 0.06458010000642389,
+          "end_to_end_seconds": 1.0055742263793945,
+          "worker_execution_seconds": 0.25486000000000003
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "aff3e71f27e54dafaf892b727fbc5e97",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 22.636,
+          "submission_seconds": 0.040472199907526374,
+          "end_to_end_seconds": 1.1998791694641113,
+          "worker_execution_seconds": 0.15416
+        },
+        {
+          "subject": "global_analyst",
+          "id": "c8426ba7ff464746b51ef790aff9b477",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 22.68,
+          "submission_seconds": 0.013062999933026731,
+          "end_to_end_seconds": 1.1508488655090332,
+          "worker_execution_seconds": 0.26665
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "5a54444a5d1240689501a78325b4e90b",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 22.981,
+          "submission_seconds": 0.02809989999514073,
+          "end_to_end_seconds": 1.141169786453247,
+          "worker_execution_seconds": 0.15381999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "ce08f60176af43b6b8037bd622c0c492",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 23.374,
+          "submission_seconds": 0.01986560004297644,
+          "end_to_end_seconds": 1.1140623092651367,
+          "worker_execution_seconds": 0.29898
+        },
+        {
+          "subject": "global_analyst",
+          "id": "ed41a6443d754bd6816b559f1aa7ea04",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 23.904,
+          "submission_seconds": 0.06935719994362444,
+          "end_to_end_seconds": 0.9786877632141113,
+          "worker_execution_seconds": 0.28458999999999995
+        },
+        {
+          "subject": "regional_sales",
+          "id": "fbfcc0f5f5c143a186c6aa069f694263",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 24.192,
+          "submission_seconds": 0.08367390010971576,
+          "end_to_end_seconds": 1.277911901473999,
+          "worker_execution_seconds": 0.25514
+        },
+        {
+          "subject": "global_analyst",
+          "id": "f1832a02a80a4786b3197098979628df",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 24.468,
+          "submission_seconds": 0.03960319992620498,
+          "end_to_end_seconds": 1.3693852424621582,
+          "worker_execution_seconds": 0.25998000000000004
+        },
+        {
+          "subject": "regional_supply",
+          "id": "1dea3e2919454e7f983159fb5120f328",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 24.923,
+          "submission_seconds": 0.0419240000192076,
+          "end_to_end_seconds": 1.3407809734344482,
+          "worker_execution_seconds": 0.25645
+        },
+        {
+          "subject": "regional_sales",
+          "id": "9c7b7b65861748f3923948d7db293bfa",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 25.167,
+          "submission_seconds": 0.03493490000255406,
+          "end_to_end_seconds": 1.180396556854248,
+          "worker_execution_seconds": 0.25192
+        },
+        {
+          "subject": "regional_service",
+          "id": "dd6ea726f3ea4d808db5fda5f3c73c89",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 25.709,
+          "submission_seconds": 0.03144809999503195,
+          "end_to_end_seconds": 1.2665326595306396,
+          "worker_execution_seconds": 0.26527
+        },
+        {
+          "subject": "regional_sales",
+          "id": "6e1b7ca6c52a4f07a67c2b53eaf468ac",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 25.953,
+          "submission_seconds": 0.014211599947884679,
+          "end_to_end_seconds": 1.370079517364502,
+          "worker_execution_seconds": 0.27464
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "c612d83e07824d2197aef4356bb33e0f",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 26.14,
+          "submission_seconds": 0.016119600040838122,
+          "end_to_end_seconds": 1.1500952243804932,
+          "worker_execution_seconds": 0.1447
+        },
+        {
+          "subject": "regional_service",
+          "id": "95386d0f15784aeaadb55196f282744c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 26.585,
+          "submission_seconds": 0.03221849992405623,
+          "end_to_end_seconds": 1.2489147186279297,
+          "worker_execution_seconds": 0.25323
+        },
+        {
+          "subject": "regional_supply",
+          "id": "864f7b3f260e4313b482b81bd0bcbde0",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 26.855,
+          "submission_seconds": 0.014892800012603402,
+          "end_to_end_seconds": 1.064826488494873,
+          "worker_execution_seconds": 0.23451
+        },
+        {
+          "subject": "regional_service",
+          "id": "8e02f988150f4b968bd76ca78b9c0969",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 27.173,
+          "submission_seconds": 0.0359174000332132,
+          "end_to_end_seconds": 1.13350248336792,
+          "worker_execution_seconds": 0.25745999999999997
+        },
+        {
+          "subject": "global_analyst",
+          "id": "efa59f999f8c47f9bc3c9ae45635c6b9",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 27.592,
+          "submission_seconds": 0.03247259999625385,
+          "end_to_end_seconds": 1.348839521408081,
+          "worker_execution_seconds": 0.31316000000000005
+        },
+        {
+          "subject": "regional_supply",
+          "id": "fdb27747d9b64e01aba287f81f155ca4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 28.032,
+          "submission_seconds": 0.02761249989271164,
+          "end_to_end_seconds": 1.2676072120666504,
+          "worker_execution_seconds": 0.26436000000000004
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "f3cfa309d86747efb39b7c53e0d6ed3e",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 28.295,
+          "submission_seconds": 0.03855900000780821,
+          "end_to_end_seconds": 1.3053033351898193,
+          "worker_execution_seconds": 0.21813
+        },
+        {
+          "subject": "regional_supply",
+          "id": "2c9b11c132d249e29b8c76966777a4eb",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 28.619,
+          "submission_seconds": 0.024790600058622658,
+          "end_to_end_seconds": 1.3180725574493408,
+          "worker_execution_seconds": 0.23424
+        },
+        {
+          "subject": "regional_sales",
+          "id": "bd98e62d2ce84c48b969c2e453f32dba",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 29.151,
+          "submission_seconds": 0.05665990000125021,
+          "end_to_end_seconds": 1.213425874710083,
+          "worker_execution_seconds": 0.2424
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "1fb38e3e310b43f1aca68e3cb4e7279d",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 29.225,
+          "submission_seconds": 0.025685500004328787,
+          "end_to_end_seconds": 1.051114797592163,
+          "worker_execution_seconds": 0.14557
+        },
+        {
+          "subject": "global_analyst",
+          "id": "50cd094ba1a04205873a3d12a3afe632",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 29.76,
+          "submission_seconds": 0.016460899962112308,
+          "end_to_end_seconds": 1.216400384902954,
+          "worker_execution_seconds": 0.32281
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "7acc64c859254632921ae2803abb68e9",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 29.889,
+          "submission_seconds": 0.038045600056648254,
+          "end_to_end_seconds": 1.1713051795959473,
+          "worker_execution_seconds": 0.19875
+        },
+        {
+          "subject": "regional_service",
+          "id": "9337f161dce541d2bfbc99c2e0f8d561",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 30.304,
+          "submission_seconds": 0.03575219993945211,
+          "end_to_end_seconds": 0.9945414066314697,
+          "worker_execution_seconds": 0.26279
+        },
+        {
+          "subject": "global_analyst",
+          "id": "22dc7c1239a04d81a5b07257338622fc",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 30.667,
+          "submission_seconds": 0.022295599919743836,
+          "end_to_end_seconds": 1.3072750568389893,
+          "worker_execution_seconds": 0.26993
+        },
+        {
+          "subject": "regional_sales",
+          "id": "91fc278fb562456aad987d60e326b996",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 30.995,
+          "submission_seconds": 0.03478789993096143,
+          "end_to_end_seconds": 1.1014049053192139,
+          "worker_execution_seconds": 0.25695
+        },
+        {
+          "subject": "global_analyst",
+          "id": "30672b20df624896ba77247465f54a7f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 31.336,
+          "submission_seconds": 0.03854680003132671,
+          "end_to_end_seconds": 1.3384606838226318,
+          "worker_execution_seconds": 0.27352
+        },
+        {
+          "subject": "regional_supply",
+          "id": "7ef2511299294b0d88a367aff2747657",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 31.785,
+          "submission_seconds": 0.02084319991990924,
+          "end_to_end_seconds": 1.292720079421997,
+          "worker_execution_seconds": 0.25641
+        },
+        {
+          "subject": "regional_sales",
+          "id": "84befcd0db7845a3a07248023544252c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 32.18,
+          "submission_seconds": 0.021514799911528826,
+          "end_to_end_seconds": 1.2817308902740479,
+          "worker_execution_seconds": 0.27316
+        },
+        {
+          "subject": "regional_service",
+          "id": "33e160c3a3e941d7950ac80e2844b455",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 32.451,
+          "submission_seconds": 0.018304100027307868,
+          "end_to_end_seconds": 1.319077730178833,
+          "worker_execution_seconds": 0.27801
+        },
+        {
+          "subject": "regional_sales",
+          "id": "640213f6d72a43b189d338233f98b542",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 32.779,
+          "submission_seconds": 0.03426460002083331,
+          "end_to_end_seconds": 1.3279657363891602,
+          "worker_execution_seconds": 0.27819
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "c107fb11a65a4405a895059be032e242",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 32.946,
+          "submission_seconds": 0.03810540004633367,
+          "end_to_end_seconds": 1.1140549182891846,
+          "worker_execution_seconds": 0.16246000000000002
+        },
+        {
+          "subject": "regional_service",
+          "id": "9324aa2fe2db4041b38d83f3b9a8206a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 33.349,
+          "submission_seconds": 0.02145070000551641,
+          "end_to_end_seconds": 1.0943105220794678,
+          "worker_execution_seconds": 0.27256
+        },
+        {
+          "subject": "regional_supply",
+          "id": "2a1d1b1b653d431fad32b591b4dffec1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 33.669,
+          "submission_seconds": 0.028871399932540953,
+          "end_to_end_seconds": 1.1501717567443848,
+          "worker_execution_seconds": 0.24747
+        },
+        {
+          "subject": "regional_service",
+          "id": "2594177a4725457883c070e0caa20232",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 34.255,
+          "submission_seconds": 0.014793099951930344,
+          "end_to_end_seconds": 1.206376075744629,
+          "worker_execution_seconds": 0.27704
+        },
+        {
+          "subject": "global_analyst",
+          "id": "27f4b92571714fc09a9ba413171d99f0",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 34.514,
+          "submission_seconds": 0.09788640006445348,
+          "end_to_end_seconds": 1.307443380355835,
+          "worker_execution_seconds": 0.26707
+        },
+        {
+          "subject": "regional_supply",
+          "id": "6e66465f157c4c78bffbe8f2ea3172b5",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 34.868,
+          "submission_seconds": 0.03856950008776039,
+          "end_to_end_seconds": 1.3335998058319092,
+          "worker_execution_seconds": 0.24796
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "9b8a47de1c9a48cbad7a29765c003330",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 35.148,
+          "submission_seconds": 0.035103100002743304,
+          "end_to_end_seconds": 1.2907028198242188,
+          "worker_execution_seconds": 0.18191
+        },
+        {
+          "subject": "regional_supply",
+          "id": "910f5c46e2da4872b5412c375832b4b7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 35.432,
+          "submission_seconds": 0.012830000021494925,
+          "end_to_end_seconds": 1.098985195159912,
+          "worker_execution_seconds": 0.28061
+        },
+        {
+          "subject": "regional_sales",
+          "id": "9f5779ef99994b47bf56f889da413c90",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 35.979,
+          "submission_seconds": 0.016212400048971176,
+          "end_to_end_seconds": 1.2012181282043457,
+          "worker_execution_seconds": 0.27536
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "8254710c7a4b4a73b77b6a025242fec2",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 36.063,
+          "submission_seconds": 0.033727800007909536,
+          "end_to_end_seconds": 1.0650207996368408,
+          "worker_execution_seconds": 0.15294
+        },
+        {
+          "subject": "global_analyst",
+          "id": "ec22a8531abb412da2f2ef00a00e3ad3",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 36.352,
+          "submission_seconds": 0.03973509999923408,
+          "end_to_end_seconds": 1.1001205444335938,
+          "worker_execution_seconds": 0.24731
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "5279ea9d45634a40bcfc618c54dd9dd9",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 36.626,
+          "submission_seconds": 0.016543200006708503,
+          "end_to_end_seconds": 1.0879840850830078,
+          "worker_execution_seconds": 0.15637
+        },
+        {
+          "subject": "regional_service",
+          "id": "fb97d3b6080f4a839fd11d9d220cbfca",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 37.152,
+          "submission_seconds": 0.042774700094014406,
+          "end_to_end_seconds": 0.9076840877532959,
+          "worker_execution_seconds": 0.30718
+        },
+        {
+          "subject": "global_analyst",
+          "id": "9647ba681f1949ebb3bc8ce828f9c392",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 37.563,
+          "submission_seconds": 0.03280140005517751,
+          "end_to_end_seconds": 1.192814826965332,
+          "worker_execution_seconds": 0.26019
+        },
+        {
+          "subject": "regional_sales",
+          "id": "efd9de5069b24c33857d2e508b6a7dae",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 37.812,
+          "submission_seconds": 0.030404199962504208,
+          "end_to_end_seconds": 1.2514548301696777,
+          "worker_execution_seconds": 0.24641
+        },
+        {
+          "subject": "global_analyst",
+          "id": "6670ecc4758f4b8db821dae50b4e1c22",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 38.142,
+          "submission_seconds": 0.03861930000130087,
+          "end_to_end_seconds": 1.3610365390777588,
+          "worker_execution_seconds": 0.30516000000000004
+        },
+        {
+          "subject": "regional_supply",
+          "id": "9ce12aa8c4b6401bb0617a6ee7a93346",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 38.517,
+          "submission_seconds": 0.01147929998114705,
+          "end_to_end_seconds": 1.2110943794250488,
+          "worker_execution_seconds": 0.25921
+        },
+        {
+          "subject": "regional_sales",
+          "id": "344d99b734a24eb5853c8df2d36d3066",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 38.8,
+          "submission_seconds": 0.03461760003119707,
+          "end_to_end_seconds": 1.1106014251708984,
+          "worker_execution_seconds": 0.2571
+        },
+        {
+          "subject": "regional_service",
+          "id": "ea232f6fcc3d42b28d94ea49c6988e84",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 39.256,
+          "submission_seconds": 0.016829400090500712,
+          "end_to_end_seconds": 1.2444989681243896,
+          "worker_execution_seconds": 0.28162
+        },
+        {
+          "subject": "regional_sales",
+          "id": "4ef6bf3476be48569b23bf345847cda1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 39.602,
+          "submission_seconds": 0.03675009997095913,
+          "end_to_end_seconds": 1.2746994495391846,
+          "worker_execution_seconds": 0.28432
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "a4eebcb96c40449f8a6ab83b3bc56a8d",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 39.953,
+          "submission_seconds": 0.020406499970704317,
+          "end_to_end_seconds": 1.2022335529327393,
+          "worker_execution_seconds": 0.18831
+        },
+        {
+          "subject": "regional_service",
+          "id": "adb5180ba87b49e8b6201385f998c89a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 40.237,
+          "submission_seconds": 0.01702660007867962,
+          "end_to_end_seconds": 1.3066720962524414,
+          "worker_execution_seconds": 0.29408
+        },
+        {
+          "subject": "regional_supply",
+          "id": "5a5f6925354c404fb03b4d883e30931e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 40.504,
+          "submission_seconds": 0.01784460002090782,
+          "end_to_end_seconds": 1.189793348312378,
+          "worker_execution_seconds": 0.24015999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "df9c99e27ab14cc4831fe90af4aa38d4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 41.03,
+          "submission_seconds": 0.03162630007136613,
+          "end_to_end_seconds": 1.1924991607666016,
+          "worker_execution_seconds": 0.27576999999999996
+        },
+        {
+          "subject": "global_analyst",
+          "id": "98feb7a288d4450f84ce0fade0d8ae0a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 41.443,
+          "submission_seconds": 0.025353599921800196,
+          "end_to_end_seconds": 1.2196431159973145,
+          "worker_execution_seconds": 0.28832
+        },
+        {
+          "subject": "regional_supply",
+          "id": "37a1740cd81a4b03ab1a6141de33a550",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 41.709,
+          "submission_seconds": 0.020692900056019425,
+          "end_to_end_seconds": 1.2833354473114014,
+          "worker_execution_seconds": 0.26477
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "0923962f2bf446998d0d27e16db9252d",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 41.973,
+          "submission_seconds": 0.024820799939334393,
+          "end_to_end_seconds": 1.274463176727295,
+          "worker_execution_seconds": 0.17179
+        },
+        {
+          "subject": "regional_supply",
+          "id": "aba136b21a394c08be4b3a170f92bc09",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 42.457,
+          "submission_seconds": 0.017248200019821525,
+          "end_to_end_seconds": 1.172522783279419,
+          "worker_execution_seconds": 0.30962
+        },
+        {
+          "subject": "regional_sales",
+          "id": "ec68234497814a7a8fe7d059dd9b4653",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 42.924,
+          "submission_seconds": 0.03129760001320392,
+          "end_to_end_seconds": 1.1346619129180908,
+          "worker_execution_seconds": 0.29381999999999997
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "4904720094604103a74e4070fa47f627",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 42.955,
+          "submission_seconds": 0.03723180002998561,
+          "end_to_end_seconds": 1.1344718933105469,
+          "worker_execution_seconds": 0.17133
+        },
+        {
+          "subject": "global_analyst",
+          "id": "f89daea2ef704d3fa7dbcb06a0003e91",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 43.501,
+          "submission_seconds": 0.03664720000233501,
+          "end_to_end_seconds": 1.2815334796905518,
+          "worker_execution_seconds": 0.31498000000000004
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "2a3bb8787ccd4de6999ded63270c1646",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 43.68,
+          "submission_seconds": 0.022156699909828603,
+          "end_to_end_seconds": 1.1221234798431396,
+          "worker_execution_seconds": 0.20276
+        },
+        {
+          "subject": "regional_service",
+          "id": "00955037be654ffb86ae2dd1bb821fc7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 44.22,
+          "submission_seconds": 0.0392182000214234,
+          "end_to_end_seconds": 1.1186003684997559,
+          "worker_execution_seconds": 0.37701
+        },
+        {
+          "subject": "global_analyst",
+          "id": "fd6dd68fc9d747c5b3f875c09d9509fb",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 44.517,
+          "submission_seconds": 0.041826599976047873,
+          "end_to_end_seconds": 1.4752511978149414,
+          "worker_execution_seconds": 0.28475
+        },
+        {
+          "subject": "regional_sales",
+          "id": "8ac258b2def946f898b70cff64aaa8d8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 45.04,
+          "submission_seconds": 0.04880829993635416,
+          "end_to_end_seconds": 1.3181586265563965,
+          "worker_execution_seconds": 0.30339
+        },
+        {
+          "subject": "global_analyst",
+          "id": "04dc139747b14e8984790df423660c3e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 45.248,
+          "submission_seconds": 0.03531690000090748,
+          "end_to_end_seconds": 1.4692926406860352,
+          "worker_execution_seconds": 0.2287
+        },
+        {
+          "subject": "regional_supply",
+          "id": "886bbb94d2f64515ba05ee204cf8f691",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 45.581,
+          "submission_seconds": 0.03636249992996454,
+          "end_to_end_seconds": 1.2742424011230469,
+          "worker_execution_seconds": 0.25725
+        },
+        {
+          "subject": "regional_sales",
+          "id": "a8ffed73246e45bf9283e6afaf84bacf",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 46.027,
+          "submission_seconds": 0.027791199972853065,
+          "end_to_end_seconds": 1.3112883567810059,
+          "worker_execution_seconds": 0.23942
+        },
+        {
+          "subject": "regional_service",
+          "id": "7ff035df25ef44a7ba139cf86e7d84dd",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 46.452,
+          "submission_seconds": 0.013113399967551231,
+          "end_to_end_seconds": 1.2238807678222656,
+          "worker_execution_seconds": 0.30528
+        },
+        {
+          "subject": "regional_sales",
+          "id": "3b7152e22fd64991912b764d39a3b9c7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 46.759,
+          "submission_seconds": 0.033403600100427866,
+          "end_to_end_seconds": 1.3992257118225098,
+          "worker_execution_seconds": 0.29342
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "15d16509868145f7abf6a6e27cbbb119",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 47.025,
+          "submission_seconds": 0.036086700041778386,
+          "end_to_end_seconds": 1.3407208919525146,
+          "worker_execution_seconds": 0.17674
+        },
+        {
+          "subject": "regional_service",
+          "id": "07abcc32cf1d42fb870ad05f6e73e50b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 47.432,
+          "submission_seconds": 0.01878809998743236,
+          "end_to_end_seconds": 1.275763988494873,
+          "worker_execution_seconds": 0.26849
+        },
+        {
+          "subject": "regional_supply",
+          "id": "390f0eaa485d421784d7bd0375d68e04",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 47.721,
+          "submission_seconds": 0.03563359996769577,
+          "end_to_end_seconds": 1.1806995868682861,
+          "worker_execution_seconds": 0.23584
+        },
+        {
+          "subject": "regional_service",
+          "id": "1b3a7da43ac143868788098a325507a7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 48.065,
+          "submission_seconds": 0.013917800039052963,
+          "end_to_end_seconds": 1.240614414215088,
+          "worker_execution_seconds": 0.2501
+        },
+        {
+          "subject": "global_analyst",
+          "id": "436d569a65174e0287a60216968a7fcf",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 48.411,
+          "submission_seconds": 0.026520099956542253,
+          "end_to_end_seconds": 1.3137362003326416,
+          "worker_execution_seconds": 0.25311
+        },
+        {
+          "subject": "regional_supply",
+          "id": "52fa1c010db442ff84c736e758eddc5e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 48.968,
+          "submission_seconds": 0.028312299982644618,
+          "end_to_end_seconds": 1.3286035060882568,
+          "worker_execution_seconds": 0.32789999999999997
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "893f8df22f934bde8380650e25e25f8c",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 49.247,
+          "submission_seconds": 0.029477600008249283,
+          "end_to_end_seconds": 1.289708137512207,
+          "worker_execution_seconds": 0.17047
+        },
+        {
+          "subject": "regional_supply",
+          "id": "50781d0d01d5403dbf8de686b7a107f9",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 49.499,
+          "submission_seconds": 0.033538500079885125,
+          "end_to_end_seconds": 1.2991423606872559,
+          "worker_execution_seconds": 0.27277999999999997
+        },
+        {
+          "subject": "regional_sales",
+          "id": "7b01c50ce13b4dd8aa852c139a3647da",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 49.841,
+          "submission_seconds": 0.02649840002413839,
+          "end_to_end_seconds": 1.2836720943450928,
+          "worker_execution_seconds": 0.23606
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "ff5ffada54c14c7195c3ef781e13507e",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 50.104,
+          "submission_seconds": 0.01866379997227341,
+          "end_to_end_seconds": 0.9871437549591064,
+          "worker_execution_seconds": 0.15682
+        },
+        {
+          "subject": "global_analyst",
+          "id": "75584e464c794290a5baf8c17cd59cc1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 50.392,
+          "submission_seconds": 0.020193299977108836,
+          "end_to_end_seconds": 1.067884922027588,
+          "worker_execution_seconds": 0.2685
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "0c78897b19d24c2192208866f15ced68",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 50.666,
+          "submission_seconds": 0.017521000001579523,
+          "end_to_end_seconds": 1.052488088607788,
+          "worker_execution_seconds": 0.15847
+        },
+        {
+          "subject": "regional_service",
+          "id": "e32ff48262064e7fbb4e1f4e67af7d7e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 50.99,
+          "submission_seconds": 0.021918499958701432,
+          "end_to_end_seconds": 1.0576961040496826,
+          "worker_execution_seconds": 0.26294999999999996
+        },
+        {
+          "subject": "global_analyst",
+          "id": "7b8faa40707a4641b676cc934a30a04c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 51.527,
+          "submission_seconds": 0.018164800014346838,
+          "end_to_end_seconds": 1.2173535823822021,
+          "worker_execution_seconds": 0.3211
+        },
+        {
+          "subject": "regional_sales",
+          "id": "43efdba346e5421691f371fba9006243",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 51.82,
+          "submission_seconds": 0.03507840004749596,
+          "end_to_end_seconds": 1.2850162982940674,
+          "worker_execution_seconds": 0.29322000000000004
+        },
+        {
+          "subject": "global_analyst",
+          "id": "bb10762fbe234ce58a88f96a5a15ac6a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 52.13,
+          "submission_seconds": 0.021729999920353293,
+          "end_to_end_seconds": 1.3900389671325684,
+          "worker_execution_seconds": 0.27623000000000003
+        },
+        {
+          "subject": "regional_supply",
+          "id": "df8450cca9634644915fa690168aad13",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 52.526,
+          "submission_seconds": 0.04609170008916408,
+          "end_to_end_seconds": 1.4263806343078613,
+          "worker_execution_seconds": 0.28668
+        },
+        {
+          "subject": "regional_sales",
+          "id": "4a3d5b41ce2341a992b15efbe674ed21",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 52.949,
+          "submission_seconds": 0.027829400030896068,
+          "end_to_end_seconds": 1.2388334274291992,
+          "worker_execution_seconds": 0.23784
+        },
+        {
+          "subject": "regional_service",
+          "id": "9f2085c18b7d45c69b3e2d3b0dd907a9",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 53.397,
+          "submission_seconds": 0.04032509995158762,
+          "end_to_end_seconds": 1.2853281497955322,
+          "worker_execution_seconds": 0.27858999999999995
+        },
+        {
+          "subject": "regional_sales",
+          "id": "ba6c3d4c8c644fbeb6b3fc98b205bb45",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 53.634,
+          "submission_seconds": 0.03616420004982501,
+          "end_to_end_seconds": 1.312309980392456,
+          "worker_execution_seconds": 0.25733
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "972db251ca524aa8a7e1643a8d4fc8d8",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 53.971,
+          "submission_seconds": 0.036097100004553795,
+          "end_to_end_seconds": 1.1934423446655273,
+          "worker_execution_seconds": 0.17613
+        },
+        {
+          "subject": "regional_service",
+          "id": "5d1018f61233414a88b7994800cabfa4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 54.37,
+          "submission_seconds": 0.017704300000332296,
+          "end_to_end_seconds": 1.155005931854248,
+          "worker_execution_seconds": 0.28724
+        },
+        {
+          "subject": "regional_supply",
+          "id": "a35f281ae2ec4f91aa458f706320a241",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 54.794,
+          "submission_seconds": 0.010981600033119321,
+          "end_to_end_seconds": 1.134566307067871,
+          "worker_execution_seconds": 0.30641
+        },
+        {
+          "subject": "regional_service",
+          "id": "31034053f5664587aee68d3941552499",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 55.048,
+          "submission_seconds": 0.02106090006418526,
+          "end_to_end_seconds": 1.2885661125183105,
+          "worker_execution_seconds": 0.32663
+        },
+        {
+          "subject": "global_analyst",
+          "id": "fc4d1ec7c54b448b8ba73eae2fa4c35c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 55.443,
+          "submission_seconds": 0.010728300083428621,
+          "end_to_end_seconds": 1.387387990951538,
+          "worker_execution_seconds": 0.35393
+        },
+        {
+          "subject": "regional_supply",
+          "id": "d33cbd37ba8b4fc686a65f57eb0f0364",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 55.815,
+          "submission_seconds": 0.03681019996292889,
+          "end_to_end_seconds": 1.325930118560791,
+          "worker_execution_seconds": 0.26014
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "c74149daa5404f07846ccf661040a946",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 56.048,
+          "submission_seconds": 0.03070599993225187,
+          "end_to_end_seconds": 1.1782686710357666,
+          "worker_execution_seconds": 0.18374000000000001
+        },
+        {
+          "subject": "regional_supply",
+          "id": "8d37a8a48200415c80fdd2946856753a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 56.393,
+          "submission_seconds": 0.04154450003989041,
+          "end_to_end_seconds": 1.2462551593780518,
+          "worker_execution_seconds": 0.24148
+        },
+        {
+          "subject": "regional_sales",
+          "id": "e68d89928240409aa656ac5a748fb966",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 56.752,
+          "submission_seconds": 0.01510080008301884,
+          "end_to_end_seconds": 1.2222890853881836,
+          "worker_execution_seconds": 0.23931
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "0bb4d110cb4f457fa57a8cff123b2e17",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 57.019,
+          "submission_seconds": 0.01673050003591925,
+          "end_to_end_seconds": 1.104085922241211,
+          "worker_execution_seconds": 0.15950999999999999
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "fe6f102d65664db29b4393d62f53b4ac",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 57.29,
+          "submission_seconds": 0.026104100048542023,
+          "end_to_end_seconds": 0.8020870685577393,
+          "worker_execution_seconds": 0.17853
+        },
+        {
+          "subject": "regional_service",
+          "id": "6158fc8258334d1b9b02d03496a7cf06",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 57.653,
+          "submission_seconds": 0.04293400002643466,
+          "end_to_end_seconds": 0.7855579853057861,
+          "worker_execution_seconds": 0.26507
+        },
+        {
+          "subject": "global_analyst",
+          "id": "d272746e29a64d58bfd53a665ae1f7b6",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 57.982,
+          "submission_seconds": 0.01039780001156032,
+          "end_to_end_seconds": 0.8869824409484863,
+          "worker_execution_seconds": 0.24983000000000002
+        },
+        {
+          "subject": "global_analyst",
+          "id": "9b9b6784248742e88210b4611f065f26",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 58.541,
+          "submission_seconds": 0.015385200036689639,
+          "end_to_end_seconds": 1.0267398357391357,
+          "worker_execution_seconds": 0.28922000000000003
+        },
+        {
+          "subject": "regional_supply",
+          "id": "3c25a9e0576048708af65d93ea5b6aad",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 58.816,
+          "submission_seconds": 0.02142130001448095,
+          "end_to_end_seconds": 0.987220287322998,
+          "worker_execution_seconds": 0.25188
+        },
+        {
+          "subject": "regional_sales",
+          "id": "59c96e674885452b83b7033435a5a91d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 59.246,
+          "submission_seconds": 0.03397210000548512,
+          "end_to_end_seconds": 1.0690944194793701,
+          "worker_execution_seconds": 0.3118
+        },
+        {
+          "subject": "regional_sales",
+          "id": "efa909d4235d43f68c4ed9d30ddeadba",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 59.668,
+          "submission_seconds": 0.011755399988032877,
+          "end_to_end_seconds": 0.9124307632446289,
+          "worker_execution_seconds": 0.28737
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "61eba15a4c3b4ef495d15087dbc17087",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 59.796,
+          "submission_seconds": 0.04004840005654842,
+          "end_to_end_seconds": 0.8876338005065918,
+          "worker_execution_seconds": 0.18115
+        },
+        {
+          "subject": "regional_service",
+          "id": "568b2e30826e4641b03c715741999408",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 60.386,
+          "submission_seconds": 0.03934070002287626,
+          "end_to_end_seconds": 0.8652873039245605,
+          "worker_execution_seconds": 0.33349
+        },
+        {
+          "subject": "regional_service",
+          "id": "c34fdbef346844b3a0c97f2561647bd8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 60.799,
+          "submission_seconds": 0.01826369995251298,
+          "end_to_end_seconds": 0.8791005611419678,
+          "worker_execution_seconds": 0.33265
+        },
+        {
+          "subject": "global_analyst",
+          "id": "80d62217966d4680bd303cef3c6acdd7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 61.224,
+          "submission_seconds": 0.04662480007391423,
+          "end_to_end_seconds": 1.1419973373413086,
+          "worker_execution_seconds": 0.32724000000000003
+        },
+        {
+          "subject": "regional_supply",
+          "id": "89b8da4536cc4a18a781a940307c8894",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 61.512,
+          "submission_seconds": 0.017613600008189678,
+          "end_to_end_seconds": 0.9374587535858154,
+          "worker_execution_seconds": 0.2723
+        },
+        {
+          "subject": "regional_supply",
+          "id": "8211403facf14fbf9449a67cd11577f1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 61.745,
+          "submission_seconds": 0.040551999933086336,
+          "end_to_end_seconds": 0.8650984764099121,
+          "worker_execution_seconds": 0.26969
+        },
+        {
+          "subject": "regional_sales",
+          "id": "70ab71e1991c485bbd56bf2a88a82637",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 62.102,
+          "submission_seconds": 0.037897299975156784,
+          "end_to_end_seconds": 0.7823967933654785,
+          "worker_execution_seconds": 0.26444
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "d93d71b83f65412d8ef1ba838f417e54",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 62.361,
+          "submission_seconds": 0.02169800002593547,
+          "end_to_end_seconds": 0.7473106384277344,
+          "worker_execution_seconds": 0.16212000000000001
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "f36f1ba9695d4a6f94cd1d93b49ee9a7",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 62.641,
+          "submission_seconds": 0.033631700091063976,
+          "end_to_end_seconds": 0.7812519073486328,
+          "worker_execution_seconds": 0.1824
+        },
+        {
+          "subject": "regional_service",
+          "id": "df7b576088a4427bb60522f0fa2fb9b4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 63.035,
+          "submission_seconds": 0.03950730001088232,
+          "end_to_end_seconds": 0.8276171684265137,
+          "worker_execution_seconds": 0.33829000000000004
+        },
+        {
+          "subject": "global_analyst",
+          "id": "c144317548c34db7919315e177ba8b1f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 63.537,
+          "submission_seconds": 0.020514799980446696,
+          "end_to_end_seconds": 0.9923155307769775,
+          "worker_execution_seconds": 0.32206999999999997
+        },
+        {
+          "subject": "global_analyst",
+          "id": "9966b2da9e3f44f2b2a56c419ae32e15",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 63.824,
+          "submission_seconds": 0.017570000025443733,
+          "end_to_end_seconds": 1.093923807144165,
+          "worker_execution_seconds": 0.29725999999999997
+        },
+        {
+          "subject": "regional_supply",
+          "id": "e84faab6a66742a5b78060e009972a7b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 64.25,
+          "submission_seconds": 0.015691100037656724,
+          "end_to_end_seconds": 1.096024990081787,
+          "worker_execution_seconds": 0.30319999999999997
+        },
+        {
+          "subject": "regional_sales",
+          "id": "f688b03117c24dfbb921b204e93e9c17",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 64.531,
+          "submission_seconds": 0.0410359000088647,
+          "end_to_end_seconds": 0.9102327823638916,
+          "worker_execution_seconds": 0.26947000000000004
+        },
+        {
+          "subject": "regional_sales",
+          "id": "bfe1eb10803e4fd3854320c78bc799d8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 64.985,
+          "submission_seconds": 0.0378830999834463,
+          "end_to_end_seconds": 0.9727261066436768,
+          "worker_execution_seconds": 0.25672
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "02726b1feed44c87982d331dbe12c3f3",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 65.189,
+          "submission_seconds": 0.01867600006517023,
+          "end_to_end_seconds": 0.8589439392089844,
+          "worker_execution_seconds": 0.18866999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "c79e7ef1985a451ca370a7b18fe9ec35",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 65.728,
+          "submission_seconds": 0.020725099951960146,
+          "end_to_end_seconds": 0.9405078887939453,
+          "worker_execution_seconds": 0.28334
+        },
+        {
+          "subject": "regional_service",
+          "id": "8a9f60c02b894d7bb910f566617495ca",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 66.113,
+          "submission_seconds": 0.026408799923956394,
+          "end_to_end_seconds": 0.8996706008911133,
+          "worker_execution_seconds": 0.30043000000000003
+        },
+        {
+          "subject": "global_analyst",
+          "id": "06d5aef6b73049749da102d926818d8c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 66.406,
+          "submission_seconds": 0.0425269000697881,
+          "end_to_end_seconds": 1.06162691116333,
+          "worker_execution_seconds": 0.28923000000000004
+        },
+        {
+          "subject": "regional_supply",
+          "id": "3fd8a1ae9ae64b969fe4138949346a4c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 66.668,
+          "submission_seconds": 0.03392750001512468,
+          "end_to_end_seconds": 0.8455579280853271,
+          "worker_execution_seconds": 0.23974
+        },
+        {
+          "subject": "regional_supply",
+          "id": "546db66893b34ea390196ececef95161",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 67.024,
+          "submission_seconds": 0.023708999971859157,
+          "end_to_end_seconds": 0.8280048370361328,
+          "worker_execution_seconds": 0.2517
+        },
+        {
+          "subject": "regional_sales",
+          "id": "664762fe8943417f9846bed627c93bb5",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 67.372,
+          "submission_seconds": 0.04046160005964339,
+          "end_to_end_seconds": 0.8865385055541992,
+          "worker_execution_seconds": 0.28568
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "38d1701591794366ab9aee43b76c1ba9",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 67.922,
+          "submission_seconds": 0.02160039998125285,
+          "end_to_end_seconds": 0.91373610496521,
+          "worker_execution_seconds": 0.19924
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "486e6b7d07d048d5a20e889fbff1fddd",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 67.948,
+          "submission_seconds": 0.025626400019973516,
+          "end_to_end_seconds": 0.8300843238830566,
+          "worker_execution_seconds": 0.17362
+        },
+        {
+          "subject": "regional_service",
+          "id": "bf3510ac44bd4a8fb97f7d30b86f38e1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 68.336,
+          "submission_seconds": 0.025426500011235476,
+          "end_to_end_seconds": 0.8807399272918701,
+          "worker_execution_seconds": 0.30126
+        },
+        {
+          "subject": "global_analyst",
+          "id": "20ca30d4424e42af8834cc5156eaeeb8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 68.785,
+          "submission_seconds": 0.029460100107826293,
+          "end_to_end_seconds": 0.6875877380371094,
+          "worker_execution_seconds": 0.25109
+        },
+        {
+          "subject": "global_analyst",
+          "id": "ddcb86712ff3499cb4df9adc2a406991",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 69.239,
+          "submission_seconds": 0.029166800086386502,
+          "end_to_end_seconds": 1.056877613067627,
+          "worker_execution_seconds": 0.29772000000000004
+        },
+        {
+          "subject": "regional_supply",
+          "id": "c59cb8434b954c55a6b9f78e97392b4b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 69.566,
+          "submission_seconds": 0.028179200016893446,
+          "end_to_end_seconds": 1.0237932205200195,
+          "worker_execution_seconds": 0.26755
+        },
+        {
+          "subject": "regional_sales",
+          "id": "30b05ac7efeb4baebb20b176bdf4ea41",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 69.981,
+          "submission_seconds": 0.02951040002517402,
+          "end_to_end_seconds": 0.92453932762146,
+          "worker_execution_seconds": 0.25284
+        },
+        {
+          "subject": "regional_sales",
+          "id": "43ba81ab8db84c14ae1324e4313850a8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 70.155,
+          "submission_seconds": 0.017699699965305626,
+          "end_to_end_seconds": 0.8248438835144043,
+          "worker_execution_seconds": 0.25421
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "385a33c9f4624bb48401e5c125ce97f9",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 70.431,
+          "submission_seconds": 0.03975019999779761,
+          "end_to_end_seconds": 0.7400422096252441,
+          "worker_execution_seconds": 0.15863999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "9452d3d883c94833af932bd640c812f5",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 70.903,
+          "submission_seconds": 0.03878189995884895,
+          "end_to_end_seconds": 0.6896073818206787,
+          "worker_execution_seconds": 0.24035
+        },
+        {
+          "subject": "regional_service",
+          "id": "9c4b0aed527c49c2b63439e76c3ee355",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 71.313,
+          "submission_seconds": 0.03827400004956871,
+          "end_to_end_seconds": 0.8809666633605957,
+          "worker_execution_seconds": 0.26680000000000004
+        },
+        {
+          "subject": "global_analyst",
+          "id": "511262b5a8014a258814b06e12b94800",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 71.594,
+          "submission_seconds": 0.028940100106410682,
+          "end_to_end_seconds": 0.9735264778137207,
+          "worker_execution_seconds": 0.24693
+        },
+        {
+          "subject": "regional_supply",
+          "id": "c38c10fe1e9b442ebbee8a08d7fd239a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "completed_elapsed_seconds": 71.831,
+          "submission_seconds": 0.014407899929210544,
+          "end_to_end_seconds": 0.8634562492370605,
+          "worker_execution_seconds": 0.22236
+        }
+      ],
+      "queue_samples": [
+        {
+          "pending": 0,
+          "queued": 0,
+          "max_employee_pending": 0,
+          "elapsed_seconds": 0.039,
+          "resources": {
+            "worker": {
+              "rss_mb": 1930.344,
+              "private_commit_mb": 5341.512,
+              "handles": 312,
+              "cpu_seconds": 14.5
+            },
+            "api": {
+              "rss_mb": 77.387,
+              "private_commit_mb": 58.027,
+              "handles": 216,
+              "cpu_seconds": 1.75
+            },
+            "ui": {
+              "rss_mb": 79.07,
+              "private_commit_mb": 63.258,
+              "handles": 196,
+              "cpu_seconds": 1.0312
+            }
+          },
+          "control_disk_mb": 1.024
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 1.049,
+          "resources": {
+            "worker": {
+              "rss_mb": 1933.984,
+              "private_commit_mb": 5340.957,
+              "handles": 315,
+              "cpu_seconds": 17.5938
+            },
+            "api": {
+              "rss_mb": 78.246,
+              "private_commit_mb": 58.852,
+              "handles": 213,
+              "cpu_seconds": 1.8906
+            },
+            "ui": {
+              "rss_mb": 79.07,
+              "private_commit_mb": 63.258,
+              "handles": 196,
+              "cpu_seconds": 1.0312
+            }
+          },
+          "control_disk_mb": 1.393
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 2.085,
+          "resources": {
+            "worker": {
+              "rss_mb": 1935.176,
+              "private_commit_mb": 5346.961,
+              "handles": 313,
+              "cpu_seconds": 21.3906
+            },
+            "api": {
+              "rss_mb": 77.004,
+              "private_commit_mb": 58.176,
+              "handles": 213,
+              "cpu_seconds": 1.9844
+            },
+            "ui": {
+              "rss_mb": 79.07,
+              "private_commit_mb": 63.258,
+              "handles": 196,
+              "cpu_seconds": 1.0469
+            }
+          },
+          "control_disk_mb": 1.813
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 3.099,
+          "resources": {
+            "worker": {
+              "rss_mb": 1935.262,
+              "private_commit_mb": 5342.82,
+              "handles": 315,
+              "cpu_seconds": 25.0625
+            },
+            "api": {
+              "rss_mb": 78.289,
+              "private_commit_mb": 58.863,
+              "handles": 213,
+              "cpu_seconds": 2.1875
+            },
+            "ui": {
+              "rss_mb": 79.07,
+              "private_commit_mb": 63.258,
+              "handles": 196,
+              "cpu_seconds": 1.0469
+            }
+          },
+          "control_disk_mb": 2.21
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 4.123,
+          "resources": {
+            "worker": {
+              "rss_mb": 1935.484,
+              "private_commit_mb": 5341.055,
+              "handles": 318,
+              "cpu_seconds": 28.8281
+            },
+            "api": {
+              "rss_mb": 76.934,
+              "private_commit_mb": 57.633,
+              "handles": 214,
+              "cpu_seconds": 2.4219
+            },
+            "ui": {
+              "rss_mb": 79.07,
+              "private_commit_mb": 63.258,
+              "handles": 196,
+              "cpu_seconds": 1.0469
+            }
+          },
+          "control_disk_mb": 2.635
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 5.135,
+          "resources": {
+            "worker": {
+              "rss_mb": 1936.219,
+              "private_commit_mb": 5345.758,
+              "handles": 313,
+              "cpu_seconds": 32.4531
+            },
+            "api": {
+              "rss_mb": 78.02,
+              "private_commit_mb": 59.031,
+              "handles": 213,
+              "cpu_seconds": 2.5781
+            },
+            "ui": {
+              "rss_mb": 79.07,
+              "private_commit_mb": 63.258,
+              "handles": 196,
+              "cpu_seconds": 1.0469
+            }
+          },
+          "control_disk_mb": 3.055
+        },
+        {
+          "pending": 2,
+          "queued": 1,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 6.162,
+          "resources": {
+            "worker": {
+              "rss_mb": 1938.566,
+              "private_commit_mb": 4387.328,
+              "handles": 313,
+              "cpu_seconds": 36.0938
+            },
+            "api": {
+              "rss_mb": 76.754,
+              "private_commit_mb": 58.883,
+              "handles": 214,
+              "cpu_seconds": 2.7344
+            },
+            "ui": {
+              "rss_mb": 79.07,
+              "private_commit_mb": 63.258,
+              "handles": 196,
+              "cpu_seconds": 1.0469
+            }
+          },
+          "control_disk_mb": 3.46
+        },
+        {
+          "pending": 3,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 7.232,
+          "resources": {
+            "worker": {
+              "rss_mb": 1926.645,
+              "private_commit_mb": 4369.625,
+              "handles": 314,
+              "cpu_seconds": 39.875
+            },
+            "api": {
+              "rss_mb": 78.203,
+              "private_commit_mb": 59.949,
+              "handles": 213,
+              "cpu_seconds": 2.9688
+            },
+            "ui": {
+              "rss_mb": 79.07,
+              "private_commit_mb": 63.258,
+              "handles": 196,
+              "cpu_seconds": 1.0469
+            }
+          },
+          "control_disk_mb": 3.766
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 8.265,
+          "resources": {
+            "worker": {
+              "rss_mb": 1939.316,
+              "private_commit_mb": 4386.867,
+              "handles": 313,
+              "cpu_seconds": 43.5938
+            },
+            "api": {
+              "rss_mb": 79.379,
+              "private_commit_mb": 59.949,
+              "handles": 213,
+              "cpu_seconds": 3.2969
+            },
+            "ui": {
+              "rss_mb": 79.07,
+              "private_commit_mb": 63.258,
+              "handles": 196,
+              "cpu_seconds": 1.0625
+            }
+          },
+          "control_disk_mb": 4.057
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 9.304,
+          "resources": {
+            "worker": {
+              "rss_mb": 1927.285,
+              "private_commit_mb": 4371.523,
+              "handles": 318,
+              "cpu_seconds": 47.4062
+            },
+            "api": {
+              "rss_mb": 77.281,
+              "private_commit_mb": 59.012,
+              "handles": 213,
+              "cpu_seconds": 3.5625
+            },
+            "ui": {
+              "rss_mb": 79.07,
+              "private_commit_mb": 63.258,
+              "handles": 196,
+              "cpu_seconds": 1.0938
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 10.333,
+          "resources": {
+            "worker": {
+              "rss_mb": 1927.797,
+              "private_commit_mb": 4370.945,
+              "handles": 315,
+              "cpu_seconds": 51.0
+            },
+            "api": {
+              "rss_mb": 78.344,
+              "private_commit_mb": 60.23,
+              "handles": 207,
+              "cpu_seconds": 3.8281
+            },
+            "ui": {
+              "rss_mb": 79.07,
+              "private_commit_mb": 63.258,
+              "handles": 196,
+              "cpu_seconds": 1.0938
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 11.345,
+          "resources": {
+            "worker": {
+              "rss_mb": 1931.641,
+              "private_commit_mb": 4372.344,
+              "handles": 315,
+              "cpu_seconds": 54.6406
+            },
+            "api": {
+              "rss_mb": 79.469,
+              "private_commit_mb": 60.121,
+              "handles": 207,
+              "cpu_seconds": 3.9688
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.0938
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 3,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 12.428,
+          "resources": {
+            "worker": {
+              "rss_mb": 1934.195,
+              "private_commit_mb": 4377.062,
+              "handles": 313,
+              "cpu_seconds": 58.375
+            },
+            "api": {
+              "rss_mb": 77.707,
+              "private_commit_mb": 59.203,
+              "handles": 213,
+              "cpu_seconds": 4.25
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.0938
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 3,
+          "queued": 3,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 13.52,
+          "resources": {
+            "worker": {
+              "rss_mb": 1932.109,
+              "private_commit_mb": 4376.918,
+              "handles": 318,
+              "cpu_seconds": 62.2969
+            },
+            "api": {
+              "rss_mb": 78.922,
+              "private_commit_mb": 60.359,
+              "handles": 207,
+              "cpu_seconds": 4.5312
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.0938
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 14.554,
+          "resources": {
+            "worker": {
+              "rss_mb": 1937.945,
+              "private_commit_mb": 4384.918,
+              "handles": 313,
+              "cpu_seconds": 65.9375
+            },
+            "api": {
+              "rss_mb": 80.336,
+              "private_commit_mb": 60.746,
+              "handles": 207,
+              "cpu_seconds": 4.8281
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.125
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 3,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 15.624,
+          "resources": {
+            "worker": {
+              "rss_mb": 1927.848,
+              "private_commit_mb": 4370.605,
+              "handles": 313,
+              "cpu_seconds": 69.9375
+            },
+            "api": {
+              "rss_mb": 78.512,
+              "private_commit_mb": 59.145,
+              "handles": 207,
+              "cpu_seconds": 5.0469
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.125
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 16.669,
+          "resources": {
+            "worker": {
+              "rss_mb": 1931.48,
+              "private_commit_mb": 4375.703,
+              "handles": 313,
+              "cpu_seconds": 73.6719
+            },
+            "api": {
+              "rss_mb": 79.953,
+              "private_commit_mb": 60.75,
+              "handles": 207,
+              "cpu_seconds": 5.3281
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.125
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 17.719,
+          "resources": {
+            "worker": {
+              "rss_mb": 1927.609,
+              "private_commit_mb": 4372.215,
+              "handles": 313,
+              "cpu_seconds": 77.3281
+            },
+            "api": {
+              "rss_mb": 77.148,
+              "private_commit_mb": 58.133,
+              "handles": 209,
+              "cpu_seconds": 5.5781
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.125
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 18.788,
+          "resources": {
+            "worker": {
+              "rss_mb": 1933.484,
+              "private_commit_mb": 4377.117,
+              "handles": 313,
+              "cpu_seconds": 81.2031
+            },
+            "api": {
+              "rss_mb": 78.848,
+              "private_commit_mb": 59.809,
+              "handles": 207,
+              "cpu_seconds": 5.8906
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.125
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 19.819,
+          "resources": {
+            "worker": {
+              "rss_mb": 1938.816,
+              "private_commit_mb": 4384.211,
+              "handles": 313,
+              "cpu_seconds": 84.9688
+            },
+            "api": {
+              "rss_mb": 80.004,
+              "private_commit_mb": 60.965,
+              "handles": 207,
+              "cpu_seconds": 6.1406
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.125
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 20.866,
+          "resources": {
+            "worker": {
+              "rss_mb": 1927.957,
+              "private_commit_mb": 4374.07,
+              "handles": 313,
+              "cpu_seconds": 88.7344
+            },
+            "api": {
+              "rss_mb": 77.348,
+              "private_commit_mb": 58.301,
+              "handles": 208,
+              "cpu_seconds": 6.2969
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.125
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 21.901,
+          "resources": {
+            "worker": {
+              "rss_mb": 1939.652,
+              "private_commit_mb": 4389.891,
+              "handles": 313,
+              "cpu_seconds": 92.5781
+            },
+            "api": {
+              "rss_mb": 79.234,
+              "private_commit_mb": 60.355,
+              "handles": 207,
+              "cpu_seconds": 6.5156
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.125
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 3,
+          "queued": 3,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 22.973,
+          "resources": {
+            "worker": {
+              "rss_mb": 1928.316,
+              "private_commit_mb": 4370.785,
+              "handles": 313,
+              "cpu_seconds": 96.3125
+            },
+            "api": {
+              "rss_mb": 80.246,
+              "private_commit_mb": 60.918,
+              "handles": 204,
+              "cpu_seconds": 6.7344
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.125
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 24.006,
+          "resources": {
+            "worker": {
+              "rss_mb": 1942.773,
+              "private_commit_mb": 4408.91,
+              "handles": 316,
+              "cpu_seconds": 99.9219
+            },
+            "api": {
+              "rss_mb": 78.52,
+              "private_commit_mb": 59.188,
+              "handles": 207,
+              "cpu_seconds": 6.9219
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.1562
+            }
+          },
+          "control_disk_mb": 4.582
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 25.029,
+          "resources": {
+            "worker": {
+              "rss_mb": 1939.586,
+              "private_commit_mb": 4388.812,
+              "handles": 315,
+              "cpu_seconds": 103.5469
+            },
+            "api": {
+              "rss_mb": 79.535,
+              "private_commit_mb": 59.922,
+              "handles": 207,
+              "cpu_seconds": 7.2031
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.1875
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 26.068,
+          "resources": {
+            "worker": {
+              "rss_mb": 1934.594,
+              "private_commit_mb": 4376.914,
+              "handles": 314,
+              "cpu_seconds": 107.3906
+            },
+            "api": {
+              "rss_mb": 81.25,
+              "private_commit_mb": 61.664,
+              "handles": 207,
+              "cpu_seconds": 7.4375
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.1875
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 27.121,
+          "resources": {
+            "worker": {
+              "rss_mb": 1932.586,
+              "private_commit_mb": 4375.613,
+              "handles": 318,
+              "cpu_seconds": 111.2031
+            },
+            "api": {
+              "rss_mb": 77.203,
+              "private_commit_mb": 59.16,
+              "handles": 208,
+              "cpu_seconds": 7.6094
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2031
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 28.15,
+          "resources": {
+            "worker": {
+              "rss_mb": 1939.797,
+              "private_commit_mb": 4385.547,
+              "handles": 313,
+              "cpu_seconds": 114.9375
+            },
+            "api": {
+              "rss_mb": 78.77,
+              "private_commit_mb": 60.859,
+              "handles": 207,
+              "cpu_seconds": 7.8438
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2188
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 2,
+          "queued": 1,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 29.215,
+          "resources": {
+            "worker": {
+              "rss_mb": 1935.285,
+              "private_commit_mb": 4376.086,
+              "handles": 313,
+              "cpu_seconds": 118.7969
+            },
+            "api": {
+              "rss_mb": 77.16,
+              "private_commit_mb": 59.617,
+              "handles": 210,
+              "cpu_seconds": 8.0469
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2188
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 30.263,
+          "resources": {
+            "worker": {
+              "rss_mb": 1932.867,
+              "private_commit_mb": 4377.094,
+              "handles": 313,
+              "cpu_seconds": 122.6406
+            },
+            "api": {
+              "rss_mb": 78.148,
+              "private_commit_mb": 60.465,
+              "handles": 207,
+              "cpu_seconds": 8.2344
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2188
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 3,
+          "queued": 3,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 31.335,
+          "resources": {
+            "worker": {
+              "rss_mb": 1929.102,
+              "private_commit_mb": 4369.652,
+              "handles": 313,
+              "cpu_seconds": 126.5625
+            },
+            "api": {
+              "rss_mb": 79.395,
+              "private_commit_mb": 61.496,
+              "handles": 216,
+              "cpu_seconds": 8.4219
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2188
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 32.407,
+          "resources": {
+            "worker": {
+              "rss_mb": 1933.227,
+              "private_commit_mb": 4377.371,
+              "handles": 313,
+              "cpu_seconds": 130.6094
+            },
+            "api": {
+              "rss_mb": 77.176,
+              "private_commit_mb": 58.965,
+              "handles": 207,
+              "cpu_seconds": 8.6094
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2188
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 33.441,
+          "resources": {
+            "worker": {
+              "rss_mb": 1933.531,
+              "private_commit_mb": 4377.484,
+              "handles": 313,
+              "cpu_seconds": 134.5
+            },
+            "api": {
+              "rss_mb": 78.758,
+              "private_commit_mb": 60.695,
+              "handles": 207,
+              "cpu_seconds": 8.8438
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2344
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 34.474,
+          "resources": {
+            "worker": {
+              "rss_mb": 1929.414,
+              "private_commit_mb": 4370.938,
+              "handles": 313,
+              "cpu_seconds": 138.2031
+            },
+            "api": {
+              "rss_mb": 79.688,
+              "private_commit_mb": 61.496,
+              "handles": 207,
+              "cpu_seconds": 9.0781
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2344
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 35.51,
+          "resources": {
+            "worker": {
+              "rss_mb": 1941.738,
+              "private_commit_mb": 4388.41,
+              "handles": 313,
+              "cpu_seconds": 141.9688
+            },
+            "api": {
+              "rss_mb": 77.895,
+              "private_commit_mb": 59.633,
+              "handles": 207,
+              "cpu_seconds": 9.3281
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2812
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 3,
+          "queued": 3,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 36.581,
+          "resources": {
+            "worker": {
+              "rss_mb": 1930.227,
+              "private_commit_mb": 4372.445,
+              "handles": 317,
+              "cpu_seconds": 145.9531
+            },
+            "api": {
+              "rss_mb": 79.125,
+              "private_commit_mb": 60.879,
+              "handles": 207,
+              "cpu_seconds": 9.5
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2812
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 3,
+          "queued": 3,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 37.683,
+          "resources": {
+            "worker": {
+              "rss_mb": 1936.168,
+              "private_commit_mb": 4378.277,
+              "handles": 317,
+              "cpu_seconds": 149.8906
+            },
+            "api": {
+              "rss_mb": 80.125,
+              "private_commit_mb": 61.668,
+              "handles": 207,
+              "cpu_seconds": 9.6719
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2812
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 3,
+          "queued": 3,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 38.77,
+          "resources": {
+            "worker": {
+              "rss_mb": 1936.426,
+              "private_commit_mb": 4378.684,
+              "handles": 313,
+              "cpu_seconds": 153.9062
+            },
+            "api": {
+              "rss_mb": 77.824,
+              "private_commit_mb": 59.816,
+              "handles": 208,
+              "cpu_seconds": 9.9531
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2812
+            }
+          },
+          "control_disk_mb": 4.953
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 39.817,
+          "resources": {
+            "worker": {
+              "rss_mb": 1935.777,
+              "private_commit_mb": 4378.219,
+              "handles": 313,
+              "cpu_seconds": 157.7031
+            },
+            "api": {
+              "rss_mb": 79.102,
+              "private_commit_mb": 60.93,
+              "handles": 207,
+              "cpu_seconds": 10.2656
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2812
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 3,
+          "queued": 3,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 40.885,
+          "resources": {
+            "worker": {
+              "rss_mb": 1934.008,
+              "private_commit_mb": 4377.293,
+              "handles": 313,
+              "cpu_seconds": 161.6719
+            },
+            "api": {
+              "rss_mb": 77.395,
+              "private_commit_mb": 59.367,
+              "handles": 208,
+              "cpu_seconds": 10.4688
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2969
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 41.927,
+          "resources": {
+            "worker": {
+              "rss_mb": 1941.059,
+              "private_commit_mb": 4389.488,
+              "handles": 313,
+              "cpu_seconds": 165.5312
+            },
+            "api": {
+              "rss_mb": 78.824,
+              "private_commit_mb": 60.883,
+              "handles": 207,
+              "cpu_seconds": 10.6875
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2969
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 2,
+          "queued": 1,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 42.985,
+          "resources": {
+            "worker": {
+              "rss_mb": 1936.465,
+              "private_commit_mb": 4377.934,
+              "handles": 313,
+              "cpu_seconds": 169.4062
+            },
+            "api": {
+              "rss_mb": 80.453,
+              "private_commit_mb": 61.891,
+              "handles": 209,
+              "cpu_seconds": 10.9219
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.2969
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 44.021,
+          "resources": {
+            "worker": {
+              "rss_mb": 1942.609,
+              "private_commit_mb": 4406.363,
+              "handles": 318,
+              "cpu_seconds": 173.1406
+            },
+            "api": {
+              "rss_mb": 77.984,
+              "private_commit_mb": 59.703,
+              "handles": 208,
+              "cpu_seconds": 11.2031
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3281
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 45.068,
+          "resources": {
+            "worker": {
+              "rss_mb": 1935.699,
+              "private_commit_mb": 4377.281,
+              "handles": 313,
+              "cpu_seconds": 176.8594
+            },
+            "api": {
+              "rss_mb": 79.582,
+              "private_commit_mb": 61.461,
+              "handles": 208,
+              "cpu_seconds": 11.4688
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3281
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 46.121,
+          "resources": {
+            "worker": {
+              "rss_mb": 1936.137,
+              "private_commit_mb": 4378.875,
+              "handles": 313,
+              "cpu_seconds": 180.6094
+            },
+            "api": {
+              "rss_mb": 80.902,
+              "private_commit_mb": 62.328,
+              "handles": 207,
+              "cpu_seconds": 11.7656
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3438
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 47.157,
+          "resources": {
+            "worker": {
+              "rss_mb": 1936.129,
+              "private_commit_mb": 4377.836,
+              "handles": 313,
+              "cpu_seconds": 184.375
+            },
+            "api": {
+              "rss_mb": 80.859,
+              "private_commit_mb": 62.465,
+              "handles": 208,
+              "cpu_seconds": 12.0
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3438
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 48.19,
+          "resources": {
+            "worker": {
+              "rss_mb": 1934.137,
+              "private_commit_mb": 4376.664,
+              "handles": 313,
+              "cpu_seconds": 188.0156
+            },
+            "api": {
+              "rss_mb": 81.855,
+              "private_commit_mb": 63.445,
+              "handles": 207,
+              "cpu_seconds": 12.1562
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3594
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 49.212,
+          "resources": {
+            "worker": {
+              "rss_mb": 1941.234,
+              "private_commit_mb": 4387.621,
+              "handles": 313,
+              "cpu_seconds": 191.7031
+            },
+            "api": {
+              "rss_mb": 82.441,
+              "private_commit_mb": 64.211,
+              "handles": 207,
+              "cpu_seconds": 12.375
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3594
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 50.234,
+          "resources": {
+            "worker": {
+              "rss_mb": 1936.191,
+              "private_commit_mb": 4377.59,
+              "handles": 315,
+              "cpu_seconds": 195.5312
+            },
+            "api": {
+              "rss_mb": 80.789,
+              "private_commit_mb": 63.473,
+              "handles": 207,
+              "cpu_seconds": 12.6875
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3594
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 51.272,
+          "resources": {
+            "worker": {
+              "rss_mb": 1940.445,
+              "private_commit_mb": 4382.945,
+              "handles": 316,
+              "cpu_seconds": 199.3906
+            },
+            "api": {
+              "rss_mb": 81.828,
+              "private_commit_mb": 63.918,
+              "handles": 209,
+              "cpu_seconds": 12.9062
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3594
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 52.322,
+          "resources": {
+            "worker": {
+              "rss_mb": 1930.609,
+              "private_commit_mb": 4371.605,
+              "handles": 313,
+              "cpu_seconds": 203.0
+            },
+            "api": {
+              "rss_mb": 79.742,
+              "private_commit_mb": 61.305,
+              "handles": 207,
+              "cpu_seconds": 13.1094
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3594
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 53.359,
+          "resources": {
+            "worker": {
+              "rss_mb": 1935.492,
+              "private_commit_mb": 4376.441,
+              "handles": 313,
+              "cpu_seconds": 206.7969
+            },
+            "api": {
+              "rss_mb": 80.883,
+              "private_commit_mb": 62.488,
+              "handles": 208,
+              "cpu_seconds": 13.2188
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3594
+            }
+          },
+          "control_disk_mb": 5.296
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 54.424,
+          "resources": {
+            "worker": {
+              "rss_mb": 1935.578,
+              "private_commit_mb": 4376.789,
+              "handles": 314,
+              "cpu_seconds": 210.4844
+            },
+            "api": {
+              "rss_mb": 82.551,
+              "private_commit_mb": 64.211,
+              "handles": 208,
+              "cpu_seconds": 13.4219
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3594
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 55.481,
+          "resources": {
+            "worker": {
+              "rss_mb": 1931.199,
+              "private_commit_mb": 4371.781,
+              "handles": 313,
+              "cpu_seconds": 214.125
+            },
+            "api": {
+              "rss_mb": 80.414,
+              "private_commit_mb": 62.262,
+              "handles": 207,
+              "cpu_seconds": 13.6562
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3594
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 56.534,
+          "resources": {
+            "worker": {
+              "rss_mb": 1942.305,
+              "private_commit_mb": 4388.898,
+              "handles": 313,
+              "cpu_seconds": 217.9062
+            },
+            "api": {
+              "rss_mb": 81.52,
+              "private_commit_mb": 63.473,
+              "handles": 207,
+              "cpu_seconds": 13.8281
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3594
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 2,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 57.636,
+          "resources": {
+            "worker": {
+              "rss_mb": 1935.98,
+              "private_commit_mb": 4376.055,
+              "handles": 317,
+              "cpu_seconds": 221.9062
+            },
+            "api": {
+              "rss_mb": 82.766,
+              "private_commit_mb": 64.227,
+              "handles": 210,
+              "cpu_seconds": 14.0938
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3594
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 2,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 58.758,
+          "resources": {
+            "worker": {
+              "rss_mb": 1942.434,
+              "private_commit_mb": 4388.18,
+              "handles": 313,
+              "cpu_seconds": 225.7656
+            },
+            "api": {
+              "rss_mb": 79.875,
+              "private_commit_mb": 61.219,
+              "handles": 203,
+              "cpu_seconds": 14.2656
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.375
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 2,
+          "queued": 1,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 59.808,
+          "resources": {
+            "worker": {
+              "rss_mb": 1938.508,
+              "private_commit_mb": 4378.16,
+              "handles": 313,
+              "cpu_seconds": 229.3438
+            },
+            "api": {
+              "rss_mb": 81.035,
+              "private_commit_mb": 62.574,
+              "handles": 204,
+              "cpu_seconds": 14.5
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.375
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 2,
+          "queued": 1,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 60.853,
+          "resources": {
+            "worker": {
+              "rss_mb": 1936.465,
+              "private_commit_mb": 4377.969,
+              "handles": 314,
+              "cpu_seconds": 232.9219
+            },
+            "api": {
+              "rss_mb": 82.285,
+              "private_commit_mb": 63.777,
+              "handles": 204,
+              "cpu_seconds": 14.7188
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3906
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 61.898,
+          "resources": {
+            "worker": {
+              "rss_mb": 1943.039,
+              "private_commit_mb": 4390.527,
+              "handles": 313,
+              "cpu_seconds": 236.625
+            },
+            "api": {
+              "rss_mb": 83.574,
+              "private_commit_mb": 64.895,
+              "handles": 203,
+              "cpu_seconds": 14.9531
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3906
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 62.952,
+          "resources": {
+            "worker": {
+              "rss_mb": 1936.562,
+              "private_commit_mb": 4376.078,
+              "handles": 314,
+              "cpu_seconds": 240.4531
+            },
+            "api": {
+              "rss_mb": 79.551,
+              "private_commit_mb": 64.293,
+              "handles": 203,
+              "cpu_seconds": 15.1562
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3906
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 63.981,
+          "resources": {
+            "worker": {
+              "rss_mb": 1932.234,
+              "private_commit_mb": 4372.43,
+              "handles": 313,
+              "cpu_seconds": 243.9688
+            },
+            "api": {
+              "rss_mb": 80.883,
+              "private_commit_mb": 64.891,
+              "handles": 203,
+              "cpu_seconds": 15.4688
+            },
+            "ui": {
+              "rss_mb": 79.0,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.3906
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 65.058,
+          "resources": {
+            "worker": {
+              "rss_mb": 1939.121,
+              "private_commit_mb": 4380.09,
+              "handles": 313,
+              "cpu_seconds": 247.9062
+            },
+            "api": {
+              "rss_mb": 81.66,
+              "private_commit_mb": 64.891,
+              "handles": 203,
+              "cpu_seconds": 15.7188
+            },
+            "ui": {
+              "rss_mb": 79.004,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.4062
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 2,
+          "queued": 1,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 66.09,
+          "resources": {
+            "worker": {
+              "rss_mb": 1936.66,
+              "private_commit_mb": 4376.141,
+              "handles": 313,
+              "cpu_seconds": 251.5
+            },
+            "api": {
+              "rss_mb": 78.539,
+              "private_commit_mb": 60.883,
+              "handles": 203,
+              "cpu_seconds": 15.875
+            },
+            "ui": {
+              "rss_mb": 79.004,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.4375
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 67.139,
+          "resources": {
+            "worker": {
+              "rss_mb": 1943.445,
+              "private_commit_mb": 4391.816,
+              "handles": 313,
+              "cpu_seconds": 255.3594
+            },
+            "api": {
+              "rss_mb": 80.141,
+              "private_commit_mb": 62.301,
+              "handles": 203,
+              "cpu_seconds": 16.1875
+            },
+            "ui": {
+              "rss_mb": 79.004,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.4375
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 68.183,
+          "resources": {
+            "worker": {
+              "rss_mb": 1939.938,
+              "private_commit_mb": 4380.879,
+              "handles": 315,
+              "cpu_seconds": 259.0781
+            },
+            "api": {
+              "rss_mb": 81.484,
+              "private_commit_mb": 62.965,
+              "handles": 203,
+              "cpu_seconds": 16.3438
+            },
+            "ui": {
+              "rss_mb": 79.004,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.4375
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 2,
+          "queued": 1,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 69.241,
+          "resources": {
+            "worker": {
+              "rss_mb": 1933.027,
+              "private_commit_mb": 4373.602,
+              "handles": 313,
+              "cpu_seconds": 262.6875
+            },
+            "api": {
+              "rss_mb": 78.207,
+              "private_commit_mb": 60.242,
+              "handles": 203,
+              "cpu_seconds": 16.5156
+            },
+            "ui": {
+              "rss_mb": 79.004,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.4375
+            }
+          },
+          "control_disk_mb": 5.64
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 70.299,
+          "resources": {
+            "worker": {
+              "rss_mb": 1939.965,
+              "private_commit_mb": 4379.414,
+              "handles": 313,
+              "cpu_seconds": 266.5469
+            },
+            "api": {
+              "rss_mb": 79.879,
+              "private_commit_mb": 62.141,
+              "handles": 203,
+              "cpu_seconds": 16.7188
+            },
+            "ui": {
+              "rss_mb": 79.004,
+              "private_commit_mb": 63.141,
+              "handles": 194,
+              "cpu_seconds": 1.4375
+            }
+          },
+          "control_disk_mb": 5.98
+        }
+      ],
+      "resource_summary": {
+        "worker": {
+          "baseline": {
+            "rss_mb": 1930.344,
+            "private_commit_mb": 5341.512,
+            "handles": 312,
+            "cpu_seconds": 14.4062
+          },
+          "last": {
+            "rss_mb": 1939.965,
+            "private_commit_mb": 4379.414,
+            "handles": 313,
+            "cpu_seconds": 266.5469
+          },
+          "peak_rss_mb": 1943.445,
+          "peak_handles": 318,
+          "rss_growth_mb": 9.621,
+          "handle_growth": 1
+        },
+        "api": {
+          "baseline": {
+            "rss_mb": 76.395,
+            "private_commit_mb": 57.25,
+            "handles": 197,
+            "cpu_seconds": 1.75
+          },
+          "last": {
+            "rss_mb": 79.879,
+            "private_commit_mb": 62.141,
+            "handles": 203,
+            "cpu_seconds": 16.7188
+          },
+          "peak_rss_mb": 83.574,
+          "peak_handles": 216,
+          "rss_growth_mb": 3.484,
+          "handle_growth": 6
+        },
+        "ui": {
+          "baseline": {
+            "rss_mb": 79.07,
+            "private_commit_mb": 63.258,
+            "handles": 196,
+            "cpu_seconds": 1.0312
+          },
+          "last": {
+            "rss_mb": 79.004,
+            "private_commit_mb": 63.141,
+            "handles": 194,
+            "cpu_seconds": 1.4375
+          },
+          "peak_rss_mb": 79.07,
+          "peak_handles": 196,
+          "rss_growth_mb": -0.066,
+          "handle_growth": -2
+        }
+      },
+      "minute_windows": [
+        {
+          "start_seconds": 0,
+          "success_count": 146,
+          "successful_end_to_end_seconds": {
+            "count": 146,
+            "p50": 1.1928,
+            "p95": 1.3694,
+            "maximum": 1.4753
+          }
+        },
+        {
+          "start_seconds": 60,
+          "success_count": 28,
+          "successful_end_to_end_seconds": {
+            "count": 28,
+            "p50": 0.8865,
+            "p95": 1.096,
+            "maximum": 1.142
+          }
+        },
+        {
+          "start_seconds": 120,
+          "success_count": 0,
+          "successful_end_to_end_seconds": null
+        },
+        {
+          "start_seconds": 180,
+          "success_count": 0,
+          "successful_end_to_end_seconds": null
+        },
+        {
+          "start_seconds": 240,
+          "success_count": 0,
+          "successful_end_to_end_seconds": null
+        },
+        {
+          "start_seconds": 300,
+          "success_count": 0,
+          "successful_end_to_end_seconds": null
+        },
+        {
+          "start_seconds": 360,
+          "success_count": 0,
+          "successful_end_to_end_seconds": null
+        },
+        {
+          "start_seconds": 420,
+          "success_count": 0,
+          "successful_end_to_end_seconds": null
+        },
+        {
+          "start_seconds": 480,
+          "success_count": 0,
+          "successful_end_to_end_seconds": null
+        },
+        {
+          "start_seconds": 540,
+          "success_count": 0,
+          "successful_end_to_end_seconds": null
+        }
+      ],
+      "control_disk_first_mb": 1.024,
+      "control_disk_last_mb": 5.98
+    }
+  ],
+  "generation": "petkit-v1.3-638f0e235a",
+  "isolated_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\e3257154fa01",
+  "backup_integrity_verified": true,
+  "pattern": "Each lane submits one job, polls until terminal, then submits the next; no arrival-rate SLA",
+  "steady_seconds": 600,
+  "concurrency": 4,
+  "job_timeout_seconds": 90,
+  "minimum_stage_job_completions": 1,
+  "stop_conditions": [
+    "wrong result",
+    "unexpected HTTP/status",
+    "job timeout",
+    "unhealthy readiness",
+    "worker restart",
+    "resource growth threshold"
+  ],
+  "warmup_excluded": true,
+  "resource_baseline": {
+    "worker": {
+      "rss_mb": 1930.344,
+      "private_commit_mb": 5341.512,
+      "handles": 312,
+      "cpu_seconds": 14.4062
+    },
+    "api": {
+      "rss_mb": 76.395,
+      "private_commit_mb": 57.25,
+      "handles": 197,
+      "cpu_seconds": 1.75
+    },
+    "ui": {
+      "rss_mb": 79.07,
+      "private_commit_mb": 63.258,
+      "handles": 196,
+      "cpu_seconds": 1.0312
+    }
+  },
+  "resource_growth_limits": {
+    "worker_rss_mb": 1536,
+    "api_rss_mb": 512,
+    "ui_rss_mb": 256,
+    "handles_per_process": 512,
+    "control_disk_mb": 512
+  },
+  "failure": {
+    "type": "RuntimeError",
+    "message": "Stage failed; no further ramp"
+  },
+  "original_jobs_unchanged": true,
+  "original_pointer_unchanged": true,
+  "original_warehouse_unchanged": true,
+  "children_stopped": true
+}

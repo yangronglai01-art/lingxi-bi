@@ -1,0 +1,69 @@
+{
+  "kind": "development_pilot",
+  "model": "deepseek-v4-pro",
+  "generation": "petkit-v1.1-a13741f669",
+  "synthetic": true,
+  "real_model": true,
+  "cases": [
+    {
+      "id": "L01",
+      "question": "请按产品型号汇总净销售额，退款扣回原支付月份，列出各型号金额。",
+      "status": "error",
+      "error": "LLMError: 请求大模型失败：HTTPSConnectionPool(host='api.deepseek.com', port=443): Read timed out.",
+      "sql": "",
+      "plan": {
+        "metric": {
+          "id": "net_sales",
+          "name": "净销售额",
+          "aliases": [
+            "销售额",
+            "收入",
+            "销售趋势"
+          ],
+          "definition": "订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分",
+          "dependencies": [
+            "fact_order",
+            "fact_order_item",
+            "fact_refund",
+            "dim_sku",
+            "dim_product",
+            "dim_channel"
+          ],
+          "grain": "订单行先汇总退款再关联；按支付日统计",
+          "version": "petkit-v1.1"
+        },
+        "group": "由问题决定",
+        "month": null,
+        "assumptions": [
+          "订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分"
+        ]
+      },
+      "mock_used": false,
+      "elapsed_seconds": 44.594,
+      "rows": null,
+      "columns": null,
+      "context_tables": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_sku",
+        "dim_product",
+        "dim_channel",
+        "fact_payment",
+        "agg_sales_refund_monthly",
+        "agg_sales_payment_monthly",
+        "agg_sales_model_monthly",
+        "agg_sales_payment_daily",
+        "agg_sales_refund_daily"
+      ],
+      "assessment": {
+        "passed": false,
+        "reason": "没有成功查询结果"
+      }
+    }
+  ],
+  "not_blind_benchmark": true,
+  "stopped": "模型服务不可用；其余问题未继续调用",
+  "passed": 0,
+  "attempted": 1
+}

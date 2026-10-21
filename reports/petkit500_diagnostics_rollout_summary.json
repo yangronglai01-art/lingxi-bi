@@ -1,0 +1,38 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "tables": 500,
+  "orders": 3202,
+  "rows": 205397,
+  "tests_passed": 347,
+  "source_events": 25,
+  "business_oracle_cases": 37,
+  "ops_endpoint": "/ops/health",
+  "global_analyst_only": true,
+  "on_demand_workbench_panel": true,
+  "shared_readiness_checks": true,
+  "recent_sample_limit": 200,
+  "outcome_classification_verified": {
+    "success": 1,
+    "denied": 1,
+    "clarification": 1,
+    "unsupported": 1
+  },
+  "execution_denominator_increment": 1,
+  "raw_content_redacted": true,
+  "read_only_jobs_verified": true,
+  "restart_degraded_and_recovered": true,
+  "original_jobs_unchanged": true,
+  "business_warehouse_unchanged": true,
+  "final_restored_diagnostics_passed": true,
+  "final_regional_received_units": 10,
+  "all_acceptance_children_stopped": true,
+  "real_llm_called": false,
+  "external_notifications_sent": false,
+  "automatic_remediation": false,
+  "limits": [
+    "手动读取快照，最多200个终态样本，非全量长期指标",
+    "就绪检查不代替发布门禁或模型可用性测试",
+    "本地提示，不发送外部通知，不自动修复",
+    "单机模拟环境，未验收长期生产负载或高可用"
+  ]
+}

@@ -33,6 +33,10 @@ def _print_answer(ans) -> None:
         print("错误：", ans.error)
         print("=" * 72)
         return
+    print("状态：", ans.status)
+    if ans.context:
+        print("检索方式：", ans.context.get("retrieval_method"))
+        print("选表：", ans.context.get("table_names"))
     print("SQL：", ans.sql)
     print("Mock 降级：", "是" if ans.mock_used else "否")
     if ans.result:

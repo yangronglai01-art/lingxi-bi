@@ -1,0 +1,157 @@
+{
+  "version": "holdout-v1",
+  "generation": "petkit-v1.3-2dc93c9e1c",
+  "model": "deepseek-v4-pro",
+  "case_sha256": "5e7a6769f2246c59e1f11d02908c8102cd6b9bdbacf5f94a66b67cb0edca62e8",
+  "code_hashes": {
+    "src/petkit/service.py": "4de3b8ff10d13c08dbcb0b4b6c944b43ad5720059d564a2beba065fff8afe41d",
+    "src/petkit/planning.py": "05add2809c63d6c741cbd87e96e5de0c33368316f3dadfede388e9119633bc59",
+    "src/petkit/retrieval.py": "5ba772993224c4ae623f9fbbdd73708ecdfad4c386666f75a425b2b43ad40219",
+    "src/petkit/guard.py": "29eecc68d663ab0c64f4afa1bb1a47499f8d99959bf19c72dd32069f3f32e1e1",
+    "src/petkit/semantic.py": "e113a9f406f0e2d6a3665a610994c6cb1361271d1bc7b47382cbf3246f6367a4",
+    "src/engine/llm_client.py": "db34c44b87817d088d65c5ae7105a3929df2aafb09be0ce475618704febff497",
+    "scripts/eval_petkit_holdout.py": "3dc18163424f3cdc7984ea01b26d8a5815249855d67d4b4fb1b6dff3b1d5205b",
+    "scripts/eval_petkit_llm_pilot.py": "bb0f2d7fb69bb21171ed8492e615325b4a5e32e4ae094ac27f4c65afd3c69704"
+  },
+  "frozen_before_run": true,
+  "first_pass": false,
+  "prior_runs": [
+    "reports\\holdout_runs\\ade9bc76bf81\\results.json"
+  ],
+  "selected_ids": "H01",
+  "external_independent_benchmark": false,
+  "retrieval": "BM25 + 字符词法向量",
+  "rows": [
+    {
+      "id": "H01",
+      "question": "2026年5月，分别列出每种产品型号的净销售额。",
+      "expected_status": "success",
+      "status": "success",
+      "error": "",
+      "sql": "SELECT \"dp\".\"product_id\" AS \"product_id\", \"dp\".\"product_name\" AS \"product_name\", SUM(\"foi\".\"amount\" - COALESCE(\"fr\".\"refund_amount\", 0)) AS \"net_sales\" FROM \"fact_order_item\" AS \"foi\" JOIN \"fact_order\" AS \"fo\" ON \"foi\".\"order_id\" = \"fo\".\"order_id\" JOIN \"dim_sku\" AS \"ds\" ON \"foi\".\"sku_id\" = \"ds\".\"sku_id\" JOIN \"dim_product\" AS \"dp\" ON \"ds\".\"product_id\" = \"dp\".\"product_id\" LEFT JOIN (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refund_amount\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") AS \"fr\" ON \"foi\".\"item_id\" = \"fr\".\"item_id\" WHERE \"fo\".\"paid_date\" >= CAST('2026-05-01' AS DATE) AND \"fo\".\"paid_date\" < CAST('2026-06-01' AS DATE) AND \"fo\".\"status\" = '已支付' GROUP BY \"dp\".\"product_id\", \"dp\".\"product_name\" ORDER BY \"product_id\" LIMIT 1001",
+      "plan": {
+        "metric": "净销售额",
+        "dimensions": [
+          "产品型号"
+        ],
+        "time_range": "2026-05-01 至 2026-05-31",
+        "filters": [],
+        "joins": [
+          "fact_order_item 关联 fact_order (order_id)",
+          "fact_order_item 关联 dim_sku (sku_id)",
+          "dim_sku 关联 dim_product (product_id)",
+          "fact_order_item 左连接 fact_refund (item_id)"
+        ],
+        "grain": "产品型号",
+        "assumptions": [
+          "净销售额 = 订单行实付金额 - 截至数据截止日该订单行的退款金额",
+          "退款归属原订单支付日，因此按订单支付日期筛选",
+          "只统计已支付订单"
+        ]
+      },
+      "columns": [
+        "product_id",
+        "product_name",
+        "net_sales"
+      ],
+      "result_rows": [
+        [
+          "P001",
+          "模拟喂食器1型",
+          16797.899999999998
+        ],
+        [
+          "P002",
+          "模拟喂食器2型",
+          16342.250000000002
+        ],
+        [
+          "P003",
+          "模拟喂食器3型",
+          16442.55
+        ],
+        [
+          "P004",
+          "模拟喂食器4型",
+          26771.699999999997
+        ],
+        [
+          "P005",
+          "模拟饮水机1型",
+          8984.85
+        ],
+        [
+          "P006",
+          "模拟饮水机2型",
+          9194.25
+        ],
+        [
+          "P007",
+          "模拟饮水机3型",
+          17037.299999999996
+        ],
+        [
+          "P008",
+          "模拟饮水机4型",
+          25074.75
+        ],
+        [
+          "P009",
+          "模拟猫砂盆1型",
+          81772.05000000002
+        ],
+        [
+          "P010",
+          "模拟猫砂盆2型",
+          33296.2
+        ],
+        [
+          "P011",
+          "模拟猫砂盆3型",
+          44445.35
+        ],
+        [
+          "P012",
+          "模拟猫砂盆4型",
+          85706.40000000001
+        ]
+      ],
+      "elapsed_seconds": 4.314,
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "raw_retrieval": {
+        "raw_top8": [
+          "dim_product",
+          "dim_channel",
+          "dim_sku",
+          "fact_refund",
+          "fact_order_item",
+          "fact_order",
+          "agg_sales_model_monthly",
+          "fact_subscription"
+        ],
+        "registered_dependency_recall": 1.0,
+        "complete": true,
+        "note": "按指标登记依赖衡量原始Top8，含当前分组可能不需要的依赖，不是最小充分表集标注"
+      },
+      "selected_tables": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_sku",
+        "dim_product",
+        "dim_channel",
+        "agg_sales_model_monthly",
+        "fact_subscription"
+      ],
+      "mock_used": false
+    }
+  ],
+  "completed": true,
+  "passed": 1,
+  "attempted": 1,
+  "numeric_questions": 1,
+  "numeric_passed": 1
+}

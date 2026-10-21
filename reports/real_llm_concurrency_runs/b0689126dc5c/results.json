@@ -1,0 +1,1421 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "model": "deepseek-v4-pro",
+  "completed": false,
+  "load_test": true,
+  "external_independent_benchmark": false,
+  "production_capacity_measured": false,
+  "maximum_total_generation_attempts": 16,
+  "queue_maximum_generation_attempts": 8,
+  "queue_generation_attempts_instrumented": false,
+  "direct_generation_budget": 8,
+  "case_sha256": "04fb4db97d788a8f613fdece4eca5c5197498fb3de774c007fe541d5e4966aed",
+  "queue_ids": [
+    "N01",
+    "N03",
+    "N05",
+    "N06"
+  ],
+  "direct_ids": [
+    "N02",
+    "N04",
+    "N07",
+    "N08"
+  ],
+  "rows": [
+    {
+      "id": "N01",
+      "phase": "durable_queue",
+      "job_id": "cbf988d699be406e92c0c892b9234114",
+      "state": "completed",
+      "status": "success",
+      "passed": true,
+      "assessment": {
+        "passed": true,
+        "reason": "exact group set and numeric multiset match raw-row Python oracle"
+      },
+      "elapsed_seconds": 53.405,
+      "answer": {
+        "status": "success",
+        "request_id": "c440d603c724422982475d0233477a40",
+        "generation": "petkit-v1.3-638f0e235a",
+        "elapsed_ms": 4748.42,
+        "context": {
+          "generation": "petkit-v1.3-638f0e235a",
+          "version": "petkit-v1.3",
+          "relationships": [
+            {
+              "left": "dim_sku",
+              "left_key": "product_id",
+              "right": "dim_product",
+              "right_key": "product_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_order",
+              "left_key": "channel_id",
+              "right": "dim_channel",
+              "right_key": "channel_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_order_item",
+              "left_key": "order_id",
+              "right": "fact_order",
+              "right_key": "order_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_order_item",
+              "left_key": "sku_id",
+              "right": "dim_sku",
+              "right_key": "sku_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_refund",
+              "left_key": "item_id",
+              "right": "fact_order_item",
+              "right_key": "item_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            }
+          ],
+          "metric": {
+            "id": "net_sales",
+            "name": "净销售额",
+            "aliases": [
+              "销售额",
+              "收入",
+              "销售趋势"
+            ],
+            "definition": "订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分",
+            "dependencies": [
+              "fact_order",
+              "fact_order_item",
+              "fact_refund",
+              "dim_sku",
+              "dim_product",
+              "dim_channel"
+            ],
+            "grain": "订单行先汇总退款再关联；按支付日统计",
+            "version": "petkit-v1.3"
+          },
+          "evidence": [
+            {
+              "table": "dim_channel",
+              "score": 0.039344,
+              "reason": "metric_dependency:net_sales",
+              "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_product",
+              "score": 0.03871,
+              "reason": "metric_dependency:net_sales",
+              "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_sku",
+              "score": 0.038095,
+              "reason": "metric_dependency:net_sales",
+              "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_refund",
+              "score": 0.0375,
+              "reason": "metric_dependency:net_sales",
+              "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_order_item",
+              "score": 0.036923,
+              "reason": "metric_dependency:net_sales",
+              "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_order",
+              "score": 0.036364,
+              "reason": "metric_dependency:net_sales",
+              "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_service_ticket",
+              "score": 0.028575,
+              "reason": "metric_dependency:service30",
+              "text": "售出30天售后设备率 售后率 故障率 售后设备占比 观察满30天售出设备，支付日起0至30天有工单的设备去重数/售出设备去重数；包含退款设备；不是工单数占比 设备去重；工单先按设备归并",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_device_activation",
+              "score": 0.028245,
+              "reason": "metric_dependency:activation30",
+              "text": "售出30天激活率 激活率 激活 截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备 设备去重；排除未成熟观察窗",
+              "table_role_weight": 1.2
+            }
+          ],
+          "selection": [
+            {
+              "table": "fact_order",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_order_item",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_refund",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_sku",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_product",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_channel",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_service_ticket",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_device_activation",
+              "reason": "检索命中"
+            }
+          ],
+          "retrieval_method": "BM25 + sentence-transformers + RRF",
+          "data_as_of": "2026-10-16",
+          "synthetic": true,
+          "table_names": [
+            "fact_order",
+            "fact_order_item",
+            "fact_refund",
+            "dim_sku",
+            "dim_product",
+            "dim_channel",
+            "fact_service_ticket",
+            "fact_device_activation"
+          ],
+          "catalog_size": 500
+        },
+        "plan": {
+          "metric": "净销售额",
+          "dimensions": [
+            "product_id",
+            "product_name"
+          ],
+          "time_range": "2026-05-01 至 2026-05-31",
+          "filters": [],
+          "joins": [
+            "fact_order_item -> fact_order (order_id)",
+            "fact_order_item -> dim_sku (sku_id)",
+            "dim_sku -> dim_product (product_id)",
+            "fact_order_item -> fact_refund (item_id)"
+          ],
+          "grain": "product_id",
+          "assumptions": [
+            "退款归属原订单支付月份，即退款金额从原支付月份的净销售额中扣除",
+            "退款金额按订单行汇总后扣除",
+            "净销售额 = 订单行实付金额 - 截至数据截止日（2026-10-16）的退款金额"
+          ]
+        },
+        "truncated": false,
+        "question": "2026年5月，各产品型号实际净销售额分别是多少？按订单行实付扣除截至截止日的对应退款，退款归原支付月份。",
+        "sql": "SELECT \"p\".\"product_id\" AS \"product_id\", \"p\".\"product_name\" AS \"product_name\", SUM(\"oi\".\"amount\" - COALESCE(\"r\".\"total_refund\", 0)) AS \"net_sales\" FROM \"fact_order_item\" AS \"oi\" JOIN \"fact_order\" AS \"o\" ON \"oi\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"oi\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"total_refund\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") AS \"r\" ON \"oi\".\"item_id\" = \"r\".\"item_id\" WHERE \"o\".\"paid_date\" >= CAST('2026-05-01' AS DATE) AND \"o\".\"paid_date\" < CAST('2026-06-01' AS DATE) GROUP BY \"p\".\"product_id\", \"p\".\"product_name\" ORDER BY \"product_id\" LIMIT 1001",
+        "result": {
+          "columns": [
+            "product_id",
+            "product_name",
+            "net_sales"
+          ],
+          "rows": [
+            [
+              "P001",
+              "模拟喂食器1型",
+              17875.199999999997
+            ],
+            [
+              "P002",
+              "模拟喂食器2型",
+              18313.3
+            ],
+            [
+              "P003",
+              "模拟喂食器3型",
+              18598.949999999997
+            ],
+            [
+              "P004",
+              "模拟喂食器4型",
+              26771.699999999997
+            ],
+            [
+              "P005",
+              "模拟饮水机1型",
+              10079.35
+            ],
+            [
+              "P006",
+              "模拟饮水机2型",
+              9732.45
+            ],
+            [
+              "P007",
+              "模拟饮水机3型",
+              17775.449999999993
+            ],
+            [
+              "P008",
+              "模拟饮水机4型",
+              25548.8
+            ],
+            [
+              "P009",
+              "模拟猫砂盆1型",
+              81772.05000000002
+            ],
+            [
+              "P010",
+              "模拟猫砂盆2型",
+              38612.4
+            ],
+            [
+              "P011",
+              "模拟猫砂盆3型",
+              44445.35
+            ],
+            [
+              "P012",
+              "模拟猫砂盆4型",
+              95060.55000000002
+            ]
+          ],
+          "row_count": 12
+        },
+        "chart": {
+          "chart_type": "table",
+          "title": "2026年5月，各产品型号实际净销售额分别是多少？按订单行实付扣除截至截止日的对应退款，退款归原支付月份。",
+          "x": null,
+          "y": [],
+          "labels": [],
+          "values": [],
+          "reason": "多列明细或结构复杂，适合表格展示"
+        },
+        "insights": [
+          "基于自建模拟数据返回12行，数据观察截止2026-10-16。",
+          "计算口径：订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分"
+        ],
+        "error": "",
+        "mock_used": false
+      }
+    },
+    {
+      "id": "N03",
+      "phase": "durable_queue",
+      "job_id": "e756e45fdb2848a3ae42cb8abd00ab70",
+      "state": "completed",
+      "status": "success",
+      "passed": true,
+      "assessment": {
+        "passed": true,
+        "reason": "exact group set and numeric multiset match raw-row Python oracle"
+      },
+      "elapsed_seconds": 48.494,
+      "answer": {
+        "status": "success",
+        "request_id": "8105112f899e42879a674498d48a6d71",
+        "generation": "petkit-v1.3-638f0e235a",
+        "elapsed_ms": 4918.48,
+        "context": {
+          "generation": "petkit-v1.3-638f0e235a",
+          "version": "petkit-v1.3",
+          "relationships": [
+            {
+              "left": "dim_sku",
+              "left_key": "product_id",
+              "right": "dim_product",
+              "right_key": "product_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_shipment",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_inventory_day",
+              "left_key": "sku_id",
+              "right": "dim_sku",
+              "right_key": "sku_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_inventory_day",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_stock_movement",
+              "left_key": "sku_id",
+              "right": "dim_sku",
+              "right_key": "sku_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_stock_movement",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_receipt",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_product_price",
+              "left_key": "sku_id",
+              "right": "dim_sku",
+              "right_key": "sku_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            }
+          ],
+          "metric": {
+            "id": "inventory",
+            "name": "期末库存",
+            "aliases": [
+              "库存",
+              "结存"
+            ],
+            "definition": "每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照",
+            "dependencies": [
+              "fact_inventory_day",
+              "dim_sku",
+              "dim_product",
+              "dim_warehouse"
+            ],
+            "grain": "商品仓库快照",
+            "version": "petkit-v1.3"
+          },
+          "evidence": [
+            {
+              "table": "dim_warehouse",
+              "score": 0.039344,
+              "reason": "metric_dependency:inventory",
+              "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_product",
+              "score": 0.03871,
+              "reason": "metric_dependency:inventory",
+              "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_sku",
+              "score": 0.038095,
+              "reason": "metric_dependency:inventory",
+              "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_inventory_day",
+              "score": 0.0375,
+              "reason": "metric_dependency:inventory",
+              "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_receipt",
+              "score": 0.036092,
+              "reason": "metric_dependency:received_units",
+              "text": "采购收货数量 收货量 收货数量 收货件数 入库收货量 按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货 采购行每次收货事实；按收货日统计",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_stock_movement",
+              "score": 0.031096,
+              "reason": "table",
+              "text": "fact_stock_movement 仓库出入库流水 每流水一行 ",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_product_price",
+              "score": 0.02907,
+              "reason": "table",
+              "text": "fact_product_price 商品价格历史 每SKU生效日一行 ",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_shipment",
+              "score": 0.027576,
+              "reason": "table",
+              "text": "fact_shipment 已发货物流记录 每发货单一行 ",
+              "table_role_weight": 1.2
+            }
+          ],
+          "selection": [
+            {
+              "table": "fact_inventory_day",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_sku",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_product",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_warehouse",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_receipt",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_stock_movement",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_product_price",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_shipment",
+              "reason": "检索命中"
+            }
+          ],
+          "retrieval_method": "BM25 + sentence-transformers + RRF",
+          "data_as_of": "2026-10-16",
+          "synthetic": true,
+          "table_names": [
+            "fact_inventory_day",
+            "dim_sku",
+            "dim_product",
+            "dim_warehouse",
+            "fact_receipt",
+            "fact_stock_movement",
+            "fact_product_price",
+            "fact_shipment"
+          ],
+          "catalog_size": 500
+        },
+        "plan": {
+          "metric": "期末库存",
+          "dimensions": [
+            "product_id"
+          ],
+          "time_range": "2026-09-01 至 2026-09-30",
+          "filters": [],
+          "joins": [
+            {
+              "left": "fact_inventory_day",
+              "left_key": "sku_id",
+              "right": "dim_sku",
+              "right_key": "sku_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "dim_sku",
+              "left_key": "product_id",
+              "right": "dim_product",
+              "right_key": "product_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            }
+          ],
+          "grain": "product_id",
+          "assumptions": [
+            "每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照"
+          ]
+        },
+        "truncated": false,
+        "question": "我权限范围内2026年9月各产品型号期末库存有多少件？每个SKU和仓库分别取当月最新快照，再按型号汇总。",
+        "sql": "WITH \"latest_snapshot\" AS (SELECT \"f\".\"sku_id\" AS \"sku_id\", \"f\".\"warehouse_id\" AS \"warehouse_id\", \"f\".\"quantity\" AS \"quantity\", \"f\".\"stock_date\" AS \"stock_date\", ROW_NUMBER() OVER (PARTITION BY \"f\".\"sku_id\", \"f\".\"warehouse_id\" ORDER BY \"f\".\"stock_date\" DESC) AS \"rn\" FROM \"fact_inventory_day\" AS \"f\" WHERE \"f\".\"stock_date\" BETWEEN CAST('2026-09-01' AS DATE) AND CAST('2026-09-30' AS DATE)) SELECT \"p\".\"product_id\" AS \"product_id\", SUM(\"l\".\"quantity\") AS \"total_quantity\" FROM \"latest_snapshot\" AS \"l\" JOIN \"dim_sku\" AS \"s\" ON \"l\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" WHERE \"l\".\"rn\" = 1 GROUP BY \"p\".\"product_id\" ORDER BY \"product_id\" LIMIT 1001",
+        "result": {
+          "columns": [
+            "product_id",
+            "total_quantity"
+          ],
+          "rows": [
+            [
+              "P001",
+              325
+            ],
+            [
+              "P002",
+              414
+            ],
+            [
+              "P003",
+              323
+            ],
+            [
+              "P004",
+              347
+            ],
+            [
+              "P005",
+              378
+            ],
+            [
+              "P006",
+              324
+            ],
+            [
+              "P007",
+              439
+            ],
+            [
+              "P008",
+              422
+            ],
+            [
+              "P009",
+              276
+            ],
+            [
+              "P010",
+              359
+            ],
+            [
+              "P011",
+              350
+            ],
+            [
+              "P012",
+              240
+            ]
+          ],
+          "row_count": 12
+        },
+        "chart": {
+          "chart_type": "bar",
+          "title": "我权限范围内2026年9月各产品型号期末库存有多少件？每个SKU和仓库分别取当月最新快照，再按型号汇总。",
+          "x": "product_id",
+          "y": [
+            "total_quantity"
+          ],
+          "labels": [
+            "P001",
+            "P002",
+            "P003",
+            "P004",
+            "P005",
+            "P006",
+            "P007",
+            "P008",
+            "P009",
+            "P010",
+            "P011",
+            "P012"
+          ],
+          "values": [
+            325.0,
+            414.0,
+            323.0,
+            347.0,
+            378.0,
+            324.0,
+            439.0,
+            422.0,
+            276.0,
+            359.0,
+            350.0,
+            240.0
+          ],
+          "reason": "单维度单数值，适合柱状图展示分组对比"
+        },
+        "insights": [
+          "基于自建模拟数据返回12行，数据观察截止2026-10-16。",
+          "计算口径：每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照"
+        ],
+        "error": "",
+        "mock_used": false
+      }
+    },
+    {
+      "id": "N05",
+      "phase": "durable_queue",
+      "job_id": "d4b3abed5db149b7ae629568eada858a",
+      "state": "completed",
+      "status": "success",
+      "passed": true,
+      "assessment": {
+        "passed": true,
+        "reason": "exact group set and numeric multiset match raw-row Python oracle"
+      },
+      "elapsed_seconds": 36.705,
+      "answer": {
+        "status": "success",
+        "request_id": "1b8cbd665c51467ca46f15e6be322807",
+        "generation": "petkit-v1.3-638f0e235a",
+        "elapsed_ms": 36143.24,
+        "context": {
+          "generation": "petkit-v1.3-638f0e235a",
+          "version": "petkit-v1.3",
+          "relationships": [
+            {
+              "left": "dim_device",
+              "left_key": "product_id",
+              "right": "dim_product",
+              "right_key": "product_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "bridge_order_device",
+              "left_key": "item_id",
+              "right": "fact_order_item",
+              "right_key": "item_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "bridge_order_device",
+              "left_key": "device_id",
+              "right": "dim_device",
+              "right_key": "device_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_device_activation",
+              "left_key": "device_id",
+              "right": "dim_device",
+              "right_key": "device_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_device_day",
+              "left_key": "device_id",
+              "right": "dim_device",
+              "right_key": "device_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_device_day",
+              "left_key": "firmware_id",
+              "right": "dim_firmware",
+              "right_key": "firmware_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_service_ticket",
+              "left_key": "device_id",
+              "right": "dim_device",
+              "right_key": "device_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_device_activation",
+              "left_key": "device_id",
+              "right": "bridge_order_device",
+              "right_key": "device_id",
+              "cardinality": "one_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_service_ticket",
+              "left_key": "device_id",
+              "right": "bridge_order_device",
+              "right_key": "device_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            }
+          ],
+          "metric": {
+            "id": "offline_rate",
+            "name": "设备离线率",
+            "aliases": [
+              "离线率",
+              "离线",
+              "在线率"
+            ],
+            "definition": "观测设备日中online=0的记录数/总设备日记录数；仅覆盖采样观察日，不代表全量设备实时状态",
+            "dependencies": [
+              "fact_device_day",
+              "dim_device",
+              "dim_product",
+              "dim_firmware"
+            ],
+            "grain": "设备日",
+            "version": "petkit-v1.3"
+          },
+          "evidence": [
+            {
+              "table": "dim_firmware",
+              "score": 0.039344,
+              "reason": "metric_dependency:offline_rate",
+              "text": "设备离线率 离线率 离线 在线率 观测设备日中online=0的记录数/总设备日记录数；仅覆盖采样观察日，不代表全量设备实时状态 设备日",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_product",
+              "score": 0.03871,
+              "reason": "metric_dependency:offline_rate",
+              "text": "设备离线率 离线率 离线 在线率 观测设备日中online=0的记录数/总设备日记录数；仅覆盖采样观察日，不代表全量设备实时状态 设备日",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_device",
+              "score": 0.038095,
+              "reason": "metric_dependency:offline_rate",
+              "text": "设备离线率 离线率 离线 在线率 观测设备日中online=0的记录数/总设备日记录数；仅覆盖采样观察日，不代表全量设备实时状态 设备日",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_device_day",
+              "score": 0.0375,
+              "reason": "metric_dependency:offline_rate",
+              "text": "设备离线率 离线率 离线 在线率 观测设备日中online=0的记录数/总设备日记录数；仅覆盖采样观察日，不代表全量设备实时状态 设备日",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_service_ticket",
+              "score": 0.035128,
+              "reason": "metric_dependency:service30",
+              "text": "售出30天售后设备率 售后率 故障率 售后设备占比 观察满30天售出设备，支付日起0至30天有工单的设备去重数/售出设备去重数；包含退款设备；不是工单数占比 设备去重；工单先按设备归并",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_device_activation",
+              "score": 0.034848,
+              "reason": "metric_dependency:activation30",
+              "text": "售出30天激活率 激活率 激活 截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备 设备去重；排除未成熟观察窗",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "bridge_order_device",
+              "score": 0.033647,
+              "reason": "metric_dependency:service30",
+              "text": "售出30天售后设备率 售后率 故障率 售后设备占比 观察满30天售出设备，支付日起0至30天有工单的设备去重数/售出设备去重数；包含退款设备；不是工单数占比 设备去重；工单先按设备归并",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_order_item",
+              "score": 0.033181,
+              "reason": "metric_dependency:service30",
+              "text": "售出30天售后设备率 售后率 故障率 售后设备占比 观察满30天售出设备，支付日起0至30天有工单的设备去重数/售出设备去重数；包含退款设备；不是工单数占比 设备去重；工单先按设备归并",
+              "table_role_weight": 1.2
+            }
+          ],
+          "selection": [
+            {
+              "table": "fact_device_day",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_device",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_product",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_firmware",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_service_ticket",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_device_activation",
+              "reason": "检索命中"
+            },
+            {
+              "table": "bridge_order_device",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_order_item",
+              "reason": "检索命中"
+            }
+          ],
+          "retrieval_method": "BM25 + sentence-transformers + RRF",
+          "data_as_of": "2026-10-16",
+          "synthetic": true,
+          "table_names": [
+            "fact_device_day",
+            "dim_device",
+            "dim_product",
+            "dim_firmware",
+            "fact_service_ticket",
+            "fact_device_activation",
+            "bridge_order_device",
+            "fact_order_item"
+          ],
+          "catalog_size": 500
+        },
+        "plan": {
+          "metric": "设备离线率",
+          "dimensions": [
+            "product_name"
+          ],
+          "time_range": "2026-05-01 至 2026-05-31",
+          "filters": [],
+          "joins": [
+            {
+              "left": "fact_device_day",
+              "right": "dim_device",
+              "on": "fact_device_day.device_id = dim_device.device_id",
+              "type": "inner"
+            },
+            {
+              "left": "dim_device",
+              "right": "dim_product",
+              "on": "dim_device.product_id = dim_product.product_id",
+              "type": "inner"
+            }
+          ],
+          "grain": "product_name",
+          "assumptions": [
+            "离线率 = online=0 的设备日记录数 / 总设备日记录数",
+            "仅统计2026年5月有采样记录的设备日"
+          ]
+        },
+        "truncated": false,
+        "question": "2026年5月我能查看的设备，按产品型号计算设备日离线率，返回型号名称、总设备日样本量和百分数；online=0算离线。",
+        "sql": "SELECT \"dp\".\"product_name\" AS \"product_name\", COUNT(*) AS \"total_device_days\", ROUND(100.0 * SUM(CASE WHEN \"fdd\".\"online\" = 0 THEN 1 ELSE 0 END) / COUNT(*), 2) AS \"offline_rate_percent\" FROM \"fact_device_day\" AS \"fdd\" INNER JOIN \"dim_device\" AS \"dd\" ON \"fdd\".\"device_id\" = \"dd\".\"device_id\" INNER JOIN \"dim_product\" AS \"dp\" ON \"dd\".\"product_id\" = \"dp\".\"product_id\" WHERE \"fdd\".\"event_date\" >= CAST('2026-05-01' AS DATE) AND \"fdd\".\"event_date\" < CAST('2026-06-01' AS DATE) GROUP BY \"dp\".\"product_name\" ORDER BY \"product_name\" LIMIT 1001",
+        "result": {
+          "columns": [
+            "product_name",
+            "total_device_days",
+            "offline_rate_percent"
+          ],
+          "rows": [
+            [
+              "模拟喂食器1型",
+              160,
+              6.88
+            ],
+            [
+              "模拟喂食器2型",
+              58,
+              5.17
+            ],
+            [
+              "模拟喂食器3型",
+              269,
+              4.09
+            ],
+            [
+              "模拟喂食器4型",
+              131,
+              9.92
+            ],
+            [
+              "模拟猫砂盆1型",
+              143,
+              9.79
+            ],
+            [
+              "模拟猫砂盆2型",
+              115,
+              7.83
+            ],
+            [
+              "模拟猫砂盆3型",
+              216,
+              6.94
+            ],
+            [
+              "模拟猫砂盆4型",
+              244,
+              2.87
+            ],
+            [
+              "模拟饮水机1型",
+              240,
+              10.42
+            ],
+            [
+              "模拟饮水机2型",
+              188,
+              11.7
+            ],
+            [
+              "模拟饮水机3型",
+              247,
+              8.91
+            ],
+            [
+              "模拟饮水机4型",
+              176,
+              4.55
+            ]
+          ],
+          "row_count": 12
+        },
+        "chart": {
+          "chart_type": "line",
+          "title": "2026年5月我能查看的设备，按产品型号计算设备日离线率，返回型号名称、总设备日样本量和百分数；online=0算离线。",
+          "x": "total_device_days",
+          "y": [
+            "offline_rate_percent"
+          ],
+          "labels": [
+            "160",
+            "58",
+            "269",
+            "131",
+            "143",
+            "115",
+            "216",
+            "244",
+            "240",
+            "188",
+            "247",
+            "176"
+          ],
+          "values": [
+            6.88,
+            5.17,
+            4.09,
+            9.92,
+            9.79,
+            7.83,
+            6.94,
+            2.87,
+            10.42,
+            11.7,
+            8.91,
+            4.55
+          ],
+          "reason": "包含日期/时间列，适合折线图展示趋势"
+        },
+        "insights": [
+          "基于自建模拟数据返回12行，数据观察截止2026-10-16。",
+          "计算口径：观测设备日中online=0的记录数/总设备日记录数；仅覆盖采样观察日，不代表全量设备实时状态"
+        ],
+        "error": "",
+        "mock_used": false
+      }
+    },
+    {
+      "id": "N06",
+      "phase": "durable_queue",
+      "job_id": "09651302f5bd45d6b7f886c3425a35b0",
+      "state": "completed",
+      "status": "success",
+      "passed": false,
+      "assessment": {
+        "passed": false,
+        "reason": "numeric values or number of numeric columns mismatch"
+      },
+      "elapsed_seconds": 43.527,
+      "answer": {
+        "status": "success",
+        "request_id": "dff20220cd594ea5b8a435d945c2937f",
+        "generation": "petkit-v1.3-638f0e235a",
+        "elapsed_ms": 6750.74,
+        "context": {
+          "generation": "petkit-v1.3-638f0e235a",
+          "version": "petkit-v1.3",
+          "relationships": [
+            {
+              "left": "dim_sku",
+              "left_key": "product_id",
+              "right": "dim_product",
+              "right_key": "product_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "dim_device",
+              "left_key": "product_id",
+              "right": "dim_product",
+              "right_key": "product_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_order_item",
+              "left_key": "order_id",
+              "right": "fact_order",
+              "right_key": "order_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_order_item",
+              "left_key": "sku_id",
+              "right": "dim_sku",
+              "right_key": "sku_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "bridge_order_device",
+              "left_key": "item_id",
+              "right": "fact_order_item",
+              "right_key": "item_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "bridge_order_device",
+              "left_key": "device_id",
+              "right": "dim_device",
+              "right_key": "device_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_device_activation",
+              "left_key": "device_id",
+              "right": "dim_device",
+              "right_key": "device_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_device_day",
+              "left_key": "device_id",
+              "right": "dim_device",
+              "right_key": "device_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_service_ticket",
+              "left_key": "device_id",
+              "right": "dim_device",
+              "right_key": "device_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_device_activation",
+              "left_key": "device_id",
+              "right": "bridge_order_device",
+              "right_key": "device_id",
+              "cardinality": "one_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_service_ticket",
+              "left_key": "device_id",
+              "right": "bridge_order_device",
+              "right_key": "device_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            }
+          ],
+          "metric": {
+            "id": "activation30",
+            "name": "售出30天激活率",
+            "aliases": [
+              "激活率",
+              "激活"
+            ],
+            "definition": "截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备",
+            "dependencies": [
+              "fact_order",
+              "fact_order_item",
+              "bridge_order_device",
+              "dim_device",
+              "dim_product",
+              "fact_device_activation"
+            ],
+            "grain": "设备去重；排除未成熟观察窗",
+            "version": "petkit-v1.3"
+          },
+          "evidence": [
+            {
+              "table": "fact_device_activation",
+              "score": 0.039344,
+              "reason": "metric_dependency:activation30",
+              "text": "售出30天激活率 激活率 激活 截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备 设备去重；排除未成熟观察窗",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_product",
+              "score": 0.03871,
+              "reason": "metric_dependency:activation30",
+              "text": "售出30天激活率 激活率 激活 截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备 设备去重；排除未成熟观察窗",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_device",
+              "score": 0.038095,
+              "reason": "metric_dependency:activation30",
+              "text": "售出30天激活率 激活率 激活 截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备 设备去重；排除未成熟观察窗",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "bridge_order_device",
+              "score": 0.0375,
+              "reason": "metric_dependency:activation30",
+              "text": "售出30天激活率 激活率 激活 截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备 设备去重；排除未成熟观察窗",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_order_item",
+              "score": 0.036923,
+              "reason": "metric_dependency:activation30",
+              "text": "售出30天激活率 激活率 激活 截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备 设备去重；排除未成熟观察窗",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_order",
+              "score": 0.036364,
+              "reason": "metric_dependency:activation30",
+              "text": "售出30天激活率 激活率 激活 截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备 设备去重；排除未成熟观察窗",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_service_ticket",
+              "score": 0.03479,
+              "reason": "metric_dependency:service30",
+              "text": "售出30天售后设备率 售后率 故障率 售后设备占比 观察满30天售出设备，支付日起0至30天有工单的设备去重数/售出设备去重数；包含退款设备；不是工单数占比 设备去重；工单先按设备归并",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_device_day",
+              "score": 0.030674,
+              "reason": "table",
+              "text": "fact_device_day 设备每日活跃在线统计 仅采样观察窗口 每设备每日一行 ",
+              "table_role_weight": 1.2
+            }
+          ],
+          "selection": [
+            {
+              "table": "fact_order",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_order_item",
+              "reason": "检索命中"
+            },
+            {
+              "table": "bridge_order_device",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_device",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_product",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_device_activation",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_sku",
+              "reason": "批准关系路径补全"
+            },
+            {
+              "table": "fact_service_ticket",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_device_day",
+              "reason": "检索命中"
+            }
+          ],
+          "retrieval_method": "BM25 + sentence-transformers + RRF",
+          "data_as_of": "2026-10-16",
+          "synthetic": true,
+          "table_names": [
+            "fact_order",
+            "fact_order_item",
+            "bridge_order_device",
+            "dim_device",
+            "dim_product",
+            "fact_device_activation",
+            "dim_sku",
+            "fact_service_ticket",
+            "fact_device_day"
+          ],
+          "catalog_size": 500,
+          "output_contract": "cohort-percent-v1"
+        },
+        "plan": {
+          "metric": "activation30",
+          "dimensions": [
+            "product_name"
+          ],
+          "time_range": "2026-09-01 至 2026-09-16",
+          "filters": [
+            {
+              "field": "fact_order.paid_date",
+              "operator": ">=",
+              "value": "2026-09-01"
+            },
+            {
+              "field": "fact_order.paid_date",
+              "operator": "<=",
+              "value": "2026-09-16"
+            }
+          ],
+          "joins": [
+            "fact_order -> fact_order_item (order_id)",
+            "fact_order_item -> bridge_order_device (item_id)",
+            "bridge_order_device -> dim_device (device_id)",
+            "dim_device -> dim_product (product_id)",
+            "bridge_order_device -> fact_device_activation (device_id)"
+          ],
+          "grain": "device",
+          "assumptions": [
+            "截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备"
+          ]
+        },
+        "truncated": false,
+        "question": "2026年9月我权限内售出设备按型号计算30天激活率，只纳入观察满30天的设备，未激活和晚激活留在分母，列出设备分母、激活分子和百分数。",
+        "sql": "WITH \"cohort\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"p\".\"product_name\" AS \"product_name\" FROM \"fact_order\" AS \"o\" JOIN \"fact_order_item\" AS \"i\" ON \"o\".\"order_id\" = \"i\".\"order_id\" JOIN \"bridge_order_device\" AS \"b\" ON \"i\".\"item_id\" = \"b\".\"item_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" WHERE \"o\".\"paid_date\" >= CAST('2026-09-01' AS DATE) AND \"o\".\"paid_date\" <= CAST('2026-09-16' AS DATE)), \"activation\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"a\".\"activation_date\" AS \"activation_date\" FROM \"bridge_order_device\" AS \"b\" JOIN \"fact_device_activation\" AS \"a\" ON \"b\".\"device_id\" = \"a\".\"device_id\" WHERE \"a\".\"activation_date\" <= CAST('2026-10-16' AS DATE)) SELECT \"c\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"c\".\"device_id\") AS \"devices\", COUNT(DISTINCT CASE WHEN NOT \"a\".\"activation_date\" IS NULL THEN \"c\".\"device_id\" END) AS \"matched_devices\", CASE WHEN COUNT(DISTINCT \"c\".\"device_id\") = 0 THEN NULL ELSE ROUND(COUNT(DISTINCT CASE WHEN NOT \"a\".\"activation_date\" IS NULL THEN \"c\".\"device_id\" END) * 100.0 / COUNT(DISTINCT \"c\".\"device_id\"), 2) END AS \"rate_percent\" FROM \"cohort\" AS \"c\" LEFT JOIN \"activation\" AS \"a\" ON \"c\".\"device_id\" = \"a\".\"device_id\" GROUP BY \"c\".\"product_name\" ORDER BY \"product_name\" LIMIT 1001",
+        "result": {
+          "columns": [
+            "product_name",
+            "devices",
+            "matched_devices",
+            "rate_percent"
+          ],
+          "rows": [
+            [
+              "模拟喂食器1型",
+              15,
+              11,
+              73.33
+            ],
+            [
+              "模拟喂食器2型",
+              1,
+              1,
+              100.0
+            ],
+            [
+              "模拟喂食器3型",
+              5,
+              4,
+              80.0
+            ],
+            [
+              "模拟喂食器4型",
+              3,
+              2,
+              66.67
+            ],
+            [
+              "模拟猫砂盆1型",
+              7,
+              4,
+              57.14
+            ],
+            [
+              "模拟猫砂盆2型",
+              6,
+              5,
+              83.33
+            ],
+            [
+              "模拟猫砂盆3型",
+              8,
+              5,
+              62.5
+            ],
+            [
+              "模拟猫砂盆4型",
+              4,
+              2,
+              50.0
+            ],
+            [
+              "模拟饮水机1型",
+              3,
+              1,
+              33.33
+            ],
+            [
+              "模拟饮水机2型",
+              6,
+              5,
+              83.33
+            ],
+            [
+              "模拟饮水机4型",
+              3,
+              3,
+              100.0
+            ]
+          ],
+          "row_count": 11
+        },
+        "chart": {
+          "chart_type": "table",
+          "title": "2026年9月我权限内售出设备按型号计算30天激活率，只纳入观察满30天的设备，未激活和晚激活留在分母，列出设备分母、激活分子和百分数。",
+          "x": null,
+          "y": [],
+          "labels": [],
+          "values": [],
+          "reason": "多列明细或结构复杂，适合表格展示"
+        },
+        "insights": [
+          "基于自建模拟数据返回11行，数据观察截止2026-10-16。",
+          "计算口径：截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备"
+        ],
+        "error": "",
+        "mock_used": false
+      }
+    }
+  ],
+  "code_sha256": {
+    "scripts/accept_real_model_concurrency.py": "2fd12850dabf1fbf2f09305f994505dda49425abc206e88d7ee2e5b99f8097fa",
+    "scripts/expanded_eval_support.py": "c312795d8d34adcf41a11ab083f168bd3f7a25ef752adca9046913d022752be7",
+    "src/petkit/service.py": "1a95b385ea23851ddd0c4d97613450d6fa288801533d40ce37afd18be5e252fa",
+    "src/engine/llm_client.py": "db34c44b87817d088d65c5ae7105a3929df2aafb09be0ce475618704febff497"
+  },
+  "queue_elapsed_seconds": 53.405,
+  "failure": {
+    "type": "AssertionError",
+    "message": "Queued real-model result failed"
+  },
+  "children_stopped": true,
+  "original_jobs_unchanged": true,
+  "original_pointer_unchanged": true,
+  "original_warehouse_unchanged": true,
+  "isolated_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\c697de5998a4"
+}

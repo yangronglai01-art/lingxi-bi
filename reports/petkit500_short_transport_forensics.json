@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-21",
+  "source_report": "reports/soak_runs/0ba5ca3f83b1/results.json",
+  "historical_failure": {
+    "type": "RuntimeError",
+    "message": "Stage failed; no further ramp"
+  },
+  "historical_stage_errors": [
+    "lane:URLError:<urlopen error timed out>"
+  ],
+  "acknowledged_jobs": 217,
+  "persisted_acknowledged_jobs": 217,
+  "other_jobs_created_in_reconstructed_window": [],
+  "reconstructed_window_start_utc": "2026-10-21T06:11:07.407459+00:00",
+  "reconstructed_window_end_utc": "2026-10-21T06:12:59.171989+00:00",
+  "current_python": "3.13.9",
+  "current_urllib_handler_sha256": "1639afea534ede521b8aa8154f95734fa0f86a7a65b96171fb12e3406d96a123",
+  "current_urllib_wraps_request_oserrors_as_urlerror": true,
+  "inference": "Current standard-library flow is consistent with connection/send failure; exact historical phase is not recorded",
+  "historical_python_version_not_frozen": true,
+  "proxy_bypasses_loopback_now": true,
+  "current_dynamic_port_values": [
+    49152,
+    16384
+  ],
+  "system_network_events": {
+    "events": [],
+    "readable": true
+  },
+  "event_log_absence_does_not_prove_no_network_fault": true,
+  "historical_root_cause_confirmed": false,
+  "secret_headers_or_payloads_collected": false,
+  "network_configuration_modified": false
+}

@@ -1,0 +1,345 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "isolated_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\0b953544113c",
+  "kind": "bounded single-machine durable-worker acceptance",
+  "mode": "demo",
+  "real_llm_called": false,
+  "production_capacity_measured": false,
+  "completed": true,
+  "concurrent_idempotency": {
+    "requests": 24,
+    "unique_jobs": 1,
+    "submission_latency": {
+      "p50_seconds": 0.0442,
+      "p95_seconds": 0.3756,
+      "max_seconds": 0.4251
+    }
+  },
+  "load": {
+    "http_concurrency": 10,
+    "tasks": 30,
+    "expected_success": 24,
+    "expected_denied": 6,
+    "success": 24,
+    "denied": 6,
+    "passed": 30,
+    "elapsed_seconds": 6.608,
+    "tasks_per_second": 4.54,
+    "submission_latency": {
+      "p50_seconds": 0.125,
+      "p95_seconds": 0.7471,
+      "max_seconds": 0.8014
+    },
+    "end_to_end_latency": {
+      "p50_seconds": 2.9678,
+      "p95_seconds": 5.0873,
+      "max_seconds": 5.2282
+    },
+    "details": [
+      {
+        "subject": "global_analyst",
+        "id": "6b6a85db239a4555ad1281eb5a02e40c",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.09613900000113063,
+        "end_to_end_seconds": 0.9586184024810791
+      },
+      {
+        "subject": "regional_sales",
+        "id": "a8d63dc71ed948f79d7e0b95f35b51aa",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.0478304999996908,
+        "end_to_end_seconds": 0.8122761249542236
+      },
+      {
+        "subject": "regional_service",
+        "id": "4882ce4414ce43c8b46c461365681d2e",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.8014494999952149,
+        "end_to_end_seconds": 5.228156089782715
+      },
+      {
+        "subject": "regional_supply",
+        "id": "4235e7c4571d4b03b54f92cce458a94b",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.394702400022652,
+        "end_to_end_seconds": 2.7304680347442627
+      },
+      {
+        "subject": "restricted_viewer",
+        "id": "e319e92c44cb46cdb4e3c28356d66735",
+        "state": "completed",
+        "answer_status": "denied",
+        "oracle_passed": true,
+        "submission_seconds": 0.16051609997521155,
+        "end_to_end_seconds": 1.3720660209655762
+      },
+      {
+        "subject": "global_analyst",
+        "id": "29222e8b24cf489db696b5d177fab798",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.7471245000197086,
+        "end_to_end_seconds": 5.087301015853882
+      },
+      {
+        "subject": "regional_sales",
+        "id": "90777c38777e4a7886d3b184dc0effb6",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.49171149998437613,
+        "end_to_end_seconds": 3.433579683303833
+      },
+      {
+        "subject": "regional_service",
+        "id": "215a013900094beda51edf2c9faa0bf3",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.6067318999848794,
+        "end_to_end_seconds": 4.468552827835083
+      },
+      {
+        "subject": "regional_supply",
+        "id": "7204d08517114798809d7a3712e23a53",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.6463579999981448,
+        "end_to_end_seconds": 4.8058013916015625
+      },
+      {
+        "subject": "restricted_viewer",
+        "id": "4daf39ba8c0a49bebdbcb7e99a55f1e9",
+        "state": "completed",
+        "answer_status": "denied",
+        "oracle_passed": true,
+        "submission_seconds": 0.4548443999956362,
+        "end_to_end_seconds": 3.148207187652588
+      },
+      {
+        "subject": "global_analyst",
+        "id": "94a3dd5290b24d539f8c18bfe79d75e5",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.06904209998901933,
+        "end_to_end_seconds": 1.1102499961853027
+      },
+      {
+        "subject": "regional_sales",
+        "id": "92f97b85e67347fb8d0c06bf2cda3d39",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.03657679999014363,
+        "end_to_end_seconds": 1.2696468830108643
+      },
+      {
+        "subject": "regional_service",
+        "id": "a62d8bb794314d288daacb1fd853062d",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.11952379997819662,
+        "end_to_end_seconds": 1.947779893875122
+      },
+      {
+        "subject": "regional_supply",
+        "id": "1a8b62d98b37404191e870df81fa0141",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.06542960001388565,
+        "end_to_end_seconds": 1.5486907958984375
+      },
+      {
+        "subject": "restricted_viewer",
+        "id": "8eccee7b4b524d198411db2b6dafd5a6",
+        "state": "completed",
+        "answer_status": "denied",
+        "oracle_passed": true,
+        "submission_seconds": 0.1386841000057757,
+        "end_to_end_seconds": 2.382063150405884
+      },
+      {
+        "subject": "global_analyst",
+        "id": "f4451c4f2fba46658267fab34262eb30",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.02664650001679547,
+        "end_to_end_seconds": 1.733867883682251
+      },
+      {
+        "subject": "regional_sales",
+        "id": "d0635a7441e24b39900889cf86b65aba",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.0341391000256408,
+        "end_to_end_seconds": 2.288226842880249
+      },
+      {
+        "subject": "regional_service",
+        "id": "df44802e2f454fd89d43282a5ef68013",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.012132100004237145,
+        "end_to_end_seconds": 2.123302459716797
+      },
+      {
+        "subject": "regional_supply",
+        "id": "9f76018ec0cf43ea974a33cb6ed1257d",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.16288260000874288,
+        "end_to_end_seconds": 2.8897292613983154
+      },
+      {
+        "subject": "restricted_viewer",
+        "id": "d01ae7a0a73f44319323ffe1d8c426fd",
+        "state": "completed",
+        "answer_status": "denied",
+        "oracle_passed": true,
+        "submission_seconds": 0.11189599998760968,
+        "end_to_end_seconds": 2.428717613220215
+      },
+      {
+        "subject": "global_analyst",
+        "id": "d3a70d9f32ea49adaefc7d45a1ad9b79",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.13055050000548363,
+        "end_to_end_seconds": 3.0458836555480957
+      },
+      {
+        "subject": "regional_sales",
+        "id": "9fcdca86f88740788d0a69677b02504e",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.014913099992554635,
+        "end_to_end_seconds": 2.571962356567383
+      },
+      {
+        "subject": "regional_service",
+        "id": "95f39bc610174c98aeb42e3c7d60b719",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.2009089000057429,
+        "end_to_end_seconds": 4.174063682556152
+      },
+      {
+        "subject": "regional_supply",
+        "id": "586d62f850944f2f9e956e93973da4c3",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.15679159999126568,
+        "end_to_end_seconds": 3.769618272781372
+      },
+      {
+        "subject": "restricted_viewer",
+        "id": "86dd8a39eaa740df8a159fe42ead4343",
+        "state": "completed",
+        "answer_status": "denied",
+        "oracle_passed": true,
+        "submission_seconds": 0.07178260001819581,
+        "end_to_end_seconds": 3.222072124481201
+      },
+      {
+        "subject": "global_analyst",
+        "id": "48218da5c52a4fe4962bc77b3ee7fc72",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.20912540002609603,
+        "end_to_end_seconds": 4.6413116455078125
+      },
+      {
+        "subject": "regional_sales",
+        "id": "70abd379b2664a4f8dcb01d9db377d2f",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.24250389999360777,
+        "end_to_end_seconds": 4.9460272789001465
+      },
+      {
+        "subject": "regional_service",
+        "id": "b01e52c53ecd4836be4abb2e347801e2",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.09297559998231009,
+        "end_to_end_seconds": 3.9981069564819336
+      },
+      {
+        "subject": "regional_supply",
+        "id": "db0f9d4dc6bb42f288dc020bf4a5acc9",
+        "state": "completed",
+        "answer_status": "success",
+        "oracle_passed": true,
+        "submission_seconds": 0.012704299995675683,
+        "end_to_end_seconds": 3.6346335411071777
+      },
+      {
+        "subject": "restricted_viewer",
+        "id": "321da005c6274c8faa3ab472120726fe",
+        "state": "completed",
+        "answer_status": "denied",
+        "oracle_passed": true,
+        "submission_seconds": 0.08956690001650713,
+        "end_to_end_seconds": 4.294353246688843
+      }
+    ]
+  },
+  "queue_backpressure": {
+    "queued": 20,
+    "overflow_status": 429,
+    "idempotency_retry_allowed": true,
+    "cancelled": 20
+  },
+  "running_cancel": {
+    "late_result_suppressed": true,
+    "next_task_succeeded": true
+  },
+  "second_worker_rejected": true,
+  "recovery_started": {
+    "job_id": "d38b0ea1fb8e415989bac8612065f442",
+    "lease_seconds": 60,
+    "real_time_wait": true
+  },
+  "process_recovery": {
+    "original_state": "interrupted",
+    "seconds_after_kill": 60.258,
+    "real_lease_expiry": true,
+    "automatic_paid_replay": false,
+    "same_key_keeps_old_task": true,
+    "new_key_resubmit_succeeded": true
+  },
+  "business_warehouse_unchanged": true,
+  "original_instance_jobs_unchanged": true,
+  "children_stopped": true,
+  "second_worker_lock_error_verified": true,
+  "second_worker_lock_logs": [
+    "stability-e14c38cb.log"
+  ],
+  "cancelled_query_completed_without_publication": [
+    "d86764895e9b48adba2bedfe87ffc0fc"
+  ]
+}

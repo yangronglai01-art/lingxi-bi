@@ -1,0 +1,14 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "restored_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\8d4683a432fb",
+  "warehouse_role": "supply",
+  "regions": [
+    "R1"
+  ],
+  "regional_received_units": 10,
+  "examples_filtered": true,
+  "original_instance_untouched": true,
+  "real_llm_called": false,
+  "children_stopped": true,
+  "passed": true
+}

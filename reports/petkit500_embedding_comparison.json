@@ -1,0 +1,519 @@
+{
+  "generation": "petkit-v1.3-2dc93c9e1c",
+  "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+  "note": "开发检索对比，复用已见8题；衡量登记指标依赖，并非盲测或SQL正确率",
+  "routes": {
+    "bm25": {
+      "complete": 8,
+      "attempted": 8,
+      "mean_recall": 1.0,
+      "elapsed_seconds": 0.37,
+      "rows": [
+        {
+          "id": "H01",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_product",
+            "dim_channel",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "fact_subscription",
+            "dim_device"
+          ]
+        },
+        {
+          "id": "H02",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_channel",
+            "dim_product",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "fact_device_activation",
+            "dim_device"
+          ]
+        },
+        {
+          "id": "H03",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_channel",
+            "dim_product",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "fact_payment",
+            "dim_calendar"
+          ]
+        },
+        {
+          "id": "H04",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "fact_device_activation",
+            "dim_product",
+            "dim_device",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order",
+            "fact_service_ticket",
+            "dim_firmware"
+          ]
+        },
+        {
+          "id": "H05",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "fact_service_ticket",
+            "dim_product",
+            "dim_device",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order",
+            "fact_device_activation",
+            "dim_fault"
+          ]
+        },
+        {
+          "id": "H06",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_firmware",
+            "dim_product",
+            "dim_device",
+            "fact_device_day",
+            "fact_service_ticket",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order"
+          ]
+        },
+        {
+          "id": "H07",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_product",
+            "dim_device",
+            "dim_fault",
+            "fact_service_ticket",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order",
+            "fact_ticket_status"
+          ]
+        },
+        {
+          "id": "H08",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_warehouse",
+            "dim_product",
+            "dim_sku",
+            "fact_inventory_day",
+            "fact_stock_movement",
+            "dim_fault",
+            "fact_feedback",
+            "dim_device"
+          ]
+        }
+      ]
+    },
+    "bm25_hash": {
+      "complete": 8,
+      "attempted": 8,
+      "mean_recall": 1.0,
+      "elapsed_seconds": 0.37,
+      "rows": [
+        {
+          "id": "H01",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_product",
+            "dim_channel",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "agg_sales_model_monthly",
+            "fact_subscription"
+          ]
+        },
+        {
+          "id": "H02",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_channel",
+            "dim_product",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "dim_calendar",
+            "fact_payment"
+          ]
+        },
+        {
+          "id": "H03",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_channel",
+            "dim_product",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "fact_payment",
+            "dim_calendar"
+          ]
+        },
+        {
+          "id": "H04",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "fact_device_activation",
+            "dim_product",
+            "dim_device",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order",
+            "fact_service_ticket",
+            "dim_firmware"
+          ]
+        },
+        {
+          "id": "H05",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "fact_service_ticket",
+            "dim_product",
+            "dim_device",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order",
+            "fact_device_activation",
+            "dim_firmware"
+          ]
+        },
+        {
+          "id": "H06",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_firmware",
+            "dim_product",
+            "dim_device",
+            "fact_device_day",
+            "fact_service_ticket",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order"
+          ]
+        },
+        {
+          "id": "H07",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_product",
+            "dim_device",
+            "dim_fault",
+            "fact_service_ticket",
+            "fact_support_contact",
+            "fact_order_item",
+            "bridge_order_device",
+            "fact_order"
+          ]
+        },
+        {
+          "id": "H08",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_warehouse",
+            "dim_product",
+            "dim_sku",
+            "fact_inventory_day",
+            "dim_calendar",
+            "agg_supply_inventory_monthly",
+            "agg_supply_inventory_daily",
+            "agg_supply_safety_monthly"
+          ]
+        }
+      ]
+    },
+    "bge": {
+      "complete": 8,
+      "attempted": 8,
+      "mean_recall": 1.0,
+      "elapsed_seconds": 7.87,
+      "rows": [
+        {
+          "id": "H01",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_channel",
+            "dim_product",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "dim_device",
+            "agg_sales_wholesale_monthly"
+          ]
+        },
+        {
+          "id": "H02",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_channel",
+            "dim_product",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "fact_payment",
+            "fact_service_ticket"
+          ]
+        },
+        {
+          "id": "H03",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_channel",
+            "dim_product",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "fact_payment",
+            "agg_sales_payment_monthly"
+          ]
+        },
+        {
+          "id": "H04",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "fact_device_activation",
+            "dim_product",
+            "dim_device",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order",
+            "fact_service_ticket",
+            "fact_device_day"
+          ]
+        },
+        {
+          "id": "H05",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "fact_service_ticket",
+            "dim_product",
+            "dim_device",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order",
+            "fact_device_activation",
+            "agg_service_repeat_monthly"
+          ]
+        },
+        {
+          "id": "H06",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_firmware",
+            "dim_product",
+            "dim_device",
+            "fact_device_day",
+            "fact_service_ticket",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order"
+          ]
+        },
+        {
+          "id": "H07",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_product",
+            "dim_device",
+            "dim_fault",
+            "fact_service_ticket",
+            "fact_feedback",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order"
+          ]
+        },
+        {
+          "id": "H08",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_warehouse",
+            "dim_product",
+            "dim_sku",
+            "fact_inventory_day",
+            "fact_device_activation",
+            "dim_device",
+            "bridge_order_device",
+            "fact_order_item"
+          ]
+        }
+      ]
+    },
+    "bm25_bge": {
+      "complete": 8,
+      "attempted": 8,
+      "mean_recall": 1.0,
+      "elapsed_seconds": 1.01,
+      "rows": [
+        {
+          "id": "H01",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_channel",
+            "dim_product",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "dim_device",
+            "fact_subscription"
+          ]
+        },
+        {
+          "id": "H02",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_channel",
+            "dim_product",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "fact_service_ticket",
+            "fact_device_activation"
+          ]
+        },
+        {
+          "id": "H03",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_channel",
+            "dim_product",
+            "dim_sku",
+            "fact_refund",
+            "fact_order_item",
+            "fact_order",
+            "fact_payment",
+            "agg_sales_payment_monthly"
+          ]
+        },
+        {
+          "id": "H04",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "fact_device_activation",
+            "dim_product",
+            "dim_device",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order",
+            "fact_service_ticket",
+            "fact_device_day"
+          ]
+        },
+        {
+          "id": "H05",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "fact_service_ticket",
+            "dim_product",
+            "dim_device",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order",
+            "fact_device_activation",
+            "agg_service_repeat_monthly"
+          ]
+        },
+        {
+          "id": "H06",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_firmware",
+            "dim_product",
+            "dim_device",
+            "fact_device_day",
+            "fact_service_ticket",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order"
+          ]
+        },
+        {
+          "id": "H07",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_product",
+            "dim_device",
+            "dim_fault",
+            "fact_service_ticket",
+            "bridge_order_device",
+            "fact_order_item",
+            "fact_order",
+            "fact_feedback"
+          ]
+        },
+        {
+          "id": "H08",
+          "recall": 1.0,
+          "complete": true,
+          "tables": [
+            "dim_warehouse",
+            "dim_product",
+            "dim_sku",
+            "fact_inventory_day",
+            "fact_device_activation",
+            "dim_device",
+            "bridge_order_device",
+            "fact_order_item"
+          ]
+        }
+      ]
+    }
+  }
+}

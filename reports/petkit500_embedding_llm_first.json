@@ -1,0 +1,44 @@
+{
+  "retrieval": "BM25+BGE-M3+RRF",
+  "sql_generation": "real LLM",
+  "not_blind_benchmark": true,
+  "rows": [
+    {
+      "question": "2026年5月，分别列出每种产品型号的净销售额。",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"dp\".\"product_id\" AS \"product_id\", \"dp\".\"product_name\" AS \"product_name\", SUM(\"foi\".\"amount\" - COALESCE(\"fr\".\"total_refund\", 0)) AS \"net_sales\" FROM \"fact_order_item\" AS \"foi\" JOIN \"fact_order\" AS \"fo\" ON \"foi\".\"order_id\" = \"fo\".\"order_id\" JOIN \"dim_sku\" AS \"ds\" ON \"foi\".\"sku_id\" = \"ds\".\"sku_id\" JOIN \"dim_product\" AS \"dp\" ON \"ds\".\"product_id\" = \"dp\".\"product_id\" LEFT JOIN (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"total_refund\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") AS \"fr\" ON \"foi\".\"item_id\" = \"fr\".\"item_id\" WHERE \"fo\".\"paid_date\" >= CAST('2026-05-01' AS DATE) AND \"fo\".\"paid_date\" < CAST('2026-06-01' AS DATE) AND \"fo\".\"status\" = '已支付' GROUP BY \"dp\".\"product_id\", \"dp\".\"product_name\" ORDER BY \"product_id\" LIMIT 1001",
+      "mock_used": false,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 4.205
+    },
+    {
+      "question": "请核算2026年7月各型号在售出30天内的激活率，排除观察期不满30天的设备，给出分子、分母和百分数。",
+      "status": "success",
+      "assessment": {
+        "passed": false,
+        "reason": "数值或返回字段不符，需要人工核查",
+        "group": "模拟喂食器1型",
+        "actual": [
+          28.0,
+          35.0,
+          80.0
+        ],
+        "expected": [
+          28.0,
+          44.0,
+          63.64
+        ]
+      },
+      "sql": "WITH \"sold_devices\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"fact_order\" AS \"o\" INNER JOIN \"fact_order_item\" AS \"i\" ON \"o\".\"order_id\" = \"i\".\"order_id\" INNER JOIN \"bridge_order_device\" AS \"b\" ON \"i\".\"item_id\" = \"b\".\"item_id\" INNER JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" WHERE \"o\".\"paid_date\" >= CAST('2026-07-01' AS DATE) AND \"o\".\"paid_date\" <= CAST('2026-07-31' AS DATE) AND \"o\".\"paid_date\" <= CAST('2026-09-16' AS DATE)), \"activated_devices\" AS (SELECT \"s\".\"device_id\" AS \"device_id\", \"s\".\"product_id\" AS \"product_id\", \"s\".\"paid_date\" AS \"paid_date\", \"a\".\"activation_date\" AS \"activation_date\" FROM \"sold_devices\" AS \"s\" LEFT JOIN \"fact_device_activation\" AS \"a\" ON \"s\".\"device_id\" = \"a\".\"device_id\" WHERE \"a\".\"activation_date\" IS NULL OR (\"a\".\"activation_date\" >= \"s\".\"paid_date\" AND \"a\".\"activation_date\" <= \"s\".\"paid_date\" + INTERVAL '30' DAY)) SELECT \"activated_devices\".\"product_id\" AS \"product_id\", COUNT(DISTINCT \"activated_devices\".\"device_id\") AS \"denominator\", COUNT(DISTINCT CASE WHEN NOT \"activated_devices\".\"activation_date\" IS NULL THEN \"activated_devices\".\"device_id\" END) AS \"numerator\", ROUND(COUNT(DISTINCT CASE WHEN NOT \"activated_devices\".\"activation_date\" IS NULL THEN \"activated_devices\".\"device_id\" END) * 100.0 / COUNT(DISTINCT \"activated_devices\".\"device_id\"), 2) AS \"activation_rate_pct\" FROM \"activated_devices\" AS \"activated_devices\" GROUP BY \"activated_devices\".\"product_id\" ORDER BY \"product_id\" LIMIT 1001",
+      "mock_used": false,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 6.254
+    }
+  ],
+  "passed": 1,
+  "attempted": 2
+}

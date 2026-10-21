@@ -1,0 +1,433 @@
+{
+  "parent": "petkit-v1.3-f661af1372",
+  "batch_file": "D:\\projects\\lingxi\\data\\petkit500\\ingestion\\inbox\\fulfillment-57b904ae53.json",
+  "before": {
+    "R1": {
+      "sku": "P001-S1",
+      "warehouse": "W1",
+      "quantity": 2,
+      "snapshots": [
+        [
+          "2025-10-01",
+          129
+        ],
+        [
+          "2025-11-01",
+          120
+        ],
+        [
+          "2025-12-01",
+          113
+        ],
+        [
+          "2026-01-01",
+          127
+        ],
+        [
+          "2026-02-01",
+          117
+        ],
+        [
+          "2026-03-01",
+          122
+        ],
+        [
+          "2026-04-01",
+          127
+        ],
+        [
+          "2026-05-01",
+          117
+        ],
+        [
+          "2026-06-01",
+          119
+        ],
+        [
+          "2026-07-01",
+          113
+        ],
+        [
+          "2026-08-01",
+          122
+        ],
+        [
+          "2026-09-01",
+          115
+        ]
+      ]
+    },
+    "R2": {
+      "sku": "P001-S1",
+      "warehouse": "W2",
+      "quantity": 2,
+      "snapshots": [
+        [
+          "2025-10-01",
+          166
+        ],
+        [
+          "2025-11-01",
+          169
+        ],
+        [
+          "2025-12-01",
+          181
+        ],
+        [
+          "2026-01-01",
+          190
+        ],
+        [
+          "2026-02-01",
+          200
+        ],
+        [
+          "2026-03-01",
+          208
+        ],
+        [
+          "2026-04-01",
+          198
+        ],
+        [
+          "2026-05-01",
+          197
+        ],
+        [
+          "2026-06-01",
+          194
+        ],
+        [
+          "2026-07-01",
+          190
+        ],
+        [
+          "2026-08-01",
+          200
+        ],
+        [
+          "2026-09-01",
+          191
+        ]
+      ]
+    }
+  },
+  "completed": true,
+  "real_llm_called": false,
+  "parent_receipt": "b9adc7db3c95",
+  "staged": {
+    "attempt": "4de314b9a8464c47ab28ea53ba981a78",
+    "source": "mock_wms",
+    "batch_id": "fulfillment-57b904ae53",
+    "parent": "petkit-v1.3-f661af1372",
+    "candidate": "petkit-v1.3-84da906cad",
+    "state": "staged",
+    "applied": 2,
+    "skipped": 0
+  },
+  "receipt": {
+    "id": "f9381a4ade68",
+    "generation": "petkit-v1.3-84da906cad",
+    "status": "validated",
+    "started": 1792204413.8150373,
+    "gates": {
+      "lineage": {
+        "events": 19,
+        "batches": 3,
+        "parent": "petkit-v1.3-f661af1372"
+      },
+      "source_reconciliation": {
+        "events": 19,
+        "source_batches": 3,
+        "source_and_rows_verified": true,
+        "source_files": {
+          "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+          "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d",
+          "ingestion\\archive\\mock_wms\\fulfillment-57b904ae53\\bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8.json": "bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8"
+        }
+      },
+      "data_quality": {
+        "tables": 500,
+        "total_rows": 205383,
+        "orders": 3202,
+        "foreign_keys": 511
+      },
+      "business_oracle": {
+        "passed": 32,
+        "source": "independent Python arithmetic over raw records"
+      },
+      "embedding": {
+        "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+        "vectors": 506,
+        "dimensions": 1024
+      }
+    },
+    "source_files": {
+      "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+      "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d",
+      "ingestion\\archive\\mock_wms\\fulfillment-57b904ae53\\bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8.json": "bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8"
+    },
+    "files": {
+      "warehouse.duckdb": "76f7ad1a2d7d655f38e8cd3431077598063ad2a223953c9df43268f3deba8c60",
+      "catalog.json": "ff25e151a211bea68fb1fa0f581a8271c4ef75b561f0f11c480267158f50598c",
+      "summary.json": "ae6fffe39c6c9c644b84ec57fe066baef16f0129c3d7e6d77492135e40259de5",
+      "lineage.json": "7b50e2d367b6f6be47dc8f0a1c00c90e720e0cecc3dd9045ecc762cec3956947"
+    },
+    "code": {
+      "releases": "2e309946a38000020c8e2963942580e828db39994348c92d882a77248b390c71",
+      "reference": "4d61f8fd720c454b28435979512c0d8e1a1b0d33ec4ed6ef001fbae730c7582b",
+      "planning": "05add2809c63d6c741cbd87e96e5de0c33368316f3dadfede388e9119633bc59",
+      "guard": "29eecc68d663ab0c64f4afa1bb1a47499f8d99959bf19c72dd32069f3f32e1e1",
+      "semantic": "dc028f5189470076971c3347f5be9fb3a0caf5cc8e712f674651384dddf8619a",
+      "result_contract": "ce97c4d0d85017d541394d8b821f5b4f253ed620a9beaa72913f1af565cfd5d3",
+      "row_policy": "7f5adca5dd81db69879a86d5926dbb8fc95a24b18427ae1d22417f0b91ffd8f0",
+      "retrieval": "ff7e7e8cfb57e7f1284cbc249d4de82f6cd634a24c2d248b16938650fcdc4880",
+      "embedding": "1ed831a31fc084708fd03b061bfd7ad591a61cace1d10b62961c82f75179ff67",
+      "builder": "bf89dd2e21c9ab12607f7832d2515761bb582ee09f0052bce8b90c1257872f31",
+      "catalog": "88d88339fcd1a4d468239cf116877a46ddce1743711a0847a2901f0fcea4c4e4",
+      "control": "941e089507126fbc4c6bae9dfb6ebe1ba9a990f9080a3f0d11e620cfa595d5d1",
+      "access": "4ab4c84356e940918da644d019d333a4f5c7cf126aa7d1c46d17b8a8b471cc9c",
+      "execution": "9cce5b1adc2b216de26c075c1713819f342df98363073ad173d9bd0e74811126",
+      "worker": "e6ad8c38aabbb112bab7d7d7ce1df88a7bca39ab883d2f6f5ac59c5295541281",
+      "settings": "312695a1c96cd0db5d11c2ce018c13e77c8bd727daf4e5e756fbcab6d1098266",
+      "service": "7b28ec5f4ae1f16ea3d7896026f1a7b19e4c8a0921e5dadbad6fd276fb4de509",
+      "ingestion": "ba3c3e1df4e2c04a641825de6ed54c3ba9f22bef4ff54ab93f1be007f3c47bc7",
+      "ingestion_models": "39ffd7fab81a7907f8d51231bb91c8d6a7ccb15951822beaea8c2afbef8f0847",
+      "fulfillment": "49cbd4c3d1cdf690eba622bdd572fae80ae1d9f07c060014c5eea4e23ccd79b1"
+    },
+    "embedding": {
+      "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+      "signature": "4f8563a1b5617bd89f28b6d3862a87a1483c5bad37e6eb560422699ac676d3d3"
+    },
+    "completed": 1792204416.925911
+  },
+  "region_isolation": {
+    "R1": {
+      "visible_new_shipments": 1,
+      "new_stock_delta": -2,
+      "other_region_hidden": true
+    },
+    "R2": {
+      "visible_new_shipments": 1,
+      "new_stock_delta": -2,
+      "other_region_hidden": true
+    }
+  },
+  "publication": {
+    "id": "4196d7dd6f0846d99b23b255206d5299",
+    "state": "committed",
+    "created": 1792204417.3202102,
+    "actor": "mock-wms/publish",
+    "validation_id": "f9381a4ade68",
+    "snapshot_files": {
+      "warehouse.duckdb": "76f7ad1a2d7d655f38e8cd3431077598063ad2a223953c9df43268f3deba8c60",
+      "catalog.json": "ff25e151a211bea68fb1fa0f581a8271c4ef75b561f0f11c480267158f50598c",
+      "summary.json": "ae6fffe39c6c9c644b84ec57fe066baef16f0129c3d7e6d77492135e40259de5",
+      "lineage.json": "7b50e2d367b6f6be47dc8f0a1c00c90e720e0cecc3dd9045ecc762cec3956947"
+    },
+    "previous": {
+      "generation": "petkit-v1.3-f661af1372",
+      "version": "petkit-v1.3"
+    },
+    "target": {
+      "generation": "petkit-v1.3-84da906cad",
+      "version": "petkit-v1.3"
+    },
+    "completed": 1792204417.5078704
+  },
+  "duplicate": {
+    "attempt": "9db90dd471e6408aa6f6f2af655fde81",
+    "source": "mock_wms",
+    "batch_id": "fulfillment-57b904ae53",
+    "parent": "petkit-v1.3-84da906cad",
+    "candidate": "petkit-v1.3-84da906cad",
+    "state": "already_applied",
+    "applied": 0,
+    "skipped": 2
+  },
+  "rollback": {
+    "id": "6967e72cc45d4535b4b810625b2ce1d9",
+    "state": "committed",
+    "created": 1792204417.8916743,
+    "actor": "mock-wms/rollback-drill",
+    "validation_id": "b9adc7db3c95",
+    "snapshot_files": {
+      "warehouse.duckdb": "dccc8d1aac128d64a81eec4055da5ea20bea795a2b71bb6b7dfd0ab93b8527c2",
+      "catalog.json": "dd4758949c84cd169d01302cc20c820d11d8ef69aa48767798e8b0452cad0431",
+      "summary.json": "a419a847e9ef9c01d0993c6f7c8eece32d5331996fc0299e4a94859b22cfba0b",
+      "lineage.json": "427345354cbc28d7ca0a162ed425d6bc3fe1339520a1a820b4584094b560a756"
+    },
+    "previous": {
+      "generation": "petkit-v1.3-84da906cad",
+      "version": "petkit-v1.3"
+    },
+    "target": {
+      "generation": "petkit-v1.3-f661af1372",
+      "version": "petkit-v1.3"
+    },
+    "completed": 1792204418.060244
+  },
+  "replay": {
+    "attempt": "d496f1bca80c4a558642edad32b4cbcd",
+    "source": "mock_wms",
+    "batch_id": "fulfillment-57b904ae53",
+    "parent": "petkit-v1.3-f661af1372",
+    "candidate": "petkit-v1.3-6cfec6b167",
+    "state": "staged",
+    "applied": 2,
+    "skipped": 0
+  },
+  "final_receipt": {
+    "id": "b7d17c335c67",
+    "generation": "petkit-v1.3-aa1a375a40",
+    "status": "validated",
+    "started": 1792204514.406692,
+    "gates": {
+      "lineage": {
+        "events": 19,
+        "batches": 3,
+        "parent": "petkit-v1.3-f661af1372"
+      },
+      "source_reconciliation": {
+        "events": 19,
+        "source_batches": 3,
+        "source_and_rows_verified": true,
+        "source_files": {
+          "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+          "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d",
+          "ingestion\\archive\\mock_wms\\fulfillment-57b904ae53\\bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8.json": "bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8"
+        }
+      },
+      "data_quality": {
+        "tables": 500,
+        "total_rows": 205383,
+        "orders": 3202,
+        "foreign_keys": 511
+      },
+      "business_oracle": {
+        "passed": 32,
+        "source": "independent Python arithmetic over raw records"
+      },
+      "embedding": {
+        "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+        "vectors": 506,
+        "dimensions": 1024
+      }
+    },
+    "source_files": {
+      "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+      "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d",
+      "ingestion\\archive\\mock_wms\\fulfillment-57b904ae53\\bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8.json": "bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8"
+    },
+    "files": {
+      "warehouse.duckdb": "76f7ad1a2d7d655f38e8cd3431077598063ad2a223953c9df43268f3deba8c60",
+      "catalog.json": "dea55a8036018398bab1cbf401e4717be95c7852f869ba291a16fa9a154f873c",
+      "summary.json": "a78f2e91078e69ef6efc4a881dbb152c3b650d1bdf8a0427d53934ae5dde5f13",
+      "lineage.json": "35efeecac1ac2b9193dbb716e3124f7bc21b817bbc216612e28c022d55ba9690"
+    },
+    "code": {
+      "releases": "2e309946a38000020c8e2963942580e828db39994348c92d882a77248b390c71",
+      "reference": "fbb7fb2c594b7a913f679882f5dd78e3270b0d977c13295cca39a0a08cd1618f",
+      "planning": "296d5c026638c21dfc62f823eb96f8302efe4336e0487c16b985e3a1ed216c99",
+      "guard": "29eecc68d663ab0c64f4afa1bb1a47499f8d99959bf19c72dd32069f3f32e1e1",
+      "semantic": "dc028f5189470076971c3347f5be9fb3a0caf5cc8e712f674651384dddf8619a",
+      "result_contract": "ce97c4d0d85017d541394d8b821f5b4f253ed620a9beaa72913f1af565cfd5d3",
+      "row_policy": "7f5adca5dd81db69879a86d5926dbb8fc95a24b18427ae1d22417f0b91ffd8f0",
+      "retrieval": "ff7e7e8cfb57e7f1284cbc249d4de82f6cd634a24c2d248b16938650fcdc4880",
+      "embedding": "1ed831a31fc084708fd03b061bfd7ad591a61cace1d10b62961c82f75179ff67",
+      "builder": "bf89dd2e21c9ab12607f7832d2515761bb582ee09f0052bce8b90c1257872f31",
+      "catalog": "e78fcc4aee53cdd272ab02340671f43048fcdd47563fe958bdee8bdd840f0ad9",
+      "control": "941e089507126fbc4c6bae9dfb6ebe1ba9a990f9080a3f0d11e620cfa595d5d1",
+      "access": "4ab4c84356e940918da644d019d333a4f5c7cf126aa7d1c46d17b8a8b471cc9c",
+      "execution": "9cce5b1adc2b216de26c075c1713819f342df98363073ad173d9bd0e74811126",
+      "worker": "e6ad8c38aabbb112bab7d7d7ce1df88a7bca39ab883d2f6f5ac59c5295541281",
+      "settings": "312695a1c96cd0db5d11c2ce018c13e77c8bd727daf4e5e756fbcab6d1098266",
+      "service": "7b28ec5f4ae1f16ea3d7896026f1a7b19e4c8a0921e5dadbad6fd276fb4de509",
+      "ingestion": "056ee9addec9225c4190814e949a099f5e2aec430b73caeedff021b10935929d",
+      "ingestion_models": "39ffd7fab81a7907f8d51231bb91c8d6a7ccb15951822beaea8c2afbef8f0847",
+      "fulfillment": "49cbd4c3d1cdf690eba622bdd572fae80ae1d9f07c060014c5eea4e23ccd79b1"
+    },
+    "embedding": {
+      "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+      "signature": "4f8563a1b5617bd89f28b6d3862a87a1483c5bad37e6eb560422699ac676d3d3"
+    },
+    "completed": 1792204586.7312515
+  },
+  "replay_isolation": {
+    "R1": {
+      "visible_new_shipments": 1,
+      "new_stock_delta": -2,
+      "other_region_hidden": true
+    },
+    "R2": {
+      "visible_new_shipments": 1,
+      "new_stock_delta": -2,
+      "other_region_hidden": true
+    }
+  },
+  "final_publication": {
+    "id": "8f22bde8806a41a796cb5d6546f50be4",
+    "state": "committed",
+    "created": 1792204586.9781651,
+    "actor": "inventory-semantics/publish",
+    "validation_id": "b7d17c335c67",
+    "snapshot_files": {
+      "warehouse.duckdb": "76f7ad1a2d7d655f38e8cd3431077598063ad2a223953c9df43268f3deba8c60",
+      "catalog.json": "dea55a8036018398bab1cbf401e4717be95c7852f869ba291a16fa9a154f873c",
+      "summary.json": "a78f2e91078e69ef6efc4a881dbb152c3b650d1bdf8a0427d53934ae5dde5f13",
+      "lineage.json": "35efeecac1ac2b9193dbb716e3124f7bc21b817bbc216612e28c022d55ba9690"
+    },
+    "previous": {
+      "generation": "petkit-v1.3-f661af1372",
+      "version": "petkit-v1.3"
+    },
+    "target": {
+      "generation": "petkit-v1.3-aa1a375a40",
+      "version": "petkit-v1.3"
+    },
+    "completed": 1792204587.1494296
+  },
+  "stock_units_shipped": 4,
+  "events": 2,
+  "sales_unchanged": true,
+  "snapshot_corrections_verified": true,
+  "rollback_replay_once": true,
+  "inventory_semantics_correction": {
+    "previous_generation": "petkit-v1.3-6cfec6b167",
+    "reason": "期末库存按SKU及仓库取各自范围内最新快照，避免异步更新丢失其他商品",
+    "completed": true,
+    "staged": {
+      "attempt": "9d181cdbfdb5403ab61b537c537aa376",
+      "source": "mock_wms",
+      "batch_id": "fulfillment-57b904ae53",
+      "parent": "petkit-v1.3-f661af1372",
+      "candidate": "petkit-v1.3-aa1a375a40",
+      "state": "staged",
+      "applied": 2,
+      "skipped": 0
+    },
+    "publication": {
+      "id": "8f22bde8806a41a796cb5d6546f50be4",
+      "state": "committed",
+      "created": 1792204586.9781651,
+      "actor": "inventory-semantics/publish",
+      "validation_id": "b7d17c335c67",
+      "snapshot_files": {
+        "warehouse.duckdb": "76f7ad1a2d7d655f38e8cd3431077598063ad2a223953c9df43268f3deba8c60",
+        "catalog.json": "dea55a8036018398bab1cbf401e4717be95c7852f869ba291a16fa9a154f873c",
+        "summary.json": "a78f2e91078e69ef6efc4a881dbb152c3b650d1bdf8a0427d53934ae5dde5f13",
+        "lineage.json": "35efeecac1ac2b9193dbb716e3124f7bc21b817bbc216612e28c022d55ba9690"
+      },
+      "previous": {
+        "generation": "petkit-v1.3-f661af1372",
+        "version": "petkit-v1.3"
+      },
+      "target": {
+        "generation": "petkit-v1.3-aa1a375a40",
+        "version": "petkit-v1.3"
+      },
+      "completed": 1792204587.1494296
+    }
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "date": "2026-10-21",
+  "generation": "petkit-v1.3-638f0e235a",
+  "report": "reports/soak_runs/e2bb265e0e6b/results.json",
+  "completed": true,
+  "single_run_completed": true,
+  "separate_load_and_finalization_phases": false,
+  "duration_seconds": 600,
+  "concurrency": 4,
+  "total_tasks": 1905,
+  "successful_queries": 1525,
+  "expected_denied": 380,
+  "unexpected_errors": 0,
+  "http_429": 0,
+  "success_tasks_per_second": 2.537,
+  "successful_end_to_end_seconds": {
+    "count": 1525,
+    "p50": 1.1486,
+    "p95": 1.4583,
+    "maximum": 1.6238
+  },
+  "resource_summary": {
+    "worker": {
+      "baseline": {
+        "rss_mb": 1931.254,
+        "private_commit_mb": 5340.168,
+        "handles": 313,
+        "cpu_seconds": 11.8438
+      },
+      "last": {
+        "rss_mb": 1978.492,
+        "private_commit_mb": 4423.809,
+        "handles": 305,
+        "cpu_seconds": 2110.8125
+      },
+      "peak_rss_mb": 1978.492,
+      "peak_handles": 319,
+      "rss_growth_mb": 47.238,
+      "handle_growth": -8
+    },
+    "api": {
+      "baseline": {
+        "rss_mb": 73.93,
+        "private_commit_mb": 54.859,
+        "handles": 197,
+        "cpu_seconds": 0.7812
+      },
+      "last": {
+        "rss_mb": 79.109,
+        "private_commit_mb": 59.664,
+        "handles": 213,
+        "cpu_seconds": 148.875
+      },
+      "peak_rss_mb": 80.406,
+      "peak_handles": 223,
+      "rss_growth_mb": 5.179,
+      "handle_growth": 16
+    },
+    "ui": {
+      "baseline": {
+        "rss_mb": 79.336,
+        "private_commit_mb": 63.738,
+        "handles": 196,
+        "cpu_seconds": 0.7812
+      },
+      "last": {
+        "rss_mb": 79.352,
+        "private_commit_mb": 63.562,
+        "handles": 185,
+        "cpu_seconds": 6.3438
+      },
+      "peak_rss_mb": 79.363,
+      "peak_handles": 196,
+      "rss_growth_mb": 0.016,
+      "handle_growth": -11
+    }
+  },
+  "minute_windows": [
+    {
+      "start_seconds": 0,
+      "success_count": 163,
+      "successful_end_to_end_seconds": {
+        "count": 163,
+        "p50": 1.1076,
+        "p95": 1.3523,
+        "maximum": 1.4524
+      }
+    },
+    {
+      "start_seconds": 60,
+      "success_count": 142,
+      "successful_end_to_end_seconds": {
+        "count": 142,
+        "p50": 1.2075,
+        "p95": 1.4032,
+        "maximum": 1.4662
+      }
+    },
+    {
+      "start_seconds": 120,
+      "success_count": 145,
+      "successful_end_to_end_seconds": {
+        "count": 145,
+        "p50": 1.2068,
+        "p95": 1.4402,
+        "maximum": 1.587
+      }
+    },
+    {
+      "start_seconds": 180,
+      "success_count": 134,
+      "successful_end_to_end_seconds": {
+        "count": 134,
+        "p50": 1.3105,
+        "p95": 1.5396,
+        "maximum": 1.5751
+      }
+    },
+    {
+      "start_seconds": 240,
+      "success_count": 134,
+      "successful_end_to_end_seconds": {
+        "count": 134,
+        "p50": 1.2917,
+        "p95": 1.4975,
+        "maximum": 1.5364
+      }
+    },
+    {
+      "start_seconds": 300,
+      "success_count": 140,
+      "successful_end_to_end_seconds": {
+        "count": 140,
+        "p50": 1.2261,
+        "p95": 1.443,
+        "maximum": 1.586
+      }
+    },
+    {
+      "start_seconds": 360,
+      "success_count": 131,
+      "successful_end_to_end_seconds": {
+        "count": 131,
+        "p50": 1.3355,
+        "p95": 1.5636,
+        "maximum": 1.6238
+      }
+    },
+    {
+      "start_seconds": 420,
+      "success_count": 167,
+      "successful_end_to_end_seconds": {
+        "count": 167,
+        "p50": 1.0183,
+        "p95": 1.4453,
+        "maximum": 1.6056
+      }
+    },
+    {
+      "start_seconds": 480,
+      "success_count": 181,
+      "successful_end_to_end_seconds": {
+        "count": 181,
+        "p50": 1.0053,
+        "p95": 1.0887,
+        "maximum": 1.137
+      }
+    },
+    {
+      "start_seconds": 540,
+      "success_count": 184,
+      "successful_end_to_end_seconds": {
+        "count": 184,
+        "p50": 0.9861,
+        "p95": 1.0694,
+        "maximum": 1.0903
+      }
+    }
+  ],
+  "control_disk_first_mb": 0.933,
+  "control_disk_last_mb": 19.312,
+  "final_queue_pending": 0,
+  "worker_restarts": 0,
+  "client_connections_created": 7,
+  "client_idle_renewals": 1,
+  "client_connections_closed": true,
+  "original_jobs_unchanged": true,
+  "original_pointer_unchanged": true,
+  "original_warehouse_unchanged": true,
+  "children_stopped": true,
+  "real_llm_called": false,
+  "hour_level_soak_completed": false,
+  "memory_leak_absence_proven": false,
+  "production_capacity_measured": false,
+  "last_full_regression_passed": 358,
+  "diagnostic_report": "reports/transport_diagnostic_runs/cd6374065a5c/results.json",
+  "short_connection_diagnostic_completed": true,
+  "short_connection_failure_reproduced": false,
+  "first_short_connection_timeout_root_cause_resolved": false,
+  "historical_supplement_summary": "reports/history/petkit500_resource_soak_summary_391f80fc964c.json",
+  "code_hashes_match_at_finalization": true
+}

@@ -1,0 +1,163 @@
+{
+  "version": "expanded-v1",
+  "mode": "numeric",
+  "generation": "petkit-v1.3-638f0e235a",
+  "model": "deepseek-v4-pro",
+  "case_sha256": "04fb4db97d788a8f613fdece4eca5c5197498fb3de774c007fe541d5e4966aed",
+  "selected_ids": [
+    "N01",
+    "N02",
+    "N03",
+    "N04",
+    "N05",
+    "N06",
+    "N07",
+    "N08"
+  ],
+  "frozen_before_execution": true,
+  "external_independent_benchmark": false,
+  "load_test": false,
+  "developer_authored": true,
+  "generation_budget": 16,
+  "rows": [
+    {
+      "id": "N01",
+      "question": "2026年5月，各产品型号实际净销售额分别是多少？按订单行实付扣除截至截止日的对应退款，退款归原支付月份。",
+      "subject": "global_analyst",
+      "regions": [],
+      "expected_status": "success",
+      "status": "success",
+      "assessment": {
+        "passed": false,
+        "reason": "missing/duplicate group or nonfinite numbers"
+      },
+      "generation_attempts": 1,
+      "elapsed_seconds": 11.856,
+      "bound_metric": "net_sales",
+      "sql": "SELECT \"p\".\"product_id\" AS \"product_id\", \"p\".\"product_name\" AS \"product_name\", SUM(\"oi\".\"amount\" - COALESCE(\"r\".\"total_refund\", 0)) AS \"net_sales\" FROM \"fact_order_item\" AS \"oi\" JOIN \"fact_order\" AS \"o\" ON \"oi\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"oi\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"total_refund\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") AS \"r\" ON \"oi\".\"item_id\" = \"r\".\"item_id\" WHERE \"o\".\"paid_date\" >= CAST('2026-05-01' AS DATE) AND \"o\".\"paid_date\" < CAST('2026-06-01' AS DATE) GROUP BY \"p\".\"product_id\", \"p\".\"product_name\" ORDER BY \"product_id\" LIMIT 1001",
+      "columns": [
+        "product_id",
+        "product_name",
+        "net_sales"
+      ],
+      "result_rows": [
+        [
+          "P001",
+          "模拟喂食器1型",
+          17875.199999999997
+        ],
+        [
+          "P002",
+          "模拟喂食器2型",
+          18313.3
+        ],
+        [
+          "P003",
+          "模拟喂食器3型",
+          18598.949999999997
+        ],
+        [
+          "P004",
+          "模拟喂食器4型",
+          26771.699999999997
+        ],
+        [
+          "P005",
+          "模拟饮水机1型",
+          10079.35
+        ],
+        [
+          "P006",
+          "模拟饮水机2型",
+          9732.45
+        ],
+        [
+          "P007",
+          "模拟饮水机3型",
+          17775.449999999993
+        ],
+        [
+          "P008",
+          "模拟饮水机4型",
+          25548.8
+        ],
+        [
+          "P009",
+          "模拟猫砂盆1型",
+          81772.05000000002
+        ],
+        [
+          "P010",
+          "模拟猫砂盆2型",
+          38612.4
+        ],
+        [
+          "P011",
+          "模拟猫砂盆3型",
+          44445.35
+        ],
+        [
+          "P012",
+          "模拟猫砂盆4型",
+          95060.55000000002
+        ]
+      ],
+      "reference": {
+        "模拟猫砂盆3型": [
+          44445.35
+        ],
+        "模拟喂食器3型": [
+          18598.95
+        ],
+        "模拟饮水机3型": [
+          17775.45
+        ],
+        "模拟饮水机4型": [
+          25548.8
+        ],
+        "模拟喂食器1型": [
+          17875.2
+        ],
+        "模拟猫砂盆2型": [
+          38612.4
+        ],
+        "模拟猫砂盆1型": [
+          81772.05
+        ],
+        "模拟饮水机1型": [
+          10079.35
+        ],
+        "模拟喂食器2型": [
+          18313.3
+        ],
+        "模拟猫砂盆4型": [
+          95060.55
+        ],
+        "模拟喂食器4型": [
+          26771.7
+        ],
+        "模拟饮水机2型": [
+          9732.45
+        ]
+      },
+      "error": ""
+    }
+  ],
+  "completed": false,
+  "code_sha256": {
+    "scripts/eval_petkit_expanded.py": "2b95e28801ccd1796d6b447d0d0a6a5e65dc39e85c9dcf53bce73b3e7a4cd7a8",
+    "scripts/expanded_eval_support.py": "8956dc67f4ecb084de39f9a5d3981ae0f1a9feaf5ec12817740e05540903e31e",
+    "src/petkit/planning.py": "1fbd1ee106b9916a0db4ecd238f904dcaa7e3e60e8a57997c6db9a359df8f6ce",
+    "src/petkit/service.py": "1a95b385ea23851ddd0c4d97613450d6fa288801533d40ce37afd18be5e252fa",
+    "src/petkit/semantic.py": "c5f0612c4758b1fae6dda9266e1a864fc6fb53ba07a0daee49323a5ac65173e6",
+    "src/petkit/reference.py": "5cd149d42a2fd1fc0f46eab15b7bd2c65e3abaabd591c82ea0299034b3ea15b2"
+  },
+  "stop_reason": "First failure; no further questions executed",
+  "passed": 0,
+  "attempted": 1,
+  "generation_attempts": 1,
+  "blocked_generation_attempts": 0,
+  "original_pointer_unchanged": true,
+  "original_warehouse_unchanged": true,
+  "original_jobs_unchanged": true
+}

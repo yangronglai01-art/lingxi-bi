@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "missing_quantity_rejected",
+    "disconnected_join_rejected",
+    "unauthorized_table_rejected",
+    "unauthorized_evidence_rejected",
+    "unapproved_edge_rejected"
+  ],
+  "passed": 5,
+  "production_data_modified": false
+}

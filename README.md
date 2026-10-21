@@ -1,310 +1,103 @@
-# ⚙️ 宁波鲍斯能源装备 · 智能问数平台（灵犀 Lingxi）
+# 灵犀：500表智能问数模拟业务实例
 
-一个**成品级**的 AI 智能问数（Text-to-SQL）项目：用中文自然语言提问，系统自动
-生成 SQL → 查询 DuckDB 数仓 → 自动选图 → 给出 AI 洞察，并提供 FastAPI 接口与
-Streamlit 可视化工作台。
+以小佩智能宠物硬件业务背景构建的自有模拟项目，覆盖销售、设备、售后和供应链。没有接入小佩公司的内部数据或接口，不代表真实企业交付。
 
-> 适合作为「AI 应用开发 / 大模型工程 / 数据分析」方向的面试演示与简历项目。
+## 当前状态
 
-## 🏭 项目背景
+文档整理日期：2026-10-21。数据版本：`petkit-v1.3-638f0e235a`。
 
-面向**宁波鲍斯能源装备**（虚构的高端装备制造企业，主营工业压缩机、真空设备、
-液压元件与精密机械零部件）的「智能问数平台」：让总经理、销售、质量、生产等业务人员
-无需懂 SQL，即可用中文自然语言自助查询经营数据，打通「数据 → 决策」的最后一公里。
-
-演示数仓覆盖 6 款核心产品、4 大销售区域、12 家客户、近 12 个月每日粒度的
-销售 / 质量 / 生产数据，并内置时间趋势、区域差异、良率波动三类可被 AI 发现的业务特征。
-
----
-
-## ✨ 核心能力
-
-| 能力 | 说明 |
+| 项目 | 已核验状态 |
 | --- | --- |
-| 🧠 中文问数 | 输入「2026 年 3 月各产品销售额是多少？」，自动生成 DuckDB SQL 并执行 |
-| 🔒 SQL 安全 | 执行前拦截非 SELECT、多语句、表/字段白名单、强制 LIMIT 1000 |
-| 🔁 失败自愈 | SQL 执行报错时自动把错误反馈给 LLM 修正一次 |
-| 🛡️ 离线降级 | 无 API Key 或 `ENABLE_MOCK=true` 时用规则生成 SQL，保证可离线演示 |
-| 📊 自动选图 | 指标卡 / 折线图 / 柱状图 / 饼图 / 表格，按结果结构规则选图 |
-| 🧩 AI 洞察 | 基于**真实返回数据**生成洞察，严禁编造 |
-| 🌐 API + 前端 | FastAPI REST 接口 + Streamlit 工作台 + SQLite 历史/收藏 |
-| 📐 可评测 | 内置 18 条评测集与 `scripts/eval.py`，可量化生成质量 |
+| 模拟数据 | 500张物理表＝40张核心业务表＋460张模拟扩展表；3202笔订单、205397行 |
+| 业务口径 | 7个登记指标，37条批准问题的独立Python数值核对 |
+| 模拟身份 | 5个持久员工账号，角色、地区及授权版本隔离 |
+| 完整回归 | 最近一次完整回归在2026-10-21执行，379项通过；1项既有依赖弃用提示 |
+| 真实模型 | 7个指标已完成受控数值验证，含修复复核；不是首次盲测7/7 |
+| 模板模式压力 | 分档并发450个任务、员工及全局配额突发超载与排空恢复通过 |
 
----
+500表规模不等于任意500表业务都可问；37条批准模板不等于真实模型泛化准确率。历史评测、测试次数和压测请求数分别统计，不合并成准确率。
 
-## 🏗️ 架构
+## 启动现有实例
 
-```mermaid
-flowchart LR
-    U[用户] -->|中文问题| A[scripts/ask.py<br/>命令行入口]
-    U -->|中文问题| W[src/app.py<br/>Streamlit 工作台]
-    U -->|HTTP POST /ask| F[src/api/main.py<br/>FastAPI 接口]
+本机依赖、数据和模拟组织已准备好，常规启动无需重建数据或重新发放凭据：
 
-    W --> E[QueryEngine<br/>src/engine/engine.py]
-    F --> E
-    A --> E
-
-    subgraph E2[核心引擎 src/engine/]
-        E --> T[text2sql<br/>生成 SQL]
-        T --> G[sql_guard<br/>安全校验]
-        G --> X[executor<br/>DuckDB 只读执行]
-        X --> C[chart_selector<br/>自动选图]
-        X --> I[insight<br/>AI 洞察]
-    end
-
-    X --> D[(DuckDB 数仓<br/>data/lingxi.duckdb)]
-    F --> H[(SQLite 历史/收藏<br/>data/history.db)]
-    W --> H
-
-    D <-.->|build_all.py 生成| DG[data_generator<br/>合成数据]
+```powershell
+cd D:\projects\lingxi
+.\.venv\Scripts\python.exe scripts/start_simulated.py --mode demo
 ```
 
-**数据流**：中文问题 → 生成 SQL（LLM，带 schema + few-shot）→ SQL 安全校验 →
-只读执行（失败自动修正一次）→ 自动选图 + AI 洞察 → 统一 `Answer` 模型返回。
+工作台：http://127.0.0.1:18501 。API说明：http://127.0.0.1:18000/docs 。使用本机`data/petkit500/simulated_credentials.json`内相应账号凭据登录，不提交或外传该文件。
 
----
+`--mode demo`仅使用37条批准问题的离线模板，其他问题明确返回不支持或澄清。真实模型模式使用已有`.env`配置，可能产生费用：
 
-## 📂 目录结构
-
-```
-lingxi/
-├── src/                          # 主包
-│   ├── config.py                 # 路径 / 随机种子 / 模型配置
-│   ├── schema.py                 # 6 张表 schema（单一数据源，喂给 prompt）
-│   ├── data_generator.py         # 合成数据生成（固定随机种子，可复现）
-│   ├── warehouse.py              # DuckDB 建表 + 灌数 + 校验摘要
-│   ├── eval_cases.py             # 评测集（18 条）+ 结果比对逻辑
-│   ├── history.py                # SQLite 历史记录 / 收藏
-│   ├── app.py                    # Streamlit 工作台
-│   ├── api/
-│   │   └── main.py               # FastAPI 接口
-│   └── engine/                   # 核心引擎
-│       ├── engine.py             # 引擎门面：QueryEngine.ask()
-│       ├── text2sql.py           # SQL 生成 + mock 降级 + 失败修正
-│       ├── sql_guard.py          # SQL 安全校验（白名单 / LIMIT）
-│       ├── executor.py           # DuckDB 只读执行（QueryResult 模型）
-│       ├── chart_selector.py     # 规则自动选图（ChartConfig 模型）
-│       ├── insight.py            # AI 洞察生成
-│       ├── prompts.py            # prompt 构造（schema + few-shot）
-│       ├── few_shots.py          # 8 条 few-shot 示例
-│       └── llm_client.py         # OpenAI 兼容接口 HTTP 客户端
-├── scripts/
-│   ├── build_all.py              # 一键：生成数据 + 建库灌数 + 校验
-│   ├── ask.py                    # 命令行问数入口
-│   ├── eval.py                   # 批量评测脚本
-│   └── start_all.py              # 一键启动 API + Streamlit
-├── tests/
-│   ├── test_sql_guard.py         # SQL 安全校验（22 例）
-│   ├── test_chart_selector.py    # 自动选图（9 例）
-│   └── test_eval_cases.py        # 评测集 + 比对逻辑（18 例）
-├── docs/
-│   └── schema.md                 # schema 权威中文文档
-├── reports/
-│   └── eval_report.json          # 评测报告（真实大模型跑出的结果）
-├── data/                         # 生成产物（.gitignore 排除）
-│   ├── lingxi.duckdb             # DuckDB 数仓
-│   ├── history.db                # 历史/收藏
-│   └── csv/                      # 原始 CSV
-├── requirements.txt              # 依赖清单（与 pyproject.toml 并存）
-├── pyproject.toml                # 项目元数据 + pytest/ruff 配置
-├── .env.example                  # 环境变量模板
-└── README.md
+```powershell
+.\.venv\Scripts\python.exe scripts/start_simulated.py --mode llm
 ```
 
----
+启动器默认管理API、Streamlit及单个持久任务工作进程；Ctrl+C停止本启动器拥有的全部进程，任务与审计保留。当前主实例提供5个账号：
 
-## 🚀 快速开始
-
-### 1. 安装依赖
-
-```bash
-# 方式一（推荐）：用 pyproject.toml 安装
-pip install -e ".[dev]"
-
-# 方式二：传统 requirements.txt（与 pyproject.toml 依赖保持一致）
-pip install -r requirements.txt
-```
-
-### 2. 配置大模型（可选，不配则走 mock）
-
-```bash
-# 复制模板并填入真实 key
-cp .env.example .env
-# 编辑 .env：
-#   API_KEY=sk-xxxx
-#   MODEL_PROVIDER=deepseek
-#   MODEL_NAME=deepseek-v4-pro
-#   BASE_URL=https://api.deepseek.com/v1
-```
-
-### 3. 一键构建数仓（生成数据 + 建库 + 校验）
-
-```bash
-python scripts/build_all.py
-```
-
-### 4. 命令行问数
-
-```bash
-# 真实大模型
-python scripts/ask.py "华东地区的销售额是多少"
-
-# 强制离线 mock（无网络也能跑）
-$env:ENABLE_MOCK="true"; python scripts/ask.py "各区域的销售额是多少"
-```
-
-### 5. 启动工作台（API + Streamlit）
-
-```bash
-python scripts/start_all.py
-# 启动后自动打开浏览器：
-#   API      http://127.0.0.1:8000/docs
-#   工作台    http://localhost:8501
-```
-
----
-
-## 🔌 API 端点
-
-| 方法 | 路径 | 说明 |
-| --- | --- | --- |
-| `GET` | `/health` | 健康检查 + 数仓就绪状态 |
-| `GET` | `/schema` | 数据字典（6 张表 + 字段中文说明） |
-| `POST` | `/ask` | 中文问数 `{"question": "..."}` |
-| `GET` | `/history` | 历史记录（`?favorite_only=true` 只看收藏） |
-| `GET` | `/history/{id}` | 单条历史详情 |
-| `POST` | `/history/{id}/favorite` | 收藏 / 取消收藏 |
-| `DELETE` | `/history/{id}` | 删除一条历史 |
-
-> 约定：`/ask` 永不抛 500，引擎错误统一落到 `Answer.error` 字段，HTTP 恒返回 200。
-
----
-
-## 📊 评测
-
-### 评测集
-
-`src/eval_cases.py` 内置 **18 条**中文问数，覆盖：
-
-- 求和、平均、同比环比
-- 分组、排序、TopN
-- 时间范围、条件过滤、多表关联
-
-每条含「问题 + 参考答案（关键指标值）+ 参考答案 SQL」，参考答案基于
-`docs/schema.md` 与真实数仓数据，**有明确可验证答案**。
-
-### 跑评测
-
-```bash
-# 真实大模型评测（需 .env 配好 key）
-python scripts/eval.py
-
-# 离线 mock 评测（无需网络）
-python scripts/eval.py --mock
-```
-
-报告输出到 `reports/eval_report.json`，含每条用例的「问题 / 生成 SQL / 执行结果 / 是否命中 / 错误信息」。
-
-### 评测结果（真实大模型 deepseek-v4-pro，18 条）
-
-| 指标 | 数值 |
+| 账号 | 职责与范围 |
 | --- | --- |
-| SQL 执行成功率 | **100.0%**（18/18） |
-| 结果准确率 | **100.0%**（18/18） |
-| 相对成功执行准确率 | 100.0% |
+| global_analyst | 全局分析，可读取运维诊断 |
+| regional_sales | R1区域销售 |
+| regional_service | R2区域售后 |
+| regional_supply | R1区域供应链 |
+| restricted_viewer | 基础查看，不可查询受限业务指标 |
 
-| 编号 | 问题 | 能力 | 命中 |
-| --- | --- | --- | --- |
-| E01 | 全年总销售额是多少？ | 求和 | ✅ |
-| E02 | 压缩机类产品的销售额是多少？ | 求和/条件过滤/多表关联 | ✅ |
-| E03 | 平均每天的销售额是多少？ | 平均 | ✅ |
-| E04 | 各区域的销售额分别是多少？ | 分组/多表关联 | ✅ |
-| E05 | 各产品类别的销售额分别是多少？ | 分组/多表关联 | ✅ |
-| E06 | 销售额最高的5个产品是哪些？ | 排序/TopN/多表关联 | ✅ |
-| E07 | 2026年上半年每个月的销售额趋势？ | 时间范围/分组 | ✅ |
-| E08 | 2026年2月和3月的销售额（环比对比）？ | 同比环比/时间范围 | ✅ |
-| E09 | 各产品的缺陷率是多少？ | 分组/多表关联 | ✅ |
-| E10 | 华东地区的销售额是多少？ | 条件过滤/多表关联 | ✅ |
-| E11 | 整体毛利率是多少？ | 求和 | ✅ |
-| E12 | 各区域的销售数量分别是多少？ | 分组/多表关联 | ✅ |
-| E13 | 销售额最高的5个客户是哪些？ | 排序/TopN/多表关联 | ✅ |
-| E14 | 2026年1月的销售额是多少？ | 时间范围/条件过滤 | ✅ |
-| E15 | 2026年上半年每个月的产量达成率？ | 时间范围/分组/多表关联 | ✅ |
-| E16 | 精密件类产品的销售额是多少？ | 条件过滤/多表关联 | ✅ |
-| E17 | 单笔销售金额最高是多少？ | 排序 | ✅ |
-| E18 | 大客户的销售额占总销售额的比例是多少？ | 条件过滤/多表关联/求和 | ✅ |
+只在新安装或明确需要配置账号时执行`scripts/provision_simulated.py`；`--rotate`会轮换凭据。不要为常规演示重新构建或覆盖现有数据。数据构建、发布和回滚应遵循受控运行手册。
 
-> 比对口径：数值按「相对 1% + 绝对 0.01」容差，分组/TopN/时间序列做集合或顺序比对。
+## 已实现的业务与工程能力
 
----
+- 模拟批次接入退款、激活、工单、新支付订单、发货、采购和收货，保存来源归档、幂等与隔离记录。已核验4个批次共25条来源事件。
+- 新增订单、全单发货扣库、采购与部分收货入库形成模拟闭环；库存按每个SKU和仓库各自最新快照计算。
+- 7个登记指标：净销售额、售出30天激活率、售出30天售后设备率、设备日离线率、工单数量、期末库存、采购收货数量。
+- BM25＋本地BGE-M3混合检索，指标依赖和批准关联补全；元数据为版本JSON，向量为本地缓存矩阵。
+- SQL只读AST、授权表列和关联检查、有限指标语义与输出契约、超时、内存及结果大小约束。
+- 查询连接内强制区域视图；SQLite持久任务、幂等、每员工20/全局200待处理配额、租约、取消、审计和结果隔离。
+- 暂存、验证、激活、回滚及来源连续性检查；SQLite一致备份与独立目录恢复。
+- 工作进程退出后有限自动重启，默认累计3次；运行中任务不自动重放付费调用。全局账号可按需读取只读运维诊断。
 
-## 🧪 测试与代码质量
+## 问数和运维接口
 
-```bash
-# 单元测试（含评测集相关 18 例，共 49 例）
-python -m pytest -q
+`POST /jobs`提交持久任务，`GET /jobs/{id}`取结果。任务`completed`只表示处理完成，业务是否成功还需读取`result.status`。同一授权和数据版本下，幂等键重试返回原任务；同键换问题返回409。配额达到上限返回429及`Retry-After: 5`。
 
-# 代码规范检查
-python -m ruff check .
+`GET /ready`检查就绪，`GET /ops/health`提供全局分析账号的运维快照。诊断最多统计最近200个终态样本，页面按需读取，不是长期监控或完整SLA。
+
+## 验收证据
+
+| 范围 | 记录 |
+| --- | --- |
+| 7指标真实模型验证及修复 | [受控验证](docs/七指标真实模型受控验证.md) |
+| 陌生问法原始表召回 | [21题专项](docs/陌生问法表召回专项验证.md) |
+| 字段可用性、关联连通及身份权限 | [上下文验证](docs/字段关联与权限上下文验证.md) |
+| 模板分档并发、60秒持续负载 | [450任务压测](docs/单机分档压测与短时持续负载记录.md) |
+| 员工20任务配额及恢复 | [64次突发请求](docs/突发超载背压与恢复验收记录.md) |
+| 全局200任务配额及跨账号隔离 | [320次突发请求](docs/全局队列配额与恢复HTTP压测记录.md) |
+| 修复后10分钟负载与收尾一次完整执行 | [整体验证](docs/修复后十分钟整体验证记录.md) |
+| 16道新数值题＋12道权限/歧义题 | [扩展覆盖验收](docs/扩展问数覆盖验收.md) |
+
+在本机有界样本中，4并发约每秒3个成功任务，成功端到端P95约1.07秒；升到16并发后吞吐基本未增而P95约4.35秒，主要增加排队。以上为demo模板链路，不能外推真实模型容量。
+
+历史冻结v1首次11/12，v2首次12/12，保留首次成绩；后续修复不改写旧分数。8题检索比较和后续21题召回中BM25同样表现良好，尚无证据据此宣称BGE提升了准确率。
+
+## 运维与复现
+
+- [工作进程自动守护](docs/自动工作进程守护运行手册.md)
+- [运维诊断](docs/运维诊断运行手册.md)
+- [模拟上游批次接入](docs/模拟上游批次接入运行手册.md)
+- [发货与库存联动](docs/发货与库存联动运行手册.md)
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe scripts/backup_simulated.py --drill
 ```
 
----
+备份和压力脚本会生成新的本地文件、恢复目录与备份审计。启动真实模型评测前确认调用范围与费用，失败不会静默降级成模板答案。
 
-## 🔧 环境变量
+## 当前限制与后续
 
-| 变量 | 说明 | 默认值 |
-| --- | --- | --- |
-| `MODEL_PROVIDER` | 模型供应商标识 | `deepseek` |
-| `MODEL_NAME` | 模型名称 | `deepseek-v4-pro` |
-| `API_KEY` | 大模型 API Key（必填，否则走 mock） | 空 |
-| `BASE_URL` | OpenAI 兼容接口地址 | `https://api.deepseek.com/v1` |
-| `REQUEST_TIMEOUT` | 请求超时（秒） | `60` |
-| `MAX_RETRIES` | 最大重试次数 | `1` |
-| `ENABLE_MOCK` | 是否强制 mock 降级（`true`/`false`） | `false` |
+当前是单机、单工作进程的模拟业务应用。区域视图不是数据库原生RLS；没有部署生产SSO、pgvector或多实例高可用。真实公司数据映射、企业口径确认、生产权限接入和部署验收尚未执行。
 
----
+已完成实跑一小时模板资源验证和修复后8题真实模型并发验证；本轮修复了30天事件分子窗口缺失。小时结果在该修复之前，最终代码未重跑整小时。首次短连接超时仍未确认根因，新增5分钟取证复测未复现。见[最终受控验收](docs/500表模拟落地最终验收.md)和[实际版本串讲稿](docs/灵犀智能问数项目串讲稿_实际验收版.docx)。历史假定升级完成版不能作为真实企业交付证明。
 
-## 📐 数据模型（星型模型，6 张表）
-
-| 表 | 说明 | 关键字段 |
-| --- | --- | --- |
-| `dim_product` | 产品维 | product_id, product_name, category(压缩机/真空设备/液压件/精密件), unit_price |
-| `dim_region` | 区域维 | region_id, region_name(华东/华南/华北/西南), province |
-| `dim_customer` | 客户维 | customer_id, customer_name, tier(大客户/中小客户), industry |
-| `fact_sales` | 销售事实 | sale_date, product_id, region_id, customer_id, quantity, amount, cost |
-| `fact_quality` | 质检事实 | check_date, product_id, line, checked_count, defect_count |
-| `fact_production` | 生产事实 | prod_date, product_id, line, planned_qty, actual_qty, downtime_hours |
-
-**数据特征**（面试演示关键）：
-
-- 日期范围 2025-09-01 ~ 2026-08-31（12 个月，固定随机种子 `20240916` 可复现）
-- 区域差异：华东 > 华南 > 华北 > 西南
-- 整体销售逐月增长 + 季节性波动
-- 良率异常：精密齿轮轴(P006)/产线3 在 2026-03~05 缺陷率异常偏高（约 11%，正常约 2.5%），
-  适合演示 AI 洞察「发现异常点」
-
----
-
-## 🛠️ 技术栈
-
-Python 3.11 · DuckDB · Pydantic · FastAPI · Streamlit · Plotly · pytest · Ruff
-
----
-
-## 📄 关于依赖管理
-
-项目同时保留 `requirements.txt` 与 `pyproject.toml`：
-
-- **`pyproject.toml`** 为唯一真源：包含项目元数据、`[project]` 依赖、`[tool.pytest]`、`[tool.ruff]` 配置。
-- **`requirements.txt`** 同步维护（供习惯 `pip install -r` 的用户使用），两处依赖清单保持一致。
-
----
-
-## 🙋 常见问题
-
-**Q：没有 API Key 能演示吗？**
-能。不配 `.env` 或设 `ENABLE_MOCK=true` 会走 mock 规则生成 SQL，离线也能跑通全流程。
-
-**Q：Windows 终端中文乱码？**
-所有脚本入口已统一 `sys.stdout.reconfigure(encoding="utf-8")`；也可在运行前
-设置 `$env:PYTHONUTF8="1"` 双保险。
+原6表项目保留，`PROJECT_PROFILE=legacy`可切换旧实现。此前README包含的旧阶段数字已归档至[历史版本](docs/history/README_20261021_before_consolidation.md)，其内容按当时范围理解，不作为当前状态。

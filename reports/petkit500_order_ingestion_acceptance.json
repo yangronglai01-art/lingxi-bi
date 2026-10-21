@@ -1,0 +1,148 @@
+{
+  "parent": "petkit-v1.3-24708285df",
+  "batch_file": "D:\\projects\\lingxi\\data\\petkit500\\ingestion\\inbox\\orders-4a744cbe34.json",
+  "staged": {
+    "attempt": "521d3803aabd4564b58aa22c24556841",
+    "source": "mock_oms",
+    "batch_id": "orders-4a744cbe34",
+    "parent": "petkit-v1.3-24708285df",
+    "candidate": "petkit-v1.3-f661af1372",
+    "state": "staged",
+    "applied": 8,
+    "skipped": 0
+  },
+  "completed": true,
+  "real_llm_called": false,
+  "receipt": {
+    "id": "869456cd0a6a",
+    "generation": "petkit-v1.3-f661af1372",
+    "status": "validated",
+    "started": 1792204132.8683782,
+    "gates": {
+      "lineage": {
+        "events": 17,
+        "batches": 2,
+        "parent": "petkit-v1.3-24708285df"
+      },
+      "source_reconciliation": {
+        "events": 17,
+        "source_batches": 2,
+        "source_and_rows_verified": true,
+        "source_files": {
+          "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+          "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d"
+        }
+      },
+      "data_quality": {
+        "tables": 500,
+        "total_rows": 205377,
+        "orders": 3202,
+        "foreign_keys": 511
+      },
+      "business_oracle": {
+        "passed": 32,
+        "source": "independent Python arithmetic over raw records"
+      },
+      "embedding": {
+        "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+        "vectors": 506,
+        "dimensions": 1024
+      }
+    },
+    "source_files": {
+      "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+      "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d"
+    },
+    "files": {
+      "warehouse.duckdb": "dccc8d1aac128d64a81eec4055da5ea20bea795a2b71bb6b7dfd0ab93b8527c2",
+      "catalog.json": "dd4758949c84cd169d01302cc20c820d11d8ef69aa48767798e8b0452cad0431",
+      "summary.json": "a419a847e9ef9c01d0993c6f7c8eece32d5331996fc0299e4a94859b22cfba0b",
+      "lineage.json": "427345354cbc28d7ca0a162ed425d6bc3fe1339520a1a820b4584094b560a756"
+    },
+    "code": {
+      "releases": "e1c735bf3ea07b772a15fe5f8d4326a0a4800cdf6255bec6bff0ec86f514af8a",
+      "reference": "4d61f8fd720c454b28435979512c0d8e1a1b0d33ec4ed6ef001fbae730c7582b",
+      "planning": "05add2809c63d6c741cbd87e96e5de0c33368316f3dadfede388e9119633bc59",
+      "guard": "29eecc68d663ab0c64f4afa1bb1a47499f8d99959bf19c72dd32069f3f32e1e1",
+      "semantic": "dc028f5189470076971c3347f5be9fb3a0caf5cc8e712f674651384dddf8619a",
+      "result_contract": "ce97c4d0d85017d541394d8b821f5b4f253ed620a9beaa72913f1af565cfd5d3",
+      "row_policy": "7f5adca5dd81db69879a86d5926dbb8fc95a24b18427ae1d22417f0b91ffd8f0",
+      "retrieval": "ff7e7e8cfb57e7f1284cbc249d4de82f6cd634a24c2d248b16938650fcdc4880",
+      "embedding": "1ed831a31fc084708fd03b061bfd7ad591a61cace1d10b62961c82f75179ff67",
+      "builder": "bf89dd2e21c9ab12607f7832d2515761bb582ee09f0052bce8b90c1257872f31",
+      "catalog": "88d88339fcd1a4d468239cf116877a46ddce1743711a0847a2901f0fcea4c4e4",
+      "control": "941e089507126fbc4c6bae9dfb6ebe1ba9a990f9080a3f0d11e620cfa595d5d1",
+      "access": "4ab4c84356e940918da644d019d333a4f5c7cf126aa7d1c46d17b8a8b471cc9c",
+      "execution": "9cce5b1adc2b216de26c075c1713819f342df98363073ad173d9bd0e74811126",
+      "worker": "e6ad8c38aabbb112bab7d7d7ce1df88a7bca39ab883d2f6f5ac59c5295541281",
+      "settings": "312695a1c96cd0db5d11c2ce018c13e77c8bd727daf4e5e756fbcab6d1098266",
+      "service": "7b28ec5f4ae1f16ea3d7896026f1a7b19e4c8a0921e5dadbad6fd276fb4de509",
+      "ingestion": "4c0aaa3efc66f43769a046eed68da35d1775565d99fb8bfc45c3c2d16c311476",
+      "ingestion_models": "fb5ca05708759d7eaf13a55c43dcf43350300d9036fac3799ff05ac069ec3721"
+    },
+    "embedding": {
+      "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+      "signature": "4f8563a1b5617bd89f28b6d3862a87a1483c5bad37e6eb560422699ac676d3d3"
+    },
+    "completed": 1792204159.0310261
+  },
+  "orders_before": 3200,
+  "orders_after": 3202,
+  "gross_sales_delta": 400,
+  "refund_delta": 20,
+  "net_sales_delta": 380,
+  "regional_ownership": [
+    [
+      "R1",
+      1,
+      2
+    ],
+    [
+      "R2",
+      1,
+      2
+    ]
+  ],
+  "publication": {
+    "id": "e353485e6ce54db8a556dd4c6f5072b6",
+    "state": "committed",
+    "created": 1792204159.4941084,
+    "actor": "mock-oms/order-acceptance",
+    "validation_id": "869456cd0a6a",
+    "snapshot_files": {
+      "warehouse.duckdb": "dccc8d1aac128d64a81eec4055da5ea20bea795a2b71bb6b7dfd0ab93b8527c2",
+      "catalog.json": "dd4758949c84cd169d01302cc20c820d11d8ef69aa48767798e8b0452cad0431",
+      "summary.json": "a419a847e9ef9c01d0993c6f7c8eece32d5331996fc0299e4a94859b22cfba0b",
+      "lineage.json": "427345354cbc28d7ca0a162ed425d6bc3fe1339520a1a820b4584094b560a756"
+    },
+    "previous": {
+      "generation": "petkit-v1.3-24708285df",
+      "version": "petkit-v1.3"
+    },
+    "target": {
+      "generation": "petkit-v1.3-f661af1372",
+      "version": "petkit-v1.3"
+    },
+    "completed": 1792204159.7691412
+  },
+  "duplicate": {
+    "attempt": "35cc9a183e7b4653be9f4cebac7a2919",
+    "source": "mock_oms",
+    "batch_id": "orders-4a744cbe34",
+    "parent": "petkit-v1.3-f661af1372",
+    "candidate": "petkit-v1.3-f661af1372",
+    "state": "already_applied",
+    "applied": 0,
+    "skipped": 8
+  },
+  "execution_region_isolation": {
+    "R1": {
+      "visible_new_orders": 1,
+      "other_region_orders_hidden": true
+    },
+    "R2": {
+      "visible_new_orders": 1,
+      "other_region_orders_hidden": true
+    }
+  }
+}

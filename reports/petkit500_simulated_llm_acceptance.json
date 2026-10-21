@@ -1,0 +1,41 @@
+{
+  "kind": "persistent simulated instance acceptance",
+  "cases": [
+    {
+      "subject": "global_analyst",
+      "regions": [],
+      "job": "fd1e2760da05486ba82e9585c38e612b",
+      "status": "success"
+    },
+    {
+      "subject": "regional_sales",
+      "regions": [
+        "R1"
+      ],
+      "job": "cee38be8d38346219467426058e1740b",
+      "status": "success"
+    },
+    {
+      "subject": "regional_service",
+      "regions": [
+        "R2"
+      ],
+      "job": "5485bea5cbcc4ad4b3ebb2eb4260ad05",
+      "status": "success"
+    },
+    {
+      "subject": "restricted_viewer",
+      "regions": [],
+      "job": "e9012755f4e14f56bbbc38218daadc32",
+      "status": "denied"
+    }
+  ],
+  "real_llm_called": true,
+  "regional_sales_python_oracle": true,
+  "global_sales_python_oracle": true,
+  "regional_activation_python_oracle": true,
+  "cross_user_denied": true,
+  "queued_job_survives_restart": true,
+  "cancel_survives_restart": true,
+  "children_stopped": true
+}

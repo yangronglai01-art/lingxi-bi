@@ -1,0 +1,824 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "case_sha256": "be332a93899e57b79bbe3c1096344f964bafcb0ffd7433d2be341caf65868845",
+  "runner_sha256": "6dc82fc5065a56297621816d5b5537c89a7177235abbb4fbb98721c160a0ac49",
+  "retrieval_sha256": "ff7e7e8cfb57e7f1284cbc249d4de82f6cd634a24c2d248b16938650fcdc4880",
+  "embedding_model": "",
+  "real_llm_called": false,
+  "load_test": false,
+  "external_independent_benchmark": false,
+  "dependency_completion_used": false,
+  "rows": [
+    {
+      "id": "net_sales-1",
+      "metric_id": "net_sales",
+      "method": "bm25",
+      "top8": [
+        "dim_channel",
+        "dim_product",
+        "dim_sku",
+        "fact_refund",
+        "fact_order_item",
+        "fact_order",
+        "bridge_order_device",
+        "dim_calendar"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0506
+    },
+    {
+      "id": "net_sales-1",
+      "metric_id": "net_sales",
+      "method": "hybrid",
+      "top8": [
+        "dim_channel",
+        "dim_product",
+        "dim_sku",
+        "fact_refund",
+        "fact_order_item",
+        "fact_order",
+        "bridge_order_device",
+        "fact_payment"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0513
+    },
+    {
+      "id": "net_sales-2",
+      "metric_id": "net_sales",
+      "method": "bm25",
+      "top8": [
+        "dim_channel",
+        "dim_product",
+        "dim_sku",
+        "fact_refund",
+        "fact_order_item",
+        "fact_order",
+        "fact_payment",
+        "fact_device_activation"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0363
+    },
+    {
+      "id": "net_sales-2",
+      "metric_id": "net_sales",
+      "method": "hybrid",
+      "top8": [
+        "dim_channel",
+        "dim_product",
+        "dim_sku",
+        "fact_refund",
+        "fact_order_item",
+        "fact_order",
+        "fact_payment",
+        "agg_sales_channel_monthly"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0369
+    },
+    {
+      "id": "net_sales-3",
+      "metric_id": "net_sales",
+      "method": "bm25",
+      "top8": [
+        "dim_channel",
+        "dim_product",
+        "dim_sku",
+        "fact_refund",
+        "fact_order_item",
+        "fact_order",
+        "fact_device_activation",
+        "dim_device"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0379
+    },
+    {
+      "id": "net_sales-3",
+      "metric_id": "net_sales",
+      "method": "hybrid",
+      "top8": [
+        "dim_channel",
+        "dim_product",
+        "fact_refund",
+        "dim_sku",
+        "fact_order_item",
+        "fact_order",
+        "fact_payment",
+        "dim_calendar"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0384
+    },
+    {
+      "id": "activation30-1",
+      "metric_id": "activation30",
+      "method": "bm25",
+      "top8": [
+        "fact_device_activation",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_service_ticket",
+        "fact_device_day"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0609
+    },
+    {
+      "id": "activation30-1",
+      "metric_id": "activation30",
+      "method": "hybrid",
+      "top8": [
+        "fact_device_activation",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_service_ticket",
+        "fact_device_binding"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0589
+    },
+    {
+      "id": "activation30-2",
+      "metric_id": "activation30",
+      "method": "bm25",
+      "top8": [
+        "fact_device_activation",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_service_ticket",
+        "fact_device_day"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0426
+    },
+    {
+      "id": "activation30-2",
+      "metric_id": "activation30",
+      "method": "hybrid",
+      "top8": [
+        "fact_device_activation",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_service_ticket",
+        "agg_device_activation_monthly"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0442
+    },
+    {
+      "id": "activation30-3",
+      "metric_id": "activation30",
+      "method": "bm25",
+      "top8": [
+        "fact_device_activation",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_service_ticket",
+        "fact_device_event"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0484
+    },
+    {
+      "id": "activation30-3",
+      "metric_id": "activation30",
+      "method": "hybrid",
+      "top8": [
+        "fact_device_activation",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_service_ticket",
+        "agg_device_usage_monthly"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0493
+    },
+    {
+      "id": "service30-1",
+      "metric_id": "service30",
+      "method": "bm25",
+      "top8": [
+        "fact_service_ticket",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_device_activation",
+        "fact_device_binding"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0501
+    },
+    {
+      "id": "service30-1",
+      "metric_id": "service30",
+      "method": "hybrid",
+      "top8": [
+        "fact_service_ticket",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_device_activation",
+        "fact_repair"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0491
+    },
+    {
+      "id": "service30-2",
+      "metric_id": "service30",
+      "method": "bm25",
+      "top8": [
+        "fact_service_ticket",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_device_activation",
+        "dim_firmware"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0385
+    },
+    {
+      "id": "service30-2",
+      "metric_id": "service30",
+      "method": "hybrid",
+      "top8": [
+        "fact_service_ticket",
+        "fact_device_activation",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "dim_firmware"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0384
+    },
+    {
+      "id": "service30-3",
+      "metric_id": "service30",
+      "method": "bm25",
+      "top8": [
+        "fact_service_ticket",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_device_activation",
+        "dim_fault"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0526
+    },
+    {
+      "id": "service30-3",
+      "metric_id": "service30",
+      "method": "hybrid",
+      "top8": [
+        "fact_service_ticket",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_device_activation",
+        "fact_device_event"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0536
+    },
+    {
+      "id": "offline_rate-1",
+      "metric_id": "offline_rate",
+      "method": "bm25",
+      "top8": [
+        "dim_firmware",
+        "dim_product",
+        "dim_device",
+        "fact_device_day",
+        "fact_firmware_upgrade",
+        "fact_service_ticket",
+        "bridge_order_device",
+        "fact_order_item"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0432
+    },
+    {
+      "id": "offline_rate-1",
+      "metric_id": "offline_rate",
+      "method": "hybrid",
+      "top8": [
+        "dim_firmware",
+        "dim_product",
+        "dim_device",
+        "fact_device_day",
+        "fact_firmware_upgrade",
+        "fact_service_ticket",
+        "bridge_order_device",
+        "fact_order_item"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.045
+    },
+    {
+      "id": "offline_rate-2",
+      "metric_id": "offline_rate",
+      "method": "bm25",
+      "top8": [
+        "fact_device_day",
+        "dim_firmware",
+        "dim_product",
+        "dim_device",
+        "dim_fault",
+        "fact_service_ticket",
+        "dim_warehouse",
+        "fact_receipt"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0423
+    },
+    {
+      "id": "offline_rate-2",
+      "metric_id": "offline_rate",
+      "method": "hybrid",
+      "top8": [
+        "dim_firmware",
+        "fact_device_day",
+        "dim_product",
+        "dim_device",
+        "fact_service_ticket",
+        "fact_device_activation",
+        "bridge_order_device",
+        "fact_order_item"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0411
+    },
+    {
+      "id": "offline_rate-3",
+      "metric_id": "offline_rate",
+      "method": "bm25",
+      "top8": [
+        "dim_firmware",
+        "dim_product",
+        "dim_device",
+        "fact_device_day",
+        "fact_device_activation",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0311
+    },
+    {
+      "id": "offline_rate-3",
+      "metric_id": "offline_rate",
+      "method": "hybrid",
+      "top8": [
+        "dim_firmware",
+        "dim_product",
+        "dim_device",
+        "fact_device_day",
+        "fact_device_activation",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.031
+    },
+    {
+      "id": "tickets-1",
+      "metric_id": "tickets",
+      "method": "bm25",
+      "top8": [
+        "fact_service_ticket",
+        "dim_product",
+        "dim_fault",
+        "fact_order",
+        "dim_device",
+        "dim_warehouse",
+        "dim_sku",
+        "fact_inventory_day"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0458
+    },
+    {
+      "id": "tickets-1",
+      "metric_id": "tickets",
+      "method": "hybrid",
+      "top8": [
+        "fact_service_ticket",
+        "dim_product",
+        "fact_order",
+        "fact_feedback",
+        "dim_device",
+        "dim_fault",
+        "bridge_order_device",
+        "fact_order_item"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0472
+    },
+    {
+      "id": "tickets-2",
+      "metric_id": "tickets",
+      "method": "bm25",
+      "top8": [
+        "dim_product",
+        "dim_device",
+        "dim_fault",
+        "fact_service_ticket",
+        "fact_ticket_status",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0335
+    },
+    {
+      "id": "tickets-2",
+      "metric_id": "tickets",
+      "method": "hybrid",
+      "top8": [
+        "dim_product",
+        "dim_device",
+        "dim_fault",
+        "fact_service_ticket",
+        "fact_ticket_status",
+        "fact_support_contact",
+        "bridge_order_device",
+        "fact_order_item"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0345
+    },
+    {
+      "id": "tickets-3",
+      "metric_id": "tickets",
+      "method": "bm25",
+      "top8": [
+        "fact_service_ticket",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "dim_fault",
+        "fact_device_activation"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0419
+    },
+    {
+      "id": "tickets-3",
+      "metric_id": "tickets",
+      "method": "hybrid",
+      "top8": [
+        "fact_service_ticket",
+        "dim_product",
+        "dim_device",
+        "dim_fault",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_device_activation"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.043
+    },
+    {
+      "id": "inventory-1",
+      "metric_id": "inventory",
+      "method": "bm25",
+      "top8": [
+        "dim_warehouse",
+        "dim_product",
+        "dim_sku",
+        "fact_inventory_day",
+        "fact_stock_movement",
+        "fact_shipment",
+        "fact_receipt",
+        "fact_service_ticket"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0492
+    },
+    {
+      "id": "inventory-1",
+      "metric_id": "inventory",
+      "method": "hybrid",
+      "top8": [
+        "dim_warehouse",
+        "dim_product",
+        "dim_sku",
+        "fact_inventory_day",
+        "fact_firmware_upgrade",
+        "fact_stock_movement",
+        "fact_order_item",
+        "fact_campaign"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.049
+    },
+    {
+      "id": "inventory-2",
+      "metric_id": "inventory",
+      "method": "bm25",
+      "top8": [
+        "dim_warehouse",
+        "dim_product",
+        "dim_sku",
+        "fact_inventory_day",
+        "fact_receipt",
+        "fact_stock_movement",
+        "fact_shipment",
+        "dim_channel"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0482
+    },
+    {
+      "id": "inventory-2",
+      "metric_id": "inventory",
+      "method": "hybrid",
+      "top8": [
+        "dim_warehouse",
+        "dim_product",
+        "dim_sku",
+        "fact_inventory_day",
+        "fact_receipt",
+        "agg_supply_warehouse_monthly",
+        "agg_supply_warehouse_daily",
+        "fact_stock_movement"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0489
+    },
+    {
+      "id": "inventory-3",
+      "metric_id": "inventory",
+      "method": "bm25",
+      "top8": [
+        "dim_warehouse",
+        "dim_product",
+        "dim_sku",
+        "fact_inventory_day",
+        "fact_receipt",
+        "fact_stock_movement",
+        "fact_shipment",
+        "fact_subscription"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0489
+    },
+    {
+      "id": "inventory-3",
+      "metric_id": "inventory",
+      "method": "hybrid",
+      "top8": [
+        "dim_warehouse",
+        "dim_product",
+        "dim_sku",
+        "fact_inventory_day",
+        "fact_stock_movement",
+        "fact_campaign",
+        "fact_receipt",
+        "fact_product_price"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0498
+    },
+    {
+      "id": "received_units-1",
+      "metric_id": "received_units",
+      "method": "bm25",
+      "top8": [
+        "dim_warehouse",
+        "fact_receipt",
+        "fact_shipment",
+        "fact_purchase_item",
+        "dim_product",
+        "dim_sku",
+        "fact_inventory_day",
+        "fact_purchase_order"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.045
+    },
+    {
+      "id": "received_units-1",
+      "metric_id": "received_units",
+      "method": "hybrid",
+      "top8": [
+        "fact_receipt",
+        "dim_warehouse",
+        "fact_purchase_item",
+        "fact_purchase_order",
+        "fact_shipment",
+        "fact_stock_movement",
+        "fact_order_item",
+        "bridge_order_device"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0457
+    },
+    {
+      "id": "received_units-2",
+      "metric_id": "received_units",
+      "method": "bm25",
+      "top8": [
+        "dim_warehouse",
+        "fact_receipt",
+        "fact_purchase_item",
+        "fact_order",
+        "dim_product",
+        "dim_sku",
+        "fact_inventory_day",
+        "fact_order_item"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0376
+    },
+    {
+      "id": "received_units-2",
+      "metric_id": "received_units",
+      "method": "hybrid",
+      "top8": [
+        "dim_warehouse",
+        "fact_receipt",
+        "fact_purchase_item",
+        "fact_purchase_order",
+        "dim_product",
+        "fact_order",
+        "dim_sku",
+        "fact_inventory_day"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0392
+    },
+    {
+      "id": "received_units-3",
+      "metric_id": "received_units",
+      "method": "bm25",
+      "top8": [
+        "dim_warehouse",
+        "fact_receipt",
+        "fact_refund",
+        "fact_purchase_order",
+        "fact_purchase_item",
+        "dim_product",
+        "dim_sku",
+        "fact_inventory_day"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0396
+    },
+    {
+      "id": "received_units-3",
+      "metric_id": "received_units",
+      "method": "hybrid",
+      "top8": [
+        "dim_warehouse",
+        "fact_receipt",
+        "dim_product",
+        "dim_sku",
+        "fact_inventory_day",
+        "fact_shipment",
+        "fact_purchase_order",
+        "fact_purchase_item"
+      ],
+      "recall_at8": 1.0,
+      "complete": true,
+      "missing": [],
+      "elapsed_seconds": 0.0399
+    }
+  ],
+  "completed": true,
+  "summary": {
+    "bm25": {
+      "questions": 21,
+      "complete": 21,
+      "macro_recall_at8": 1.0
+    },
+    "hybrid": {
+      "questions": 21,
+      "complete": 21,
+      "macro_recall_at8": 1.0
+    }
+  }
+}

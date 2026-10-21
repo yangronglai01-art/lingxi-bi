@@ -1,0 +1,393 @@
+{
+  "retrieval": "BM25+BGE-M3+RRF",
+  "sql_generation": "approved offline templates",
+  "not_blind_benchmark": true,
+  "rows": [
+    {
+      "question": "各型号净销售额",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"refunds\" AS (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refunded\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") SELECT \"p\".\"product_name\" AS \"dimension\", ROUND(SUM(\"i\".\"amount\" - COALESCE(\"r\".\"refunded\", 0)), 2) AS \"net_sales\" FROM \"fact_order_item\" AS \"i\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"i\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN \"refunds\" AS \"r\" ON \"i\".\"item_id\" = \"r\".\"item_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"net_sales\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.645
+    },
+    {
+      "question": "各渠道净销售额",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"refunds\" AS (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refunded\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") SELECT \"c\".\"channel_name\" AS \"dimension\", ROUND(SUM(\"i\".\"amount\" - COALESCE(\"r\".\"refunded\", 0)), 2) AS \"net_sales\" FROM \"fact_order_item\" AS \"i\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"i\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN \"refunds\" AS \"r\" ON \"i\".\"item_id\" = \"r\".\"item_id\" GROUP BY \"c\".\"channel_name\" ORDER BY \"net_sales\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.155
+    },
+    {
+      "question": "各型号售出30天激活率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"cohort\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"bridge_order_device\" AS \"b\" JOIN \"fact_order_item\" AS \"i\" ON \"b\".\"item_id\" = \"i\".\"item_id\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" WHERE \"o\".\"paid_date\" <= CAST('2026-10-16' AS DATE) - INTERVAL '30' DAYS), \"outcomes\" AS (SELECT DISTINCT \"c\".\"device_id\" AS \"device_id\" FROM \"cohort\" AS \"c\" JOIN \"fact_device_activation\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" WHERE \"e\".\"activation_date\" BETWEEN \"c\".\"paid_date\" AND \"c\".\"paid_date\" + INTERVAL '30' DAYS) SELECT \"p\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"c\".\"device_id\") AS \"devices\", COUNT(DISTINCT \"e\".\"device_id\") AS \"matched_devices\", ROUND(100.0 * COUNT(DISTINCT \"e\".\"device_id\") / NULLIF(COUNT(DISTINCT \"c\".\"device_id\"), 0), 2) AS \"rate_percent\" FROM \"cohort\" AS \"c\" JOIN \"dim_product\" AS \"p\" ON \"c\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN \"outcomes\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"rate_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.191
+    },
+    {
+      "question": "各型号售出30天售后设备率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"cohort\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"bridge_order_device\" AS \"b\" JOIN \"fact_order_item\" AS \"i\" ON \"b\".\"item_id\" = \"i\".\"item_id\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" WHERE \"o\".\"paid_date\" <= CAST('2026-10-16' AS DATE) - INTERVAL '30' DAYS), \"outcomes\" AS (SELECT DISTINCT \"c\".\"device_id\" AS \"device_id\" FROM \"cohort\" AS \"c\" JOIN \"fact_service_ticket\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" WHERE \"e\".\"created_date\" BETWEEN \"c\".\"paid_date\" AND \"c\".\"paid_date\" + INTERVAL '30' DAYS) SELECT \"p\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"c\".\"device_id\") AS \"devices\", COUNT(DISTINCT \"e\".\"device_id\") AS \"matched_devices\", ROUND(100.0 * COUNT(DISTINCT \"e\".\"device_id\") / NULLIF(COUNT(DISTINCT \"c\".\"device_id\"), 0), 2) AS \"rate_percent\" FROM \"cohort\" AS \"c\" JOIN \"dim_product\" AS \"p\" ON \"c\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN \"outcomes\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"rate_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.211
+    },
+    {
+      "question": "各固件版本设备离线率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"f\".\"firmware_name\" AS \"dimension\", COUNT(*) AS \"device_days\", ROUND(100.0 * SUM(CASE WHEN \"x\".\"online\" = 0 THEN 1 ELSE 0 END) / NULLIF(COUNT(*), 0), 2) AS \"offline_percent\" FROM \"fact_device_day\" AS \"x\" JOIN \"dim_device\" AS \"d\" ON \"x\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_firmware\" AS \"f\" ON \"x\".\"firmware_id\" = \"f\".\"firmware_id\" GROUP BY \"f\".\"firmware_name\" ORDER BY \"offline_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.224
+    },
+    {
+      "question": "各故障分类工单数",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"f\".\"fault_name\" AS \"dimension\", COUNT(*) AS \"tickets\" FROM \"fact_service_ticket\" AS \"t\" JOIN \"dim_device\" AS \"d\" ON \"t\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_fault\" AS \"f\" ON \"t\".\"fault_id\" = \"f\".\"fault_id\" GROUP BY \"f\".\"fault_name\" ORDER BY \"tickets\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.189
+    },
+    {
+      "question": "2026年9月各型号净销售额",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"refunds\" AS (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refunded\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") SELECT \"p\".\"product_name\" AS \"dimension\", ROUND(SUM(\"i\".\"amount\" - COALESCE(\"r\".\"refunded\", 0)), 2) AS \"net_sales\" FROM \"fact_order_item\" AS \"i\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"i\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN \"refunds\" AS \"r\" ON \"i\".\"item_id\" = \"r\".\"item_id\" WHERE STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-09' GROUP BY \"p\".\"product_name\" ORDER BY \"net_sales\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.203
+    },
+    {
+      "question": "2026年9月各渠道净销售额",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"refunds\" AS (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refunded\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") SELECT \"c\".\"channel_name\" AS \"dimension\", ROUND(SUM(\"i\".\"amount\" - COALESCE(\"r\".\"refunded\", 0)), 2) AS \"net_sales\" FROM \"fact_order_item\" AS \"i\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"i\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN \"refunds\" AS \"r\" ON \"i\".\"item_id\" = \"r\".\"item_id\" WHERE STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-09' GROUP BY \"c\".\"channel_name\" ORDER BY \"net_sales\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.185
+    },
+    {
+      "question": "2026年9月各型号售出30天激活率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"cohort\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"bridge_order_device\" AS \"b\" JOIN \"fact_order_item\" AS \"i\" ON \"b\".\"item_id\" = \"i\".\"item_id\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" WHERE \"o\".\"paid_date\" <= CAST('2026-10-16' AS DATE) - INTERVAL '30' DAYS AND STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-09'), \"outcomes\" AS (SELECT DISTINCT \"c\".\"device_id\" AS \"device_id\" FROM \"cohort\" AS \"c\" JOIN \"fact_device_activation\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" WHERE \"e\".\"activation_date\" BETWEEN \"c\".\"paid_date\" AND \"c\".\"paid_date\" + INTERVAL '30' DAYS) SELECT \"p\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"c\".\"device_id\") AS \"devices\", COUNT(DISTINCT \"e\".\"device_id\") AS \"matched_devices\", ROUND(100.0 * COUNT(DISTINCT \"e\".\"device_id\") / NULLIF(COUNT(DISTINCT \"c\".\"device_id\"), 0), 2) AS \"rate_percent\" FROM \"cohort\" AS \"c\" JOIN \"dim_product\" AS \"p\" ON \"c\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN \"outcomes\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"rate_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.255
+    },
+    {
+      "question": "2026年9月各型号售出30天售后设备率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"cohort\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"bridge_order_device\" AS \"b\" JOIN \"fact_order_item\" AS \"i\" ON \"b\".\"item_id\" = \"i\".\"item_id\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" WHERE \"o\".\"paid_date\" <= CAST('2026-10-16' AS DATE) - INTERVAL '30' DAYS AND STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-09'), \"outcomes\" AS (SELECT DISTINCT \"c\".\"device_id\" AS \"device_id\" FROM \"cohort\" AS \"c\" JOIN \"fact_service_ticket\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" WHERE \"e\".\"created_date\" BETWEEN \"c\".\"paid_date\" AND \"c\".\"paid_date\" + INTERVAL '30' DAYS) SELECT \"p\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"c\".\"device_id\") AS \"devices\", COUNT(DISTINCT \"e\".\"device_id\") AS \"matched_devices\", ROUND(100.0 * COUNT(DISTINCT \"e\".\"device_id\") / NULLIF(COUNT(DISTINCT \"c\".\"device_id\"), 0), 2) AS \"rate_percent\" FROM \"cohort\" AS \"c\" JOIN \"dim_product\" AS \"p\" ON \"c\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN \"outcomes\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"rate_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.195
+    },
+    {
+      "question": "2026年9月各固件版本设备离线率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"f\".\"firmware_name\" AS \"dimension\", COUNT(*) AS \"device_days\", ROUND(100.0 * SUM(CASE WHEN \"x\".\"online\" = 0 THEN 1 ELSE 0 END) / NULLIF(COUNT(*), 0), 2) AS \"offline_percent\" FROM \"fact_device_day\" AS \"x\" JOIN \"dim_device\" AS \"d\" ON \"x\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_firmware\" AS \"f\" ON \"x\".\"firmware_id\" = \"f\".\"firmware_id\" WHERE STRFTIME(\"x\".\"event_date\", '%Y-%m') = '2026-09' GROUP BY \"f\".\"firmware_name\" ORDER BY \"offline_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.312
+    },
+    {
+      "question": "2026年9月各故障分类工单数",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"f\".\"fault_name\" AS \"dimension\", COUNT(*) AS \"tickets\" FROM \"fact_service_ticket\" AS \"t\" JOIN \"dim_device\" AS \"d\" ON \"t\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_fault\" AS \"f\" ON \"t\".\"fault_id\" = \"f\".\"fault_id\" WHERE STRFTIME(\"t\".\"created_date\", '%Y-%m') = '2026-09' GROUP BY \"f\".\"fault_name\" ORDER BY \"tickets\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.173
+    },
+    {
+      "question": "2026年8月各型号净销售额",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"refunds\" AS (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refunded\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") SELECT \"p\".\"product_name\" AS \"dimension\", ROUND(SUM(\"i\".\"amount\" - COALESCE(\"r\".\"refunded\", 0)), 2) AS \"net_sales\" FROM \"fact_order_item\" AS \"i\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"i\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN \"refunds\" AS \"r\" ON \"i\".\"item_id\" = \"r\".\"item_id\" WHERE STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-08' GROUP BY \"p\".\"product_name\" ORDER BY \"net_sales\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.177
+    },
+    {
+      "question": "2026年8月各渠道净销售额",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"refunds\" AS (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refunded\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") SELECT \"c\".\"channel_name\" AS \"dimension\", ROUND(SUM(\"i\".\"amount\" - COALESCE(\"r\".\"refunded\", 0)), 2) AS \"net_sales\" FROM \"fact_order_item\" AS \"i\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"i\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN \"refunds\" AS \"r\" ON \"i\".\"item_id\" = \"r\".\"item_id\" WHERE STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-08' GROUP BY \"c\".\"channel_name\" ORDER BY \"net_sales\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.156
+    },
+    {
+      "question": "2026年8月各型号售出30天激活率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"cohort\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"bridge_order_device\" AS \"b\" JOIN \"fact_order_item\" AS \"i\" ON \"b\".\"item_id\" = \"i\".\"item_id\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" WHERE \"o\".\"paid_date\" <= CAST('2026-10-16' AS DATE) - INTERVAL '30' DAYS AND STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-08'), \"outcomes\" AS (SELECT DISTINCT \"c\".\"device_id\" AS \"device_id\" FROM \"cohort\" AS \"c\" JOIN \"fact_device_activation\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" WHERE \"e\".\"activation_date\" BETWEEN \"c\".\"paid_date\" AND \"c\".\"paid_date\" + INTERVAL '30' DAYS) SELECT \"p\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"c\".\"device_id\") AS \"devices\", COUNT(DISTINCT \"e\".\"device_id\") AS \"matched_devices\", ROUND(100.0 * COUNT(DISTINCT \"e\".\"device_id\") / NULLIF(COUNT(DISTINCT \"c\".\"device_id\"), 0), 2) AS \"rate_percent\" FROM \"cohort\" AS \"c\" JOIN \"dim_product\" AS \"p\" ON \"c\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN \"outcomes\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"rate_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.176
+    },
+    {
+      "question": "2026年8月各型号售出30天售后设备率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"cohort\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"bridge_order_device\" AS \"b\" JOIN \"fact_order_item\" AS \"i\" ON \"b\".\"item_id\" = \"i\".\"item_id\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" WHERE \"o\".\"paid_date\" <= CAST('2026-10-16' AS DATE) - INTERVAL '30' DAYS AND STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-08'), \"outcomes\" AS (SELECT DISTINCT \"c\".\"device_id\" AS \"device_id\" FROM \"cohort\" AS \"c\" JOIN \"fact_service_ticket\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" WHERE \"e\".\"created_date\" BETWEEN \"c\".\"paid_date\" AND \"c\".\"paid_date\" + INTERVAL '30' DAYS) SELECT \"p\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"c\".\"device_id\") AS \"devices\", COUNT(DISTINCT \"e\".\"device_id\") AS \"matched_devices\", ROUND(100.0 * COUNT(DISTINCT \"e\".\"device_id\") / NULLIF(COUNT(DISTINCT \"c\".\"device_id\"), 0), 2) AS \"rate_percent\" FROM \"cohort\" AS \"c\" JOIN \"dim_product\" AS \"p\" ON \"c\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN \"outcomes\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"rate_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.223
+    },
+    {
+      "question": "2026年8月各固件版本设备离线率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"f\".\"firmware_name\" AS \"dimension\", COUNT(*) AS \"device_days\", ROUND(100.0 * SUM(CASE WHEN \"x\".\"online\" = 0 THEN 1 ELSE 0 END) / NULLIF(COUNT(*), 0), 2) AS \"offline_percent\" FROM \"fact_device_day\" AS \"x\" JOIN \"dim_device\" AS \"d\" ON \"x\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_firmware\" AS \"f\" ON \"x\".\"firmware_id\" = \"f\".\"firmware_id\" WHERE STRFTIME(\"x\".\"event_date\", '%Y-%m') = '2026-08' GROUP BY \"f\".\"firmware_name\" ORDER BY \"offline_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.293
+    },
+    {
+      "question": "2026年8月各故障分类工单数",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"f\".\"fault_name\" AS \"dimension\", COUNT(*) AS \"tickets\" FROM \"fact_service_ticket\" AS \"t\" JOIN \"dim_device\" AS \"d\" ON \"t\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_fault\" AS \"f\" ON \"t\".\"fault_id\" = \"f\".\"fault_id\" WHERE STRFTIME(\"t\".\"created_date\", '%Y-%m') = '2026-08' GROUP BY \"f\".\"fault_name\" ORDER BY \"tickets\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.171
+    },
+    {
+      "question": "2026年3月各型号净销售额",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"refunds\" AS (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refunded\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") SELECT \"p\".\"product_name\" AS \"dimension\", ROUND(SUM(\"i\".\"amount\" - COALESCE(\"r\".\"refunded\", 0)), 2) AS \"net_sales\" FROM \"fact_order_item\" AS \"i\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"i\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN \"refunds\" AS \"r\" ON \"i\".\"item_id\" = \"r\".\"item_id\" WHERE STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-03' GROUP BY \"p\".\"product_name\" ORDER BY \"net_sales\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.201
+    },
+    {
+      "question": "2026年3月各渠道净销售额",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"refunds\" AS (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refunded\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") SELECT \"c\".\"channel_name\" AS \"dimension\", ROUND(SUM(\"i\".\"amount\" - COALESCE(\"r\".\"refunded\", 0)), 2) AS \"net_sales\" FROM \"fact_order_item\" AS \"i\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"i\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN \"refunds\" AS \"r\" ON \"i\".\"item_id\" = \"r\".\"item_id\" WHERE STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-03' GROUP BY \"c\".\"channel_name\" ORDER BY \"net_sales\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.21
+    },
+    {
+      "question": "2026年3月各型号售出30天激活率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"cohort\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"bridge_order_device\" AS \"b\" JOIN \"fact_order_item\" AS \"i\" ON \"b\".\"item_id\" = \"i\".\"item_id\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" WHERE \"o\".\"paid_date\" <= CAST('2026-10-16' AS DATE) - INTERVAL '30' DAYS AND STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-03'), \"outcomes\" AS (SELECT DISTINCT \"c\".\"device_id\" AS \"device_id\" FROM \"cohort\" AS \"c\" JOIN \"fact_device_activation\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" WHERE \"e\".\"activation_date\" BETWEEN \"c\".\"paid_date\" AND \"c\".\"paid_date\" + INTERVAL '30' DAYS) SELECT \"p\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"c\".\"device_id\") AS \"devices\", COUNT(DISTINCT \"e\".\"device_id\") AS \"matched_devices\", ROUND(100.0 * COUNT(DISTINCT \"e\".\"device_id\") / NULLIF(COUNT(DISTINCT \"c\".\"device_id\"), 0), 2) AS \"rate_percent\" FROM \"cohort\" AS \"c\" JOIN \"dim_product\" AS \"p\" ON \"c\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN \"outcomes\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"rate_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.272
+    },
+    {
+      "question": "2026年3月各型号售出30天售后设备率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"cohort\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"bridge_order_device\" AS \"b\" JOIN \"fact_order_item\" AS \"i\" ON \"b\".\"item_id\" = \"i\".\"item_id\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" WHERE \"o\".\"paid_date\" <= CAST('2026-10-16' AS DATE) - INTERVAL '30' DAYS AND STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-03'), \"outcomes\" AS (SELECT DISTINCT \"c\".\"device_id\" AS \"device_id\" FROM \"cohort\" AS \"c\" JOIN \"fact_service_ticket\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" WHERE \"e\".\"created_date\" BETWEEN \"c\".\"paid_date\" AND \"c\".\"paid_date\" + INTERVAL '30' DAYS) SELECT \"p\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"c\".\"device_id\") AS \"devices\", COUNT(DISTINCT \"e\".\"device_id\") AS \"matched_devices\", ROUND(100.0 * COUNT(DISTINCT \"e\".\"device_id\") / NULLIF(COUNT(DISTINCT \"c\".\"device_id\"), 0), 2) AS \"rate_percent\" FROM \"cohort\" AS \"c\" JOIN \"dim_product\" AS \"p\" ON \"c\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN \"outcomes\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"rate_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.248
+    },
+    {
+      "question": "2026年3月各固件版本设备离线率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"f\".\"firmware_name\" AS \"dimension\", COUNT(*) AS \"device_days\", ROUND(100.0 * SUM(CASE WHEN \"x\".\"online\" = 0 THEN 1 ELSE 0 END) / NULLIF(COUNT(*), 0), 2) AS \"offline_percent\" FROM \"fact_device_day\" AS \"x\" JOIN \"dim_device\" AS \"d\" ON \"x\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_firmware\" AS \"f\" ON \"x\".\"firmware_id\" = \"f\".\"firmware_id\" WHERE STRFTIME(\"x\".\"event_date\", '%Y-%m') = '2026-03' GROUP BY \"f\".\"firmware_name\" ORDER BY \"offline_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.333
+    },
+    {
+      "question": "2026年3月各故障分类工单数",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"f\".\"fault_name\" AS \"dimension\", COUNT(*) AS \"tickets\" FROM \"fact_service_ticket\" AS \"t\" JOIN \"dim_device\" AS \"d\" ON \"t\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_fault\" AS \"f\" ON \"t\".\"fault_id\" = \"f\".\"fault_id\" WHERE STRFTIME(\"t\".\"created_date\", '%Y-%m') = '2026-03' GROUP BY \"f\".\"fault_name\" ORDER BY \"tickets\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.148
+    },
+    {
+      "question": "2026年6月各型号净销售额",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"refunds\" AS (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refunded\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") SELECT \"p\".\"product_name\" AS \"dimension\", ROUND(SUM(\"i\".\"amount\" - COALESCE(\"r\".\"refunded\", 0)), 2) AS \"net_sales\" FROM \"fact_order_item\" AS \"i\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"i\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN \"refunds\" AS \"r\" ON \"i\".\"item_id\" = \"r\".\"item_id\" WHERE STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-06' GROUP BY \"p\".\"product_name\" ORDER BY \"net_sales\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.163
+    },
+    {
+      "question": "2026年6月各渠道净销售额",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"refunds\" AS (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refunded\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") SELECT \"c\".\"channel_name\" AS \"dimension\", ROUND(SUM(\"i\".\"amount\" - COALESCE(\"r\".\"refunded\", 0)), 2) AS \"net_sales\" FROM \"fact_order_item\" AS \"i\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"i\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN \"refunds\" AS \"r\" ON \"i\".\"item_id\" = \"r\".\"item_id\" WHERE STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-06' GROUP BY \"c\".\"channel_name\" ORDER BY \"net_sales\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.157
+    },
+    {
+      "question": "2026年6月各型号售出30天激活率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"cohort\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"bridge_order_device\" AS \"b\" JOIN \"fact_order_item\" AS \"i\" ON \"b\".\"item_id\" = \"i\".\"item_id\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" WHERE \"o\".\"paid_date\" <= CAST('2026-10-16' AS DATE) - INTERVAL '30' DAYS AND STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-06'), \"outcomes\" AS (SELECT DISTINCT \"c\".\"device_id\" AS \"device_id\" FROM \"cohort\" AS \"c\" JOIN \"fact_device_activation\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" WHERE \"e\".\"activation_date\" BETWEEN \"c\".\"paid_date\" AND \"c\".\"paid_date\" + INTERVAL '30' DAYS) SELECT \"p\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"c\".\"device_id\") AS \"devices\", COUNT(DISTINCT \"e\".\"device_id\") AS \"matched_devices\", ROUND(100.0 * COUNT(DISTINCT \"e\".\"device_id\") / NULLIF(COUNT(DISTINCT \"c\".\"device_id\"), 0), 2) AS \"rate_percent\" FROM \"cohort\" AS \"c\" JOIN \"dim_product\" AS \"p\" ON \"c\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN \"outcomes\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"rate_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.176
+    },
+    {
+      "question": "2026年6月各型号售出30天售后设备率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"cohort\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"d\".\"product_id\" AS \"product_id\", \"o\".\"paid_date\" AS \"paid_date\" FROM \"bridge_order_device\" AS \"b\" JOIN \"fact_order_item\" AS \"i\" ON \"b\".\"item_id\" = \"i\".\"item_id\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" WHERE \"o\".\"paid_date\" <= CAST('2026-10-16' AS DATE) - INTERVAL '30' DAYS AND STRFTIME(\"o\".\"paid_date\", '%Y-%m') = '2026-06'), \"outcomes\" AS (SELECT DISTINCT \"c\".\"device_id\" AS \"device_id\" FROM \"cohort\" AS \"c\" JOIN \"fact_service_ticket\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" WHERE \"e\".\"created_date\" BETWEEN \"c\".\"paid_date\" AND \"c\".\"paid_date\" + INTERVAL '30' DAYS) SELECT \"p\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"c\".\"device_id\") AS \"devices\", COUNT(DISTINCT \"e\".\"device_id\") AS \"matched_devices\", ROUND(100.0 * COUNT(DISTINCT \"e\".\"device_id\") / NULLIF(COUNT(DISTINCT \"c\".\"device_id\"), 0), 2) AS \"rate_percent\" FROM \"cohort\" AS \"c\" JOIN \"dim_product\" AS \"p\" ON \"c\".\"product_id\" = \"p\".\"product_id\" LEFT JOIN \"outcomes\" AS \"e\" ON \"c\".\"device_id\" = \"e\".\"device_id\" GROUP BY \"p\".\"product_name\" ORDER BY \"rate_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.236
+    },
+    {
+      "question": "2026年6月各固件版本设备离线率",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"f\".\"firmware_name\" AS \"dimension\", COUNT(*) AS \"device_days\", ROUND(100.0 * SUM(CASE WHEN \"x\".\"online\" = 0 THEN 1 ELSE 0 END) / NULLIF(COUNT(*), 0), 2) AS \"offline_percent\" FROM \"fact_device_day\" AS \"x\" JOIN \"dim_device\" AS \"d\" ON \"x\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_firmware\" AS \"f\" ON \"x\".\"firmware_id\" = \"f\".\"firmware_id\" WHERE STRFTIME(\"x\".\"event_date\", '%Y-%m') = '2026-06' GROUP BY \"f\".\"firmware_name\" ORDER BY \"offline_percent\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.355
+    },
+    {
+      "question": "2026年6月各故障分类工单数",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"f\".\"fault_name\" AS \"dimension\", COUNT(*) AS \"tickets\" FROM \"fact_service_ticket\" AS \"t\" JOIN \"dim_device\" AS \"d\" ON \"t\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_fault\" AS \"f\" ON \"t\".\"fault_id\" = \"f\".\"fault_id\" WHERE STRFTIME(\"t\".\"created_date\", '%Y-%m') = '2026-06' GROUP BY \"f\".\"fault_name\" ORDER BY \"tickets\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.148
+    },
+    {
+      "question": "每月净销售额趋势",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "WITH \"refunds\" AS (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refunded\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") SELECT STRFTIME(\"o\".\"paid_date\", '%Y-%m') AS \"dimension\", ROUND(SUM(\"i\".\"amount\" - COALESCE(\"r\".\"refunded\", 0)), 2) AS \"net_sales\" FROM \"fact_order_item\" AS \"i\" JOIN \"fact_order\" AS \"o\" ON \"i\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_sku\" AS \"s\" ON \"i\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN \"refunds\" AS \"r\" ON \"i\".\"item_id\" = \"r\".\"item_id\" GROUP BY STRFTIME(\"o\".\"paid_date\", '%Y-%m') ORDER BY \"dimension\" LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.153
+    },
+    {
+      "question": "各型号期末库存",
+      "status": "success",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "sql": "SELECT \"p\".\"product_name\" AS \"product_name\", SUM(\"x\".\"quantity\") AS \"stock_quantity\" FROM \"fact_inventory_day\" AS \"x\" JOIN \"dim_sku\" AS \"s\" ON \"x\".\"sku_id\" = \"s\".\"sku_id\" JOIN \"dim_product\" AS \"p\" ON \"s\".\"product_id\" = \"p\".\"product_id\" WHERE \"x\".\"stock_date\" = (SELECT MAX(\"fact_inventory_day\".\"stock_date\") AS \"_col_0\" FROM \"fact_inventory_day\" AS \"fact_inventory_day\") GROUP BY \"p\".\"product_name\" ORDER BY \"stock_quantity\" DESC LIMIT 1001",
+      "mock_used": true,
+      "retrieval_method": "BM25 + sentence-transformers + RRF",
+      "elapsed_seconds": 0.141
+    }
+  ],
+  "passed": 32,
+  "attempted": 32
+}

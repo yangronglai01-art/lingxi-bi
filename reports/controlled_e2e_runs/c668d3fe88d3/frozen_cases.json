@@ -1,0 +1,62 @@
+{
+  "version": "controlled-e2e-v1",
+  "purpose": "开发者编写的7指标受控真实模型验证，非外部盲测或压测",
+  "cases": [
+    {
+      "id": "E01",
+      "subject": "regional_sales",
+      "metric_id": "net_sales",
+      "group": "channel",
+      "month": "2026-06",
+      "question": "2026年6月我权限范围内各渠道的净销售额是多少？用订单行实付减退款，退款归原支付月份，返回渠道名和金额。"
+    },
+    {
+      "id": "E02",
+      "subject": "global_analyst",
+      "metric_id": "activation30",
+      "group": "model",
+      "month": "2026-06",
+      "question": "2026年6月售出的各产品型号，观察满30天后，30天激活率各是多少？列出型号、售出设备分母、按时激活设备分子、百分数，未激活和晚激活均保留在分母。"
+    },
+    {
+      "id": "E03",
+      "subject": "global_analyst",
+      "metric_id": "service30",
+      "group": "model",
+      "month": "2026-06",
+      "question": "2026年6月售出设备按型号看30天售后设备率。仅取已观察满30天的批次，含退款设备，同一台多次报修只记一台；返回型号、设备分母、售后设备分子和百分数。"
+    },
+    {
+      "id": "E04",
+      "subject": "global_analyst",
+      "metric_id": "offline_rate",
+      "group": "firmware",
+      "month": "2026-06",
+      "question": "2026年6月各固件版本的设备日离线率是多少？用online=0的设备日除总设备日，请返回版本名、设备日总数和百分数。"
+    },
+    {
+      "id": "E05",
+      "subject": "global_analyst",
+      "metric_id": "tickets",
+      "group": "model",
+      "month": "2026-06",
+      "question": "2026年6月各产品型号新建的售后工单数是多少？同一设备的多张工单分别计数，返回型号名和工单条数。"
+    },
+    {
+      "id": "E06",
+      "subject": "global_analyst",
+      "metric_id": "inventory",
+      "group": "model",
+      "month": "2026-06",
+      "question": "2026年6月各型号的期末库存是多少？每个SKU、每个仓库分别取当月最新快照，再汇总到型号，不累计每日库存。返回型号名和件数。"
+    },
+    {
+      "id": "E07",
+      "subject": "regional_supply",
+      "metric_id": "received_units",
+      "group": "warehouse",
+      "month": "2026-09",
+      "question": "2026年9月我权限范围内，各仓库采购收货数量是多少？按收货日期汇总实际收到的quantity，不是单据数或订购量，返回仓库名和件数。"
+    }
+  ]
+}

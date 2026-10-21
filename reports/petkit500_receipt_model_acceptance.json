@@ -1,0 +1,575 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "question": "2026年9月各仓库采购收货数量",
+  "real_model_questions": 2,
+  "oracle": "independent Python sum of fact_receipt.quantity by warehouse and receipt month with trusted employee region filter",
+  "grades": {
+    "global_analyst": {
+      "passed": true,
+      "regions": [],
+      "expected": {
+        "模拟华东仓": [
+          10
+        ],
+        "模拟华南仓": [
+          10
+        ]
+      },
+      "observed": {
+        "模拟华东仓": [
+          10
+        ],
+        "模拟华南仓": [
+          10
+        ]
+      },
+      "answer": {
+        "status": "success",
+        "request_id": "16ef5726634b4eac96771561e4caf876",
+        "generation": "petkit-v1.3-638f0e235a",
+        "elapsed_ms": 9638.63,
+        "context": {
+          "generation": "petkit-v1.3-638f0e235a",
+          "version": "petkit-v1.3",
+          "relationships": [
+            {
+              "left": "dim_sku",
+              "left_key": "product_id",
+              "right": "dim_product",
+              "right_key": "product_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_inventory_day",
+              "left_key": "sku_id",
+              "right": "dim_sku",
+              "right_key": "sku_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_inventory_day",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_stock_movement",
+              "left_key": "sku_id",
+              "right": "dim_sku",
+              "right_key": "sku_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_stock_movement",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_purchase_item",
+              "left_key": "purchase_id",
+              "right": "fact_purchase_order",
+              "right_key": "purchase_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_purchase_item",
+              "left_key": "sku_id",
+              "right": "dim_sku",
+              "right_key": "sku_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_receipt",
+              "left_key": "purchase_item_id",
+              "right": "fact_purchase_item",
+              "right_key": "purchase_item_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_receipt",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            }
+          ],
+          "metric": {
+            "id": "received_units",
+            "name": "采购收货数量",
+            "aliases": [
+              "收货量",
+              "收货数量",
+              "收货件数",
+              "入库收货量"
+            ],
+            "definition": "按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货",
+            "dependencies": [
+              "fact_receipt",
+              "dim_warehouse"
+            ],
+            "grain": "采购行每次收货事实；按收货日统计",
+            "version": "petkit-v1.3"
+          },
+          "evidence": [
+            {
+              "table": "dim_warehouse",
+              "score": 0.039344,
+              "reason": "metric_dependency:received_units",
+              "text": "采购收货数量 收货量 收货数量 收货件数 入库收货量 按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货 采购行每次收货事实；按收货日统计",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_receipt",
+              "score": 0.03871,
+              "reason": "metric_dependency:received_units",
+              "text": "采购收货数量 收货量 收货数量 收货件数 入库收货量 按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货 采购行每次收货事实；按收货日统计",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_product",
+              "score": 0.030954,
+              "reason": "metric_dependency:inventory",
+              "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_sku",
+              "score": 0.03055,
+              "reason": "metric_dependency:inventory",
+              "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_inventory_day",
+              "score": 0.030157,
+              "reason": "metric_dependency:inventory",
+              "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_purchase_order",
+              "score": 0.025643,
+              "reason": "table",
+              "text": "fact_purchase_order 采购订单 每采购订单一行 ",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_purchase_item",
+              "score": 0.025434,
+              "reason": "table",
+              "text": "fact_purchase_item 采购明细 每采购行一行 ",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_stock_movement",
+              "score": 0.024851,
+              "reason": "table",
+              "text": "fact_stock_movement 仓库出入库流水 每流水一行 ",
+              "table_role_weight": 1.2
+            }
+          ],
+          "selection": [
+            {
+              "table": "fact_receipt",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_warehouse",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_product",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_sku",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_inventory_day",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_purchase_order",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_purchase_item",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_stock_movement",
+              "reason": "检索命中"
+            }
+          ],
+          "retrieval_method": "BM25 + sentence-transformers + RRF",
+          "data_as_of": "2026-10-16",
+          "synthetic": true,
+          "table_names": [
+            "fact_receipt",
+            "dim_warehouse",
+            "dim_product",
+            "dim_sku",
+            "fact_inventory_day",
+            "fact_purchase_order",
+            "fact_purchase_item",
+            "fact_stock_movement"
+          ],
+          "catalog_size": 500
+        },
+        "plan": {
+          "metric": "received_units",
+          "dimensions": [
+            "warehouse_name"
+          ],
+          "time_range": "2026-09-01 to 2026-09-30",
+          "filters": [],
+          "joins": [
+            {
+              "left": "fact_receipt",
+              "right": "dim_warehouse",
+              "on": "fact_receipt.warehouse_id = dim_warehouse.warehouse_id",
+              "type": "inner"
+            }
+          ],
+          "grain": "warehouse_name",
+          "assumptions": [
+            "按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货"
+          ]
+        },
+        "truncated": false,
+        "question": "2026年9月各仓库采购收货数量",
+        "sql": "SELECT \"dim_warehouse\".\"warehouse_name\" AS \"warehouse_name\", SUM(\"fact_receipt\".\"quantity\") AS \"received_units\" FROM \"fact_receipt\" AS \"fact_receipt\" INNER JOIN \"dim_warehouse\" AS \"dim_warehouse\" ON \"fact_receipt\".\"warehouse_id\" = \"dim_warehouse\".\"warehouse_id\" WHERE \"fact_receipt\".\"receipt_date\" >= CAST('2026-09-01' AS DATE) AND \"fact_receipt\".\"receipt_date\" <= CAST('2026-09-30' AS DATE) GROUP BY \"dim_warehouse\".\"warehouse_name\" LIMIT 1001",
+        "result": {
+          "columns": [
+            "warehouse_name",
+            "received_units"
+          ],
+          "rows": [
+            [
+              "模拟华东仓",
+              10
+            ],
+            [
+              "模拟华南仓",
+              10
+            ]
+          ],
+          "row_count": 2
+        },
+        "chart": {
+          "chart_type": "bar",
+          "title": "2026年9月各仓库采购收货数量",
+          "x": "warehouse_name",
+          "y": [
+            "received_units"
+          ],
+          "labels": [
+            "模拟华东仓",
+            "模拟华南仓"
+          ],
+          "values": [
+            10.0,
+            10.0
+          ],
+          "reason": "单维度单数值，适合柱状图展示分组对比"
+        },
+        "insights": [
+          "基于自建模拟数据返回2行，数据观察截止2026-10-16。",
+          "计算口径：按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货"
+        ],
+        "error": "",
+        "mock_used": false
+      },
+      "job_id": "69c8dc720de94e2e867592134e6959be"
+    },
+    "regional_supply": {
+      "passed": true,
+      "regions": [
+        "R1"
+      ],
+      "expected": {
+        "模拟华东仓": [
+          10
+        ]
+      },
+      "observed": {
+        "模拟华东仓": [
+          10
+        ]
+      },
+      "answer": {
+        "status": "success",
+        "request_id": "f759a00240994b199bf0b07c8144d6d6",
+        "generation": "petkit-v1.3-638f0e235a",
+        "elapsed_ms": 2644.18,
+        "context": {
+          "generation": "petkit-v1.3-638f0e235a",
+          "version": "petkit-v1.3",
+          "relationships": [
+            {
+              "left": "dim_sku",
+              "left_key": "product_id",
+              "right": "dim_product",
+              "right_key": "product_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_shipment",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_inventory_day",
+              "left_key": "sku_id",
+              "right": "dim_sku",
+              "right_key": "sku_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_inventory_day",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_stock_movement",
+              "left_key": "sku_id",
+              "right": "dim_sku",
+              "right_key": "sku_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_stock_movement",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            },
+            {
+              "left": "fact_receipt",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            }
+          ],
+          "metric": {
+            "id": "received_units",
+            "name": "采购收货数量",
+            "aliases": [
+              "收货量",
+              "收货数量",
+              "收货件数",
+              "入库收货量"
+            ],
+            "definition": "按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货",
+            "dependencies": [
+              "fact_receipt",
+              "dim_warehouse"
+            ],
+            "grain": "采购行每次收货事实；按收货日统计",
+            "version": "petkit-v1.3"
+          },
+          "evidence": [
+            {
+              "table": "dim_warehouse",
+              "score": 0.039344,
+              "reason": "metric_dependency:received_units",
+              "text": "采购收货数量 收货量 收货数量 收货件数 入库收货量 按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货 采购行每次收货事实；按收货日统计",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_receipt",
+              "score": 0.03871,
+              "reason": "metric_dependency:received_units",
+              "text": "采购收货数量 收货量 收货数量 收货件数 入库收货量 按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货 采购行每次收货事实；按收货日统计",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_product",
+              "score": 0.033096,
+              "reason": "metric_dependency:inventory",
+              "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_sku",
+              "score": 0.03264,
+              "reason": "metric_dependency:inventory",
+              "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_inventory_day",
+              "score": 0.032196,
+              "reason": "metric_dependency:inventory",
+              "text": "期末库存 库存 结存 每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照 商品仓库快照",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_stock_movement",
+              "score": 0.031901,
+              "reason": "table",
+              "text": "fact_stock_movement 仓库出入库流水 每流水一行 ",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "fact_shipment",
+              "score": 0.030578,
+              "reason": "table",
+              "text": "fact_shipment 已发货物流记录 每发货单一行 ",
+              "table_role_weight": 1.2
+            },
+            {
+              "table": "dim_calendar",
+              "score": 0.015385,
+              "reason": "table",
+              "text": "dim_calendar 日期维度 每日一行 ",
+              "table_role_weight": 1.2
+            }
+          ],
+          "selection": [
+            {
+              "table": "fact_receipt",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_warehouse",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_product",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_sku",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_inventory_day",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_stock_movement",
+              "reason": "检索命中"
+            },
+            {
+              "table": "fact_shipment",
+              "reason": "检索命中"
+            },
+            {
+              "table": "dim_calendar",
+              "reason": "检索命中"
+            }
+          ],
+          "retrieval_method": "BM25 + sentence-transformers + RRF",
+          "data_as_of": "2026-10-16",
+          "synthetic": true,
+          "table_names": [
+            "fact_receipt",
+            "dim_warehouse",
+            "dim_product",
+            "dim_sku",
+            "fact_inventory_day",
+            "fact_stock_movement",
+            "fact_shipment",
+            "dim_calendar"
+          ],
+          "catalog_size": 500
+        },
+        "plan": {
+          "metric": "received_units",
+          "dimensions": [
+            "warehouse_name"
+          ],
+          "time_range": "2026-09-01 to 2026-09-30",
+          "filters": [],
+          "joins": [
+            {
+              "left": "fact_receipt",
+              "left_key": "warehouse_id",
+              "right": "dim_warehouse",
+              "right_key": "warehouse_id",
+              "cardinality": "many_to_one",
+              "approved": true
+            }
+          ],
+          "grain": "warehouse_name",
+          "assumptions": [
+            "按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货"
+          ]
+        },
+        "truncated": false,
+        "question": "2026年9月各仓库采购收货数量",
+        "sql": "SELECT \"dw\".\"warehouse_name\" AS \"warehouse_name\", SUM(\"fr\".\"quantity\") AS \"received_units\" FROM \"fact_receipt\" AS \"fr\" JOIN \"dim_warehouse\" AS \"dw\" ON \"fr\".\"warehouse_id\" = \"dw\".\"warehouse_id\" WHERE \"fr\".\"receipt_date\" >= CAST('2026-09-01' AS DATE) AND \"fr\".\"receipt_date\" < CAST('2026-10-01' AS DATE) GROUP BY \"dw\".\"warehouse_name\" LIMIT 1001",
+        "result": {
+          "columns": [
+            "warehouse_name",
+            "received_units"
+          ],
+          "rows": [
+            [
+              "模拟华东仓",
+              10
+            ]
+          ],
+          "row_count": 1
+        },
+        "chart": {
+          "chart_type": "bar",
+          "title": "2026年9月各仓库采购收货数量",
+          "x": "warehouse_name",
+          "y": [
+            "received_units"
+          ],
+          "labels": [
+            "模拟华东仓"
+          ],
+          "values": [
+            10.0
+          ],
+          "reason": "单维度单数值，适合柱状图展示分组对比"
+        },
+        "insights": [
+          "基于自建模拟数据返回1行，数据观察截止2026-10-16。",
+          "计算口径：按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货"
+        ],
+        "error": "",
+        "mock_used": false
+      },
+      "job_id": "6b8f59a5c5f640a09dd86e1a54908ab0"
+    }
+  },
+  "denials": {
+    "regional_sales": true,
+    "regional_service": true,
+    "restricted_viewer": true,
+    "supply_sales_metric": true
+  },
+  "history_isolated": true,
+  "children_stopped": true,
+  "passed": true
+}

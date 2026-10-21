@@ -10,6 +10,7 @@ from typing import List, Optional, Tuple
 
 from pydantic import BaseModel, Field
 
+from src import config
 from src.engine import chart_selector, executor, insight, sql_guard, text2sql
 from src.engine.chart_selector import ChartConfig
 from src.engine.executor import ExecutionError, QueryResult
@@ -18,6 +19,13 @@ from src.engine.executor import ExecutionError, QueryResult
 class Answer(BaseModel):
     """一次完整问数的结果模型。"""
 
+    status: str = "success"
+    request_id: str = ""
+    generation: str = ""
+    elapsed_ms: float = 0
+    context: dict = Field(default_factory=dict)
+    plan: dict = Field(default_factory=dict)
+    truncated: bool = False
     question: str = Field("", description="用户问题")
     sql: str = Field("", description="最终执行的 SQL")
     result: Optional[QueryResult] = Field(None, description="查询结果")
@@ -30,12 +38,15 @@ class Answer(BaseModel):
 class QueryEngine:
     """问数引擎：端到端把中文问题转换为 SQL、结果、图表与洞察。"""
 
-    def ask(self, question: str) -> Answer:
+    def ask(self, question: str, principal=None) -> Answer:
         """执行完整问数流程，返回 Answer。
 
         流程：生成 SQL → 安全校验 → 执行（失败自动修正一次）→ 选图 → 洞察。
         任何一步失败都会在 Answer.error 中给出可读中文原因，不会抛异常。
         """
+        if config.PROJECT_PROFILE == "petkit":
+            from src.petkit.service import ask
+            return ask(question, principal=principal)
         question = (question or "").strip()
         if not question:
             return Answer(question=question, error="问题不能为空")

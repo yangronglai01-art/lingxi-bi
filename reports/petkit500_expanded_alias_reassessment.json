@@ -1,0 +1,14 @@
+{
+  "source_report": "reports/expanded_eval_runs/305c2a09dc83/results.json",
+  "id": "N01",
+  "original_automated_passed": false,
+  "reassessed_passed": true,
+  "assessment": {
+    "passed": true,
+    "reason": "exact group set and numeric multiset match raw-row Python oracle"
+  },
+  "grader_sha256": "c312795d8d34adcf41a11ab083f168bd3f7a25ef752adca9046913d022752be7",
+  "generation_attempts": 0,
+  "original_record_unchanged": true,
+  "reason": "Equivalent product id/name labels refer to one group; all numeric values independently match"
+}

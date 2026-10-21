@@ -1,0 +1,154 @@
+{
+  "date": "2026-10-17",
+  "scope": "single-machine persistent simulated business application",
+  "generation": "petkit-v1.3-2dc93c9e1c",
+  "tests": 182,
+  "users": [
+    {
+      "subject": "global_analyst",
+      "department": "经营分析",
+      "role": "analyst",
+      "regions": [],
+      "enabled": 1,
+      "version": 1,
+      "visible_tables": 500
+    },
+    {
+      "subject": "regional_sales",
+      "department": "区域销售",
+      "role": "sales",
+      "regions": [
+        "R1"
+      ],
+      "enabled": 1,
+      "version": 1,
+      "visible_tables": 13
+    },
+    {
+      "subject": "regional_service",
+      "department": "区域售后",
+      "role": "service",
+      "regions": [
+        "R2"
+      ],
+      "enabled": 1,
+      "version": 1,
+      "visible_tables": 24
+    },
+    {
+      "subject": "restricted_viewer",
+      "department": "基础查看",
+      "role": "viewer",
+      "regions": [],
+      "enabled": 1,
+      "version": 1,
+      "visible_tables": 50
+    }
+  ],
+  "demo_acceptance": {
+    "kind": "persistent simulated instance acceptance",
+    "cases": [
+      {
+        "subject": "global_analyst",
+        "regions": [],
+        "job": "410506eeddd94661a97cbd21e0cc48a0",
+        "status": "success"
+      },
+      {
+        "subject": "regional_sales",
+        "regions": [
+          "R1"
+        ],
+        "job": "e088c6ae2f8d425aad8884376e298bc4",
+        "status": "success"
+      },
+      {
+        "subject": "regional_service",
+        "regions": [
+          "R2"
+        ],
+        "job": "cfc8e0e5daa64989ba19f9499467a2be",
+        "status": "success"
+      },
+      {
+        "subject": "restricted_viewer",
+        "regions": [],
+        "job": "582b64a7324c4c34b4a3c67543179f80",
+        "status": "denied"
+      }
+    ],
+    "real_llm_called": false,
+    "regional_sales_python_oracle": true,
+    "global_sales_python_oracle": true,
+    "regional_activation_python_oracle": true,
+    "cross_user_denied": true,
+    "queued_job_survives_restart": true,
+    "cancel_survives_restart": true,
+    "children_stopped": true
+  },
+  "real_model_acceptance": {
+    "kind": "persistent simulated instance acceptance",
+    "cases": [
+      {
+        "subject": "global_analyst",
+        "regions": [],
+        "job": "fd1e2760da05486ba82e9585c38e612b",
+        "status": "success"
+      },
+      {
+        "subject": "regional_sales",
+        "regions": [
+          "R1"
+        ],
+        "job": "cee38be8d38346219467426058e1740b",
+        "status": "success"
+      },
+      {
+        "subject": "regional_service",
+        "regions": [
+          "R2"
+        ],
+        "job": "5485bea5cbcc4ad4b3ebb2eb4260ad05",
+        "status": "success"
+      },
+      {
+        "subject": "restricted_viewer",
+        "regions": [],
+        "job": "e9012755f4e14f56bbbc38218daadc32",
+        "status": "denied"
+      }
+    ],
+    "real_llm_called": true,
+    "regional_sales_python_oracle": true,
+    "global_sales_python_oracle": true,
+    "regional_activation_python_oracle": true,
+    "cross_user_denied": true,
+    "queued_job_survives_restart": true,
+    "cancel_survives_restart": true,
+    "children_stopped": true
+  },
+  "restore_acceptance": {
+    "backup_directory": "D:\\projects\\lingxi\\data\\petkit500\\backups\\20261017-092616-96468e38",
+    "restored_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\eb83905447c1",
+    "users": 4,
+    "jobs": 16,
+    "physical_tables": 500,
+    "orders": 3000,
+    "sqlite_integrity": true,
+    "file_hashes_verified": true,
+    "existing_instance_overwritten": false,
+    "scope": "offline hash checks followed by real localhost application startup in independent restored directory",
+    "restored_application_ready": true,
+    "restored_regional_job_succeeded": true,
+    "original_instance_untouched": true,
+    "restored_job_id": "811c0d4294d54b4baa48815614493df6",
+    "children_stopped": true
+  },
+  "first_managed_model_issue": "reports/petkit500_simulated_llm_first.json",
+  "limitations": [
+    "自建模拟数据；不是小佩内部交付",
+    "应用执行层区域视图，不是数据库原生RLS",
+    "单机单工作进程；未做高可用或长期负载验收",
+    "SSO、凭据加密托管及真实数据接入尚未完成"
+  ]
+}

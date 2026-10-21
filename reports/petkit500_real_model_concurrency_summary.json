@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-21",
+  "source_report": "reports/real_llm_concurrency_runs/5fe9c8f2bdcb/results.json",
+  "first_failed_report": "reports/real_llm_concurrency_runs/b0689126dc5c/results.json",
+  "completed": true,
+  "cases_passed": 8,
+  "queue_clients": 4,
+  "queue_workers": 1,
+  "queue_elapsed_seconds": 27.348,
+  "queue_provider_parallelism_measured": false,
+  "direct_peak_inflight_generations": 2,
+  "direct_generation_attempts": 4,
+  "queue_generation_attempts_not_instrumented": true,
+  "per_run_maximum_generation_attempts": 16,
+  "root_business_state_unchanged": true,
+  "production_capacity_measured": false,
+  "external_independent_benchmark": false,
+  "fixed_defect": "activation counted by observation cutoff instead of individual paid-date 0..30 day window",
+  "fix_files": {
+    "src/petkit/semantic.py": "39c3e21d7a07a9066173080059585e0f1f651f07096e61207e6e3bae67fb4221",
+    "src/petkit/service.py": "71fe12b78c2b2c383b8929f01a9146ceb0d8ad91b24c756f82f1e0c1c2dcb6eb",
+    "tests/test_cohort_event_window.py": "fa32bde8b6af39385464cc263df1290f05483df7702c528c0554ac4b40e3ee7d"
+  },
+  "new_event_window_regressions": 11,
+  "full_regression_tests": 379
+}

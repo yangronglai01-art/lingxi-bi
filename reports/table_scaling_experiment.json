@@ -1,0 +1,1536 @@
+{
+  "meta": {
+    "project": "宁波鲍斯能源装备智能问数平台",
+    "experiment": "表数量 → Text-to-SQL 正确性",
+    "generated_at": "2026-09-18T14:50:52",
+    "model": "deepseek-v4-pro",
+    "mode": "llm",
+    "eval_cases": 18,
+    "tolerance": {
+      "rel": 0.01,
+      "abs": 0.01
+    },
+    "table_counts": [
+      6,
+      10,
+      15,
+      20,
+      30,
+      50
+    ]
+  },
+  "results": [
+    {
+      "n_tables": 6,
+      "schema_chars": 1716,
+      "schema_tokens_est": 858,
+      "metrics": {
+        "total": 18,
+        "executed": 18,
+        "sql_exec_success_rate": 1.0,
+        "hit": 6,
+        "accuracy": 0.3333,
+        "accuracy_of_executed": 0.3333,
+        "avg_elapsed_seconds": 5.041
+      },
+      "items": [
+        {
+          "id": "E01",
+          "question": "全年总销售额是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.089,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E02",
+          "question": "压缩机类产品的销售额是多少？",
+          "categories": [
+            "求和",
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.06,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E03",
+          "question": "平均每天的销售额是多少？",
+          "categories": [
+            "平均"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.043,
+          "sql": "SELECT ROUND(SUM(amount) / COUNT(DISTINCT sale_date), 2) AS avg_daily_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E04",
+          "question": "各区域的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.032,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E05",
+          "question": "各产品类别的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.044,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E06",
+          "question": "销售额最高的5个产品是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.02,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E07",
+          "question": "2026年上半年每个月的销售额趋势？",
+          "categories": [
+            "时间范围",
+            "分组"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.032,
+          "sql": "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E08",
+          "question": "2026年2月和3月的销售额分别是多少（用于环比对比）？",
+          "categories": [
+            "同比环比",
+            "时间范围"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.069,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E09",
+          "question": "各产品的缺陷率是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.042,
+          "sql": "SELECT p.product_name, ROUND(SUM(q.defect_count) * 100.0 / SUM(q.checked_count), 2) AS defect_rate FROM fact_quality q JOIN dim_product p ON q.product_id = p.product_id GROUP BY p.product_name ORDER BY defect_rate DESC LIMIT 1000"
+        },
+        {
+          "id": "E10",
+          "question": "华东地区的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.028,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E11",
+          "question": "整体毛利率是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.022,
+          "sql": "SELECT ROUND((SUM(s.amount) - SUM(s.cost)) * 100.0 / SUM(s.amount), 2) AS gross_margin_rate FROM fact_sales s LIMIT 1000"
+        },
+        {
+          "id": "E12",
+          "question": "各区域的销售数量分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.036,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E13",
+          "question": "销售额最高的5个客户是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.036,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E14",
+          "question": "2026年1月的销售额是多少？",
+          "categories": [
+            "时间范围",
+            "条件过滤"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.027,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E15",
+          "question": "2026年上半年每个月的产量达成率？",
+          "categories": [
+            "时间范围",
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.022,
+          "sql": "SELECT strftime(p.prod_date, '%Y-%m') AS ym, ROUND(SUM(p.actual_qty) * 100.0 / SUM(p.planned_qty), 2) AS achievement_rate FROM fact_production p GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E16",
+          "question": "精密件类产品的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.048,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E17",
+          "question": "单笔销售金额最高是多少？",
+          "categories": [
+            "排序"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.041,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E18",
+          "question": "大客户的销售额占总销售额的比例是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联",
+            "求和"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.044,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 1000"
+        }
+      ],
+      "wall_seconds": 90.7
+    },
+    {
+      "n_tables": 10,
+      "schema_chars": 2604,
+      "schema_tokens_est": 1302,
+      "metrics": {
+        "total": 18,
+        "executed": 18,
+        "sql_exec_success_rate": 1.0,
+        "hit": 6,
+        "accuracy": 0.3333,
+        "accuracy_of_executed": 0.3333,
+        "avg_elapsed_seconds": 8.135
+      },
+      "items": [
+        {
+          "id": "E01",
+          "question": "全年总销售额是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.016,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E02",
+          "question": "压缩机类产品的销售额是多少？",
+          "categories": [
+            "求和",
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.02,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E03",
+          "question": "平均每天的销售额是多少？",
+          "categories": [
+            "平均"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.021,
+          "sql": "SELECT ROUND(SUM(amount) / COUNT(DISTINCT sale_date), 2) AS avg_daily_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E04",
+          "question": "各区域的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.031,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E05",
+          "question": "各产品类别的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.038,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E06",
+          "question": "销售额最高的5个产品是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.048,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E07",
+          "question": "2026年上半年每个月的销售额趋势？",
+          "categories": [
+            "时间范围",
+            "分组"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.022,
+          "sql": "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E08",
+          "question": "2026年2月和3月的销售额分别是多少（用于环比对比）？",
+          "categories": [
+            "同比环比",
+            "时间范围"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.019,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E09",
+          "question": "各产品的缺陷率是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.022,
+          "sql": "SELECT p.product_name, ROUND(SUM(q.defect_count) * 100.0 / SUM(q.checked_count), 2) AS defect_rate FROM fact_quality q JOIN dim_product p ON q.product_id = p.product_id GROUP BY p.product_name ORDER BY defect_rate DESC LIMIT 1000"
+        },
+        {
+          "id": "E10",
+          "question": "华东地区的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.043,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E11",
+          "question": "整体毛利率是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.02,
+          "sql": "SELECT ROUND((SUM(s.amount) - SUM(s.cost)) * 100.0 / SUM(s.amount), 2) AS gross_margin_rate FROM fact_sales s LIMIT 1000"
+        },
+        {
+          "id": "E12",
+          "question": "各区域的销售数量分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.033,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E13",
+          "question": "销售额最高的5个客户是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.019,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E14",
+          "question": "2026年1月的销售额是多少？",
+          "categories": [
+            "时间范围",
+            "条件过滤"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.015,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E15",
+          "question": "2026年上半年每个月的产量达成率？",
+          "categories": [
+            "时间范围",
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.043,
+          "sql": "SELECT strftime(p.prod_date, '%Y-%m') AS ym, ROUND(SUM(p.actual_qty) * 100.0 / SUM(p.planned_qty), 2) AS achievement_rate FROM fact_production p GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E16",
+          "question": "精密件类产品的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.02,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E17",
+          "question": "单笔销售金额最高是多少？",
+          "categories": [
+            "排序"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 60.948,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E18",
+          "question": "大客户的销售额占总销售额的比例是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联",
+            "求和"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.044,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 1000"
+        }
+      ],
+      "wall_seconds": 146.4
+    },
+    {
+      "n_tables": 15,
+      "schema_chars": 3663,
+      "schema_tokens_est": 1832,
+      "metrics": {
+        "total": 18,
+        "executed": 18,
+        "sql_exec_success_rate": 1.0,
+        "hit": 6,
+        "accuracy": 0.3333,
+        "accuracy_of_executed": 0.3333,
+        "avg_elapsed_seconds": 5.034
+      },
+      "items": [
+        {
+          "id": "E01",
+          "question": "全年总销售额是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.028,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E02",
+          "question": "压缩机类产品的销售额是多少？",
+          "categories": [
+            "求和",
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.019,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E03",
+          "question": "平均每天的销售额是多少？",
+          "categories": [
+            "平均"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.046,
+          "sql": "SELECT ROUND(SUM(amount) / COUNT(DISTINCT sale_date), 2) AS avg_daily_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E04",
+          "question": "各区域的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.044,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E05",
+          "question": "各产品类别的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.04,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E06",
+          "question": "销售额最高的5个产品是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.026,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E07",
+          "question": "2026年上半年每个月的销售额趋势？",
+          "categories": [
+            "时间范围",
+            "分组"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.022,
+          "sql": "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E08",
+          "question": "2026年2月和3月的销售额分别是多少（用于环比对比）？",
+          "categories": [
+            "同比环比",
+            "时间范围"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.041,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E09",
+          "question": "各产品的缺陷率是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.049,
+          "sql": "SELECT p.product_name, ROUND(SUM(q.defect_count) * 100.0 / SUM(q.checked_count), 2) AS defect_rate FROM fact_quality q JOIN dim_product p ON q.product_id = p.product_id GROUP BY p.product_name ORDER BY defect_rate DESC LIMIT 1000"
+        },
+        {
+          "id": "E10",
+          "question": "华东地区的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.041,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E11",
+          "question": "整体毛利率是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.022,
+          "sql": "SELECT ROUND((SUM(s.amount) - SUM(s.cost)) * 100.0 / SUM(s.amount), 2) AS gross_margin_rate FROM fact_sales s LIMIT 1000"
+        },
+        {
+          "id": "E12",
+          "question": "各区域的销售数量分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.041,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E13",
+          "question": "销售额最高的5个客户是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.022,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E14",
+          "question": "2026年1月的销售额是多少？",
+          "categories": [
+            "时间范围",
+            "条件过滤"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.04,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E15",
+          "question": "2026年上半年每个月的产量达成率？",
+          "categories": [
+            "时间范围",
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.042,
+          "sql": "SELECT strftime(p.prod_date, '%Y-%m') AS ym, ROUND(SUM(p.actual_qty) * 100.0 / SUM(p.planned_qty), 2) AS achievement_rate FROM fact_production p GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E16",
+          "question": "精密件类产品的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.019,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E17",
+          "question": "单笔销售金额最高是多少？",
+          "categories": [
+            "排序"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.041,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E18",
+          "question": "大客户的销售额占总销售额的比例是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联",
+            "求和"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.031,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 1000"
+        }
+      ],
+      "wall_seconds": 90.6
+    },
+    {
+      "n_tables": 20,
+      "schema_chars": 4751,
+      "schema_tokens_est": 2376,
+      "metrics": {
+        "total": 18,
+        "executed": 18,
+        "sql_exec_success_rate": 1.0,
+        "hit": 6,
+        "accuracy": 0.3333,
+        "accuracy_of_executed": 0.3333,
+        "avg_elapsed_seconds": 8.092
+      },
+      "items": [
+        {
+          "id": "E01",
+          "question": "全年总销售额是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.024,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E02",
+          "question": "压缩机类产品的销售额是多少？",
+          "categories": [
+            "求和",
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.035,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E03",
+          "question": "平均每天的销售额是多少？",
+          "categories": [
+            "平均"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.017,
+          "sql": "SELECT ROUND(SUM(amount) / COUNT(DISTINCT sale_date), 2) AS avg_daily_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E04",
+          "question": "各区域的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.106,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E05",
+          "question": "各产品类别的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.018,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E06",
+          "question": "销售额最高的5个产品是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 60.026,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E07",
+          "question": "2026年上半年每个月的销售额趋势？",
+          "categories": [
+            "时间范围",
+            "分组"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.042,
+          "sql": "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E08",
+          "question": "2026年2月和3月的销售额分别是多少（用于环比对比）？",
+          "categories": [
+            "同比环比",
+            "时间范围"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.045,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E09",
+          "question": "各产品的缺陷率是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.057,
+          "sql": "SELECT p.product_name, ROUND(SUM(q.defect_count) * 100.0 / SUM(q.checked_count), 2) AS defect_rate FROM fact_quality q JOIN dim_product p ON q.product_id = p.product_id GROUP BY p.product_name ORDER BY defect_rate DESC LIMIT 1000"
+        },
+        {
+          "id": "E10",
+          "question": "华东地区的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.035,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E11",
+          "question": "整体毛利率是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.036,
+          "sql": "SELECT ROUND((SUM(s.amount) - SUM(s.cost)) * 100.0 / SUM(s.amount), 2) AS gross_margin_rate FROM fact_sales s LIMIT 1000"
+        },
+        {
+          "id": "E12",
+          "question": "各区域的销售数量分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.039,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E13",
+          "question": "销售额最高的5个客户是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.036,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E14",
+          "question": "2026年1月的销售额是多少？",
+          "categories": [
+            "时间范围",
+            "条件过滤"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.035,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E15",
+          "question": "2026年上半年每个月的产量达成率？",
+          "categories": [
+            "时间范围",
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.019,
+          "sql": "SELECT strftime(p.prod_date, '%Y-%m') AS ym, ROUND(SUM(p.actual_qty) * 100.0 / SUM(p.planned_qty), 2) AS achievement_rate FROM fact_production p GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E16",
+          "question": "精密件类产品的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.03,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E17",
+          "question": "单笔销售金额最高是多少？",
+          "categories": [
+            "排序"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.041,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E18",
+          "question": "大客户的销售额占总销售额的比例是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联",
+            "求和"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.023,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 1000"
+        }
+      ],
+      "wall_seconds": 145.7
+    },
+    {
+      "n_tables": 30,
+      "schema_chars": 6848,
+      "schema_tokens_est": 3424,
+      "metrics": {
+        "total": 18,
+        "executed": 18,
+        "sql_exec_success_rate": 1.0,
+        "hit": 8,
+        "accuracy": 0.4444,
+        "accuracy_of_executed": 0.4444,
+        "avg_elapsed_seconds": 8.664
+      },
+      "items": [
+        {
+          "id": "E01",
+          "question": "全年总销售额是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.042,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E02",
+          "question": "压缩机类产品的销售额是多少？",
+          "categories": [
+            "求和",
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.035,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E03",
+          "question": "平均每天的销售额是多少？",
+          "categories": [
+            "平均"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.035,
+          "sql": "SELECT ROUND(SUM(amount) / COUNT(DISTINCT sale_date), 2) AS avg_daily_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E04",
+          "question": "各区域的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.044,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E05",
+          "question": "各产品类别的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.043,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E06",
+          "question": "销售额最高的5个产品是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.043,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E07",
+          "question": "2026年上半年每个月的销售额趋势？",
+          "categories": [
+            "时间范围",
+            "分组"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.035,
+          "sql": "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E08",
+          "question": "2026年2月和3月的销售额分别是多少（用于环比对比）？",
+          "categories": [
+            "同比环比",
+            "时间范围"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.023,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E09",
+          "question": "各产品的缺陷率是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.04,
+          "sql": "SELECT p.product_name, ROUND(SUM(q.defect_count) * 100.0 / SUM(q.checked_count), 2) AS defect_rate FROM fact_quality q JOIN dim_product p ON q.product_id = p.product_id GROUP BY p.product_name ORDER BY defect_rate DESC LIMIT 1000"
+        },
+        {
+          "id": "E10",
+          "question": "华东地区的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.023,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E11",
+          "question": "整体毛利率是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.03,
+          "sql": "SELECT ROUND((SUM(s.amount) - SUM(s.cost)) * 100.0 / SUM(s.amount), 2) AS gross_margin_rate FROM fact_sales s LIMIT 1000"
+        },
+        {
+          "id": "E12",
+          "question": "各区域的销售数量分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.02,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E13",
+          "question": "销售额最高的5个客户是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 10.874,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E14",
+          "question": "2026年1月的销售额是多少？",
+          "categories": [
+            "时间范围",
+            "条件过滤"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 7.748,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales WHERE sale_date BETWEEN '2026-01-01' AND '2026-01-31' LIMIT 1000"
+        },
+        {
+          "id": "E15",
+          "question": "2026年上半年每个月的产量达成率？",
+          "categories": [
+            "时间范围",
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 61.822,
+          "sql": "SELECT strftime(p.prod_date, '%Y-%m') AS ym, ROUND(SUM(p.actual_qty) * 100.0 / SUM(p.planned_qty), 2) AS achievement_rate FROM fact_production p GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E16",
+          "question": "精密件类产品的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.04,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E17",
+          "question": "单笔销售金额最高是多少？",
+          "categories": [
+            "排序"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.033,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E18",
+          "question": "大客户的销售额占总销售额的比例是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联",
+            "求和"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.021,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 1000"
+        }
+      ],
+      "wall_seconds": 156.0
+    },
+    {
+      "n_tables": 50,
+      "schema_chars": 10665,
+      "schema_tokens_est": 5332,
+      "metrics": {
+        "total": 18,
+        "executed": 18,
+        "sql_exec_success_rate": 1.0,
+        "hit": 6,
+        "accuracy": 0.3333,
+        "accuracy_of_executed": 0.3333,
+        "avg_elapsed_seconds": 5.04
+      },
+      "items": [
+        {
+          "id": "E01",
+          "question": "全年总销售额是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.026,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E02",
+          "question": "压缩机类产品的销售额是多少？",
+          "categories": [
+            "求和",
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.071,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E03",
+          "question": "平均每天的销售额是多少？",
+          "categories": [
+            "平均"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.048,
+          "sql": "SELECT ROUND(SUM(amount) / COUNT(DISTINCT sale_date), 2) AS avg_daily_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E04",
+          "question": "各区域的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.022,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E05",
+          "question": "各产品类别的销售额分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.043,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E06",
+          "question": "销售额最高的5个产品是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.047,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E07",
+          "question": "2026年上半年每个月的销售额趋势？",
+          "categories": [
+            "时间范围",
+            "分组"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.028,
+          "sql": "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E08",
+          "question": "2026年2月和3月的销售额分别是多少（用于环比对比）？",
+          "categories": [
+            "同比环比",
+            "时间范围"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.045,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E09",
+          "question": "各产品的缺陷率是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.064,
+          "sql": "SELECT p.product_name, ROUND(SUM(q.defect_count) * 100.0 / SUM(q.checked_count), 2) AS defect_rate FROM fact_quality q JOIN dim_product p ON q.product_id = p.product_id GROUP BY p.product_name ORDER BY defect_rate DESC LIMIT 1000"
+        },
+        {
+          "id": "E10",
+          "question": "华东地区的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.047,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E11",
+          "question": "整体毛利率是多少？",
+          "categories": [
+            "求和"
+          ],
+          "hit": true,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.052,
+          "sql": "SELECT ROUND((SUM(s.amount) - SUM(s.cost)) * 100.0 / SUM(s.amount), 2) AS gross_margin_rate FROM fact_sales s LIMIT 1000"
+        },
+        {
+          "id": "E12",
+          "question": "各区域的销售数量分别是多少？",
+          "categories": [
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.055,
+          "sql": "SELECT r.region_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_region r ON s.region_id = r.region_id GROUP BY r.region_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E13",
+          "question": "销售额最高的5个客户是哪些？",
+          "categories": [
+            "排序",
+            "TopN",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.032,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 1000"
+        },
+        {
+          "id": "E14",
+          "question": "2026年1月的销售额是多少？",
+          "categories": [
+            "时间范围",
+            "条件过滤"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.021,
+          "sql": "SELECT ROUND(SUM(amount), 2) AS total_amount FROM fact_sales LIMIT 1000"
+        },
+        {
+          "id": "E15",
+          "question": "2026年上半年每个月的产量达成率？",
+          "categories": [
+            "时间范围",
+            "分组",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.021,
+          "sql": "SELECT strftime(p.prod_date, '%Y-%m') AS ym, ROUND(SUM(p.actual_qty) * 100.0 / SUM(p.planned_qty), 2) AS achievement_rate FROM fact_production p GROUP BY ym ORDER BY ym LIMIT 1000"
+        },
+        {
+          "id": "E16",
+          "question": "精密件类产品的销售额是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.051,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E17",
+          "question": "单笔销售金额最高是多少？",
+          "categories": [
+            "排序"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.022,
+          "sql": "SELECT p.product_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_product p ON s.product_id = p.product_id GROUP BY p.product_name ORDER BY total_amount DESC LIMIT 5"
+        },
+        {
+          "id": "E18",
+          "question": "大客户的销售额占总销售额的比例是多少？",
+          "categories": [
+            "条件过滤",
+            "多表关联",
+            "求和"
+          ],
+          "hit": false,
+          "error": "",
+          "mock_used": false,
+          "elapsed_seconds": 5.025,
+          "sql": "SELECT c.customer_name, ROUND(SUM(s.amount), 2) AS total_amount FROM fact_sales s JOIN dim_customer c ON s.customer_id = c.customer_id GROUP BY c.customer_name ORDER BY total_amount DESC LIMIT 1000"
+        }
+      ],
+      "wall_seconds": 90.7
+    }
+  ]
+}

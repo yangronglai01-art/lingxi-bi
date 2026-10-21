@@ -59,3 +59,6 @@ ENABLE_MOCK = os.getenv("ENABLE_MOCK", "false").strip().lower() in ("true", "1",
 # 查询引擎配置
 # ---------------------------------------------------------------------------
 MAX_RESULT_ROWS = 1000  # SQL 安全校验强制的结果行数上限（LIMIT）
+
+# New simulation profile. Set legacy to retain original six-table behavior.
+PROJECT_PROFILE = os.getenv("PROJECT_PROFILE", "petkit")

@@ -1,0 +1,35 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "tables": 500,
+  "orders": 3202,
+  "rows": 205397,
+  "tests_passed": 316,
+  "business_oracle_cases": 37,
+  "approved_receipt_questions": 5,
+  "metric_count": 7,
+  "simulated_users": 5,
+  "source_events": 25,
+  "source_batches": 4,
+  "business_database_unchanged": true,
+  "catalog_rollback_and_republish": true,
+  "historical_catalog_cases": 32,
+  "real_model_questions": 2,
+  "global_september_receipts": 20,
+  "regional_september_receipts": 10,
+  "permission_denials": {
+    "regional_sales": true,
+    "regional_service": true,
+    "restricted_viewer": true,
+    "supply_sales_metric": true
+  },
+  "history_isolated": true,
+  "restored_warehouse_task_passed": true,
+  "restored_without_parent_folder": true,
+  "restored_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\5bb1ac665914",
+  "limits": [
+    "自建模拟数据，未接真实企业系统",
+    "收货指标当前仅支持批准的直接聚合形态，不证明任意SQL正确",
+    "两条真实模型验收不是泛化准确率评测",
+    "单机实例，未验收长期负载和高可用"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "generation": "petkit-v1.3-29eac531b3",
+  "tables": 500,
+  "orders": 3202,
+  "rows": 205397,
+  "tests_passed": 281,
+  "new_purchase_orders": 2,
+  "new_receipts": 4,
+  "stock_units_received": 20,
+  "source_events": 25,
+  "source_batches": 4,
+  "business_oracle_cases": 32,
+  "overreceipt_quarantined": true,
+  "failed_batch_atomic": true,
+  "rollback_replay_once": true,
+  "regional_purchase_totals_denied": true,
+  "regional_receipts_isolated": true,
+  "inventory_model_passed": true,
+  "restored_application_ready": true,
+  "restored_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\37a5839e5f6e",
+  "limits": [
+    "自建模拟数据，未连接真实企业采购或仓储接口",
+    "新增来源收货逐笔对账，历史种子未逐笔补入库流水",
+    "SKU仓库数量库存，未实现应付付款、质检、退供及序列号入库",
+    "单机实例，未验收长期负载和高可用"
+  ]
+}

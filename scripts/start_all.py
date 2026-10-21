@@ -35,14 +35,14 @@ def main() -> None:
             "uvicorn",
             "src.api.main:app",
             "--host",
-            "0.0.0.0",
+            "127.0.0.1",
             "--port",
             "8000",
         ],
         cwd=str(ROOT),
     )
     ui = subprocess.Popen(
-        [sys.executable, "-m", "streamlit", "run", "src/app.py", "--server.port", "8501"],
+        [sys.executable, "-m", "streamlit", "run", "src/app.py", "--server.port", "8501", "--server.address", "127.0.0.1"],
         cwd=str(ROOT),
     )
 

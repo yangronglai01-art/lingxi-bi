@@ -1,0 +1,143 @@
+{
+  "kind": "seen_question_development_ablation",
+  "generation": "petkit-v1.3-2dc93c9e1c",
+  "change": "指标依赖检索文档与核心表角色权重；不是独立盲测",
+  "rows": [
+    {
+      "id": "H01",
+      "before": 0.16666666666666666,
+      "after": 1.0,
+      "before_complete": false,
+      "after_complete": true,
+      "top8": [
+        "dim_product",
+        "dim_channel",
+        "dim_sku",
+        "fact_refund",
+        "fact_order_item",
+        "fact_order",
+        "agg_sales_model_monthly",
+        "fact_subscription"
+      ]
+    },
+    {
+      "id": "H02",
+      "before": 0.5,
+      "after": 1.0,
+      "before_complete": false,
+      "after_complete": true,
+      "top8": [
+        "dim_channel",
+        "dim_product",
+        "dim_sku",
+        "fact_refund",
+        "fact_order_item",
+        "fact_order",
+        "dim_calendar",
+        "fact_payment"
+      ]
+    },
+    {
+      "id": "H03",
+      "before": 0.16666666666666666,
+      "after": 1.0,
+      "before_complete": false,
+      "after_complete": true,
+      "top8": [
+        "dim_channel",
+        "dim_product",
+        "dim_sku",
+        "fact_refund",
+        "fact_order_item",
+        "fact_order",
+        "fact_payment",
+        "dim_calendar"
+      ]
+    },
+    {
+      "id": "H04",
+      "before": 0.16666666666666666,
+      "after": 1.0,
+      "before_complete": false,
+      "after_complete": true,
+      "top8": [
+        "fact_device_activation",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_service_ticket",
+        "dim_firmware"
+      ]
+    },
+    {
+      "id": "H05",
+      "before": 0.5,
+      "after": 1.0,
+      "before_complete": false,
+      "after_complete": true,
+      "top8": [
+        "fact_service_ticket",
+        "dim_product",
+        "dim_device",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order",
+        "fact_device_activation",
+        "dim_firmware"
+      ]
+    },
+    {
+      "id": "H06",
+      "before": 0.75,
+      "after": 1.0,
+      "before_complete": false,
+      "after_complete": true,
+      "top8": [
+        "dim_firmware",
+        "dim_product",
+        "dim_device",
+        "fact_device_day",
+        "fact_service_ticket",
+        "bridge_order_device",
+        "fact_order_item",
+        "fact_order"
+      ]
+    },
+    {
+      "id": "H07",
+      "before": 0.25,
+      "after": 1.0,
+      "before_complete": false,
+      "after_complete": true,
+      "top8": [
+        "dim_product",
+        "dim_device",
+        "dim_fault",
+        "fact_service_ticket",
+        "fact_support_contact",
+        "fact_order_item",
+        "bridge_order_device",
+        "fact_order"
+      ]
+    },
+    {
+      "id": "H08",
+      "before": 0.25,
+      "after": 1.0,
+      "before_complete": false,
+      "after_complete": true,
+      "top8": [
+        "dim_warehouse",
+        "dim_product",
+        "dim_sku",
+        "fact_inventory_day",
+        "dim_calendar",
+        "agg_supply_inventory_monthly",
+        "agg_supply_inventory_daily",
+        "agg_supply_safety_monthly"
+      ]
+    }
+  ]
+}

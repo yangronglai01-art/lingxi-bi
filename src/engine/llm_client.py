@@ -33,6 +33,8 @@ def chat_completion(
     temperature: float = 0.0,
     max_tokens: int = 2000,
     timeout: Optional[int] = None,
+    response_format: Optional[dict] = None,
+    thinking: Optional[str] = None,
 ) -> str:
     """调用 OpenAI 兼容的 Chat Completions 接口并返回模型回复文本。
 
@@ -59,6 +61,12 @@ def chat_completion(
         "max_tokens": max_tokens,
         "stream": False,
     }
+    if response_format is not None:
+        payload["response_format"] = response_format
+    if thinking is not None:
+        if thinking not in {"enabled", "disabled"}:
+            raise LLMError("thinking配置必须是enabled或disabled")
+        payload["thinking"] = {"type": thinking}
     headers = {
         "Authorization": f"Bearer {config.API_KEY}",
         "Content-Type": "application/json",

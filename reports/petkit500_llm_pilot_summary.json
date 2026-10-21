@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-16",
+  "type": "development_pilot_with_targeted_fixes",
+  "model": "deepseek-v4-pro",
+  "source_reports": [
+    {
+      "file": "petkit500_llm_pilot.json",
+      "generation": "petkit-v1.1-a13741f669",
+      "passed": 4,
+      "attempted": 6
+    },
+    {
+      "file": "petkit500_llm_pilot_followup.json",
+      "generation": "petkit-v1.2-578330683c",
+      "passed": 2,
+      "attempted": 2
+    }
+  ],
+  "latest_passed": 6,
+  "distinct_questions": 6,
+  "current_generation": "petkit-v1.2-a0d527d159",
+  "stored_sql_replays": [
+    {
+      "id": "L01",
+      "source_generation": "petkit-v1.1-a13741f669",
+      "replay_generation": "petkit-v1.2-a0d527d159",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "truncated": false
+    },
+    {
+      "id": "L02",
+      "source_generation": "petkit-v1.1-a13741f669",
+      "replay_generation": "petkit-v1.2-a0d527d159",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "truncated": false
+    },
+    {
+      "id": "L03",
+      "source_generation": "petkit-v1.2-578330683c",
+      "replay_generation": "petkit-v1.2-a0d527d159",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "truncated": false
+    },
+    {
+      "id": "L04",
+      "source_generation": "petkit-v1.2-578330683c",
+      "replay_generation": "petkit-v1.2-a0d527d159",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "truncated": false
+    },
+    {
+      "id": "L05",
+      "source_generation": "petkit-v1.1-a13741f669",
+      "replay_generation": "petkit-v1.2-a0d527d159",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "truncated": false
+    },
+    {
+      "id": "L06",
+      "source_generation": "petkit-v1.1-a13741f669",
+      "replay_generation": "petkit-v1.2-a0d527d159",
+      "assessment": {
+        "passed": true,
+        "reason": "分组和数值与独立Python计算一致"
+      },
+      "truncated": false
+    }
+  ],
+  "real_llm": true,
+  "blind_test": false,
+  "production_load_test": false,
+  "note": "初轮六题，修复后仅重试两题；其他结果只做离线复核，不重新调用模型。另保留一次默认思考模式超时记录。"
+}

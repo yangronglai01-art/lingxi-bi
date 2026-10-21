@@ -1,0 +1,67 @@
+{
+  "generation": "petkit-v1.3-2dc93c9e1c",
+  "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+  "device": "cpu",
+  "max_seq_length": 256,
+  "unique_vectors": 506,
+  "dimensions": 1024,
+  "elapsed_seconds": 187.74,
+  "sample_hits": [
+    {
+      "table": "dim_product",
+      "score": 0.031958,
+      "reason": "table",
+      "text": "dim_product 智能宠物硬件产品型号 主数据 每型号一行 ",
+      "table_role_weight": 1.2
+    },
+    {
+      "table": "dim_channel",
+      "score": 0.019672,
+      "reason": "metric_dependency:net_sales",
+      "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+      "table_role_weight": 1.2
+    },
+    {
+      "table": "dim_sku",
+      "score": 0.019048,
+      "reason": "metric_dependency:net_sales",
+      "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+      "table_role_weight": 1.2
+    },
+    {
+      "table": "fact_refund",
+      "score": 0.01875,
+      "reason": "metric_dependency:net_sales",
+      "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+      "table_role_weight": 1.2
+    },
+    {
+      "table": "fact_order_item",
+      "score": 0.018462,
+      "reason": "metric_dependency:net_sales",
+      "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+      "table_role_weight": 1.2
+    },
+    {
+      "table": "fact_order",
+      "score": 0.018182,
+      "reason": "metric_dependency:net_sales",
+      "text": "净销售额 销售额 收入 销售趋势 订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分 订单行先汇总退款再关联；按支付日统计",
+      "table_role_weight": 1.2
+    },
+    {
+      "table": "fact_subscription",
+      "score": 0.016667,
+      "reason": "column:amount",
+      "text": "fact_subscription 模拟服务订阅 不代表真实产品收费方案 amount 订阅金额 ",
+      "table_role_weight": 1.2
+    },
+    {
+      "table": "agg_sales_wholesale_monthly",
+      "score": 0.01642,
+      "reason": "table",
+      "text": "agg_sales_wholesale_monthly 销售域批发每月模拟分析快照；独立合成量值，不能代替核心事实指标 每月每型号一行 批发 销售 扩展分析",
+      "table_role_weight": 0.6
+    }
+  ]
+}

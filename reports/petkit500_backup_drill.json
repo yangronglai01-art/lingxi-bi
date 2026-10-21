@@ -1,0 +1,12 @@
+{
+  "backup_directory": "D:\\projects\\lingxi\\data\\petkit500\\backups\\20261017-154936-710de957",
+  "restored_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\f42ac6d65ebe",
+  "users": 5,
+  "jobs": 28,
+  "physical_tables": 500,
+  "orders": 3202,
+  "sqlite_integrity": true,
+  "file_hashes_verified": true,
+  "existing_instance_overwritten": false,
+  "scope": "offline fresh-directory restore; no service cutover"
+}

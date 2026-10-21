@@ -1,7 +1,7 @@
 [project]
 name = "lingxi"
-version = "1.0.0"
-description = "宁波鲍斯能源装备智能问数平台（灵犀 Lingxi）：AI Text-to-SQL + DuckDB 数仓 + FastAPI + Streamlit 可视化"
+version = "2.0.0"
+description = "灵犀智能宠物硬件模拟问数：500表目录 + 检索 + 受控SQL + 可视化"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
@@ -10,7 +10,9 @@ keywords = ["text-to-sql", "duckdb", "llm", "bi", "fastapi", "streamlit"]
 dependencies = [
     # 数据层
     "duckdb>=1.0.0",
+    "filelock>=3.15,<4",
     "pandas>=2.0.0",
+    "sqlglot>=26,<31",
     # 引擎层
     "pydantic>=2.0.0",          # 数据模型（QueryResult / Answer / ChartConfig）
     "requests>=2.28.0",         # OpenAI 兼容接口 HTTP 客户端
@@ -23,8 +25,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+embedding = ["sentence-transformers>=3,<6", "transformers>=4.44,<5", "sentencepiece>=0.2,<1"]
 dev = [
     "pytest>=7.0.0",
+    "httpx>=0.28,<1",
     "ruff>=0.6.0",
 ]
 
@@ -63,3 +67,11 @@ exclude = [
 [tool.ruff.lint.per-file-ignores]
 # 脚本入口：允许顶层 sys.path 操作与 try/except 兜底（为脚本式运行服务）
 "scripts/*.py" = ["E402"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src", "src.*"]

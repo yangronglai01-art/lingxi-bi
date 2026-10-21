@@ -1,0 +1,47 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "isolated_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\e318a16bb913",
+  "mode": "demo",
+  "real_llm_called": false,
+  "completed": true,
+  "duplicate_launcher_rejected": true,
+  "automatic_restart": {
+    "old_pid": 23020,
+    "new_pid": 24872,
+    "ready_seconds": 0.842,
+    "readiness_503_observed": true,
+    "interfaces_kept_alive": true,
+    "next_regional_task_succeeded": true
+  },
+  "lease_recovery": {
+    "state": "interrupted",
+    "seconds_after_kill": 60.175,
+    "real_time_wait": true,
+    "automatic_task_replay": false,
+    "new_key_resubmit_succeeded": true
+  },
+  "budget_exhaustion": {
+    "restarts": 3,
+    "extra_worker_deaths": 3,
+    "reason": "worker_restart_budget_exhausted",
+    "all_owned_processes_stopped": true,
+    "restarts_observed": [
+      {
+        "restart": 2,
+        "pid": 25132
+      },
+      {
+        "restart": 3,
+        "pid": 24420
+      }
+    ]
+  },
+  "normal_shutdown": {
+    "no_restart_during_cleanup": true,
+    "all_owned_processes_stopped": true,
+    "new_launch_budget_reset": true
+  },
+  "original_jobs_unchanged": true,
+  "business_warehouse_unchanged": true,
+  "children_stopped": true
+}

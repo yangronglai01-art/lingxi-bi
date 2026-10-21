@@ -1,0 +1,242 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "model": "deepseek-v4-pro",
+  "embedding": "local BGE-M3",
+  "case_sha256": "5d83d3dc0db8cbd1a0505bf9125f3a8a339f6799b8dbc1a77a3453ac4228e38a",
+  "external_independent_benchmark": false,
+  "load_test": false,
+  "code_sha256": {
+    "src/petkit/service.py": "1a95b385ea23851ddd0c4d97613450d6fa288801533d40ce37afd18be5e252fa",
+    "src/petkit/reference.py": "5cd149d42a2fd1fc0f46eab15b7bd2c65e3abaabd591c82ea0299034b3ea15b2",
+    "src/petkit/row_policy.py": "87c5d09dbf5a6628942a2c64ce1e06833777a284ba9c8088a10a04bc2e7b48c7",
+    "scripts/eval_petkit_controlled_e2e.py": "0f0a5310e700f08fc4368a98dabb38bac49020521689aaea9ea5ef108e5d6364"
+  },
+  "rows": [
+    {
+      "id": "E03",
+      "subject": "global_analyst",
+      "regions": [],
+      "metric_id": "service30",
+      "question": "2026年6月售出设备按型号看30天售后设备率。仅取已观察满30天的批次，含退款设备，同一台多次报修只记一台；返回型号、设备分母、售后设备分子和百分数。",
+      "status": "success",
+      "passed": true,
+      "reason": "exact group set and numeric multiset matched independent Python arithmetic",
+      "error": "",
+      "sql": "SELECT \"dp\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"bod\".\"device_id\") AS \"devices\", COUNT(DISTINCT CASE WHEN NOT \"fst\".\"device_id\" IS NULL THEN \"bod\".\"device_id\" END) AS \"matched_devices\", CASE WHEN COUNT(DISTINCT \"bod\".\"device_id\") = 0 THEN NULL ELSE ROUND(COUNT(DISTINCT CASE WHEN NOT \"fst\".\"device_id\" IS NULL THEN \"bod\".\"device_id\" END) * 100.0 / COUNT(DISTINCT \"bod\".\"device_id\"), 2) END AS \"rate_percent\" FROM \"fact_order\" AS \"fo\" JOIN \"fact_order_item\" AS \"foi\" ON \"fo\".\"order_id\" = \"foi\".\"order_id\" JOIN \"bridge_order_device\" AS \"bod\" ON \"foi\".\"item_id\" = \"bod\".\"item_id\" JOIN \"dim_device\" AS \"dd\" ON \"bod\".\"device_id\" = \"dd\".\"device_id\" JOIN \"dim_product\" AS \"dp\" ON \"dd\".\"product_id\" = \"dp\".\"product_id\" LEFT JOIN \"fact_service_ticket\" AS \"fst\" ON \"bod\".\"device_id\" = \"fst\".\"device_id\" AND \"fst\".\"created_date\" >= \"fo\".\"paid_date\" AND \"fst\".\"created_date\" <= \"fo\".\"paid_date\" + INTERVAL '30' DAY WHERE \"fo\".\"paid_date\" >= CAST('2026-06-01' AS DATE) AND \"fo\".\"paid_date\" <= CAST('2026-06-30' AS DATE) AND \"fo\".\"paid_date\" <= CAST('2026-09-16' AS DATE) GROUP BY \"dp\".\"product_name\" ORDER BY \"product_name\" LIMIT 1001",
+      "bound_metric": "service30",
+      "columns": [
+        "product_name",
+        "devices",
+        "matched_devices",
+        "rate_percent"
+      ],
+      "result_rows": [
+        [
+          "模拟喂食器1型",
+          40,
+          1,
+          2.5
+        ],
+        [
+          "模拟喂食器2型",
+          62,
+          1,
+          1.61
+        ],
+        [
+          "模拟喂食器3型",
+          47,
+          7,
+          14.89
+        ],
+        [
+          "模拟喂食器4型",
+          60,
+          3,
+          5.0
+        ],
+        [
+          "模拟猫砂盆1型",
+          62,
+          5,
+          8.06
+        ],
+        [
+          "模拟猫砂盆2型",
+          50,
+          1,
+          2.0
+        ],
+        [
+          "模拟猫砂盆3型",
+          57,
+          0,
+          0.0
+        ],
+        [
+          "模拟猫砂盆4型",
+          42,
+          4,
+          9.52
+        ],
+        [
+          "模拟饮水机1型",
+          47,
+          2,
+          4.26
+        ],
+        [
+          "模拟饮水机2型",
+          61,
+          1,
+          1.64
+        ],
+        [
+          "模拟饮水机3型",
+          42,
+          2,
+          4.76
+        ],
+        [
+          "模拟饮水机4型",
+          25,
+          0,
+          0.0
+        ]
+      ],
+      "reference": {
+        "模拟饮水机2型": [
+          61,
+          1,
+          1.64
+        ],
+        "模拟喂食器4型": [
+          60,
+          3,
+          5.0
+        ],
+        "模拟猫砂盆1型": [
+          62,
+          5,
+          8.06
+        ],
+        "模拟喂食器1型": [
+          40,
+          1,
+          2.5
+        ],
+        "模拟饮水机1型": [
+          47,
+          2,
+          4.26
+        ],
+        "模拟猫砂盆2型": [
+          50,
+          1,
+          2.0
+        ],
+        "模拟饮水机4型": [
+          25,
+          0,
+          0.0
+        ],
+        "模拟猫砂盆4型": [
+          42,
+          4,
+          9.52
+        ],
+        "模拟喂食器2型": [
+          62,
+          1,
+          1.61
+        ],
+        "模拟猫砂盆3型": [
+          57,
+          0,
+          0.0
+        ],
+        "模拟喂食器3型": [
+          47,
+          7,
+          14.89
+        ],
+        "模拟饮水机3型": [
+          42,
+          2,
+          4.76
+        ]
+      },
+      "generation_attempts": 1,
+      "elapsed_seconds": 17.932,
+      "mock_used": false
+    },
+    {
+      "id": "E04",
+      "subject": "global_analyst",
+      "regions": [],
+      "metric_id": "offline_rate",
+      "question": "2026年6月各固件版本的设备日离线率是多少？用online=0的设备日除总设备日，请返回版本名、设备日总数和百分数。",
+      "status": "success",
+      "passed": false,
+      "reason": "group/number/count mismatch",
+      "error": "",
+      "sql": "SELECT \"df\".\"firmware_name\" AS \"firmware_name\", COUNT(*) AS \"total_device_days\", SUM(CASE WHEN \"fdd\".\"online\" = 0 THEN 1 ELSE 0 END) AS \"offline_device_days\", ROUND(SUM(CASE WHEN \"fdd\".\"online\" = 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS \"offline_rate_percent\" FROM \"fact_device_day\" AS \"fdd\" INNER JOIN \"dim_firmware\" AS \"df\" ON \"fdd\".\"firmware_id\" = \"df\".\"firmware_id\" WHERE \"fdd\".\"event_date\" >= CAST('2026-06-01' AS DATE) AND \"fdd\".\"event_date\" <= CAST('2026-06-30' AS DATE) GROUP BY \"df\".\"firmware_name\" ORDER BY \"firmware_name\" LIMIT 1001",
+      "bound_metric": "offline_rate",
+      "columns": [
+        "firmware_name",
+        "total_device_days",
+        "offline_device_days",
+        "offline_rate_percent"
+      ],
+      "result_rows": [
+        [
+          "模拟固件1.0",
+          2412,
+          85,
+          3.52
+        ],
+        [
+          "模拟固件2.0",
+          2127,
+          290,
+          13.63
+        ],
+        [
+          "模拟固件3.0",
+          2784,
+          116,
+          4.17
+        ]
+      ],
+      "reference": {
+        "模拟固件2.0": [
+          2127,
+          13.63
+        ],
+        "模拟固件3.0": [
+          2784,
+          4.17
+        ],
+        "模拟固件1.0": [
+          2412,
+          3.52
+        ]
+      },
+      "generation_attempts": 1,
+      "elapsed_seconds": 4.124,
+      "mock_used": false
+    }
+  ],
+  "completed": false,
+  "isolated_directory": "D:\\projects\\lingxi\\reports\\controlled_e2e_runs\\d9122a192b4a\\isolated_data",
+  "maximum_questions": 5,
+  "maximum_generation_attempts": 10,
+  "selected_ids": "E03,E04,E05,E06,E07",
+  "not_new_blind_score": true,
+  "stop_reason": "First failed case; halt further paid questions for diagnosis",
+  "passed": 1,
+  "attempted": 2,
+  "generation_attempts": 2,
+  "original_warehouse_unchanged": true,
+  "original_pointer_unchanged": true
+}

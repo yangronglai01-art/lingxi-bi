@@ -1,0 +1,91 @@
+{
+  "id": "3620305cf2b6",
+  "generation": "petkit-v1.3-638f0e235a",
+  "status": "validated",
+  "started": 1792222321.2419195,
+  "gates": {
+    "catalog_upgrade": {
+      "parent": "petkit-v1.3-29eac531b3",
+      "business_bytes_unchanged": true,
+      "source_events_preserved": 25,
+      "metric_count": 7
+    },
+    "lineage": {
+      "events": 25,
+      "batches": 4,
+      "parent": "petkit-v1.3-29eac531b3"
+    },
+    "source_reconciliation": {
+      "events": 25,
+      "source_batches": 4,
+      "source_and_rows_verified": true,
+      "source_files": {
+        "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+        "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d",
+        "ingestion\\archive\\mock_wms\\fulfillment-57b904ae53\\bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8.json": "bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8",
+        "ingestion\\archive\\mock_procurement\\procurement-31713dd05c\\1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17.json": "1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17"
+      }
+    },
+    "data_quality": {
+      "tables": 500,
+      "total_rows": 205397,
+      "orders": 3202,
+      "foreign_keys": 511
+    },
+    "business_oracle": {
+      "passed": 37,
+      "source": "independent Python arithmetic over raw records"
+    },
+    "embedding": {
+      "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+      "vectors": 507,
+      "dimensions": 1024
+    }
+  },
+  "source_files": {
+    "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+    "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d",
+    "ingestion\\archive\\mock_wms\\fulfillment-57b904ae53\\bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8.json": "bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8",
+    "ingestion\\archive\\mock_procurement\\procurement-31713dd05c\\1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17.json": "1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17"
+  },
+  "files": {
+    "warehouse.duckdb": "69ce23ae4508c478c9558bf1692d9b7fc1ab0b68fac9d0e2911782419a417ff8",
+    "catalog.json": "118013588a5e5d071035db8fefbb8e89bcd0b1d55ff16734db727ffbefd66dd4",
+    "summary.json": "aa196231a0ff76a93db26fd6d4389d01e276e198da684618cc8a983a0af83ce7",
+    "lineage.json": "bc4ced03d7bbc7f70754b784c8f7d73c164f77f162478efdd1c0978810ac714a",
+    "metadata.json": "ec9b49947e6a2ceb82879fe1c61965df6edbf346fe1c260998ffacb6899b01a5"
+  },
+  "code": {
+    "releases": "a15fc4c623352a1a7c2e784dc97c50b3ff10ec395920098921d329100470ae36",
+    "reference": "5cd149d42a2fd1fc0f46eab15b7bd2c65e3abaabd591c82ea0299034b3ea15b2",
+    "planning": "c4e23720336ff35a971de2eb0e2cad95552247e0c0b86ce4360c28288d597389",
+    "guard": "29eecc68d663ab0c64f4afa1bb1a47499f8d99959bf19c72dd32069f3f32e1e1",
+    "semantic": "c5f0612c4758b1fae6dda9266e1a864fc6fb53ba07a0daee49323a5ac65173e6",
+    "result_contract": "162de1c69a53f21b365282224c54b96ac6a7a5a9aed535912d6efa33e58e850c",
+    "row_policy": "87c5d09dbf5a6628942a2c64ce1e06833777a284ba9c8088a10a04bc2e7b48c7",
+    "retrieval": "ff7e7e8cfb57e7f1284cbc249d4de82f6cd634a24c2d248b16938650fcdc4880",
+    "embedding": "1ed831a31fc084708fd03b061bfd7ad591a61cace1d10b62961c82f75179ff67",
+    "builder": "bf89dd2e21c9ab12607f7832d2515761bb582ee09f0052bce8b90c1257872f31",
+    "catalog": "a03b944d05eccade2c438eada8cec96fd9ccb8e7b6371c7ad5ff7bbe97943234",
+    "control": "2dfb5400d96f40af6543d90c792269eac9d42700133db2d59b36f46e8f8b0e3a",
+    "access": "345174ba9a456b43c31ce288ff8bea95a18044bb480a27480b2d022a15c2f8d0",
+    "execution": "9cce5b1adc2b216de26c075c1713819f342df98363073ad173d9bd0e74811126",
+    "worker": "e6ad8c38aabbb112bab7d7d7ce1df88a7bca39ab883d2f6f5ac59c5295541281",
+    "settings": "312695a1c96cd0db5d11c2ce018c13e77c8bd727daf4e5e756fbcab6d1098266",
+    "service": "1a95b385ea23851ddd0c4d97613450d6fa288801533d40ce37afd18be5e252fa",
+    "ingestion": "1c6e9796710a8d882a1be68740d0e5b8e7a8363a18a8685096ddc525805fc499",
+    "ingestion_models": "ca75b0518fa005c4f8353fc458acf6bbf92a8c0efc95ec2a158d84624f6f85e9",
+    "fulfillment": "1d744853c1536ca75f4f3c64139a72ba06e6a5de854183bfd40e3b2570318b78",
+    "procurement": "26d74c3d55e574d8fbdee6f8487384d37afdb9ae80615e2f5651d8a33e72792e",
+    "catalog_release": "1850570d6265f164d9a02a0958785fec472d9c5b39c57a31049c963e4934c5e8",
+    "api": "70e854d4b39f97fd6e555960b204ba952f1a2c7c7280d29ed2272ed6c1a8ff1f",
+    "operations_api": "9d53558b5efdb2a0dcf30a06e8c99ab5740b68006932f348d91ba0e39c397c3d",
+    "supervision": "c805302c21309f89f2c69d3ced371bae3208ed15a2949322e85e6c0bd0af4268",
+    "simulated_launcher": "c947ec4024f369302c927a36e3379e2973ed045dbf5e7ba5e4c777a02fae39a3"
+  },
+  "embedding": {
+    "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+    "signature": "4f8563a1b5617bd89f28b6d3862a87a1483c5bad37e6eb560422699ac676d3d3"
+  },
+  "completed": 1792222330.6735027
+}

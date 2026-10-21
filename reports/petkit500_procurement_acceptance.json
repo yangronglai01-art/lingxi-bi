@@ -1,0 +1,414 @@
+{
+  "parent": "petkit-v1.3-aa1a375a40",
+  "batch_file": "D:\\projects\\lingxi\\data\\petkit500\\ingestion\\inbox\\procurement-31713dd05c.json",
+  "events": 6,
+  "stock_units_received": 20,
+  "before": {
+    "R1": {
+      "warehouse": "W1",
+      "sku": "P001-S1",
+      "snapshots": [
+        [
+          "2025-10-01",
+          129
+        ],
+        [
+          "2025-11-01",
+          120
+        ],
+        [
+          "2025-12-01",
+          113
+        ],
+        [
+          "2026-01-01",
+          127
+        ],
+        [
+          "2026-02-01",
+          117
+        ],
+        [
+          "2026-03-01",
+          122
+        ],
+        [
+          "2026-04-01",
+          127
+        ],
+        [
+          "2026-05-01",
+          117
+        ],
+        [
+          "2026-06-01",
+          119
+        ],
+        [
+          "2026-07-01",
+          113
+        ],
+        [
+          "2026-08-01",
+          122
+        ],
+        [
+          "2026-09-01",
+          115
+        ],
+        [
+          "2026-09-02",
+          113
+        ]
+      ]
+    },
+    "R2": {
+      "warehouse": "W2",
+      "sku": "P001-S1",
+      "snapshots": [
+        [
+          "2025-10-01",
+          166
+        ],
+        [
+          "2025-11-01",
+          169
+        ],
+        [
+          "2025-12-01",
+          181
+        ],
+        [
+          "2026-01-01",
+          190
+        ],
+        [
+          "2026-02-01",
+          200
+        ],
+        [
+          "2026-03-01",
+          208
+        ],
+        [
+          "2026-04-01",
+          198
+        ],
+        [
+          "2026-05-01",
+          197
+        ],
+        [
+          "2026-06-01",
+          194
+        ],
+        [
+          "2026-07-01",
+          190
+        ],
+        [
+          "2026-08-01",
+          200
+        ],
+        [
+          "2026-09-01",
+          191
+        ],
+        [
+          "2026-09-02",
+          189
+        ]
+      ]
+    }
+  },
+  "completed": true,
+  "real_llm_called": false,
+  "parent_receipt": "96b068101c1c",
+  "staged": {
+    "attempt": "265fc95eeb32432faf185f290189caba",
+    "source": "mock_procurement",
+    "batch_id": "procurement-31713dd05c",
+    "parent": "petkit-v1.3-aa1a375a40",
+    "candidate": "petkit-v1.3-2339f015fc",
+    "state": "staged",
+    "applied": 6,
+    "skipped": 0
+  },
+  "receipt": {
+    "id": "fc3bfdc096b9",
+    "generation": "petkit-v1.3-2339f015fc",
+    "status": "validated",
+    "started": 1792205803.181782,
+    "gates": {
+      "lineage": {
+        "events": 25,
+        "batches": 4,
+        "parent": "petkit-v1.3-aa1a375a40"
+      },
+      "source_reconciliation": {
+        "events": 25,
+        "source_batches": 4,
+        "source_and_rows_verified": true,
+        "source_files": {
+          "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+          "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d",
+          "ingestion\\archive\\mock_wms\\fulfillment-57b904ae53\\bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8.json": "bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8",
+          "ingestion\\archive\\mock_procurement\\procurement-31713dd05c\\1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17.json": "1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17"
+        }
+      },
+      "data_quality": {
+        "tables": 500,
+        "total_rows": 205397,
+        "orders": 3202,
+        "foreign_keys": 511
+      },
+      "business_oracle": {
+        "passed": 32,
+        "source": "independent Python arithmetic over raw records"
+      },
+      "embedding": {
+        "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+        "vectors": 506,
+        "dimensions": 1024
+      }
+    },
+    "source_files": {
+      "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+      "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d",
+      "ingestion\\archive\\mock_wms\\fulfillment-57b904ae53\\bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8.json": "bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8",
+      "ingestion\\archive\\mock_procurement\\procurement-31713dd05c\\1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17.json": "1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17"
+    },
+    "files": {
+      "warehouse.duckdb": "69ce23ae4508c478c9558bf1692d9b7fc1ab0b68fac9d0e2911782419a417ff8",
+      "catalog.json": "a145bd20f531ca3da9c2046b7ec3d2f484363dbd750c10540a01248ce06928c9",
+      "summary.json": "b017346a58ebb8a7896aa9f14e5efb747dfb722fc55764335fe6ebdaa9327ed4",
+      "lineage.json": "1727ea70a7d6d186c4e2da300bd543e4f8f139dad7c28d0a757ff7cbe372df57"
+    },
+    "code": {
+      "releases": "6cd4d1372829e297653e94ccca35b0d6460df2f50625b0beab3006da49fa4ea2",
+      "reference": "fbb7fb2c594b7a913f679882f5dd78e3270b0d977c13295cca39a0a08cd1618f",
+      "planning": "296d5c026638c21dfc62f823eb96f8302efe4336e0487c16b985e3a1ed216c99",
+      "guard": "29eecc68d663ab0c64f4afa1bb1a47499f8d99959bf19c72dd32069f3f32e1e1",
+      "semantic": "dc028f5189470076971c3347f5be9fb3a0caf5cc8e712f674651384dddf8619a",
+      "result_contract": "ce97c4d0d85017d541394d8b821f5b4f253ed620a9beaa72913f1af565cfd5d3",
+      "row_policy": "87c5d09dbf5a6628942a2c64ce1e06833777a284ba9c8088a10a04bc2e7b48c7",
+      "retrieval": "ff7e7e8cfb57e7f1284cbc249d4de82f6cd634a24c2d248b16938650fcdc4880",
+      "embedding": "1ed831a31fc084708fd03b061bfd7ad591a61cace1d10b62961c82f75179ff67",
+      "builder": "bf89dd2e21c9ab12607f7832d2515761bb582ee09f0052bce8b90c1257872f31",
+      "catalog": "e78fcc4aee53cdd272ab02340671f43048fcdd47563fe958bdee8bdd840f0ad9",
+      "control": "941e089507126fbc4c6bae9dfb6ebe1ba9a990f9080a3f0d11e620cfa595d5d1",
+      "access": "4ab4c84356e940918da644d019d333a4f5c7cf126aa7d1c46d17b8a8b471cc9c",
+      "execution": "9cce5b1adc2b216de26c075c1713819f342df98363073ad173d9bd0e74811126",
+      "worker": "e6ad8c38aabbb112bab7d7d7ce1df88a7bca39ab883d2f6f5ac59c5295541281",
+      "settings": "312695a1c96cd0db5d11c2ce018c13e77c8bd727daf4e5e756fbcab6d1098266",
+      "service": "7b28ec5f4ae1f16ea3d7896026f1a7b19e4c8a0921e5dadbad6fd276fb4de509",
+      "ingestion": "16fae356bb9cf98b19b5f65e49adb94aa52ff90361581e2eb24980caa1024d63",
+      "ingestion_models": "ca75b0518fa005c4f8353fc458acf6bbf92a8c0efc95ec2a158d84624f6f85e9",
+      "fulfillment": "1d744853c1536ca75f4f3c64139a72ba06e6a5de854183bfd40e3b2570318b78",
+      "procurement": "26d74c3d55e574d8fbdee6f8487384d37afdb9ae80615e2f5651d8a33e72792e"
+    },
+    "embedding": {
+      "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+      "signature": "4f8563a1b5617bd89f28b6d3862a87a1483c5bad37e6eb560422699ac676d3d3"
+    },
+    "completed": 1792205806.3055658
+  },
+  "region_isolation": {
+    "R1": {
+      "visible_receipts": 2,
+      "received_units": 10,
+      "other_region_hidden": true,
+      "purchase_totals_denied": true
+    },
+    "R2": {
+      "visible_receipts": 2,
+      "received_units": 10,
+      "other_region_hidden": true,
+      "purchase_totals_denied": true
+    }
+  },
+  "publication": {
+    "id": "4d49aa0af9184eef8c8c7f9edeac4fd8",
+    "state": "committed",
+    "created": 1792205806.702814,
+    "actor": "mock-procurement/publish",
+    "validation_id": "fc3bfdc096b9",
+    "snapshot_files": {
+      "warehouse.duckdb": "69ce23ae4508c478c9558bf1692d9b7fc1ab0b68fac9d0e2911782419a417ff8",
+      "catalog.json": "a145bd20f531ca3da9c2046b7ec3d2f484363dbd750c10540a01248ce06928c9",
+      "summary.json": "b017346a58ebb8a7896aa9f14e5efb747dfb722fc55764335fe6ebdaa9327ed4",
+      "lineage.json": "1727ea70a7d6d186c4e2da300bd543e4f8f139dad7c28d0a757ff7cbe372df57"
+    },
+    "previous": {
+      "generation": "petkit-v1.3-aa1a375a40",
+      "version": "petkit-v1.3"
+    },
+    "target": {
+      "generation": "petkit-v1.3-2339f015fc",
+      "version": "petkit-v1.3"
+    },
+    "completed": 1792205806.886986
+  },
+  "duplicate": {
+    "attempt": "4fc52f8a407347388f8cb009203217cf",
+    "source": "mock_procurement",
+    "batch_id": "procurement-31713dd05c",
+    "parent": "petkit-v1.3-2339f015fc",
+    "candidate": "petkit-v1.3-2339f015fc",
+    "state": "already_applied",
+    "applied": 0,
+    "skipped": 6
+  },
+  "overreceipt_quarantined": true,
+  "failed_batch_atomic": true,
+  "rollback": {
+    "id": "414be7fe4842452690a3e1c5b79b8228",
+    "state": "committed",
+    "created": 1792205807.7199373,
+    "actor": "mock-procurement/rollback",
+    "validation_id": "96b068101c1c",
+    "snapshot_files": {
+      "warehouse.duckdb": "76f7ad1a2d7d655f38e8cd3431077598063ad2a223953c9df43268f3deba8c60",
+      "catalog.json": "dea55a8036018398bab1cbf401e4717be95c7852f869ba291a16fa9a154f873c",
+      "summary.json": "a78f2e91078e69ef6efc4a881dbb152c3b650d1bdf8a0427d53934ae5dde5f13",
+      "lineage.json": "35efeecac1ac2b9193dbb716e3124f7bc21b817bbc216612e28c022d55ba9690"
+    },
+    "previous": {
+      "generation": "petkit-v1.3-2339f015fc",
+      "version": "petkit-v1.3"
+    },
+    "target": {
+      "generation": "petkit-v1.3-aa1a375a40",
+      "version": "petkit-v1.3"
+    },
+    "completed": 1792205807.8758686
+  },
+  "replay": {
+    "attempt": "5865b2159ad14f4680c117b702de03c5",
+    "source": "mock_procurement",
+    "batch_id": "procurement-31713dd05c",
+    "parent": "petkit-v1.3-aa1a375a40",
+    "candidate": "petkit-v1.3-29eac531b3",
+    "state": "staged",
+    "applied": 6,
+    "skipped": 0
+  },
+  "final_receipt": {
+    "id": "40ca9a838ac0",
+    "generation": "petkit-v1.3-29eac531b3",
+    "status": "validated",
+    "started": 1792205808.522783,
+    "gates": {
+      "lineage": {
+        "events": 25,
+        "batches": 4,
+        "parent": "petkit-v1.3-aa1a375a40"
+      },
+      "source_reconciliation": {
+        "events": 25,
+        "source_batches": 4,
+        "source_and_rows_verified": true,
+        "source_files": {
+          "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+          "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d",
+          "ingestion\\archive\\mock_wms\\fulfillment-57b904ae53\\bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8.json": "bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8",
+          "ingestion\\archive\\mock_procurement\\procurement-31713dd05c\\1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17.json": "1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17"
+        }
+      },
+      "data_quality": {
+        "tables": 500,
+        "total_rows": 205397,
+        "orders": 3202,
+        "foreign_keys": 511
+      },
+      "business_oracle": {
+        "passed": 32,
+        "source": "independent Python arithmetic over raw records"
+      },
+      "embedding": {
+        "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+        "vectors": 506,
+        "dimensions": 1024
+      }
+    },
+    "source_files": {
+      "ingestion\\archive\\simulated_gateway\\landing-d5edff4af6\\066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1.json": "066ff115c0e458daf5bef020fff20f0c43137b8d0eef3cb34b24e00cbcbe3ce1",
+      "ingestion\\archive\\mock_oms\\orders-4a744cbe34\\3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d.json": "3c3403bf0e99a246ca999976056e0b48aa53133dc1ae1f682392a1102166de5d",
+      "ingestion\\archive\\mock_wms\\fulfillment-57b904ae53\\bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8.json": "bdbc9a97e19ba16d5e9e2845b466b46b40faf8a6172716f7e116cb613e3cc4f8",
+      "ingestion\\archive\\mock_procurement\\procurement-31713dd05c\\1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17.json": "1476c4b62459a99df218a8f10b3fad8116f20fd0258db2b3a614867be484ba17"
+    },
+    "files": {
+      "warehouse.duckdb": "69ce23ae4508c478c9558bf1692d9b7fc1ab0b68fac9d0e2911782419a417ff8",
+      "catalog.json": "f294872a7dcf8e9e40c4bd7df83026e0fa59d70cc1ac59543c7942418126a8a0",
+      "summary.json": "f3443bbb1ecffd1d8302588af012d64957107f32c1e896a4aeb30d2a3d2ef85c",
+      "lineage.json": "08b34a01fb0c1d164036d89876603b230b8a5ff7558d939b92f47860f0cd849e"
+    },
+    "code": {
+      "releases": "6cd4d1372829e297653e94ccca35b0d6460df2f50625b0beab3006da49fa4ea2",
+      "reference": "fbb7fb2c594b7a913f679882f5dd78e3270b0d977c13295cca39a0a08cd1618f",
+      "planning": "296d5c026638c21dfc62f823eb96f8302efe4336e0487c16b985e3a1ed216c99",
+      "guard": "29eecc68d663ab0c64f4afa1bb1a47499f8d99959bf19c72dd32069f3f32e1e1",
+      "semantic": "dc028f5189470076971c3347f5be9fb3a0caf5cc8e712f674651384dddf8619a",
+      "result_contract": "ce97c4d0d85017d541394d8b821f5b4f253ed620a9beaa72913f1af565cfd5d3",
+      "row_policy": "87c5d09dbf5a6628942a2c64ce1e06833777a284ba9c8088a10a04bc2e7b48c7",
+      "retrieval": "ff7e7e8cfb57e7f1284cbc249d4de82f6cd634a24c2d248b16938650fcdc4880",
+      "embedding": "1ed831a31fc084708fd03b061bfd7ad591a61cace1d10b62961c82f75179ff67",
+      "builder": "bf89dd2e21c9ab12607f7832d2515761bb582ee09f0052bce8b90c1257872f31",
+      "catalog": "e78fcc4aee53cdd272ab02340671f43048fcdd47563fe958bdee8bdd840f0ad9",
+      "control": "941e089507126fbc4c6bae9dfb6ebe1ba9a990f9080a3f0d11e620cfa595d5d1",
+      "access": "4ab4c84356e940918da644d019d333a4f5c7cf126aa7d1c46d17b8a8b471cc9c",
+      "execution": "9cce5b1adc2b216de26c075c1713819f342df98363073ad173d9bd0e74811126",
+      "worker": "e6ad8c38aabbb112bab7d7d7ce1df88a7bca39ab883d2f6f5ac59c5295541281",
+      "settings": "312695a1c96cd0db5d11c2ce018c13e77c8bd727daf4e5e756fbcab6d1098266",
+      "service": "7b28ec5f4ae1f16ea3d7896026f1a7b19e4c8a0921e5dadbad6fd276fb4de509",
+      "ingestion": "16fae356bb9cf98b19b5f65e49adb94aa52ff90361581e2eb24980caa1024d63",
+      "ingestion_models": "ca75b0518fa005c4f8353fc458acf6bbf92a8c0efc95ec2a158d84624f6f85e9",
+      "fulfillment": "1d744853c1536ca75f4f3c64139a72ba06e6a5de854183bfd40e3b2570318b78",
+      "procurement": "26d74c3d55e574d8fbdee6f8487384d37afdb9ae80615e2f5651d8a33e72792e"
+    },
+    "embedding": {
+      "model": "D:\\projects\\Zhixi\\models\\bge-m3",
+      "signature": "4f8563a1b5617bd89f28b6d3862a87a1483c5bad37e6eb560422699ac676d3d3"
+    },
+    "completed": 1792205811.5200384
+  },
+  "replay_scope": {
+    "R1": {
+      "visible_receipts": 2,
+      "received_units": 10,
+      "other_region_hidden": true,
+      "purchase_totals_denied": true
+    },
+    "R2": {
+      "visible_receipts": 2,
+      "received_units": 10,
+      "other_region_hidden": true,
+      "purchase_totals_denied": true
+    }
+  },
+  "final_publication": {
+    "id": "06df672554ce4cd68b0a16c12abdfa89",
+    "state": "committed",
+    "created": 1792205811.9308703,
+    "actor": "mock-procurement/replay-publish",
+    "validation_id": "40ca9a838ac0",
+    "snapshot_files": {
+      "warehouse.duckdb": "69ce23ae4508c478c9558bf1692d9b7fc1ab0b68fac9d0e2911782419a417ff8",
+      "catalog.json": "f294872a7dcf8e9e40c4bd7df83026e0fa59d70cc1ac59543c7942418126a8a0",
+      "summary.json": "f3443bbb1ecffd1d8302588af012d64957107f32c1e896a4aeb30d2a3d2ef85c",
+      "lineage.json": "08b34a01fb0c1d164036d89876603b230b8a5ff7558d939b92f47860f0cd849e"
+    },
+    "previous": {
+      "generation": "petkit-v1.3-aa1a375a40",
+      "version": "petkit-v1.3"
+    },
+    "target": {
+      "generation": "petkit-v1.3-29eac531b3",
+      "version": "petkit-v1.3"
+    },
+    "completed": 1792205812.1113844
+  },
+  "sales_unchanged": true,
+  "rollback_replay_once": true,
+  "snapshot_corrections_verified": true
+}

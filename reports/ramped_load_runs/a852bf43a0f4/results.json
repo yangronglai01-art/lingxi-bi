@@ -1,0 +1,4995 @@
+{
+  "kind": "bounded closed-loop ramp and one-minute steady load",
+  "mode": "demo",
+  "real_llm_called": false,
+  "production_capacity_measured": false,
+  "completed": true,
+  "stages": [
+    {
+      "concurrency": 1,
+      "offering_seconds": 15,
+      "elapsed_including_drain_seconds": 15.151,
+      "completed": 27,
+      "success": 22,
+      "expected_denied": 5,
+      "success_tasks_per_second": 1.452,
+      "all_terminal_tasks_per_second": 1.782,
+      "submission_seconds": {
+        "count": 27,
+        "p50": 0.0079,
+        "p95": 0.0322,
+        "maximum": 0.05
+      },
+      "successful_end_to_end_seconds": {
+        "count": 22,
+        "p50": 0.3902,
+        "p95": 0.4791,
+        "maximum": 0.6393
+      },
+      "all_terminal_end_to_end_seconds": {
+        "count": 27,
+        "p50": 0.3902,
+        "p95": 0.4791,
+        "maximum": 0.6393
+      },
+      "peak_sampled_pending": 1,
+      "health_samples": 15,
+      "errors": [],
+      "counts": {
+        "submitted": 27,
+        "rejected_429": 0,
+        "polls": 80,
+        "monitor_errors": 0
+      },
+      "details": [
+        {
+          "subject": "global_analyst",
+          "id": "0615c26e10b148ddae3ef7dc2896c83f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010755700001027435,
+          "end_to_end_seconds": 0.37455010414123535,
+          "worker_execution_seconds": 0.15225999999999998
+        },
+        {
+          "subject": "regional_sales",
+          "id": "a8f45b625c1d46ddaf4281ec65d7e116",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0077643000113312155,
+          "end_to_end_seconds": 0.38509464263916016,
+          "worker_execution_seconds": 0.14539
+        },
+        {
+          "subject": "regional_service",
+          "id": "bd2b1995e8504ff78c7fc4b9716aade7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.008972800016636029,
+          "end_to_end_seconds": 0.4119281768798828,
+          "worker_execution_seconds": 0.1605
+        },
+        {
+          "subject": "regional_supply",
+          "id": "224dfed95ccd497b8e81c850ef30bb10",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.008599700027843937,
+          "end_to_end_seconds": 0.3765571117401123,
+          "worker_execution_seconds": 0.1436
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "dfbc24a1f3614e9c9cbeb7951e8d779e",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.006688299996312708,
+          "end_to_end_seconds": 0.3363814353942871,
+          "worker_execution_seconds": 0.08511
+        },
+        {
+          "subject": "global_analyst",
+          "id": "87c05a925aed42529ad0703b8f1d7af9",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.007929300016257912,
+          "end_to_end_seconds": 0.34737181663513184,
+          "worker_execution_seconds": 0.14790999999999999
+        },
+        {
+          "subject": "regional_sales",
+          "id": "ec1663c28b654422907b0d7d8b511fca",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.009563500003423542,
+          "end_to_end_seconds": 0.36318492889404297,
+          "worker_execution_seconds": 0.1529
+        },
+        {
+          "subject": "regional_service",
+          "id": "e01cf549aaac420dabdd5ddee8639dba",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.006844399991678074,
+          "end_to_end_seconds": 0.3978900909423828,
+          "worker_execution_seconds": 0.17654
+        },
+        {
+          "subject": "regional_supply",
+          "id": "7fff308d9c7643288600ceb37bce77d0",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.008614300022600219,
+          "end_to_end_seconds": 0.3865015506744385,
+          "worker_execution_seconds": 0.14342
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "db834a9993e34f7391e358d71e6d831d",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.01755229997797869,
+          "end_to_end_seconds": 0.3379073143005371,
+          "worker_execution_seconds": 0.08634
+        },
+        {
+          "subject": "global_analyst",
+          "id": "beb798e6688e4c28b267e34905c82014",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.032238899992080405,
+          "end_to_end_seconds": 0.2947988510131836,
+          "worker_execution_seconds": 0.15630000000000002
+        },
+        {
+          "subject": "regional_sales",
+          "id": "450011afcdfc4977999a15319bb7deb4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.031716099998448044,
+          "end_to_end_seconds": 0.4790799617767334,
+          "worker_execution_seconds": 0.14208
+        },
+        {
+          "subject": "regional_service",
+          "id": "5dac777bb85449d081833478acd9bf21",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0058077000139746815,
+          "end_to_end_seconds": 0.4473257064819336,
+          "worker_execution_seconds": 0.15089
+        },
+        {
+          "subject": "regional_supply",
+          "id": "0e189d247f41447c891413cfb66ad493",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.006272400001762435,
+          "end_to_end_seconds": 0.4599606990814209,
+          "worker_execution_seconds": 0.13915
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "e5670b861200451eada8da4cef804ebb",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.0065719000122044235,
+          "end_to_end_seconds": 0.39728260040283203,
+          "worker_execution_seconds": 0.07936
+        },
+        {
+          "subject": "global_analyst",
+          "id": "a9c840c782e94d1f88057917759d1149",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.007648700004210696,
+          "end_to_end_seconds": 0.3981144428253174,
+          "worker_execution_seconds": 0.15052000000000001
+        },
+        {
+          "subject": "regional_sales",
+          "id": "c1f6443c6206438aa12c493bd6ff6263",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.006217899994226173,
+          "end_to_end_seconds": 0.4324026107788086,
+          "worker_execution_seconds": 0.14025
+        },
+        {
+          "subject": "regional_service",
+          "id": "ac473dfbb62749069484653588941e88",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017689500004053116,
+          "end_to_end_seconds": 0.4387328624725342,
+          "worker_execution_seconds": 0.15854
+        },
+        {
+          "subject": "regional_supply",
+          "id": "cbd68179e13448678ec42efc82b93ab9",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0069896000204607844,
+          "end_to_end_seconds": 0.45757484436035156,
+          "worker_execution_seconds": 0.14992
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "df417d3f1cd144ad8b7bc4378e43e269",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.0071546999970451,
+          "end_to_end_seconds": 0.3980565071105957,
+          "worker_execution_seconds": 0.08161
+        },
+        {
+          "subject": "global_analyst",
+          "id": "f693801820e44cbc96d605819fd6c6b9",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.00623020000057295,
+          "end_to_end_seconds": 0.3730885982513428,
+          "worker_execution_seconds": 0.14847
+        },
+        {
+          "subject": "regional_sales",
+          "id": "bc2da188d134422da179d1cf5de51fa4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.026584000006550923,
+          "end_to_end_seconds": 0.3697042465209961,
+          "worker_execution_seconds": 0.14672
+        },
+        {
+          "subject": "regional_service",
+          "id": "cde7c724e87a4a12a4be95046d574ac4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.006950799986952916,
+          "end_to_end_seconds": 0.39023876190185547,
+          "worker_execution_seconds": 0.16595
+        },
+        {
+          "subject": "regional_supply",
+          "id": "c0e92af64d73455785f27d43d29ebb71",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017235100007383153,
+          "end_to_end_seconds": 0.3561711311340332,
+          "worker_execution_seconds": 0.13545
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "6b64b1dc0a4e43cdb2a915d03c8534a8",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.02876980000291951,
+          "end_to_end_seconds": 0.2630612850189209,
+          "worker_execution_seconds": 0.08653
+        },
+        {
+          "subject": "global_analyst",
+          "id": "e9a402cd7c774f44aea40207ae652756",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.00756209998507984,
+          "end_to_end_seconds": 0.6392877101898193,
+          "worker_execution_seconds": 0.26949
+        },
+        {
+          "subject": "regional_sales",
+          "id": "b24fcbaf84794219b54ff1c41bcb03b3",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04996150001534261,
+          "end_to_end_seconds": 0.46114563941955566,
+          "worker_execution_seconds": 0.24294
+        }
+      ],
+      "queue_samples": [
+        {
+          "pending": 0,
+          "queued": 0,
+          "max_employee_pending": 0,
+          "elapsed_seconds": 0.02
+        },
+        {
+          "pending": 0,
+          "queued": 0,
+          "max_employee_pending": 0,
+          "elapsed_seconds": 1.026
+        },
+        {
+          "pending": 1,
+          "queued": 0,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 2.043
+        },
+        {
+          "pending": 1,
+          "queued": 0,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 3.076
+        },
+        {
+          "pending": 1,
+          "queued": 0,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 4.117
+        },
+        {
+          "pending": 1,
+          "queued": 1,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 5.149
+        },
+        {
+          "pending": 1,
+          "queued": 1,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 6.162
+        },
+        {
+          "pending": 1,
+          "queued": 1,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 7.19
+        },
+        {
+          "pending": 0,
+          "queued": 0,
+          "max_employee_pending": 0,
+          "elapsed_seconds": 8.196
+        },
+        {
+          "pending": 1,
+          "queued": 0,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 9.216
+        },
+        {
+          "pending": 1,
+          "queued": 0,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 10.238
+        },
+        {
+          "pending": 1,
+          "queued": 0,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 11.276
+        },
+        {
+          "pending": 1,
+          "queued": 1,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 12.309
+        },
+        {
+          "pending": 0,
+          "queued": 0,
+          "max_employee_pending": 0,
+          "elapsed_seconds": 13.336
+        },
+        {
+          "pending": 0,
+          "queued": 0,
+          "max_employee_pending": 0,
+          "elapsed_seconds": 14.362
+        }
+      ]
+    },
+    {
+      "concurrency": 4,
+      "offering_seconds": 15,
+      "elapsed_including_drain_seconds": 15.762,
+      "completed": 59,
+      "success": 47,
+      "expected_denied": 12,
+      "success_tasks_per_second": 2.982,
+      "all_terminal_tasks_per_second": 3.743,
+      "submission_seconds": {
+        "count": 59,
+        "p50": 0.0214,
+        "p95": 0.1169,
+        "maximum": 0.2424
+      },
+      "successful_end_to_end_seconds": {
+        "count": 47,
+        "p50": 0.9104,
+        "p95": 1.0704,
+        "maximum": 1.099
+      },
+      "all_terminal_end_to_end_seconds": {
+        "count": 59,
+        "p50": 0.9028,
+        "p95": 1.0704,
+        "maximum": 1.099
+      },
+      "peak_sampled_pending": 4,
+      "health_samples": 15,
+      "errors": [],
+      "counts": {
+        "submitted": 59,
+        "rejected_429": 0,
+        "polls": 276,
+        "monitor_errors": 0
+      },
+      "details": [
+        {
+          "subject": "global_analyst",
+          "id": "e1a2698f3c04410db7c8421d4a40999b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.06394239998189732,
+          "end_to_end_seconds": 0.47545361518859863,
+          "worker_execution_seconds": 0.27235000000000004
+        },
+        {
+          "subject": "regional_sales",
+          "id": "65616dbe63a94620b35cbeea55e5fa85",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.11686879998887889,
+          "end_to_end_seconds": 0.6762313842773438,
+          "worker_execution_seconds": 0.21866999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "d47ac5208d6f41f79a6771654fc3e3c7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.16517819999717176,
+          "end_to_end_seconds": 0.9151468276977539,
+          "worker_execution_seconds": 0.24211000000000002
+        },
+        {
+          "subject": "regional_supply",
+          "id": "78157f796c8a41af96d4ece85abc15ee",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.24235710001084954,
+          "end_to_end_seconds": 1.0989902019500732,
+          "worker_execution_seconds": 0.21392
+        },
+        {
+          "subject": "regional_sales",
+          "id": "0df62db1930949a3adcfa70b077e7f1f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03245050000259653,
+          "end_to_end_seconds": 0.9181685447692871,
+          "worker_execution_seconds": 0.21165
+        },
+        {
+          "subject": "regional_service",
+          "id": "c34c5b86a8d14193b3a2839f0f7867f5",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.034013799973763525,
+          "end_to_end_seconds": 0.946131706237793,
+          "worker_execution_seconds": 0.26368
+        },
+        {
+          "subject": "regional_supply",
+          "id": "5da96dc1487b4662b5622683c6792141",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010873299994273111,
+          "end_to_end_seconds": 0.9028210639953613,
+          "worker_execution_seconds": 0.22097999999999998
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "73a3aaf3513146eda63e3efa12439b85",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.010431500006234273,
+          "end_to_end_seconds": 0.997610330581665,
+          "worker_execution_seconds": 0.12941999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "cd75a7dd1fc24d179cdcdebe15396883",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013867200003005564,
+          "end_to_end_seconds": 0.9104504585266113,
+          "worker_execution_seconds": 0.24087
+        },
+        {
+          "subject": "regional_supply",
+          "id": "a5294e5e00cd4ccfa70b2bd6600e3d93",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01475239999126643,
+          "end_to_end_seconds": 0.9072153568267822,
+          "worker_execution_seconds": 0.21509
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "c1a9181172154fde87ba27fa97115a30",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.022560699988389388,
+          "end_to_end_seconds": 0.753424882888794,
+          "worker_execution_seconds": 0.11663
+        },
+        {
+          "subject": "global_analyst",
+          "id": "8032ac22ba0644889ac46081d5749337",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013692300010006875,
+          "end_to_end_seconds": 0.9112114906311035,
+          "worker_execution_seconds": 0.2402
+        },
+        {
+          "subject": "regional_supply",
+          "id": "1cd0f0fa425c4bb7893e81bc3ca728e7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.025873699982184917,
+          "end_to_end_seconds": 0.8063116073608398,
+          "worker_execution_seconds": 0.21891999999999998
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "559fb1a42fb54326988840586b699db6",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.021409800014225766,
+          "end_to_end_seconds": 0.6943964958190918,
+          "worker_execution_seconds": 0.1212
+        },
+        {
+          "subject": "global_analyst",
+          "id": "faa859f7dd2547c5a0d9d78f7157c2e7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.032682099990779534,
+          "end_to_end_seconds": 0.8416333198547363,
+          "worker_execution_seconds": 0.22706
+        },
+        {
+          "subject": "regional_sales",
+          "id": "4081053ab82e4956834e9214ed6dc4e0",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02952670000377111,
+          "end_to_end_seconds": 0.7839467525482178,
+          "worker_execution_seconds": 0.22033000000000003
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "2f74a46db31f46ada7133d3a8b854b47",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.010549300001002848,
+          "end_to_end_seconds": 0.8585188388824463,
+          "worker_execution_seconds": 0.12649
+        },
+        {
+          "subject": "global_analyst",
+          "id": "2cf81cde2b15464aa9d6173ae5e2dd95",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.014901599992299452,
+          "end_to_end_seconds": 0.8637216091156006,
+          "worker_execution_seconds": 0.22966
+        },
+        {
+          "subject": "regional_sales",
+          "id": "6a7685aa380641f5af43c6d1043107eb",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.021861699991859496,
+          "end_to_end_seconds": 0.9694361686706543,
+          "worker_execution_seconds": 0.22313999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "bede25e7b6e3436ab5db473975a68280",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.025915900012478232,
+          "end_to_end_seconds": 0.9588360786437988,
+          "worker_execution_seconds": 0.25144
+        },
+        {
+          "subject": "global_analyst",
+          "id": "5d160ee38b1d400ea975e75e3a1df9a8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.028894499992020428,
+          "end_to_end_seconds": 0.8972671031951904,
+          "worker_execution_seconds": 0.23461
+        },
+        {
+          "subject": "regional_sales",
+          "id": "251bdef59bae488e9f9a4c5d4fa99898",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03629379998892546,
+          "end_to_end_seconds": 0.9006762504577637,
+          "worker_execution_seconds": 0.21491
+        },
+        {
+          "subject": "regional_service",
+          "id": "5cb15ac63cd142cbbf465dbd10cf4322",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01468860000022687,
+          "end_to_end_seconds": 1.035855770111084,
+          "worker_execution_seconds": 0.24852000000000002
+        },
+        {
+          "subject": "regional_supply",
+          "id": "6116f7fbef8e43f9bb9c60a6893af276",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01788289999240078,
+          "end_to_end_seconds": 0.9971373081207275,
+          "worker_execution_seconds": 0.21475
+        },
+        {
+          "subject": "regional_sales",
+          "id": "bd95a0762d4044aa9b424bb693fb8b86",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010227099992334843,
+          "end_to_end_seconds": 0.9125301837921143,
+          "worker_execution_seconds": 0.21703999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "8525cccdfdae4572980d3a4f3f181cb0",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.022952600003918633,
+          "end_to_end_seconds": 0.9812984466552734,
+          "worker_execution_seconds": 0.24649000000000001
+        },
+        {
+          "subject": "regional_supply",
+          "id": "4c1432d4406d48d59f2a4e608c6a4eec",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017467700003180653,
+          "end_to_end_seconds": 1.0684235095977783,
+          "worker_execution_seconds": 0.23133
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "28775d1f92fa40ee9cd0a7015d86e4ce",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.014029700017999858,
+          "end_to_end_seconds": 0.9631221294403076,
+          "worker_execution_seconds": 0.12007
+        },
+        {
+          "subject": "regional_service",
+          "id": "a5e3619dc8ca4686be31abde61ed463f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.014792500005569309,
+          "end_to_end_seconds": 0.9050040245056152,
+          "worker_execution_seconds": 0.24796
+        },
+        {
+          "subject": "regional_supply",
+          "id": "50a221f6466645d58bb16f1e9553a69b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.014891799975885078,
+          "end_to_end_seconds": 0.9049632549285889,
+          "worker_execution_seconds": 0.21691999999999997
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "f77c0de589c34e95bdc8c8efce8e523c",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.011602100013988093,
+          "end_to_end_seconds": 0.883857250213623,
+          "worker_execution_seconds": 0.1185
+        },
+        {
+          "subject": "global_analyst",
+          "id": "21b4bf4453da42bba8d1f9f94e4659d4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.014373600017279387,
+          "end_to_end_seconds": 0.9017074108123779,
+          "worker_execution_seconds": 0.22668000000000002
+        },
+        {
+          "subject": "regional_supply",
+          "id": "de34e4a8cfec46428ace1e57110e0d9d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01298339999630116,
+          "end_to_end_seconds": 0.8147614002227783,
+          "worker_execution_seconds": 0.21628999999999998
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "ed0d089ffb6e4f418765d66c7f63e999",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03698430000804365,
+          "end_to_end_seconds": 0.6997482776641846,
+          "worker_execution_seconds": 0.12667
+        },
+        {
+          "subject": "global_analyst",
+          "id": "d571b41eedec4c82bffca528269e0c3b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010994699987350032,
+          "end_to_end_seconds": 0.8214750289916992,
+          "worker_execution_seconds": 0.24056
+        },
+        {
+          "subject": "regional_sales",
+          "id": "b05c0f182e7e4adfa1e8f872240fe713",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.06179920001886785,
+          "end_to_end_seconds": 0.7503020763397217,
+          "worker_execution_seconds": 0.22207
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "c6d9030d1469410f852ecf22bd768626",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.018461300001945347,
+          "end_to_end_seconds": 0.8961386680603027,
+          "worker_execution_seconds": 0.12153
+        },
+        {
+          "subject": "global_analyst",
+          "id": "200b4b0a068c4179ba219e3f0db1d7ba",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.016347700002370402,
+          "end_to_end_seconds": 0.8665425777435303,
+          "worker_execution_seconds": 0.22552
+        },
+        {
+          "subject": "regional_sales",
+          "id": "5c66c021e2ad4b39a48708a59535c387",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03884510000352748,
+          "end_to_end_seconds": 0.9349279403686523,
+          "worker_execution_seconds": 0.22422999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "4dea4ae0b4ad4a03b192c51bbe6578a0",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01439239998580888,
+          "end_to_end_seconds": 0.9205951690673828,
+          "worker_execution_seconds": 0.24869999999999998
+        },
+        {
+          "subject": "global_analyst",
+          "id": "389c29b44cd54cf2b1033fa8e2572b7b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0318115999980364,
+          "end_to_end_seconds": 0.9104094505310059,
+          "worker_execution_seconds": 0.23288
+        },
+        {
+          "subject": "regional_sales",
+          "id": "6ae0bb09d6074b599cc4f9f4891579ae",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015668199979700148,
+          "end_to_end_seconds": 1.0926580429077148,
+          "worker_execution_seconds": 0.21691999999999997
+        },
+        {
+          "subject": "regional_service",
+          "id": "50b98796ee23475eaf1ecbb12974f367",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.016653800004860386,
+          "end_to_end_seconds": 0.9799931049346924,
+          "worker_execution_seconds": 0.24445
+        },
+        {
+          "subject": "regional_supply",
+          "id": "feb0fc0886e14aed8c7e89de672c49ee",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.023208400001749396,
+          "end_to_end_seconds": 0.9379503726959229,
+          "worker_execution_seconds": 0.21471
+        },
+        {
+          "subject": "regional_sales",
+          "id": "60ea83ee71c846eb84d8e4207169d210",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.034408199979225174,
+          "end_to_end_seconds": 0.8893687725067139,
+          "worker_execution_seconds": 0.21417
+        },
+        {
+          "subject": "regional_service",
+          "id": "874a1a13f9e44a908bdcc5352c23f9c8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010721800004830584,
+          "end_to_end_seconds": 1.0703575611114502,
+          "worker_execution_seconds": 0.24284
+        },
+        {
+          "subject": "regional_supply",
+          "id": "a96ca0c8098f4771a7fd04f345553a87",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0344541999802459,
+          "end_to_end_seconds": 0.9935038089752197,
+          "worker_execution_seconds": 0.22486
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "8b77afc03597478dadd394c84e2ae7f8",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.0326964000123553,
+          "end_to_end_seconds": 0.8316280841827393,
+          "worker_execution_seconds": 0.11883
+        },
+        {
+          "subject": "regional_service",
+          "id": "d02eeea0b9794a8f991cc39908856b47",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03620160001446493,
+          "end_to_end_seconds": 0.8544642925262451,
+          "worker_execution_seconds": 0.24438
+        },
+        {
+          "subject": "regional_supply",
+          "id": "db495faf33924ab2b5e36ccf486951c9",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.012669800024013966,
+          "end_to_end_seconds": 0.9697561264038086,
+          "worker_execution_seconds": 0.22216999999999998
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "ee53a2c8f7fa4cca9b4fad45e7b8113a",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03732860001036897,
+          "end_to_end_seconds": 0.7668724060058594,
+          "worker_execution_seconds": 0.12127
+        },
+        {
+          "subject": "global_analyst",
+          "id": "2760de09b23e42cbb65621a7a54e79e3",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017889199982164428,
+          "end_to_end_seconds": 0.9878981113433838,
+          "worker_execution_seconds": 0.2332
+        },
+        {
+          "subject": "regional_supply",
+          "id": "06a964336ac04c078bd8539ff91f0819",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03471949999220669,
+          "end_to_end_seconds": 0.9704773426055908,
+          "worker_execution_seconds": 0.22677
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "1342937c8e4f4d21b78ba2b2de650d77",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03719529998488724,
+          "end_to_end_seconds": 0.7610299587249756,
+          "worker_execution_seconds": 0.12101
+        },
+        {
+          "subject": "global_analyst",
+          "id": "4b3c417513e240a387a7d2a81d5c3ffb",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015652400004910305,
+          "end_to_end_seconds": 0.876875638961792,
+          "worker_execution_seconds": 0.24433000000000002
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "744374e5f45144e480510cad9af326e7",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.018064699979731813,
+          "end_to_end_seconds": 0.766495943069458,
+          "worker_execution_seconds": 0.11711
+        },
+        {
+          "subject": "regional_sales",
+          "id": "b95bb85ec68d4bf9a9202f8d96e9090f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02960259999963455,
+          "end_to_end_seconds": 0.8510012626647949,
+          "worker_execution_seconds": 0.22003999999999999
+        },
+        {
+          "subject": "global_analyst",
+          "id": "6273651faa564e7cb52d9ea602b5660a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0249801000172738,
+          "end_to_end_seconds": 0.8680329322814941,
+          "worker_execution_seconds": 0.22984000000000002
+        },
+        {
+          "subject": "regional_sales",
+          "id": "60fa27e2e1e8475997a62fb26cd79368",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010828900005435571,
+          "end_to_end_seconds": 0.7910394668579102,
+          "worker_execution_seconds": 0.21287999999999999
+        }
+      ],
+      "queue_samples": [
+        {
+          "pending": 0,
+          "queued": 0,
+          "max_employee_pending": 0,
+          "elapsed_seconds": 0.083
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 1.12
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 2.136
+        },
+        {
+          "pending": 2,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 3.183
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 4.215
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 5.233
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 6.269
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 7.311
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 8.323
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 9.354
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 10.387
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 11.408
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 12.43
+        },
+        {
+          "pending": 4,
+          "queued": 3,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 13.471
+        },
+        {
+          "pending": 3,
+          "queued": 2,
+          "max_employee_pending": 1,
+          "elapsed_seconds": 14.512
+        }
+      ]
+    },
+    {
+      "concurrency": 8,
+      "offering_seconds": 15,
+      "elapsed_including_drain_seconds": 16.702,
+      "completed": 60,
+      "success": 49,
+      "expected_denied": 11,
+      "success_tasks_per_second": 2.934,
+      "all_terminal_tasks_per_second": 3.592,
+      "submission_seconds": {
+        "count": 60,
+        "p50": 0.0231,
+        "p95": 0.2393,
+        "maximum": 0.4612
+      },
+      "successful_end_to_end_seconds": {
+        "count": 49,
+        "p50": 2.0301,
+        "p95": 2.1942,
+        "maximum": 2.2611
+      },
+      "all_terminal_end_to_end_seconds": {
+        "count": 60,
+        "p50": 2.0037,
+        "p95": 2.1927,
+        "maximum": 2.2611
+      },
+      "peak_sampled_pending": 8,
+      "health_samples": 15,
+      "errors": [],
+      "counts": {
+        "submitted": 60,
+        "rejected_429": 0,
+        "polls": 509,
+        "monitor_errors": 0
+      },
+      "details": [
+        {
+          "subject": "global_analyst",
+          "id": "bfa354420ab9464fa3120ec016caf01c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03385420000995509,
+          "end_to_end_seconds": 0.6802666187286377,
+          "worker_execution_seconds": 0.27372
+        },
+        {
+          "subject": "regional_sales",
+          "id": "82660cbc37724365bb02279980644991",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.08058079998590983,
+          "end_to_end_seconds": 0.928372859954834,
+          "worker_execution_seconds": 0.23928
+        },
+        {
+          "subject": "regional_supply",
+          "id": "e41459765afb466583de4e0dfec9be09",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.13211389997741207,
+          "end_to_end_seconds": 1.1441786289215088,
+          "worker_execution_seconds": 0.22235
+        },
+        {
+          "subject": "regional_service",
+          "id": "0a0abd777c564d6b82d0c8075e639ea6",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.19354599999496713,
+          "end_to_end_seconds": 1.3850553035736084,
+          "worker_execution_seconds": 0.24814
+        },
+        {
+          "subject": "global_analyst",
+          "id": "8dd7d8a2abba4ecd9c83a9a8f2da7876",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.23928439998417161,
+          "end_to_end_seconds": 1.6199109554290771,
+          "worker_execution_seconds": 0.23623
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "b0b7fbc840f543a8b9280e06b3a378f1",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.29123799997614697,
+          "end_to_end_seconds": 1.7460005283355713,
+          "worker_execution_seconds": 0.12384999999999999
+        },
+        {
+          "subject": "regional_service",
+          "id": "8e6069095b264d30ac8778c40b0f9703",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.35226220000186004,
+          "end_to_end_seconds": 2.0043203830718994,
+          "worker_execution_seconds": 0.25894
+        },
+        {
+          "subject": "regional_sales",
+          "id": "ce82a9ea160a4ad99595260ebef1c4fe",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.46118519999436103,
+          "end_to_end_seconds": 2.1910793781280518,
+          "worker_execution_seconds": 0.23077
+        },
+        {
+          "subject": "regional_sales",
+          "id": "befbd5aab93147959d5dcd91e1b25333",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.025613400008296594,
+          "end_to_end_seconds": 1.9969069957733154,
+          "worker_execution_seconds": 0.22987
+        },
+        {
+          "subject": "regional_service",
+          "id": "c94583045a044afdb53e49c11c720a43",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.05357369998819195,
+          "end_to_end_seconds": 1.9585886001586914,
+          "worker_execution_seconds": 0.25662
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "149fb660dcd8412c8d5f185488c8e50d",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.017034399992553517,
+          "end_to_end_seconds": 2.110140323638916,
+          "worker_execution_seconds": 0.12844999999999998
+        },
+        {
+          "subject": "regional_supply",
+          "id": "4eb09454b7c3458b848dc4a29dd607ac",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015359999990323558,
+          "end_to_end_seconds": 2.09621524810791,
+          "worker_execution_seconds": 0.22055000000000002
+        },
+        {
+          "subject": "regional_sales",
+          "id": "480b5be60a4e4a8ba2685d653c69ebe0",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.025798100017709658,
+          "end_to_end_seconds": 2.09110426902771,
+          "worker_execution_seconds": 0.24603999999999998
+        },
+        {
+          "subject": "global_analyst",
+          "id": "0b5106cfe6114c64b9a004cf021cb846",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03089170000748709,
+          "end_to_end_seconds": 2.086519956588745,
+          "worker_execution_seconds": 0.25377
+        },
+        {
+          "subject": "regional_supply",
+          "id": "18d23cc5b6b14dda9c35b3a8895bbff1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.012889200006611645,
+          "end_to_end_seconds": 2.0687642097473145,
+          "worker_execution_seconds": 0.22034
+        },
+        {
+          "subject": "regional_service",
+          "id": "e165b245e98540d3b9b065bfcee4e269",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.020178299979306757,
+          "end_to_end_seconds": 2.1926562786102295,
+          "worker_execution_seconds": 0.24912
+        },
+        {
+          "subject": "regional_service",
+          "id": "7c41ba120a5e444a8d1b1a80346b509e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03612900001462549,
+          "end_to_end_seconds": 2.1055245399475098,
+          "worker_execution_seconds": 0.24844
+        },
+        {
+          "subject": "regional_supply",
+          "id": "b4370e1db2684bf6963ffffe0f28504b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.031743200001074,
+          "end_to_end_seconds": 2.1941964626312256,
+          "worker_execution_seconds": 0.21969
+        },
+        {
+          "subject": "global_analyst",
+          "id": "1dc66206c5e048b1a0676824a282c112",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01755239997874014,
+          "end_to_end_seconds": 2.2611167430877686,
+          "worker_execution_seconds": 0.25607
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "3bab73f12c5e4a7bb916d0c1af34fe3c",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.022095699998317286,
+          "end_to_end_seconds": 2.1197500228881836,
+          "worker_execution_seconds": 0.11907
+        },
+        {
+          "subject": "regional_service",
+          "id": "53d9fca632ab44bba47e8aeab967b30c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.018820099998265505,
+          "end_to_end_seconds": 2.1823465824127197,
+          "worker_execution_seconds": 0.25189
+        },
+        {
+          "subject": "regional_sales",
+          "id": "1fc25caa925540d381c779cc168ed7e9",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.014534999994793907,
+          "end_to_end_seconds": 2.172880172729492,
+          "worker_execution_seconds": 0.22444999999999998
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "e6a82d279aee4cc2a59c9bd6c00dbbb2",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.026943400007439777,
+          "end_to_end_seconds": 2.0158462524414062,
+          "worker_execution_seconds": 0.13061
+        },
+        {
+          "subject": "regional_supply",
+          "id": "c539ff95d8ff45ff8d610d147419f946",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02305230000638403,
+          "end_to_end_seconds": 2.0844194889068604,
+          "worker_execution_seconds": 0.22043000000000001
+        },
+        {
+          "subject": "regional_supply",
+          "id": "359950a89b7c47cb82cf0634dd8b822b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01549449999583885,
+          "end_to_end_seconds": 2.0475895404815674,
+          "worker_execution_seconds": 0.21716
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "fed6712bef63444fa1d159b9c208eada",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.016653900005621836,
+          "end_to_end_seconds": 1.9355127811431885,
+          "worker_execution_seconds": 0.12539
+        },
+        {
+          "subject": "regional_sales",
+          "id": "8a9251c14f344aa788957e0bde8311b2",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02892250000149943,
+          "end_to_end_seconds": 1.920107126235962,
+          "worker_execution_seconds": 0.24032
+        },
+        {
+          "subject": "global_analyst",
+          "id": "5da5f720c34d41738b7263b0762c82cb",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.016199600009713322,
+          "end_to_end_seconds": 1.9404773712158203,
+          "worker_execution_seconds": 0.23805
+        },
+        {
+          "subject": "regional_supply",
+          "id": "002d2a79e57a448682f6699d99382be3",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.032928600005107,
+          "end_to_end_seconds": 1.9339790344238281,
+          "worker_execution_seconds": 0.21778
+        },
+        {
+          "subject": "regional_service",
+          "id": "becab27c358c430fae7620515fd45b48",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017975800001295283,
+          "end_to_end_seconds": 2.002636432647705,
+          "worker_execution_seconds": 0.27108
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "091cdadb3461461083128c0542cc5f9a",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.01476699998602271,
+          "end_to_end_seconds": 1.9216408729553223,
+          "worker_execution_seconds": 0.12181
+        },
+        {
+          "subject": "global_analyst",
+          "id": "6a8f1666b61b4a7e81e740ab7b5e827d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.016951500001596287,
+          "end_to_end_seconds": 1.9829902648925781,
+          "worker_execution_seconds": 0.23608
+        },
+        {
+          "subject": "global_analyst",
+          "id": "2c9dfb3574374f7d89d39db4fe878cb0",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01634670002385974,
+          "end_to_end_seconds": 1.877598762512207,
+          "worker_execution_seconds": 0.23708
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "01a425719bb143089a0f3a14c31b70d3",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.04803909998736344,
+          "end_to_end_seconds": 2.029661178588867,
+          "worker_execution_seconds": 0.12582
+        },
+        {
+          "subject": "regional_service",
+          "id": "e239e846b9d941da92fca8abb89f1b6b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.012198499985970557,
+          "end_to_end_seconds": 2.077174425125122,
+          "worker_execution_seconds": 0.25433
+        },
+        {
+          "subject": "regional_sales",
+          "id": "2cb6357639fb4c9e96eb7b0079adc313",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013700100011192262,
+          "end_to_end_seconds": 2.063851833343506,
+          "worker_execution_seconds": 0.22085
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "6dfb6b965351473884299f436abccf49",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.032416700007161126,
+          "end_to_end_seconds": 1.9562010765075684,
+          "worker_execution_seconds": 0.13147
+        },
+        {
+          "subject": "regional_supply",
+          "id": "da83b6c4ea4d449fbc1025ae39f428df",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017896800010930747,
+          "end_to_end_seconds": 1.7620105743408203,
+          "worker_execution_seconds": 0.21991
+        },
+        {
+          "subject": "global_analyst",
+          "id": "8efe4ef9182245d4a92361a90bdda287",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015486999996937811,
+          "end_to_end_seconds": 1.778010368347168,
+          "worker_execution_seconds": 0.23555
+        },
+        {
+          "subject": "regional_sales",
+          "id": "e14ef61c019749e68fdb3e883e9d7b2b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.027307000011205673,
+          "end_to_end_seconds": 2.030097484588623,
+          "worker_execution_seconds": 0.22091999999999998
+        },
+        {
+          "subject": "regional_sales",
+          "id": "271de23f795b4e8bbf4cd7aca9eef8dc",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015306999994209036,
+          "end_to_end_seconds": 1.9297327995300293,
+          "worker_execution_seconds": 0.22334
+        },
+        {
+          "subject": "global_analyst",
+          "id": "8acec6886a96427284fd4e0253eb0ff5",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03387439998914488,
+          "end_to_end_seconds": 1.9572782516479492,
+          "worker_execution_seconds": 0.23469
+        },
+        {
+          "subject": "regional_supply",
+          "id": "814d2788967340dd9de292495e5b1a00",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.023765899997670203,
+          "end_to_end_seconds": 1.9854838848114014,
+          "worker_execution_seconds": 0.22351
+        },
+        {
+          "subject": "regional_service",
+          "id": "ae628347d37c45b199331ffed1010c41",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04481670001405291,
+          "end_to_end_seconds": 1.989685297012329,
+          "worker_execution_seconds": 0.25562999999999997
+        },
+        {
+          "subject": "global_analyst",
+          "id": "5f690749ff2749cc8c6f283507c919c1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03174500001478009,
+          "end_to_end_seconds": 2.0304110050201416,
+          "worker_execution_seconds": 0.24241
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "5c39828487724efeb58244513c8165ea",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03430629998911172,
+          "end_to_end_seconds": 2.0037178993225098,
+          "worker_execution_seconds": 0.12296
+        },
+        {
+          "subject": "regional_sales",
+          "id": "ae8fb6686fcd47e392fa572f0f5e957a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.018104299990227446,
+          "end_to_end_seconds": 2.030735492706299,
+          "worker_execution_seconds": 0.26867
+        },
+        {
+          "subject": "regional_service",
+          "id": "420993d586ce405a91ddf69e08931d4a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.011121699993964285,
+          "end_to_end_seconds": 2.0772945880889893,
+          "worker_execution_seconds": 0.26200999999999997
+        },
+        {
+          "subject": "regional_service",
+          "id": "39061fb22c3e48c8a2c21bb3477af50a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.012819900002796203,
+          "end_to_end_seconds": 2.2229199409484863,
+          "worker_execution_seconds": 0.25162
+        },
+        {
+          "subject": "regional_sales",
+          "id": "29cc30eea58c458ab1ba799e69ea6754",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.012075700011337176,
+          "end_to_end_seconds": 2.062453031539917,
+          "worker_execution_seconds": 0.22584
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "d0ad606019134112841ee42de9512776",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.011487200012197718,
+          "end_to_end_seconds": 1.9754374027252197,
+          "worker_execution_seconds": 0.13006
+        },
+        {
+          "subject": "regional_supply",
+          "id": "baf113ec89794a14940257b272d6dd24",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03332990000490099,
+          "end_to_end_seconds": 2.0030605792999268,
+          "worker_execution_seconds": 0.22007
+        },
+        {
+          "subject": "regional_sales",
+          "id": "ffe6ceff6ccf4597b7d205645becbabf",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.023866599978646263,
+          "end_to_end_seconds": 1.9891953468322754,
+          "worker_execution_seconds": 0.21237999999999999
+        },
+        {
+          "subject": "global_analyst",
+          "id": "e62f6f1f8997444b85900bfbe56f249d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01595820000511594,
+          "end_to_end_seconds": 2.0507569313049316,
+          "worker_execution_seconds": 0.23215
+        },
+        {
+          "subject": "regional_service",
+          "id": "675ae34aea9b4d379940491e8a10222e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03816149997874163,
+          "end_to_end_seconds": 2.0444555282592773,
+          "worker_execution_seconds": 0.24744
+        },
+        {
+          "subject": "regional_supply",
+          "id": "38ebce2e743045af8f4ee508aedff363",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013648699998157099,
+          "end_to_end_seconds": 2.1012613773345947,
+          "worker_execution_seconds": 0.21339
+        },
+        {
+          "subject": "regional_supply",
+          "id": "6c1db0e7147e4067b71846d5532b288c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010600000008707866,
+          "end_to_end_seconds": 1.8919672966003418,
+          "worker_execution_seconds": 0.21437
+        },
+        {
+          "subject": "regional_service",
+          "id": "93097d15a0b04776919a079172702a8a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.043468100018799305,
+          "end_to_end_seconds": 1.94785475730896,
+          "worker_execution_seconds": 0.24072
+        },
+        {
+          "subject": "global_analyst",
+          "id": "7ef92bbb670444e7a8d9c8aa13d3884d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015953399997670203,
+          "end_to_end_seconds": 2.087252378463745,
+          "worker_execution_seconds": 0.24683000000000002
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "9caf7331a9f242329a869ef62f2b44e2",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.023469600011594594,
+          "end_to_end_seconds": 1.9268360137939453,
+          "worker_execution_seconds": 0.11687
+        }
+      ],
+      "queue_samples": [
+        {
+          "pending": 0,
+          "queued": 0,
+          "max_employee_pending": 0,
+          "elapsed_seconds": 0.046
+        },
+        {
+          "pending": 7,
+          "queued": 6,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 1.072
+        },
+        {
+          "pending": 7,
+          "queued": 6,
+          "max_employee_pending": 3,
+          "elapsed_seconds": 2.101
+        },
+        {
+          "pending": 7,
+          "queued": 6,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 3.13
+        },
+        {
+          "pending": 8,
+          "queued": 7,
+          "max_employee_pending": 3,
+          "elapsed_seconds": 4.172
+        },
+        {
+          "pending": 8,
+          "queued": 7,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 5.187
+        },
+        {
+          "pending": 8,
+          "queued": 7,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 6.222
+        },
+        {
+          "pending": 8,
+          "queued": 7,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 7.256
+        },
+        {
+          "pending": 8,
+          "queued": 7,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 8.275
+        },
+        {
+          "pending": 8,
+          "queued": 7,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 9.314
+        },
+        {
+          "pending": 7,
+          "queued": 6,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 10.36
+        },
+        {
+          "pending": 7,
+          "queued": 6,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 11.381
+        },
+        {
+          "pending": 7,
+          "queued": 7,
+          "max_employee_pending": 2,
+          "elapsed_seconds": 12.414
+        },
+        {
+          "pending": 8,
+          "queued": 7,
+          "max_employee_pending": 3,
+          "elapsed_seconds": 13.433
+        },
+        {
+          "pending": 8,
+          "queued": 7,
+          "max_employee_pending": 3,
+          "elapsed_seconds": 14.474
+        }
+      ]
+    },
+    {
+      "concurrency": 16,
+      "offering_seconds": 15,
+      "elapsed_including_drain_seconds": 19.019,
+      "completed": 69,
+      "success": 55,
+      "expected_denied": 14,
+      "success_tasks_per_second": 2.892,
+      "all_terminal_tasks_per_second": 3.628,
+      "submission_seconds": {
+        "count": 69,
+        "p50": 0.0268,
+        "p95": 0.4217,
+        "maximum": 0.5858
+      },
+      "successful_end_to_end_seconds": {
+        "count": 55,
+        "p50": 4.1333,
+        "p95": 4.2458,
+        "maximum": 4.3545
+      },
+      "all_terminal_end_to_end_seconds": {
+        "count": 69,
+        "p50": 4.1196,
+        "p95": 4.2456,
+        "maximum": 4.3545
+      },
+      "peak_sampled_pending": 16,
+      "health_samples": 15,
+      "errors": [],
+      "counts": {
+        "submitted": 69,
+        "rejected_429": 0,
+        "polls": 1034,
+        "monitor_errors": 0
+      },
+      "details": [
+        {
+          "subject": "global_analyst",
+          "id": "696b8076c2924798af3cd4f67e48f8d1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.045312800008105114,
+          "end_to_end_seconds": 0.7697112560272217,
+          "worker_execution_seconds": 0.26643
+        },
+        {
+          "subject": "regional_supply",
+          "id": "653ef38b2e5f4f36ab59a0900eba851e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.08500569997704588,
+          "end_to_end_seconds": 1.0066936016082764,
+          "worker_execution_seconds": 0.22756
+        },
+        {
+          "subject": "regional_sales",
+          "id": "bd38cffcf8fc4fbe83a54f83d9fa72a3",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.09646439997595735,
+          "end_to_end_seconds": 1.2738471031188965,
+          "worker_execution_seconds": 0.22093000000000002
+        },
+        {
+          "subject": "regional_service",
+          "id": "0484111037c049a68684a3aeb7e5d460",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.1371602000144776,
+          "end_to_end_seconds": 1.5403285026550293,
+          "worker_execution_seconds": 0.25527
+        },
+        {
+          "subject": "global_analyst",
+          "id": "963366c56a714d15b6434871093666a2",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.14996959999552928,
+          "end_to_end_seconds": 1.8261463642120361,
+          "worker_execution_seconds": 0.24622999999999998
+        },
+        {
+          "subject": "regional_sales",
+          "id": "82c6fe3b86cb4232b983f5059f97e149",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.19026150001445785,
+          "end_to_end_seconds": 2.056541919708252,
+          "worker_execution_seconds": 0.22452
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "bffac2a4bfa2496484ca1a25749564e5",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.2006130000227131,
+          "end_to_end_seconds": 2.221809148788452,
+          "worker_execution_seconds": 0.13258
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "8e9748a7a2ed43f6ae516910570e2918",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.23988209999515675,
+          "end_to_end_seconds": 2.3655569553375244,
+          "worker_execution_seconds": 0.12373
+        },
+        {
+          "subject": "regional_supply",
+          "id": "709f5446b33742ef8811dd5c47fe0f2a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.2664373999868985,
+          "end_to_end_seconds": 2.6075479984283447,
+          "worker_execution_seconds": 0.22172
+        },
+        {
+          "subject": "regional_service",
+          "id": "af98dcbd61ef4ee7a9d415f8d36a13e8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.3147666000004392,
+          "end_to_end_seconds": 2.869136095046997,
+          "worker_execution_seconds": 0.24694
+        },
+        {
+          "subject": "regional_supply",
+          "id": "b4920e17d946468da97b230cdb8474a4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.36328319998574443,
+          "end_to_end_seconds": 3.0828239917755127,
+          "worker_execution_seconds": 0.21966
+        },
+        {
+          "subject": "regional_service",
+          "id": "ac6e7cea29c3473f83b20bcd4dd1ff0b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.4034508999902755,
+          "end_to_end_seconds": 3.3396308422088623,
+          "worker_execution_seconds": 0.25467
+        },
+        {
+          "subject": "regional_sales",
+          "id": "eeadfa24b6294d77a4862805748199bb",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.4216549000120722,
+          "end_to_end_seconds": 3.6000425815582275,
+          "worker_execution_seconds": 0.22482
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "8de982001950454b86ebbd5d4089f403",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.45181030000094324,
+          "end_to_end_seconds": 3.755427122116089,
+          "worker_execution_seconds": 0.12944
+        },
+        {
+          "subject": "global_analyst",
+          "id": "0d2ed66e11964d3381f15943e0cabc37",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.46888090000720695,
+          "end_to_end_seconds": 4.040439605712891,
+          "worker_execution_seconds": 0.24123
+        },
+        {
+          "subject": "global_analyst",
+          "id": "8ea0a869af324f789d14ddc50e2cf7c7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.5858245999843348,
+          "end_to_end_seconds": 4.2250730991363525,
+          "worker_execution_seconds": 0.24123
+        },
+        {
+          "subject": "regional_sales",
+          "id": "603d3ecf6e764485a8778735ba26d236",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03853749998961575,
+          "end_to_end_seconds": 4.135499477386475,
+          "worker_execution_seconds": 0.22284
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "89854103caad4a359651a969187a3a37",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03262919999542646,
+          "end_to_end_seconds": 4.010096073150635,
+          "worker_execution_seconds": 0.12958
+        },
+        {
+          "subject": "regional_service",
+          "id": "95368c78f15c4fa88537e171d63eb13a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015972900000633672,
+          "end_to_end_seconds": 4.082763910293579,
+          "worker_execution_seconds": 0.25343
+        },
+        {
+          "subject": "regional_supply",
+          "id": "c11ae36c3ac946e3a4a83b369c6a7c24",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.019356800010427833,
+          "end_to_end_seconds": 4.025460481643677,
+          "worker_execution_seconds": 0.22784000000000001
+        },
+        {
+          "subject": "regional_sales",
+          "id": "f48bb481492a44b08243bd5789b9fd77",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.038459999981569126,
+          "end_to_end_seconds": 4.020023584365845,
+          "worker_execution_seconds": 0.21762
+        },
+        {
+          "subject": "regional_service",
+          "id": "93c8b1667e4249b1bd9de417349563cb",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.09904900001129135,
+          "end_to_end_seconds": 3.9092209339141846,
+          "worker_execution_seconds": 0.26118
+        },
+        {
+          "subject": "global_analyst",
+          "id": "3ef2f91d2b024189a490ba9e269dca08",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03485520000685938,
+          "end_to_end_seconds": 4.025049209594727,
+          "worker_execution_seconds": 0.24652000000000002
+        },
+        {
+          "subject": "global_analyst",
+          "id": "7ca7026486df4b9a94fc4877cbcc4efe",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013015300006372854,
+          "end_to_end_seconds": 4.163293361663818,
+          "worker_execution_seconds": 0.23742
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "5220a336275c451abfe0bfcce0660fff",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.011158900015288964,
+          "end_to_end_seconds": 4.122907876968384,
+          "worker_execution_seconds": 0.12724
+        },
+        {
+          "subject": "regional_supply",
+          "id": "ff061bf1c34940b594204271507c0aba",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.012480000004870817,
+          "end_to_end_seconds": 4.119559049606323,
+          "worker_execution_seconds": 0.2377
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "d9e70ed906f94d6fbb33659c68f6a606",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.014418200007639825,
+          "end_to_end_seconds": 4.027130842208862,
+          "worker_execution_seconds": 0.12927000000000002
+        },
+        {
+          "subject": "regional_supply",
+          "id": "062d0683fa004bd8a2ad233cda1e05e7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.014842000004136935,
+          "end_to_end_seconds": 4.120340585708618,
+          "worker_execution_seconds": 0.22190000000000001
+        },
+        {
+          "subject": "regional_service",
+          "id": "7aaab299161c4cfda0a674ba75dd50bf",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.05805619998136535,
+          "end_to_end_seconds": 3.9910037517547607,
+          "worker_execution_seconds": 0.25131
+        },
+        {
+          "subject": "global_analyst",
+          "id": "cc2495d039ea4d408b0b818b90c9fab9",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02480519999517128,
+          "end_to_end_seconds": 4.149021625518799,
+          "worker_execution_seconds": 0.24742
+        },
+        {
+          "subject": "regional_sales",
+          "id": "b8fd05010b3746ceae2bd058d60efd73",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017576999991433695,
+          "end_to_end_seconds": 4.1536455154418945,
+          "worker_execution_seconds": 0.22477
+        },
+        {
+          "subject": "regional_sales",
+          "id": "dfb698c42c514956b21bfd658de03b50",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.026823599997442216,
+          "end_to_end_seconds": 4.103597164154053,
+          "worker_execution_seconds": 0.2285
+        },
+        {
+          "subject": "regional_service",
+          "id": "47cc7c1030384f0eb64fb53195a3af6c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01708270001108758,
+          "end_to_end_seconds": 4.219819784164429,
+          "worker_execution_seconds": 0.26594999999999996
+        },
+        {
+          "subject": "global_analyst",
+          "id": "a7794659993049f0ae09a3b1cf9dc82b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015022499981569126,
+          "end_to_end_seconds": 4.245760440826416,
+          "worker_execution_seconds": 0.23336
+        },
+        {
+          "subject": "regional_supply",
+          "id": "30992aa08ef24f19890303c5ada1f6a6",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03057750000152737,
+          "end_to_end_seconds": 4.1568379402160645,
+          "worker_execution_seconds": 0.22065
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "74da6552c636426e8b5f21c3f64ad1e3",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.01758640000480227,
+          "end_to_end_seconds": 4.157360792160034,
+          "worker_execution_seconds": 0.12952000000000002
+        },
+        {
+          "subject": "regional_service",
+          "id": "5a18d038654046df992f778b631d50a7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03630489998613484,
+          "end_to_end_seconds": 4.200665235519409,
+          "worker_execution_seconds": 0.26626
+        },
+        {
+          "subject": "regional_supply",
+          "id": "f93360c8dd3b4a3f94a3487df806248b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01052390001132153,
+          "end_to_end_seconds": 4.15017557144165,
+          "worker_execution_seconds": 0.2332
+        },
+        {
+          "subject": "regional_sales",
+          "id": "bfd9eecc2d77489ab15f8aebf1a8a916",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03298019999056123,
+          "end_to_end_seconds": 4.146506071090698,
+          "worker_execution_seconds": 0.23747
+        },
+        {
+          "subject": "regional_sales",
+          "id": "5c0c68b2f6c845bc9dea6c5fbb0a1b95",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017753599997377023,
+          "end_to_end_seconds": 4.185709238052368,
+          "worker_execution_seconds": 0.22343000000000002
+        },
+        {
+          "subject": "global_analyst",
+          "id": "b3358eb817964678ad35bff43f863e3c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.011200299981283024,
+          "end_to_end_seconds": 4.213429927825928,
+          "worker_execution_seconds": 0.24158000000000002
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "a83553ab1e844b54967c6ae5b9d55137",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.012160800019046292,
+          "end_to_end_seconds": 4.092402458190918,
+          "worker_execution_seconds": 0.13485
+        },
+        {
+          "subject": "global_analyst",
+          "id": "484270beb9fb4bdf9073e9e124311172",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.014693699980853125,
+          "end_to_end_seconds": 4.293992280960083,
+          "worker_execution_seconds": 0.23523
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "88cb5850bc2f4cf38e848afca1491b6d",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.026648700004443526,
+          "end_to_end_seconds": 4.126062393188477,
+          "worker_execution_seconds": 0.11697
+        },
+        {
+          "subject": "regional_supply",
+          "id": "a52dfb4e6d584cd882eede18daeec653",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.030382400000235066,
+          "end_to_end_seconds": 4.130420684814453,
+          "worker_execution_seconds": 0.22622
+        },
+        {
+          "subject": "regional_sales",
+          "id": "896a9228ef704abf9a67188f727f0c07",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03481000001193024,
+          "end_to_end_seconds": 4.133251667022705,
+          "worker_execution_seconds": 0.23426
+        },
+        {
+          "subject": "regional_service",
+          "id": "a138a26215eb4a0e9f3efe5a0935ebc3",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0213930000027176,
+          "end_to_end_seconds": 4.1527276039123535,
+          "worker_execution_seconds": 0.24665
+        },
+        {
+          "subject": "regional_service",
+          "id": "a4a0ae7f8b724b30bbbe21578f78a380",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.025939500017557293,
+          "end_to_end_seconds": 4.245623350143433,
+          "worker_execution_seconds": 0.24687
+        },
+        {
+          "subject": "regional_supply",
+          "id": "8c9c8ac3124f4c06ba7432678797c928",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013096299982862547,
+          "end_to_end_seconds": 4.2397541999816895,
+          "worker_execution_seconds": 0.22097
+        },
+        {
+          "subject": "regional_sales",
+          "id": "da80af248b974ad78e5794d4e71b230a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04936999999335967,
+          "end_to_end_seconds": 4.203899383544922,
+          "worker_execution_seconds": 0.23071
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "d3968de4afcb4d40a26ec27c5d8aa5aa",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.02373389998683706,
+          "end_to_end_seconds": 4.1473517417907715,
+          "worker_execution_seconds": 0.13199
+        },
+        {
+          "subject": "global_analyst",
+          "id": "58537b7dc16e4d0496412fc0f4570a07",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.023727599997073412,
+          "end_to_end_seconds": 4.152997970581055,
+          "worker_execution_seconds": 0.23561
+        },
+        {
+          "subject": "regional_supply",
+          "id": "91d84ada2cb04484b257e3f289468e50",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03432549998979084,
+          "end_to_end_seconds": 4.170661211013794,
+          "worker_execution_seconds": 0.23151
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "252cb82911014e04b2f5aaa3465d04ac",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03379680000944063,
+          "end_to_end_seconds": 4.04272985458374,
+          "worker_execution_seconds": 0.13007
+        },
+        {
+          "subject": "regional_service",
+          "id": "a1729012c6c34ce59892225a6b9f6035",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010172999987844378,
+          "end_to_end_seconds": 4.164302825927734,
+          "worker_execution_seconds": 0.25004
+        },
+        {
+          "subject": "regional_service",
+          "id": "421672eb61fa414bb1c3099ecec25411",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.025250700011383742,
+          "end_to_end_seconds": 4.142385244369507,
+          "worker_execution_seconds": 0.24617
+        },
+        {
+          "subject": "regional_sales",
+          "id": "ed23c8bfd0494157a3f3d7d388d32665",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04734439999447204,
+          "end_to_end_seconds": 4.103460311889648,
+          "worker_execution_seconds": 0.21706999999999999
+        },
+        {
+          "subject": "global_analyst",
+          "id": "c0479ef6ac78426bb24a35f861f01084",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.019486399978632107,
+          "end_to_end_seconds": 4.160145998001099,
+          "worker_execution_seconds": 0.23596
+        },
+        {
+          "subject": "regional_sales",
+          "id": "095621651b15444abe9eea2d9d14a9b6",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03771109998342581,
+          "end_to_end_seconds": 4.150893688201904,
+          "worker_execution_seconds": 0.21812
+        },
+        {
+          "subject": "global_analyst",
+          "id": "e5d1f98bf11b492b962e5cc6f6f13161",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01494349999120459,
+          "end_to_end_seconds": 4.354480504989624,
+          "worker_execution_seconds": 0.23288
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "280230b3bf5a416eaf8ababa993ce93e",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03368120000232011,
+          "end_to_end_seconds": 4.061761140823364,
+          "worker_execution_seconds": 0.11768
+        },
+        {
+          "subject": "regional_service",
+          "id": "d7e0de94d25842afb8f0f6be9063026a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.014668700023321435,
+          "end_to_end_seconds": 4.243500471115112,
+          "worker_execution_seconds": 0.24552000000000002
+        },
+        {
+          "subject": "regional_supply",
+          "id": "daaec7bac604420eaa45c8aa058a4fe8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.035552000015741214,
+          "end_to_end_seconds": 4.199425935745239,
+          "worker_execution_seconds": 0.21212999999999999
+        },
+        {
+          "subject": "regional_supply",
+          "id": "273d56c7bad245c5b651553fb9bd5009",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02063559999805875,
+          "end_to_end_seconds": 4.097237825393677,
+          "worker_execution_seconds": 0.20965999999999999
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "e39d8730195f49408283863fca232c0d",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.014051000005565584,
+          "end_to_end_seconds": 3.9794037342071533,
+          "worker_execution_seconds": 0.11587
+        },
+        {
+          "subject": "regional_service",
+          "id": "ffcb7a193d214a109629bab1a0b142db",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.018191799987107515,
+          "end_to_end_seconds": 4.074251651763916,
+          "worker_execution_seconds": 0.24155000000000001
+        },
+        {
+          "subject": "global_analyst",
+          "id": "cdd770b587dd4d6b9ba8eedc8c233263",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013344999984838068,
+          "end_to_end_seconds": 4.083627462387085,
+          "worker_execution_seconds": 0.22865
+        },
+        {
+          "subject": "regional_sales",
+          "id": "93f9ef6fc20c4169ab97af9a31736159",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.014915099978679791,
+          "end_to_end_seconds": 4.078945875167847,
+          "worker_execution_seconds": 0.22122
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "782e20e49f0849d99631a591b40a952f",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.018876200017984957,
+          "end_to_end_seconds": 3.9675426483154297,
+          "worker_execution_seconds": 0.11715
+        }
+      ],
+      "queue_samples": [
+        {
+          "pending": 0,
+          "queued": 0,
+          "max_employee_pending": 0,
+          "elapsed_seconds": 0.058
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 1.075
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 2.131
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 3.164
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 4.2
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 5.246
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 6.28
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 7.312
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 8.343
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 9.358
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 10.381
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 11.439
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 12.465
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 3,
+          "elapsed_seconds": 13.511
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 14.543
+        }
+      ]
+    },
+    {
+      "concurrency": 16,
+      "offering_seconds": 60,
+      "elapsed_including_drain_seconds": 63.797,
+      "completed": 235,
+      "success": 188,
+      "expected_denied": 47,
+      "success_tasks_per_second": 2.947,
+      "all_terminal_tasks_per_second": 3.684,
+      "submission_seconds": {
+        "count": 235,
+        "p50": 0.025,
+        "p95": 0.1811,
+        "maximum": 0.6982
+      },
+      "successful_end_to_end_seconds": {
+        "count": 188,
+        "p50": 4.1414,
+        "p95": 4.3532,
+        "maximum": 4.4642
+      },
+      "all_terminal_end_to_end_seconds": {
+        "count": 235,
+        "p50": 4.1366,
+        "p95": 4.3564,
+        "maximum": 4.4642
+      },
+      "peak_sampled_pending": 16,
+      "health_samples": 58,
+      "errors": [],
+      "counts": {
+        "submitted": 235,
+        "rejected_429": 0,
+        "polls": 3742,
+        "monitor_errors": 0
+      },
+      "details": [
+        {
+          "subject": "global_analyst",
+          "id": "50f464c912c3422b8a86889e546f247a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04959060001419857,
+          "end_to_end_seconds": 0.8494479656219482,
+          "worker_execution_seconds": 0.28736
+        },
+        {
+          "subject": "global_analyst",
+          "id": "87cb4751ca3146d9981c4fa6407df5f6",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.06461650002165698,
+          "end_to_end_seconds": 1.1258046627044678,
+          "worker_execution_seconds": 0.25235
+        },
+        {
+          "subject": "regional_sales",
+          "id": "312d2d528afc42af8106021d95300c67",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.10835219998261891,
+          "end_to_end_seconds": 1.3653936386108398,
+          "worker_execution_seconds": 0.22753
+        },
+        {
+          "subject": "regional_service",
+          "id": "7a4b184f873e48bb95a247e5e2bbdaac",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.14291870000306517,
+          "end_to_end_seconds": 1.6322014331817627,
+          "worker_execution_seconds": 0.25605
+        },
+        {
+          "subject": "regional_sales",
+          "id": "6373e7c9d0e042498cd756fb90fd7c40",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.181071900005918,
+          "end_to_end_seconds": 1.8706715106964111,
+          "worker_execution_seconds": 0.22457
+        },
+        {
+          "subject": "global_analyst",
+          "id": "ea0dfe59ca7c4b74bea3fbad284b5658",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.21250390002387576,
+          "end_to_end_seconds": 2.1357595920562744,
+          "worker_execution_seconds": 0.24559999999999998
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "038b97c60e764175a40b0e4a88f1fb40",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.2768137000093702,
+          "end_to_end_seconds": 2.24530291557312,
+          "worker_execution_seconds": 0.12619
+        },
+        {
+          "subject": "regional_supply",
+          "id": "87bc971e51e043dda4f6d00f61e17502",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.316366500017466,
+          "end_to_end_seconds": 2.4949655532836914,
+          "worker_execution_seconds": 0.23524
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "0456e795f95147ffb52a0fa689824b82",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.34678839999833144,
+          "end_to_end_seconds": 2.6483423709869385,
+          "worker_execution_seconds": 0.13174
+        },
+        {
+          "subject": "regional_supply",
+          "id": "e3e5e2cb76c04d618826513d0a0a0ddc",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.37097729998640716,
+          "end_to_end_seconds": 2.88324236869812,
+          "worker_execution_seconds": 0.21680000000000002
+        },
+        {
+          "subject": "regional_supply",
+          "id": "d8a03a50df38482b90c01571f81ed94b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.3979849000170361,
+          "end_to_end_seconds": 3.1244959831237793,
+          "worker_execution_seconds": 0.21700999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "0d96206ba0cf439fb3df45aaeb950020",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.4147726999945007,
+          "end_to_end_seconds": 3.395991802215576,
+          "worker_execution_seconds": 0.25108
+        },
+        {
+          "subject": "regional_service",
+          "id": "6ff07c8d4d1a4b21af3afc8ff6bb863e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.46936570000252686,
+          "end_to_end_seconds": 3.6602821350097656,
+          "worker_execution_seconds": 0.25299
+        },
+        {
+          "subject": "global_analyst",
+          "id": "435f79673fa2462da597ce2c605c93de",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.5259291999973357,
+          "end_to_end_seconds": 3.901855945587158,
+          "worker_execution_seconds": 0.23465
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "1669e4db082a4acd82478905008011f7",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.646498199988855,
+          "end_to_end_seconds": 3.9608070850372314,
+          "worker_execution_seconds": 0.12418000000000001
+        },
+        {
+          "subject": "regional_sales",
+          "id": "b2e7605d77c347b18741d76682932a44",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.698213499999838,
+          "end_to_end_seconds": 4.192364692687988,
+          "worker_execution_seconds": 0.22809000000000001
+        },
+        {
+          "subject": "regional_sales",
+          "id": "37e418ce76fb4d44a79e8007a1c80b52",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.034255400008987635,
+          "end_to_end_seconds": 4.169166564941406,
+          "worker_execution_seconds": 0.22159
+        },
+        {
+          "subject": "regional_sales",
+          "id": "95e95178befc4405a4f80ff8d0506918",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013862600026186556,
+          "end_to_end_seconds": 4.1956846714019775,
+          "worker_execution_seconds": 0.22832
+        },
+        {
+          "subject": "regional_service",
+          "id": "3129886bdef14530a3ffc6bbb1804dd6",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.026149099983740598,
+          "end_to_end_seconds": 4.1472461223602295,
+          "worker_execution_seconds": 0.25492
+        },
+        {
+          "subject": "regional_supply",
+          "id": "91b46f7304c14b20af804dafe8ccc124",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03195919998688623,
+          "end_to_end_seconds": 4.1093809604644775,
+          "worker_execution_seconds": 0.22007
+        },
+        {
+          "subject": "regional_service",
+          "id": "68af0d1f3e584ce3bd6ef27550df98f8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.029157000011764467,
+          "end_to_end_seconds": 4.097912788391113,
+          "worker_execution_seconds": 0.25464
+        },
+        {
+          "subject": "regional_sales",
+          "id": "f16ad3e7e6074453a6cef86e3af8354a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03128850000211969,
+          "end_to_end_seconds": 4.115709066390991,
+          "worker_execution_seconds": 0.22986
+        },
+        {
+          "subject": "global_analyst",
+          "id": "25efe8fe1faf4ea49cb1336ec664988d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013480599998729303,
+          "end_to_end_seconds": 4.128526449203491,
+          "worker_execution_seconds": 0.23937
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "8753faf765d24bb28f8466439a75444b",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.015970799984643236,
+          "end_to_end_seconds": 4.16530179977417,
+          "worker_execution_seconds": 0.13266
+        },
+        {
+          "subject": "global_analyst",
+          "id": "94750b9360f94605b32b3f420ff2c584",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013182399998186156,
+          "end_to_end_seconds": 4.206432104110718,
+          "worker_execution_seconds": 0.23595
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "6e9888c2aa714a4ab8e5fb9ce1c1dbe0",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.01113579998491332,
+          "end_to_end_seconds": 3.9605088233947754,
+          "worker_execution_seconds": 0.12126
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "cf4f03b3151d4153bba736c23ff8986c",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.1026547999936156,
+          "end_to_end_seconds": 3.957638740539551,
+          "worker_execution_seconds": 0.12417
+        },
+        {
+          "subject": "regional_supply",
+          "id": "9c8982d6139b4aa69402dde877caab01",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.026434399973368272,
+          "end_to_end_seconds": 3.9605326652526855,
+          "worker_execution_seconds": 0.22377
+        },
+        {
+          "subject": "regional_supply",
+          "id": "d174f54a5859459484ba7d59b76ccfff",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010406599991256371,
+          "end_to_end_seconds": 3.9689066410064697,
+          "worker_execution_seconds": 0.22544999999999998
+        },
+        {
+          "subject": "regional_sales",
+          "id": "9fcb05dfb8134f86a4a27e8481ec3c97",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.019419699994614348,
+          "end_to_end_seconds": 4.066125154495239,
+          "worker_execution_seconds": 0.22887000000000002
+        },
+        {
+          "subject": "global_analyst",
+          "id": "10b66b5aa7b34f3a9e6936279dff253f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.018322399992030114,
+          "end_to_end_seconds": 4.069960594177246,
+          "worker_execution_seconds": 0.23471
+        },
+        {
+          "subject": "regional_service",
+          "id": "cdbea1d22ba3440db597db2c35ddeb6d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.030667200015159324,
+          "end_to_end_seconds": 4.1063597202301025,
+          "worker_execution_seconds": 0.25927999999999995
+        },
+        {
+          "subject": "regional_service",
+          "id": "a1016946f7ea4ab9a1f899cc5452d46a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.034260100015671924,
+          "end_to_end_seconds": 4.051733493804932,
+          "worker_execution_seconds": 0.24969
+        },
+        {
+          "subject": "regional_service",
+          "id": "3dba7a0f41934c84953d6f96a3dc9256",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017810799996368587,
+          "end_to_end_seconds": 4.115262269973755,
+          "worker_execution_seconds": 0.24753999999999998
+        },
+        {
+          "subject": "regional_supply",
+          "id": "89ff94c2165d44c1914c309e3a085b43",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01987289998214692,
+          "end_to_end_seconds": 4.170839786529541,
+          "worker_execution_seconds": 0.21481
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "84eb43cb899c49999d50eed842d20422",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03539720000117086,
+          "end_to_end_seconds": 4.024970293045044,
+          "worker_execution_seconds": 0.12501
+        },
+        {
+          "subject": "regional_supply",
+          "id": "7d0cc37cd9fe45308fd43f1569055aae",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.040399599994998425,
+          "end_to_end_seconds": 4.1016950607299805,
+          "worker_execution_seconds": 0.22675
+        },
+        {
+          "subject": "regional_service",
+          "id": "05ad36ec2d3b4e90a7fd8bfa75b97c01",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.011046400002669543,
+          "end_to_end_seconds": 4.12848973274231,
+          "worker_execution_seconds": 0.2501
+        },
+        {
+          "subject": "regional_sales",
+          "id": "f8f3920cb1dd4900a8d7d8f1a6ca431a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.021263299975544214,
+          "end_to_end_seconds": 4.051286220550537,
+          "worker_execution_seconds": 0.22916
+        },
+        {
+          "subject": "global_analyst",
+          "id": "9d383ea8e5f0420789d94cce276ce909",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.036408199986908585,
+          "end_to_end_seconds": 4.106673717498779,
+          "worker_execution_seconds": 0.24819
+        },
+        {
+          "subject": "regional_sales",
+          "id": "9f1cb2513c9644809df1ffe6d13b4427",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0391589000064414,
+          "end_to_end_seconds": 4.0709710121154785,
+          "worker_execution_seconds": 0.24237
+        },
+        {
+          "subject": "global_analyst",
+          "id": "af39c5ea0a3541afb6508157c69ef19f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01991450000787154,
+          "end_to_end_seconds": 4.207969903945923,
+          "worker_execution_seconds": 0.24193
+        },
+        {
+          "subject": "global_analyst",
+          "id": "a974119a0988427a99696561772c4883",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.06932530002086423,
+          "end_to_end_seconds": 4.443763494491577,
+          "worker_execution_seconds": 0.23918999999999999
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "bb57d098e4574536a051c36becbba691",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.010799699986819178,
+          "end_to_end_seconds": 4.408933877944946,
+          "worker_execution_seconds": 0.13116999999999998
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "7a11b5693d2d4ebbb7ea8ee0cac56be8",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.02392360000521876,
+          "end_to_end_seconds": 4.179357051849365,
+          "worker_execution_seconds": 0.12531
+        },
+        {
+          "subject": "regional_service",
+          "id": "70979022c10e48ca8f1c3f1ad244ae06",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.011391500011086464,
+          "end_to_end_seconds": 4.2150657176971436,
+          "worker_execution_seconds": 0.24396
+        },
+        {
+          "subject": "regional_sales",
+          "id": "68f1fa18ae6949f581e7958a5db0bdec",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.021559999993769452,
+          "end_to_end_seconds": 4.290929794311523,
+          "worker_execution_seconds": 0.21051
+        },
+        {
+          "subject": "regional_supply",
+          "id": "0a3d63dc1a6c4311983f4cbade2338bf",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.011868400004459545,
+          "end_to_end_seconds": 4.064610719680786,
+          "worker_execution_seconds": 0.22672
+        },
+        {
+          "subject": "regional_supply",
+          "id": "584ed20a132549e19cdd1a3264e6f850",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015178000001469627,
+          "end_to_end_seconds": 4.228858232498169,
+          "worker_execution_seconds": 0.21816999999999998
+        },
+        {
+          "subject": "regional_supply",
+          "id": "88970e43b34b4385871c5d62d07ad22b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.016323599993484095,
+          "end_to_end_seconds": 4.242813587188721,
+          "worker_execution_seconds": 0.2387
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "aafa4c9958384f1091c05387c0a80536",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.023576000006869435,
+          "end_to_end_seconds": 4.145655632019043,
+          "worker_execution_seconds": 0.13178
+        },
+        {
+          "subject": "global_analyst",
+          "id": "ef52cec7bba2476a9c7fa510427e7786",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02148749999469146,
+          "end_to_end_seconds": 4.174607276916504,
+          "worker_execution_seconds": 0.24177
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "169d6b17e04f4b5ead262a70b9550e3c",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.022036399983335286,
+          "end_to_end_seconds": 4.0797789096832275,
+          "worker_execution_seconds": 0.13319999999999999
+        },
+        {
+          "subject": "regional_supply",
+          "id": "dd2ab2152abe4e73979fa23e114840e3",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010307900025509298,
+          "end_to_end_seconds": 4.019458293914795,
+          "worker_execution_seconds": 0.21761000000000003
+        },
+        {
+          "subject": "regional_service",
+          "id": "7d01a8ce210546ccb46169727f74adb8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0313525999954436,
+          "end_to_end_seconds": 4.060230731964111,
+          "worker_execution_seconds": 0.23989
+        },
+        {
+          "subject": "regional_sales",
+          "id": "e1ece078c5ca4a6a826a390c48e9f0e3",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.06111589999636635,
+          "end_to_end_seconds": 4.057690382003784,
+          "worker_execution_seconds": 0.22191999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "a8f15ab53ed9463e93c8995acc51fc1f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03504249997786246,
+          "end_to_end_seconds": 4.047294855117798,
+          "worker_execution_seconds": 0.25689
+        },
+        {
+          "subject": "regional_sales",
+          "id": "442cb6bbb0864c96b0a82ebd9d2a63f0",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.022194200020749122,
+          "end_to_end_seconds": 4.064053058624268,
+          "worker_execution_seconds": 0.23012
+        },
+        {
+          "subject": "regional_sales",
+          "id": "3fabe304166d46048823bcd683c9bd53",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.030901199992513284,
+          "end_to_end_seconds": 4.134387493133545,
+          "worker_execution_seconds": 0.22469
+        },
+        {
+          "subject": "global_analyst",
+          "id": "dce72a71e94743e49e31e60c7081988d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.035007999977096915,
+          "end_to_end_seconds": 4.1356847286224365,
+          "worker_execution_seconds": 0.23575
+        },
+        {
+          "subject": "global_analyst",
+          "id": "cd2d776b069b4dfebae8f432a8b1fcf5",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015287400019587949,
+          "end_to_end_seconds": 4.356389045715332,
+          "worker_execution_seconds": 0.2495
+        },
+        {
+          "subject": "regional_supply",
+          "id": "ae9afb4f419b412aae95d29908964eff",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02398440000251867,
+          "end_to_end_seconds": 4.206402063369751,
+          "worker_execution_seconds": 0.24830000000000002
+        },
+        {
+          "subject": "regional_service",
+          "id": "3d3e158f53944ae2b207cf070dd267dc",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.033690800017211586,
+          "end_to_end_seconds": 4.245398759841919,
+          "worker_execution_seconds": 0.25932
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "2143db1264e544ea956efbb05c8823a2",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.033378500025719404,
+          "end_to_end_seconds": 4.154079437255859,
+          "worker_execution_seconds": 0.13587
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "d3c453990ce04483b4cfea778d7240ce",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03829500000574626,
+          "end_to_end_seconds": 3.9435927867889404,
+          "worker_execution_seconds": 0.11574
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "c455d4923c0a4feeb1b413fe2f4a935d",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.01554660001420416,
+          "end_to_end_seconds": 4.154908895492554,
+          "worker_execution_seconds": 0.14431
+        },
+        {
+          "subject": "global_analyst",
+          "id": "ae34221ead0740b79c111319b8c82c07",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.011987500009126961,
+          "end_to_end_seconds": 4.100679636001587,
+          "worker_execution_seconds": 0.26724000000000003
+        },
+        {
+          "subject": "regional_sales",
+          "id": "76d3ecc6badd4de7a139280d721ddf41",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.018952099984744564,
+          "end_to_end_seconds": 4.103248357772827,
+          "worker_execution_seconds": 0.22282
+        },
+        {
+          "subject": "global_analyst",
+          "id": "1463716699ac4b98b3d585be8035362e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010445599997183308,
+          "end_to_end_seconds": 4.168869256973267,
+          "worker_execution_seconds": 0.23212
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "c7cabe06c37842bebd9a523013062455",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.02111289999447763,
+          "end_to_end_seconds": 4.019287824630737,
+          "worker_execution_seconds": 0.12128
+        },
+        {
+          "subject": "regional_supply",
+          "id": "c929bdb64521417caed125da29b45a5b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.022197699989192188,
+          "end_to_end_seconds": 4.050985813140869,
+          "worker_execution_seconds": 0.22698
+        },
+        {
+          "subject": "regional_service",
+          "id": "f9a3e01b87614b06a8fc52bd9cfd60a8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013519400003133342,
+          "end_to_end_seconds": 4.1052045822143555,
+          "worker_execution_seconds": 0.2635
+        },
+        {
+          "subject": "regional_supply",
+          "id": "a2a60d9082af4d8889a79a230bf54ba7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0191468000120949,
+          "end_to_end_seconds": 4.154755115509033,
+          "worker_execution_seconds": 0.24380000000000002
+        },
+        {
+          "subject": "regional_service",
+          "id": "7b9659419f7446669724cacd3dcc9d7f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03669660000014119,
+          "end_to_end_seconds": 4.140379190444946,
+          "worker_execution_seconds": 0.24809
+        },
+        {
+          "subject": "regional_service",
+          "id": "d1c46e301e63418b95ddc781bf29b54e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.024593699985416606,
+          "end_to_end_seconds": 4.2672951221466064,
+          "worker_execution_seconds": 0.25243
+        },
+        {
+          "subject": "regional_sales",
+          "id": "37785ea537324fa8a3136f3921c96309",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.036477699992246926,
+          "end_to_end_seconds": 4.220541477203369,
+          "worker_execution_seconds": 0.21987
+        },
+        {
+          "subject": "regional_sales",
+          "id": "26769c5900c84fd6984b81d8b235c590",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0355944000184536,
+          "end_to_end_seconds": 4.203203916549683,
+          "worker_execution_seconds": 0.21899000000000002
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "f98f5f125f054139af2b05ca65d66cf8",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.017292399978032336,
+          "end_to_end_seconds": 4.108765602111816,
+          "worker_execution_seconds": 0.12325
+        },
+        {
+          "subject": "regional_supply",
+          "id": "9942430147b24e8992f7f3d2f56d1ad4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.05259589999332093,
+          "end_to_end_seconds": 4.068866968154907,
+          "worker_execution_seconds": 0.21741999999999997
+        },
+        {
+          "subject": "global_analyst",
+          "id": "c1aa3ecc6e3a489d8f6cb90d94f165d7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04148780001560226,
+          "end_to_end_seconds": 4.06126594543457,
+          "worker_execution_seconds": 0.24161000000000002
+        },
+        {
+          "subject": "global_analyst",
+          "id": "d7d4c41f872946d3be45a8a805b8ab14",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03096259999438189,
+          "end_to_end_seconds": 4.098577499389648,
+          "worker_execution_seconds": 0.23817
+        },
+        {
+          "subject": "global_analyst",
+          "id": "7949fa49787647459585c30550ed8ed6",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.05975309998029843,
+          "end_to_end_seconds": 4.344708681106567,
+          "worker_execution_seconds": 0.23979
+        },
+        {
+          "subject": "regional_sales",
+          "id": "d4adb912567f46e9bc4b5afa7efbcad6",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01803400000790134,
+          "end_to_end_seconds": 4.137261390686035,
+          "worker_execution_seconds": 0.21941
+        },
+        {
+          "subject": "regional_service",
+          "id": "f601b4de6ccb43359a594d27f3698da4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01283359999069944,
+          "end_to_end_seconds": 4.158137559890747,
+          "worker_execution_seconds": 0.25568
+        },
+        {
+          "subject": "regional_sales",
+          "id": "f3c4b7bec4884b7c9e43333bef2867f9",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.024160800006939098,
+          "end_to_end_seconds": 4.3362226486206055,
+          "worker_execution_seconds": 0.22394999999999998
+        },
+        {
+          "subject": "global_analyst",
+          "id": "a955fed88595464cb615ff0cf21da45f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.021962200000416487,
+          "end_to_end_seconds": 4.3349997997283936,
+          "worker_execution_seconds": 0.23656
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "ef5f3c00242c4e25b1a7cd0c77d1bdb8",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.022008400002960116,
+          "end_to_end_seconds": 4.230396509170532,
+          "worker_execution_seconds": 0.13022
+        },
+        {
+          "subject": "regional_supply",
+          "id": "b9c69a7881194a4e9b6ef31104e297cf",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03856349998386577,
+          "end_to_end_seconds": 4.24018669128418,
+          "worker_execution_seconds": 0.21988999999999997
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "1452b43b8cae41339165463ded49bdb7",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03648260000045411,
+          "end_to_end_seconds": 4.178748369216919,
+          "worker_execution_seconds": 0.12249
+        },
+        {
+          "subject": "regional_supply",
+          "id": "70ef77e4ec1c42c3a9666e4cc0473b6b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03137849998893216,
+          "end_to_end_seconds": 4.103898048400879,
+          "worker_execution_seconds": 0.214
+        },
+        {
+          "subject": "regional_supply",
+          "id": "46534855417249ae94e977c5515f56dc",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03222659998573363,
+          "end_to_end_seconds": 3.9851858615875244,
+          "worker_execution_seconds": 0.21542
+        },
+        {
+          "subject": "regional_service",
+          "id": "08ee9dbf0c904be88cdc01aec307ab8c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.019246700016083196,
+          "end_to_end_seconds": 4.112046241760254,
+          "worker_execution_seconds": 0.25205
+        },
+        {
+          "subject": "regional_service",
+          "id": "d184c4ce713043feb1fefa65421ed030",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.053445400000782683,
+          "end_to_end_seconds": 4.149155378341675,
+          "worker_execution_seconds": 0.24878999999999998
+        },
+        {
+          "subject": "global_analyst",
+          "id": "c58d1255db864278a5f9b81506ea4e4d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.024890200002118945,
+          "end_to_end_seconds": 4.121791839599609,
+          "worker_execution_seconds": 0.24155000000000001
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "1fddf9741db14b0aa8b690659ebe905b",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.021943400002783164,
+          "end_to_end_seconds": 4.10468316078186,
+          "worker_execution_seconds": 0.12611
+        },
+        {
+          "subject": "regional_sales",
+          "id": "0ab2bb3fede44bdaaa0983a902783717",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03090049998718314,
+          "end_to_end_seconds": 4.099118709564209,
+          "worker_execution_seconds": 0.21569999999999998
+        },
+        {
+          "subject": "regional_sales",
+          "id": "1ec914fbbacc45cab45020d3726eb52d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.012192900001537055,
+          "end_to_end_seconds": 4.168333292007446,
+          "worker_execution_seconds": 0.22922
+        },
+        {
+          "subject": "regional_sales",
+          "id": "f2b0e1fce707496296d645627fc2dea6",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013353899994399399,
+          "end_to_end_seconds": 4.027977466583252,
+          "worker_execution_seconds": 0.22287
+        },
+        {
+          "subject": "regional_service",
+          "id": "fc78c9ac10ba44289ac8da307c1bdb13",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01617019998957403,
+          "end_to_end_seconds": 4.166437864303589,
+          "worker_execution_seconds": 0.25821
+        },
+        {
+          "subject": "regional_supply",
+          "id": "350041cbe3f94053ad0f577228704ce8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0233779999834951,
+          "end_to_end_seconds": 4.151854515075684,
+          "worker_execution_seconds": 0.22156
+        },
+        {
+          "subject": "regional_service",
+          "id": "bac91bdddf294578898b1eb31742d2b8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.019125599996186793,
+          "end_to_end_seconds": 4.07772421836853,
+          "worker_execution_seconds": 0.25508000000000003
+        },
+        {
+          "subject": "regional_sales",
+          "id": "785321e3978942aba976f2968fc665e1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.027706900000339374,
+          "end_to_end_seconds": 4.121628999710083,
+          "worker_execution_seconds": 0.22325
+        },
+        {
+          "subject": "global_analyst",
+          "id": "b9746177838745b4bf42514ef586f8b4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013570400013122708,
+          "end_to_end_seconds": 4.093738555908203,
+          "worker_execution_seconds": 0.24418
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "55e33be5f8774299ac31dc9d84e22b72",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03165150000131689,
+          "end_to_end_seconds": 3.975360155105591,
+          "worker_execution_seconds": 0.12622
+        },
+        {
+          "subject": "global_analyst",
+          "id": "ec62d764568349e5be00f28cb76706d8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.011183700000401586,
+          "end_to_end_seconds": 4.151471376419067,
+          "worker_execution_seconds": 0.26589999999999997
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "0bce93d25296454c9a6b89d354e3e2f7",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.028057899995474145,
+          "end_to_end_seconds": 4.016660451889038,
+          "worker_execution_seconds": 0.13406
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "0efa99df533446629fd8192415850e50",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03235940000740811,
+          "end_to_end_seconds": 3.9635181427001953,
+          "worker_execution_seconds": 0.11344
+        },
+        {
+          "subject": "regional_supply",
+          "id": "966d4d17d82e4a92a5e4b684b81cc43c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02122689998941496,
+          "end_to_end_seconds": 4.090498208999634,
+          "worker_execution_seconds": 0.23024
+        },
+        {
+          "subject": "regional_supply",
+          "id": "ac643e50bdb746d58faa1a395c68adc5",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.021266499999910593,
+          "end_to_end_seconds": 4.0336432456970215,
+          "worker_execution_seconds": 0.21896000000000002
+        },
+        {
+          "subject": "regional_sales",
+          "id": "bff5373d53394bc9a291052039ca0a92",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.022950599988689646,
+          "end_to_end_seconds": 4.039668083190918,
+          "worker_execution_seconds": 0.22482
+        },
+        {
+          "subject": "global_analyst",
+          "id": "01ec42a94f1a4b69b1e3205fe4c11590",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01983400000608526,
+          "end_to_end_seconds": 4.09946608543396,
+          "worker_execution_seconds": 0.24938999999999997
+        },
+        {
+          "subject": "regional_service",
+          "id": "b3dde487f28c4b6a86f1ad3732558370",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03776609999476932,
+          "end_to_end_seconds": 4.0442633628845215,
+          "worker_execution_seconds": 0.25586000000000003
+        },
+        {
+          "subject": "regional_service",
+          "id": "a880a54f98f448e88071ec259e555509",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03505520001635887,
+          "end_to_end_seconds": 4.24540376663208,
+          "worker_execution_seconds": 0.27112
+        },
+        {
+          "subject": "regional_service",
+          "id": "d19fa045f9df4cc68be8dfb76f697159",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01741930001298897,
+          "end_to_end_seconds": 4.179518938064575,
+          "worker_execution_seconds": 0.25753
+        },
+        {
+          "subject": "regional_supply",
+          "id": "3c0036440e934e2eb1f0070e33c651a1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.036489499994786456,
+          "end_to_end_seconds": 4.274384021759033,
+          "worker_execution_seconds": 0.22324000000000002
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "f593b56abc7e42839cb24846ad0ddeba",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.015409199986606836,
+          "end_to_end_seconds": 4.080071449279785,
+          "worker_execution_seconds": 0.12162
+        },
+        {
+          "subject": "regional_supply",
+          "id": "5d85d4ebdcdb4f8f8c6d0405e8f002ee",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.012448300025425851,
+          "end_to_end_seconds": 4.17938232421875,
+          "worker_execution_seconds": 0.22534
+        },
+        {
+          "subject": "regional_service",
+          "id": "0735cdf9e4bc4b589006cdf96e8e7a10",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.051892299990868196,
+          "end_to_end_seconds": 4.175484895706177,
+          "worker_execution_seconds": 0.25638
+        },
+        {
+          "subject": "regional_sales",
+          "id": "b303a18375b84885a47ab24e48ae87bc",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.026916899980278686,
+          "end_to_end_seconds": 4.136449337005615,
+          "worker_execution_seconds": 0.22522
+        },
+        {
+          "subject": "global_analyst",
+          "id": "2d55692f6c0849ad863fbbaaa7c0f7e2",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.021739099989645183,
+          "end_to_end_seconds": 4.173738241195679,
+          "worker_execution_seconds": 0.24087999999999998
+        },
+        {
+          "subject": "regional_sales",
+          "id": "dac86dea96d94ba9b955cdc109c00cb8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.038629400019999593,
+          "end_to_end_seconds": 4.185525417327881,
+          "worker_execution_seconds": 0.24059
+        },
+        {
+          "subject": "global_analyst",
+          "id": "a7b63b0c4dfe4d86adefbfd207b7e2af",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.020532399998046458,
+          "end_to_end_seconds": 4.23410701751709,
+          "worker_execution_seconds": 0.24268
+        },
+        {
+          "subject": "global_analyst",
+          "id": "e55ce3124ce8498bbfc1219b53f20e07",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.014784099999815226,
+          "end_to_end_seconds": 4.444966793060303,
+          "worker_execution_seconds": 0.24047
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "e42eaf674030406b9e4b50c477997d90",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03368180000688881,
+          "end_to_end_seconds": 4.408238649368286,
+          "worker_execution_seconds": 0.12573
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "00f778c2392e4550b82dac4f22d133df",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.018283900019014254,
+          "end_to_end_seconds": 4.322545051574707,
+          "worker_execution_seconds": 0.12585
+        },
+        {
+          "subject": "regional_service",
+          "id": "8f2ffbea8f2443d8aad3e94a4881ef63",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.029549500002758577,
+          "end_to_end_seconds": 4.396288871765137,
+          "worker_execution_seconds": 0.24814
+        },
+        {
+          "subject": "regional_sales",
+          "id": "e870aa60ccf84ef982d8288e8bbeac33",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.011119899980258197,
+          "end_to_end_seconds": 4.387378931045532,
+          "worker_execution_seconds": 0.21365
+        },
+        {
+          "subject": "regional_supply",
+          "id": "d2b7df4025674e4883ac29e4f51ae149",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01496420000330545,
+          "end_to_end_seconds": 4.318158864974976,
+          "worker_execution_seconds": 0.21788999999999997
+        },
+        {
+          "subject": "regional_supply",
+          "id": "a442af0a5a414028b5ed43639680a915",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02359019999857992,
+          "end_to_end_seconds": 4.112673282623291,
+          "worker_execution_seconds": 0.22296000000000002
+        },
+        {
+          "subject": "regional_supply",
+          "id": "92161765b0a14e8abdd9e92a60f4a857",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010631800018018112,
+          "end_to_end_seconds": 4.078458547592163,
+          "worker_execution_seconds": 0.21822
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "52135b3750974bcab4cbd099bc67ec02",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.042789300001459196,
+          "end_to_end_seconds": 4.021015405654907,
+          "worker_execution_seconds": 0.11823
+        },
+        {
+          "subject": "global_analyst",
+          "id": "630a05179235400b8530223310968d27",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.028189899981953204,
+          "end_to_end_seconds": 4.133326292037964,
+          "worker_execution_seconds": 0.23288999999999999
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "d2da3efd81ae44a1a96b01a59423e1aa",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.01243360000080429,
+          "end_to_end_seconds": 4.028185606002808,
+          "worker_execution_seconds": 0.12018999999999999
+        },
+        {
+          "subject": "regional_supply",
+          "id": "3375c444601b464ca23a9786a93b09fe",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017409499996574596,
+          "end_to_end_seconds": 4.071432113647461,
+          "worker_execution_seconds": 0.23172
+        },
+        {
+          "subject": "regional_service",
+          "id": "f147ced2418d4763b35cce22250c99e4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01546950000920333,
+          "end_to_end_seconds": 4.090556859970093,
+          "worker_execution_seconds": 0.25416
+        },
+        {
+          "subject": "regional_sales",
+          "id": "65720e65f7e94dc4b6f99b3d3df4aac7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04289809998590499,
+          "end_to_end_seconds": 4.1325342655181885,
+          "worker_execution_seconds": 0.23249
+        },
+        {
+          "subject": "regional_service",
+          "id": "d350da8c3a6c462ba5ced9d568d7c167",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04240850001224317,
+          "end_to_end_seconds": 4.110953330993652,
+          "worker_execution_seconds": 0.25871
+        },
+        {
+          "subject": "regional_sales",
+          "id": "7514bd10a9c146e8aeced12f68b61792",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01902969999355264,
+          "end_to_end_seconds": 4.078317403793335,
+          "worker_execution_seconds": 0.22165
+        },
+        {
+          "subject": "regional_sales",
+          "id": "f80c3ef3820043c6b8ca02516d920bca",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.028016399999614805,
+          "end_to_end_seconds": 4.094594955444336,
+          "worker_execution_seconds": 0.22455
+        },
+        {
+          "subject": "global_analyst",
+          "id": "d4e351f5cfb546dbb59ddfb7e834f850",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.049779699998907745,
+          "end_to_end_seconds": 4.0759923458099365,
+          "worker_execution_seconds": 0.24095
+        },
+        {
+          "subject": "global_analyst",
+          "id": "f9ff411365fd4d23a0639983875dc7ad",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.019047100009629503,
+          "end_to_end_seconds": 4.1429760456085205,
+          "worker_execution_seconds": 0.247
+        },
+        {
+          "subject": "regional_supply",
+          "id": "85f277e873fd4a0e90a39cc7863220bc",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010857699991902336,
+          "end_to_end_seconds": 4.169424057006836,
+          "worker_execution_seconds": 0.24024
+        },
+        {
+          "subject": "regional_service",
+          "id": "8e1f6a8fd81c4589b6d54ee75a321656",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01394050000817515,
+          "end_to_end_seconds": 4.1400628089904785,
+          "worker_execution_seconds": 0.26209
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "5b72a8bef9604eb7883514ce074ff86b",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.029511600005207583,
+          "end_to_end_seconds": 4.1145853996276855,
+          "worker_execution_seconds": 0.12129000000000001
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "700d220a77634f56ab1fcd8cb7bec292",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.017924999992828816,
+          "end_to_end_seconds": 4.026564359664917,
+          "worker_execution_seconds": 0.13127
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "e47daca2289846baade7082d50de1e02",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.045383800024865195,
+          "end_to_end_seconds": 3.908679962158203,
+          "worker_execution_seconds": 0.12440999999999999
+        },
+        {
+          "subject": "global_analyst",
+          "id": "2f19590a74e7437681eb8d6588a9a33a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.014031600003363565,
+          "end_to_end_seconds": 4.0072174072265625,
+          "worker_execution_seconds": 0.23912
+        },
+        {
+          "subject": "regional_sales",
+          "id": "1a8e315ce3b742bfa5c3dc5642fa8550",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01476429999456741,
+          "end_to_end_seconds": 3.9674127101898193,
+          "worker_execution_seconds": 0.22262
+        },
+        {
+          "subject": "global_analyst",
+          "id": "9d4ffdd0b9374eb7aca2977af0bd0192",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015949199994793162,
+          "end_to_end_seconds": 4.197198867797852,
+          "worker_execution_seconds": 0.24387
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "ed420b5023354578b9650bb0f5485268",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.01264999998966232,
+          "end_to_end_seconds": 4.208730697631836,
+          "worker_execution_seconds": 0.12538
+        },
+        {
+          "subject": "regional_supply",
+          "id": "2ee846a35a3e4a969ad6251513cc9051",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03966690000379458,
+          "end_to_end_seconds": 4.171051502227783,
+          "worker_execution_seconds": 0.22097
+        },
+        {
+          "subject": "regional_service",
+          "id": "d85b4cee85ed43eca7529e32ca72773c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03029879997484386,
+          "end_to_end_seconds": 4.206238269805908,
+          "worker_execution_seconds": 0.25175
+        },
+        {
+          "subject": "regional_supply",
+          "id": "cffd9dc55e67469fbce952032228050e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017694400012260303,
+          "end_to_end_seconds": 4.120332956314087,
+          "worker_execution_seconds": 0.22347
+        },
+        {
+          "subject": "regional_service",
+          "id": "e1fa7125341b4c4880189cc99aa7fbce",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02902010001707822,
+          "end_to_end_seconds": 4.174240589141846,
+          "worker_execution_seconds": 0.26406999999999997
+        },
+        {
+          "subject": "regional_service",
+          "id": "de0d2ec2833543d6968d122e21c035bf",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.031987999973353,
+          "end_to_end_seconds": 4.23519492149353,
+          "worker_execution_seconds": 0.25396
+        },
+        {
+          "subject": "regional_sales",
+          "id": "fdc5dc174cf044d48125ea83fc3719dd",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03222079999977723,
+          "end_to_end_seconds": 4.204946041107178,
+          "worker_execution_seconds": 0.23416
+        },
+        {
+          "subject": "regional_sales",
+          "id": "9691985bbc5549d987caa1753c83a1ca",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02739770000334829,
+          "end_to_end_seconds": 4.165502071380615,
+          "worker_execution_seconds": 0.22676
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "05432ff88e6f43fb8ba55a4b11e82fff",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03329419999499805,
+          "end_to_end_seconds": 4.080812454223633,
+          "worker_execution_seconds": 0.13277
+        },
+        {
+          "subject": "regional_supply",
+          "id": "a6e0948965ab43a38256ca5c3ddd17ba",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.018972699996083975,
+          "end_to_end_seconds": 4.063497304916382,
+          "worker_execution_seconds": 0.23154
+        },
+        {
+          "subject": "global_analyst",
+          "id": "9a45071e5d1c41409afbc6f23617d1b7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04578570000012405,
+          "end_to_end_seconds": 4.08050274848938,
+          "worker_execution_seconds": 0.23763
+        },
+        {
+          "subject": "global_analyst",
+          "id": "efec6e838e56464dafa9dd07793c3db8",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.016569200000958517,
+          "end_to_end_seconds": 4.084519386291504,
+          "worker_execution_seconds": 0.24434999999999998
+        },
+        {
+          "subject": "global_analyst",
+          "id": "2897788959d54f31ae9948e13f4d7e15",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.047564800013788044,
+          "end_to_end_seconds": 4.353216171264648,
+          "worker_execution_seconds": 0.24499
+        },
+        {
+          "subject": "regional_sales",
+          "id": "559e167590c74f4a94b60023e5661b03",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.020661699993070215,
+          "end_to_end_seconds": 4.32628321647644,
+          "worker_execution_seconds": 0.22178
+        },
+        {
+          "subject": "regional_service",
+          "id": "7f43e612f248452e935c3ce25f6a9620",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.024953799991635606,
+          "end_to_end_seconds": 4.295146703720093,
+          "worker_execution_seconds": 0.25289
+        },
+        {
+          "subject": "regional_sales",
+          "id": "4fb7ae01bb414c40ab90ae56b781d154",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.025992799986852333,
+          "end_to_end_seconds": 4.36513352394104,
+          "worker_execution_seconds": 0.21991
+        },
+        {
+          "subject": "global_analyst",
+          "id": "d8dd13d4c71e46d2be43366621944387",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.011449399986304343,
+          "end_to_end_seconds": 4.359118700027466,
+          "worker_execution_seconds": 0.23401
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "d1d56005f0b149f2bf80161a49a932ed",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.018098600005032495,
+          "end_to_end_seconds": 4.2655863761901855,
+          "worker_execution_seconds": 0.12621
+        },
+        {
+          "subject": "regional_supply",
+          "id": "954ce41336b246339c0730ff1a48069b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.019917700003134087,
+          "end_to_end_seconds": 4.247193813323975,
+          "worker_execution_seconds": 0.21781999999999999
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "0b2a31fdf25348e7a9f958f0d1aceff3",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03306470002280548,
+          "end_to_end_seconds": 4.145852327346802,
+          "worker_execution_seconds": 0.11875
+        },
+        {
+          "subject": "regional_supply",
+          "id": "832af005c32f415cae2902e8fdf8291b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.030989899998530746,
+          "end_to_end_seconds": 4.198652982711792,
+          "worker_execution_seconds": 0.26158
+        },
+        {
+          "subject": "regional_supply",
+          "id": "70fb421ff1a44a259cb6579adee0f729",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.020342000003438443,
+          "end_to_end_seconds": 4.280383825302124,
+          "worker_execution_seconds": 0.25544
+        },
+        {
+          "subject": "regional_service",
+          "id": "e15170d4bc7840fcafe18e7fc117ede3",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04123589998926036,
+          "end_to_end_seconds": 4.247429609298706,
+          "worker_execution_seconds": 0.24749000000000002
+        },
+        {
+          "subject": "regional_service",
+          "id": "023e157d1a5843dbb0d6ab855e3e9756",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.015836500009754673,
+          "end_to_end_seconds": 4.323375463485718,
+          "worker_execution_seconds": 0.24534
+        },
+        {
+          "subject": "global_analyst",
+          "id": "128f6d039b34478bbd6e1caadee9740b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.026007700012996793,
+          "end_to_end_seconds": 4.301713466644287,
+          "worker_execution_seconds": 0.23626
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "0327a3c1a61342048207a3f60171b06c",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.020401399990078062,
+          "end_to_end_seconds": 4.211717367172241,
+          "worker_execution_seconds": 0.12436
+        },
+        {
+          "subject": "regional_sales",
+          "id": "57143d41b3864c14a01bb9e1c711b07d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01591069999267347,
+          "end_to_end_seconds": 4.2799952030181885,
+          "worker_execution_seconds": 0.23096
+        },
+        {
+          "subject": "regional_sales",
+          "id": "5ef6b2043e3740c2b56112e36149488c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.016518699994776398,
+          "end_to_end_seconds": 4.226807117462158,
+          "worker_execution_seconds": 0.22804
+        },
+        {
+          "subject": "regional_sales",
+          "id": "9a1bf9e9970642819b72631e283cc760",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02088450000155717,
+          "end_to_end_seconds": 4.2993385791778564,
+          "worker_execution_seconds": 0.24358000000000002
+        },
+        {
+          "subject": "regional_service",
+          "id": "fe20a9106377470a8ac061ef150a0be4",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02969570001005195,
+          "end_to_end_seconds": 4.216700792312622,
+          "worker_execution_seconds": 0.26857
+        },
+        {
+          "subject": "regional_supply",
+          "id": "8daec53a90b3477e9d9be603c9cb5355",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02239309999276884,
+          "end_to_end_seconds": 4.196028470993042,
+          "worker_execution_seconds": 0.2276
+        },
+        {
+          "subject": "regional_service",
+          "id": "21882d34067e410097a5e0339cc55ca7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.037854299996979535,
+          "end_to_end_seconds": 4.31107759475708,
+          "worker_execution_seconds": 0.25428
+        },
+        {
+          "subject": "regional_sales",
+          "id": "5739c0d288be45f29ef348741266f68d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.05125129999942146,
+          "end_to_end_seconds": 4.186910390853882,
+          "worker_execution_seconds": 0.22685
+        },
+        {
+          "subject": "global_analyst",
+          "id": "1e1c983e11f148b3aab49413a4f5aaca",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.016266099992208183,
+          "end_to_end_seconds": 4.381596565246582,
+          "worker_execution_seconds": 0.26855
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "aa9f1bdc7da04bf38f76e144ef0935b7",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.033837700000731274,
+          "end_to_end_seconds": 4.2009851932525635,
+          "worker_execution_seconds": 0.13022999999999998
+        },
+        {
+          "subject": "global_analyst",
+          "id": "eeb836920b794fab9b15078aaae6172d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.030694999994011596,
+          "end_to_end_seconds": 4.464152574539185,
+          "worker_execution_seconds": 0.24431
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "c844f8b5ccf6478bb0b2db5a7d5cd3e6",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.022548000008100644,
+          "end_to_end_seconds": 4.341948986053467,
+          "worker_execution_seconds": 0.12395
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "c73ab2f8f03e4a2bbbc57ddaba956369",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.020024800003739074,
+          "end_to_end_seconds": 4.215582609176636,
+          "worker_execution_seconds": 0.11699
+        },
+        {
+          "subject": "regional_supply",
+          "id": "40bf8276c5dc4ca2b0f30e52275d754c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.021331800002371892,
+          "end_to_end_seconds": 4.179025888442993,
+          "worker_execution_seconds": 0.22027000000000002
+        },
+        {
+          "subject": "regional_supply",
+          "id": "21d16f5a6a304c30a946a49fd2f1234a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01738790000672452,
+          "end_to_end_seconds": 4.143601179122925,
+          "worker_execution_seconds": 0.22957
+        },
+        {
+          "subject": "regional_sales",
+          "id": "aeadf3532ad84180bf5d29bb904cd301",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0256154999951832,
+          "end_to_end_seconds": 4.122507333755493,
+          "worker_execution_seconds": 0.21968000000000001
+        },
+        {
+          "subject": "global_analyst",
+          "id": "62bcbeb7c42c48918f3745d81351a31f",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03642679998301901,
+          "end_to_end_seconds": 4.235050439834595,
+          "worker_execution_seconds": 0.24098
+        },
+        {
+          "subject": "regional_service",
+          "id": "164782191291408eaa69223c4393bb1c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0257117000001017,
+          "end_to_end_seconds": 4.148401260375977,
+          "worker_execution_seconds": 0.25335
+        },
+        {
+          "subject": "regional_service",
+          "id": "73cb89b0345c4ff19586acb2ecd9728a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.017886999994516373,
+          "end_to_end_seconds": 4.256985187530518,
+          "worker_execution_seconds": 0.26967
+        },
+        {
+          "subject": "regional_service",
+          "id": "b2e0e20e5b6d4b629d1d513c1c43d1e1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.031079000007594004,
+          "end_to_end_seconds": 4.18999981880188,
+          "worker_execution_seconds": 0.24886000000000003
+        },
+        {
+          "subject": "regional_supply",
+          "id": "046352952b074b1e9cadd7277909452d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.036243699985789135,
+          "end_to_end_seconds": 4.169052600860596,
+          "worker_execution_seconds": 0.21861000000000003
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "cd278956f38d48d6b167e079dcf223cf",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.03146919998107478,
+          "end_to_end_seconds": 4.1146697998046875,
+          "worker_execution_seconds": 0.13011
+        },
+        {
+          "subject": "regional_supply",
+          "id": "6ba9efdb34564ea0af17decdc542cf01",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03596600002492778,
+          "end_to_end_seconds": 4.076984882354736,
+          "worker_execution_seconds": 0.22338
+        },
+        {
+          "subject": "regional_service",
+          "id": "193e39bdd62d4907b25e588a72e064ca",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.05182940000668168,
+          "end_to_end_seconds": 4.143399953842163,
+          "worker_execution_seconds": 0.25697000000000003
+        },
+        {
+          "subject": "regional_sales",
+          "id": "fccd2f9bfe9e41ce82f47c0b58b2041d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03097559997695498,
+          "end_to_end_seconds": 4.065587520599365,
+          "worker_execution_seconds": 0.22908
+        },
+        {
+          "subject": "global_analyst",
+          "id": "5bb2fb506c2c4fe9a5593cd8c3824b4b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02154539999901317,
+          "end_to_end_seconds": 4.090645790100098,
+          "worker_execution_seconds": 0.24058000000000002
+        },
+        {
+          "subject": "regional_sales",
+          "id": "664989376e6a4269892ea91a088a0db2",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.03651010000612587,
+          "end_to_end_seconds": 4.224667549133301,
+          "worker_execution_seconds": 0.23304
+        },
+        {
+          "subject": "global_analyst",
+          "id": "3fa35c1424a04f4fa2189b6c3717d925",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.06600160000380129,
+          "end_to_end_seconds": 4.245311737060547,
+          "worker_execution_seconds": 0.25057
+        },
+        {
+          "subject": "global_analyst",
+          "id": "df94eef7d241465f8a553d2792dd89f9",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.010992800001986325,
+          "end_to_end_seconds": 4.32378077507019,
+          "worker_execution_seconds": 0.24172
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "6062d2cbdc564e9eacfffbe4dc249a6c",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.0392273000034038,
+          "end_to_end_seconds": 4.368436574935913,
+          "worker_execution_seconds": 0.13419
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "81da9de35a7f4324bac9f30871df83eb",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.011102099990239367,
+          "end_to_end_seconds": 4.180640697479248,
+          "worker_execution_seconds": 0.13773
+        },
+        {
+          "subject": "regional_service",
+          "id": "990af8dbf28d43dd9f7aad87873b070a",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.027018799999495968,
+          "end_to_end_seconds": 4.305168390274048,
+          "worker_execution_seconds": 0.24611000000000002
+        },
+        {
+          "subject": "regional_sales",
+          "id": "45fc9a941fa943ab95dc30a5614f5af7",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02778600002056919,
+          "end_to_end_seconds": 4.229630947113037,
+          "worker_execution_seconds": 0.22263
+        },
+        {
+          "subject": "regional_supply",
+          "id": "04e6a1258fe542a3ad34cfc41e95a0e2",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.06392939999932423,
+          "end_to_end_seconds": 4.297071933746338,
+          "worker_execution_seconds": 0.23482
+        },
+        {
+          "subject": "regional_supply",
+          "id": "d8aa54263ce9485395332f712b47a1aa",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.0363540000107605,
+          "end_to_end_seconds": 4.247499704360962,
+          "worker_execution_seconds": 0.21974000000000002
+        },
+        {
+          "subject": "regional_supply",
+          "id": "52ff10b973914a78891ee324f5316cb0",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02721259999088943,
+          "end_to_end_seconds": 4.242053508758545,
+          "worker_execution_seconds": 0.22355
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "e677009cde1f4d55a05cc2ec95bbc92d",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.037543099984759465,
+          "end_to_end_seconds": 4.104787111282349,
+          "worker_execution_seconds": 0.1193
+        },
+        {
+          "subject": "global_analyst",
+          "id": "c7a6aa0958a2470f8128c6da3ad7e3ae",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01483090000692755,
+          "end_to_end_seconds": 4.136563777923584,
+          "worker_execution_seconds": 0.24076
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "e83455737f194c7093dec5e36f90cbc1",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.032618100027320907,
+          "end_to_end_seconds": 4.053241491317749,
+          "worker_execution_seconds": 0.12677
+        },
+        {
+          "subject": "regional_supply",
+          "id": "13b0c12515ab4866998c59f4ba70a0cb",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.023203999997349456,
+          "end_to_end_seconds": 4.102207660675049,
+          "worker_execution_seconds": 0.22365000000000002
+        },
+        {
+          "subject": "regional_service",
+          "id": "1efe55af8a73466893d07f6719201eaf",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04549980000592768,
+          "end_to_end_seconds": 4.08909797668457,
+          "worker_execution_seconds": 0.26039
+        },
+        {
+          "subject": "regional_sales",
+          "id": "8fad745954154f5493ec3603886db056",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.029199999989941716,
+          "end_to_end_seconds": 4.147475957870483,
+          "worker_execution_seconds": 0.23817
+        },
+        {
+          "subject": "regional_service",
+          "id": "03988f19aa8e4323959be9a4062c6230",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.012107399990782142,
+          "end_to_end_seconds": 4.066692352294922,
+          "worker_execution_seconds": 0.25748000000000004
+        },
+        {
+          "subject": "regional_sales",
+          "id": "25d2dbc618864085a82d44593faa0795",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02844660001574084,
+          "end_to_end_seconds": 4.069042682647705,
+          "worker_execution_seconds": 0.23135
+        },
+        {
+          "subject": "regional_sales",
+          "id": "6f9f6527f4374675ab7801b796575b9e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.051914500014390796,
+          "end_to_end_seconds": 4.063732385635376,
+          "worker_execution_seconds": 0.22877
+        },
+        {
+          "subject": "global_analyst",
+          "id": "5dc4b5ce059c40d9b31fefa89641fb6b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.04030240001156926,
+          "end_to_end_seconds": 4.171269655227661,
+          "worker_execution_seconds": 0.24387
+        },
+        {
+          "subject": "global_analyst",
+          "id": "7da2f1b2c3f343c2acf00fc656ac7f81",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01388700000825338,
+          "end_to_end_seconds": 4.116104602813721,
+          "worker_execution_seconds": 0.23928
+        },
+        {
+          "subject": "regional_supply",
+          "id": "dcb5948aefde436e979eb8f0539b354e",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.033195799973327667,
+          "end_to_end_seconds": 4.215173721313477,
+          "worker_execution_seconds": 0.22186
+        },
+        {
+          "subject": "regional_service",
+          "id": "17a98ee9fefd4cc0a42c108291c5035d",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.013551399984862655,
+          "end_to_end_seconds": 4.205062627792358,
+          "worker_execution_seconds": 0.2518
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "23a5e5e53b9840c6b879b69ab66b7300",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.01294190000044182,
+          "end_to_end_seconds": 4.085856199264526,
+          "worker_execution_seconds": 0.12301000000000001
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "ec91618ef0d34f85bdc16beee5b28950",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.02856509998673573,
+          "end_to_end_seconds": 3.9821343421936035,
+          "worker_execution_seconds": 0.12631
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "f40d05d22623439a91692cef3a6f84e6",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.022106000018538907,
+          "end_to_end_seconds": 3.9549508094787598,
+          "worker_execution_seconds": 0.11805
+        },
+        {
+          "subject": "global_analyst",
+          "id": "b480e1466758410b8831c00f6bef26dc",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.01513169999816455,
+          "end_to_end_seconds": 4.157742261886597,
+          "worker_execution_seconds": 0.23378
+        },
+        {
+          "subject": "regional_sales",
+          "id": "caead61fdd0847c98f696959a7b7599c",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.018421599990688264,
+          "end_to_end_seconds": 4.141437292098999,
+          "worker_execution_seconds": 0.2179
+        },
+        {
+          "subject": "global_analyst",
+          "id": "903fbc52250a4941b2f6163026512e05",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.020572500012349337,
+          "end_to_end_seconds": 4.149851322174072,
+          "worker_execution_seconds": 0.2288
+        },
+        {
+          "subject": "restricted_viewer",
+          "id": "d25ae0e5ac214e66a6ac6221609e2022",
+          "answer_status": "denied",
+          "oracle_passed": true,
+          "submission_seconds": 0.024933299981057644,
+          "end_to_end_seconds": 3.945181131362915,
+          "worker_execution_seconds": 0.1147
+        },
+        {
+          "subject": "regional_supply",
+          "id": "9557ca36c7c74c5696937ee6709d3db2",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.030548799986718222,
+          "end_to_end_seconds": 4.031451940536499,
+          "worker_execution_seconds": 0.22243000000000002
+        },
+        {
+          "subject": "regional_service",
+          "id": "ed852cde82c644d5bdc50e9d4cbbec78",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.012006300006760284,
+          "end_to_end_seconds": 3.953263998031616,
+          "worker_execution_seconds": 0.24466
+        },
+        {
+          "subject": "regional_supply",
+          "id": "ae2ce7a216f14802aa72b7e9a87e2924",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.023813100007828325,
+          "end_to_end_seconds": 4.027324914932251,
+          "worker_execution_seconds": 0.21314
+        },
+        {
+          "subject": "regional_service",
+          "id": "b0a47e6fbae840ba8aca9cc5ed4d7cf1",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.016326599987223744,
+          "end_to_end_seconds": 4.035515069961548,
+          "worker_execution_seconds": 0.24853999999999998
+        },
+        {
+          "subject": "regional_service",
+          "id": "eaed56d81de340b09e049ec28ba91f9b",
+          "answer_status": "success",
+          "oracle_passed": true,
+          "submission_seconds": 0.02265500000794418,
+          "end_to_end_seconds": 4.079763650894165,
+          "worker_execution_seconds": 0.24718
+        }
+      ],
+      "queue_samples": [
+        {
+          "pending": 0,
+          "queued": 0,
+          "max_employee_pending": 0,
+          "elapsed_seconds": 0.062
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 1.087
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 2.16
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 3.19
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 4.24
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 3,
+          "elapsed_seconds": 5.277
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 6.332
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 7.352
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 8.387
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 9.413
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 10.434
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 11.527
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 12.565
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 13.601
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 14.634
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 15.663
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 16.69
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 5,
+          "elapsed_seconds": 17.753
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 18.788
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 19.821
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 20.886
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 5,
+          "elapsed_seconds": 21.921
+        },
+        {
+          "pending": 15,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 22.978
+        },
+        {
+          "pending": 15,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 24.026
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 25.066
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 5,
+          "elapsed_seconds": 26.099
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 5,
+          "elapsed_seconds": 27.132
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 28.186
+        },
+        {
+          "pending": 14,
+          "queued": 13,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 29.228
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 5,
+          "elapsed_seconds": 30.252
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 31.294
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 32.339
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 33.372
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 34.416
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 3,
+          "elapsed_seconds": 35.457
+        },
+        {
+          "pending": 15,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 36.51
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 37.541
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 38.605
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 3,
+          "elapsed_seconds": 39.654
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 40.707
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 41.776
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 42.851
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 3,
+          "elapsed_seconds": 43.898
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 44.946
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 46.009
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 47.04
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 48.097
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 49.147
+        },
+        {
+          "pending": 15,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 50.198
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 51.253
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 52.298
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 53.331
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 54.383
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 55.419
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 5,
+          "elapsed_seconds": 56.46
+        },
+        {
+          "pending": 16,
+          "queued": 15,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 57.493
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 58.562
+        },
+        {
+          "pending": 15,
+          "queued": 14,
+          "max_employee_pending": 4,
+          "elapsed_seconds": 59.63
+        }
+      ]
+    }
+  ],
+  "generation": "petkit-v1.3-638f0e235a",
+  "isolated_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\cbda9209e07d",
+  "backup_integrity_verified": true,
+  "pattern": "Each lane submits one job, polls until terminal, then submits the next; no arrival-rate SLA",
+  "ramp_seconds_per_stage": 15,
+  "steady_seconds": 60,
+  "job_timeout_seconds": 90,
+  "minimum_stage_job_completions": 1,
+  "stop_conditions": [
+    "wrong result",
+    "unexpected HTTP/status",
+    "job timeout",
+    "unhealthy readiness",
+    "worker restart"
+  ],
+  "warmup_excluded": true,
+  "final_queue_pending": 0,
+  "worker_restarts": 0,
+  "warehouse_unchanged": true,
+  "original_jobs_unchanged": true,
+  "original_pointer_unchanged": true,
+  "original_warehouse_unchanged": true,
+  "children_stopped": true
+}

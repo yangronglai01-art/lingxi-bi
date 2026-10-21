@@ -1,0 +1,11 @@
+{
+  "transport": "真实localhost HTTP",
+  "api_health": true,
+  "schema_total": 500,
+  "workbench_health": true,
+  "offline_query_status": "success",
+  "rows": 12,
+  "temporary_credential": true,
+  "children_cleanly_stopped": true,
+  "real_llm_called": false
+}

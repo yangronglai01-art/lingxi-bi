@@ -1,0 +1,27 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "tests_passed": 354,
+  "test_duration_seconds": 79.03,
+  "original_first_run": {
+    "passed": 2,
+    "attempted": 3,
+    "stopped_on": "E03"
+  },
+  "final_verified_metric_cases": 7,
+  "external_independent_benchmark": false,
+  "load_test": false,
+  "question_executions": 8,
+  "generation_attempts": 9,
+  "followup_is_not_new_blind_score": true,
+  "offline_extra_column_reassessed": true,
+  "source_reports": [
+    "reports/controlled_e2e_runs/c668d3fe88d3/results.json",
+    "reports/controlled_e2e_runs/d9122a192b4a/results.json",
+    "reports/controlled_e2e_runs/5c87917edbbb/results.json"
+  ],
+  "reassessment": "reports/petkit500_e2e_offline_reassessment.json",
+  "original_warehouse_unchanged": true,
+  "original_pointer_unchanged": true,
+  "release_validation_id": "57cd7505c5f5",
+  "release_status": "validated"
+}

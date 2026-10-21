@@ -1,0 +1,684 @@
+{
+  "version": "schema-context-v1",
+  "purpose": "复用已曝光问法的上下文结构和权限专项验证，非新留出集；字段存在性不是字段排名评测",
+  "cases": [
+    {
+      "id": "net_sales-1",
+      "metric_id": "net_sales",
+      "question": "四月份各渠道实际挣了多少销售收入？退掉的钱扣回原来付款的订单。",
+      "required_tables": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_channel"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_order": [
+          "order_id",
+          "paid_date",
+          "channel_id"
+        ],
+        "fact_order_item": [
+          "order_id",
+          "item_id",
+          "amount"
+        ],
+        "fact_refund": [
+          "item_id",
+          "amount"
+        ],
+        "dim_channel": [
+          "channel_id",
+          "channel_name"
+        ]
+      }
+    },
+    {
+      "id": "net_sales-2",
+      "metric_id": "net_sales",
+      "question": "请按销售渠道拆开2026年4月实付减退款的金额。",
+      "required_tables": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_channel"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_order": [
+          "order_id",
+          "paid_date",
+          "channel_id"
+        ],
+        "fact_order_item": [
+          "order_id",
+          "item_id",
+          "amount"
+        ],
+        "fact_refund": [
+          "item_id",
+          "amount"
+        ],
+        "dim_channel": [
+          "channel_id",
+          "channel_name"
+        ]
+      }
+    },
+    {
+      "id": "net_sales-3",
+      "metric_id": "net_sales",
+      "question": "2026年4月不同渠道的净销售额，退款归原支付月份。",
+      "required_tables": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_channel"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_order": [
+          "order_id",
+          "paid_date",
+          "channel_id"
+        ],
+        "fact_order_item": [
+          "order_id",
+          "item_id",
+          "amount"
+        ],
+        "fact_refund": [
+          "item_id",
+          "amount"
+        ],
+        "dim_channel": [
+          "channel_id",
+          "channel_name"
+        ]
+      }
+    },
+    {
+      "id": "activation30-1",
+      "metric_id": "activation30",
+      "question": "六月卖出的各型号机器，有多少在付款后三十天内完成首次激活？只看已观察满三十天的设备。",
+      "required_tables": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_device_activation"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_order": [
+          "order_id",
+          "paid_date"
+        ],
+        "fact_order_item": [
+          "order_id",
+          "item_id"
+        ],
+        "bridge_order_device": [
+          "item_id",
+          "device_id"
+        ],
+        "dim_device": [
+          "device_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ],
+        "fact_device_activation": [
+          "device_id",
+          "activation_date"
+        ]
+      }
+    },
+    {
+      "id": "activation30-2",
+      "metric_id": "activation30",
+      "question": "2026年6月售出设备按型号算30天激活占比，未激活和晚激活仍留在分母。",
+      "required_tables": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_device_activation"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_order": [
+          "order_id",
+          "paid_date"
+        ],
+        "fact_order_item": [
+          "order_id",
+          "item_id"
+        ],
+        "bridge_order_device": [
+          "item_id",
+          "device_id"
+        ],
+        "dim_device": [
+          "device_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ],
+        "fact_device_activation": [
+          "device_id",
+          "activation_date"
+        ]
+      }
+    },
+    {
+      "id": "activation30-3",
+      "metric_id": "activation30",
+      "question": "按产品型号看六月销售批次的30天激活率，分母使用成熟售出设备。",
+      "required_tables": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_device_activation"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_order": [
+          "order_id",
+          "paid_date"
+        ],
+        "fact_order_item": [
+          "order_id",
+          "item_id"
+        ],
+        "bridge_order_device": [
+          "item_id",
+          "device_id"
+        ],
+        "dim_device": [
+          "device_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ],
+        "fact_device_activation": [
+          "device_id",
+          "activation_date"
+        ]
+      }
+    },
+    {
+      "id": "service30-1",
+      "metric_id": "service30",
+      "question": "六月卖出的各型号机器，三十天内报修过的设备占多少？同一台报修多次只算一台。",
+      "required_tables": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_service_ticket"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_order": [
+          "order_id",
+          "paid_date"
+        ],
+        "fact_order_item": [
+          "order_id",
+          "item_id"
+        ],
+        "bridge_order_device": [
+          "item_id",
+          "device_id"
+        ],
+        "dim_device": [
+          "device_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ],
+        "fact_service_ticket": [
+          "device_id",
+          "created_date"
+        ]
+      }
+    },
+    {
+      "id": "service30-2",
+      "metric_id": "service30",
+      "question": "2026年6月售出且观察满30天的设备，按型号计算30天售后设备率。",
+      "required_tables": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_service_ticket"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_order": [
+          "order_id",
+          "paid_date"
+        ],
+        "fact_order_item": [
+          "order_id",
+          "item_id"
+        ],
+        "bridge_order_device": [
+          "item_id",
+          "device_id"
+        ],
+        "dim_device": [
+          "device_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ],
+        "fact_service_ticket": [
+          "device_id",
+          "created_date"
+        ]
+      }
+    },
+    {
+      "id": "service30-3",
+      "metric_id": "service30",
+      "question": "各型号六月售出设备中付款后30天内有工单的去重设备占比，包含后来退款的机器。",
+      "required_tables": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_service_ticket"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_order": [
+          "order_id",
+          "paid_date"
+        ],
+        "fact_order_item": [
+          "order_id",
+          "item_id"
+        ],
+        "bridge_order_device": [
+          "item_id",
+          "device_id"
+        ],
+        "dim_device": [
+          "device_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ],
+        "fact_service_ticket": [
+          "device_id",
+          "created_date"
+        ]
+      }
+    },
+    {
+      "id": "offline_rate-1",
+      "metric_id": "offline_rate",
+      "question": "六月不同固件版本的观测记录里，设备不在线的设备日占多少？",
+      "required_tables": [
+        "fact_device_day",
+        "dim_firmware"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_device_day": [
+          "firmware_id",
+          "event_date",
+          "online"
+        ],
+        "dim_firmware": [
+          "firmware_id",
+          "firmware_name"
+        ]
+      }
+    },
+    {
+      "id": "offline_rate-2",
+      "metric_id": "offline_rate",
+      "question": "按固件版本统计2026年6月online等于零的设备日数量及总设备日。",
+      "required_tables": [
+        "fact_device_day",
+        "dim_firmware"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_device_day": [
+          "firmware_id",
+          "event_date",
+          "online"
+        ],
+        "dim_firmware": [
+          "firmware_id",
+          "firmware_name"
+        ]
+      }
+    },
+    {
+      "id": "offline_rate-3",
+      "metric_id": "offline_rate",
+      "question": "2026年6月各固件的设备日离线率是多少？",
+      "required_tables": [
+        "fact_device_day",
+        "dim_firmware"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_device_day": [
+          "firmware_id",
+          "event_date",
+          "online"
+        ],
+        "dim_firmware": [
+          "firmware_id",
+          "firmware_name"
+        ]
+      }
+    },
+    {
+      "id": "tickets-1",
+      "metric_id": "tickets",
+      "question": "六月各型号一共开了多少张售后单？一台机器开多单要分别计数。",
+      "required_tables": [
+        "fact_service_ticket",
+        "dim_device",
+        "dim_product"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_service_ticket": [
+          "ticket_id",
+          "device_id",
+          "created_date"
+        ],
+        "dim_device": [
+          "device_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ]
+      }
+    },
+    {
+      "id": "tickets-2",
+      "metric_id": "tickets",
+      "question": "2026年6月按产品型号统计创建的工单条数。",
+      "required_tables": [
+        "fact_service_ticket",
+        "dim_device",
+        "dim_product"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_service_ticket": [
+          "ticket_id",
+          "device_id",
+          "created_date"
+        ],
+        "dim_device": [
+          "device_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ]
+      }
+    },
+    {
+      "id": "tickets-3",
+      "metric_id": "tickets",
+      "question": "看六月每个产品型号的售后工单数量，不算设备率。",
+      "required_tables": [
+        "fact_service_ticket",
+        "dim_device",
+        "dim_product"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_service_ticket": [
+          "ticket_id",
+          "device_id",
+          "created_date"
+        ],
+        "dim_device": [
+          "device_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ]
+      }
+    },
+    {
+      "id": "inventory-1",
+      "metric_id": "inventory",
+      "question": "六月底各型号还剩多少件？每个商品和仓库各取当月最后一次盘点记录。",
+      "required_tables": [
+        "fact_inventory_day",
+        "dim_sku",
+        "dim_product"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_inventory_day": [
+          "sku_id",
+          "warehouse_id",
+          "stock_date",
+          "quantity"
+        ],
+        "dim_sku": [
+          "sku_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ]
+      }
+    },
+    {
+      "id": "inventory-2",
+      "metric_id": "inventory",
+      "question": "按型号汇总2026年6月每个SKU每个仓库的最新库存快照，别把每日结存累加。",
+      "required_tables": [
+        "fact_inventory_day",
+        "dim_sku",
+        "dim_product"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_inventory_day": [
+          "sku_id",
+          "warehouse_id",
+          "stock_date",
+          "quantity"
+        ],
+        "dim_sku": [
+          "sku_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ]
+      }
+    },
+    {
+      "id": "inventory-3",
+      "metric_id": "inventory",
+      "question": "2026年6月各产品型号的期末库存是多少？商品仓库分别选最新快照。",
+      "required_tables": [
+        "fact_inventory_day",
+        "dim_sku",
+        "dim_product"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_inventory_day": [
+          "sku_id",
+          "warehouse_id",
+          "stock_date",
+          "quantity"
+        ],
+        "dim_sku": [
+          "sku_id",
+          "product_id"
+        ],
+        "dim_product": [
+          "product_id",
+          "product_name"
+        ]
+      }
+    },
+    {
+      "id": "received_units-1",
+      "metric_id": "received_units",
+      "question": "六月每个仓库实际收到多少件采购货物？不是采购下单数量。",
+      "required_tables": [
+        "fact_receipt",
+        "dim_warehouse"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_receipt": [
+          "warehouse_id",
+          "receipt_date",
+          "quantity"
+        ],
+        "dim_warehouse": [
+          "warehouse_id",
+          "warehouse_name"
+        ]
+      }
+    },
+    {
+      "id": "received_units-2",
+      "metric_id": "received_units",
+      "question": "2026年6月按仓库汇总采购收货明细的quantity，不要数单据。",
+      "required_tables": [
+        "fact_receipt",
+        "dim_warehouse"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_receipt": [
+          "warehouse_id",
+          "receipt_date",
+          "quantity"
+        ],
+        "dim_warehouse": [
+          "warehouse_id",
+          "warehouse_name"
+        ]
+      }
+    },
+    {
+      "id": "received_units-3",
+      "metric_id": "received_units",
+      "question": "请统计六月各仓库的采购收货数量，按收货日期归属。",
+      "required_tables": [
+        "fact_receipt",
+        "dim_warehouse"
+      ],
+      "role": "analyst",
+      "required_columns": {
+        "fact_receipt": [
+          "warehouse_id",
+          "receipt_date",
+          "quantity"
+        ],
+        "dim_warehouse": [
+          "warehouse_id",
+          "warehouse_name"
+        ]
+      }
+    }
+  ],
+  "identities": [
+    {
+      "id": "global",
+      "role": "analyst",
+      "regions": [],
+      "allowed_metrics": [
+        "net_sales",
+        "activation30",
+        "service30",
+        "offline_rate",
+        "tickets",
+        "inventory",
+        "received_units"
+      ]
+    },
+    {
+      "id": "sales-r1",
+      "role": "sales",
+      "regions": [
+        "R1"
+      ],
+      "allowed_metrics": [
+        "net_sales"
+      ]
+    },
+    {
+      "id": "service-r2",
+      "role": "service",
+      "regions": [
+        "R2"
+      ],
+      "allowed_metrics": [
+        "net_sales",
+        "activation30",
+        "service30",
+        "offline_rate",
+        "tickets"
+      ]
+    },
+    {
+      "id": "supply-r1",
+      "role": "supply",
+      "regions": [
+        "R1"
+      ],
+      "allowed_metrics": [
+        "inventory",
+        "received_units"
+      ]
+    },
+    {
+      "id": "viewer",
+      "role": "viewer",
+      "regions": [],
+      "allowed_metrics": []
+    }
+  ]
+}

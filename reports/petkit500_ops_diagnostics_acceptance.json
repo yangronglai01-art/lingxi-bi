@@ -1,0 +1,184 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "isolated_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\754c74baed71",
+  "mode": "demo",
+  "real_llm_called": false,
+  "completed": true,
+  "permission_denials": {
+    "regional_sales": true,
+    "regional_service": true,
+    "regional_supply": true,
+    "restricted_viewer": true
+  },
+  "running_task_visible": true,
+  "tasks": [
+    {
+      "id": "9c55d67682d54f71a82babb7f5ca10f9",
+      "subject": "global_analyst",
+      "outcome": "success"
+    },
+    {
+      "id": "e1f0680c76e74d2b8cd1d495fe44d7a3",
+      "subject": "restricted_viewer",
+      "outcome": "denied"
+    },
+    {
+      "id": "005a4d3eed964fddb63c9739befc2a69",
+      "subject": "global_analyst",
+      "outcome": "clarification"
+    },
+    {
+      "id": "6b89fbcac5ec4f4a83476315fc263525",
+      "subject": "global_analyst",
+      "outcome": "unsupported"
+    }
+  ],
+  "outcomes_delta": {
+    "success": 1,
+    "denied": 1,
+    "clarification": 1,
+    "unsupported": 1
+  },
+  "execution_evaluated_delta": 1,
+  "raw_content_redacted": true,
+  "read_only_jobs_verified": true,
+  "restart_degraded": {
+    "observed_at": "2026-10-17T07:47:35.172678+00:00",
+    "generation": "petkit-v1.3-638f0e235a",
+    "status": "degraded",
+    "ready": false,
+    "checks": {
+      "publication": true,
+      "warehouse": true,
+      "identity_store": true,
+      "worker": true,
+      "supervisor": false
+    },
+    "worker": {
+      "heartbeat_age_seconds": 0.374
+    },
+    "supervisor": {
+      "enabled": true,
+      "phase": "backoff",
+      "heartbeat_age_seconds": 0.049,
+      "restarts": 1,
+      "max_restarts": 3
+    },
+    "queue": {
+      "states": {
+        "cancelled": 2,
+        "completed": 29,
+        "superseded": 1
+      },
+      "pending": 0,
+      "queued": 0,
+      "running": 0,
+      "oldest_wait_seconds": null,
+      "expired_running_leases": 0,
+      "max_employee_pending": 0,
+      "employee_limit": 20,
+      "global_limit": 200
+    },
+    "recent": {
+      "window_minutes": 1440,
+      "terminal_count": 32,
+      "sample_count": 32,
+      "sample_limit": 200,
+      "truncated": false,
+      "outcomes": {
+        "unsupported": 1,
+        "clarification": 1,
+        "denied": 8,
+        "success": 19,
+        "superseded": 1,
+        "cancelled": 2
+      },
+      "execution_evaluated": 19,
+      "execution_successes": 19,
+      "execution_failures": 0,
+      "execution_success_rate": 1.0,
+      "successful_end_to_end_seconds": {
+        "count": 19,
+        "p50": 7.401,
+        "p95": 24.824
+      },
+      "failures": []
+    },
+    "alerts": [
+      {
+        "code": "supervisor_not_ready",
+        "message": "本次启动会话尚未处于健康运行状态",
+        "action": "等待退避恢复，若预算耗尽则排查后重新启动"
+      }
+    ]
+  },
+  "restart_recovered": {
+    "observed_at": "2026-10-17T07:47:35.968823+00:00",
+    "generation": "petkit-v1.3-638f0e235a",
+    "status": "healthy",
+    "ready": true,
+    "checks": {
+      "publication": true,
+      "warehouse": true,
+      "identity_store": true,
+      "worker": true,
+      "supervisor": true
+    },
+    "worker": {
+      "heartbeat_age_seconds": 0.118
+    },
+    "supervisor": {
+      "enabled": true,
+      "phase": "running",
+      "heartbeat_age_seconds": 0.065,
+      "restarts": 1,
+      "max_restarts": 3
+    },
+    "queue": {
+      "states": {
+        "cancelled": 2,
+        "completed": 29,
+        "superseded": 1
+      },
+      "pending": 0,
+      "queued": 0,
+      "running": 0,
+      "oldest_wait_seconds": null,
+      "expired_running_leases": 0,
+      "max_employee_pending": 0,
+      "employee_limit": 20,
+      "global_limit": 200
+    },
+    "recent": {
+      "window_minutes": 1440,
+      "terminal_count": 32,
+      "sample_count": 32,
+      "sample_limit": 200,
+      "truncated": false,
+      "outcomes": {
+        "unsupported": 1,
+        "clarification": 1,
+        "denied": 8,
+        "success": 19,
+        "superseded": 1,
+        "cancelled": 2
+      },
+      "execution_evaluated": 19,
+      "execution_successes": 19,
+      "execution_failures": 0,
+      "execution_success_rate": 1.0,
+      "successful_end_to_end_seconds": {
+        "count": 19,
+        "p50": 7.401,
+        "p95": 24.824
+      },
+      "failures": []
+    },
+    "alerts": []
+  },
+  "diagnostics_matches_ready": true,
+  "recovered_regional_units": 10,
+  "original_jobs_unchanged": true,
+  "business_warehouse_unchanged": true,
+  "children_stopped": true
+}

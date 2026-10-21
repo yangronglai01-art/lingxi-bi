@@ -1,0 +1,13 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "restored_directory": "D:\\projects\\lingxi\\data\\petkit500\\restore_drills\\f42ac6d65ebe",
+  "ops_snapshot_ready": true,
+  "ops_read_only": true,
+  "unauthorized_roles_denied": true,
+  "raw_session_and_credentials_redacted": true,
+  "regional_received_units": 10,
+  "original_jobs_unchanged": true,
+  "children_stopped": true,
+  "real_llm_called": false,
+  "passed": true
+}

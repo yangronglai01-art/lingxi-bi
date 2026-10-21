@@ -1,0 +1,393 @@
+{
+  "generation": "petkit-v1.3-638f0e235a",
+  "model": "deepseek-v4-pro",
+  "embedding": "local BGE-M3",
+  "case_sha256": "5d83d3dc0db8cbd1a0505bf9125f3a8a339f6799b8dbc1a77a3453ac4228e38a",
+  "external_independent_benchmark": false,
+  "load_test": false,
+  "code_sha256": {
+    "src/petkit/service.py": "1a95b385ea23851ddd0c4d97613450d6fa288801533d40ce37afd18be5e252fa",
+    "src/petkit/reference.py": "5cd149d42a2fd1fc0f46eab15b7bd2c65e3abaabd591c82ea0299034b3ea15b2",
+    "src/petkit/row_policy.py": "87c5d09dbf5a6628942a2c64ce1e06833777a284ba9c8088a10a04bc2e7b48c7",
+    "scripts/eval_petkit_controlled_e2e.py": "4524be76c498c47502ad7b4096e27363db621cd75a2eef595e2fba5e3116fbb0"
+  },
+  "rows": [
+    {
+      "id": "E01",
+      "subject": "regional_sales",
+      "regions": [
+        "R1"
+      ],
+      "metric_id": "net_sales",
+      "question": "2026年6月我权限范围内各渠道的净销售额是多少？用订单行实付减退款，退款归原支付月份，返回渠道名和金额。",
+      "status": "success",
+      "passed": true,
+      "reason": "exact group set and numeric multiset matched independent Python arithmetic",
+      "error": "",
+      "sql": "SELECT \"c\".\"channel_name\" AS \"渠道名\", SUM(\"oi\".\"amount\" - COALESCE(\"r\".\"refund_amount\", 0)) AS \"净销售额\" FROM \"fact_order_item\" AS \"oi\" JOIN \"fact_order\" AS \"o\" ON \"oi\".\"order_id\" = \"o\".\"order_id\" JOIN \"dim_channel\" AS \"c\" ON \"o\".\"channel_id\" = \"c\".\"channel_id\" LEFT JOIN (SELECT \"fact_refund\".\"item_id\" AS \"item_id\", SUM(\"fact_refund\".\"amount\") AS \"refund_amount\" FROM \"fact_refund\" AS \"fact_refund\" GROUP BY \"fact_refund\".\"item_id\") AS \"r\" ON \"oi\".\"item_id\" = \"r\".\"item_id\" WHERE \"o\".\"paid_date\" >= CAST('2026-06-01' AS DATE) AND \"o\".\"paid_date\" < CAST('2026-07-01' AS DATE) AND \"o\".\"status\" = '已支付' GROUP BY \"c\".\"channel_name\" ORDER BY \"渠道名\" LIMIT 1001",
+      "columns": [
+        "渠道名",
+        "净销售额"
+      ],
+      "result_rows": [
+        [
+          "电商平台",
+          62511.0
+        ],
+        [
+          "线下零售",
+          6483.7
+        ],
+        [
+          "经销渠道",
+          27622.850000000002
+        ],
+        [
+          "自营商城",
+          37502.29999999999
+        ]
+      ],
+      "reference": {
+        "自营商城": [
+          37502.3
+        ],
+        "电商平台": [
+          62511.0
+        ],
+        "线下零售": [
+          6483.7
+        ],
+        "经销渠道": [
+          27622.85
+        ]
+      },
+      "generation_attempts": 1,
+      "elapsed_seconds": 14.572,
+      "mock_used": false
+    },
+    {
+      "id": "E02",
+      "subject": "global_analyst",
+      "regions": [],
+      "metric_id": "activation30",
+      "question": "2026年6月售出的各产品型号，观察满30天后，30天激活率各是多少？列出型号、售出设备分母、按时激活设备分子、百分数，未激活和晚激活均保留在分母。",
+      "status": "success",
+      "passed": true,
+      "reason": "exact group set and numeric multiset matched independent Python arithmetic",
+      "error": "",
+      "sql": "WITH \"sold_devices\" AS (SELECT \"b\".\"device_id\" AS \"device_id\", \"o\".\"paid_date\" AS \"paid_date\", \"p\".\"product_name\" AS \"product_name\" FROM \"fact_order\" AS \"o\" JOIN \"fact_order_item\" AS \"oi\" ON \"o\".\"order_id\" = \"oi\".\"order_id\" JOIN \"bridge_order_device\" AS \"b\" ON \"oi\".\"item_id\" = \"b\".\"item_id\" JOIN \"dim_device\" AS \"d\" ON \"b\".\"device_id\" = \"d\".\"device_id\" JOIN \"dim_product\" AS \"p\" ON \"d\".\"product_id\" = \"p\".\"product_id\" WHERE \"o\".\"paid_date\" >= CAST('2026-06-01' AS DATE) AND \"o\".\"paid_date\" <= CAST('2026-06-30' AS DATE) AND \"o\".\"paid_date\" <= CAST('2026-09-16' AS DATE)), \"activation_events\" AS (SELECT \"fact_device_activation\".\"device_id\" AS \"device_id\", \"fact_device_activation\".\"activation_date\" AS \"activation_date\" FROM \"fact_device_activation\" AS \"fact_device_activation\") SELECT \"sd\".\"product_name\" AS \"product_name\", COUNT(DISTINCT \"sd\".\"device_id\") AS \"devices\", COUNT(DISTINCT CASE WHEN NOT \"ae\".\"activation_date\" IS NULL AND \"ae\".\"activation_date\" >= \"sd\".\"paid_date\" AND \"ae\".\"activation_date\" <= \"sd\".\"paid_date\" + INTERVAL '30' DAY THEN \"sd\".\"device_id\" END) AS \"matched_devices\", CASE WHEN COUNT(DISTINCT \"sd\".\"device_id\") = 0 THEN NULL ELSE ROUND(COUNT(DISTINCT CASE WHEN NOT \"ae\".\"activation_date\" IS NULL AND \"ae\".\"activation_date\" >= \"sd\".\"paid_date\" AND \"ae\".\"activation_date\" <= \"sd\".\"paid_date\" + INTERVAL '30' DAY THEN \"sd\".\"device_id\" END) * 100.0 / COUNT(DISTINCT \"sd\".\"device_id\"), 2) END AS \"rate_percent\" FROM \"sold_devices\" AS \"sd\" LEFT JOIN \"activation_events\" AS \"ae\" ON \"sd\".\"device_id\" = \"ae\".\"device_id\" GROUP BY \"sd\".\"product_name\" ORDER BY \"product_name\" LIMIT 1001",
+      "columns": [
+        "product_name",
+        "devices",
+        "matched_devices",
+        "rate_percent"
+      ],
+      "result_rows": [
+        [
+          "模拟喂食器1型",
+          40,
+          28,
+          70.0
+        ],
+        [
+          "模拟喂食器2型",
+          62,
+          41,
+          66.13
+        ],
+        [
+          "模拟喂食器3型",
+          47,
+          32,
+          68.09
+        ],
+        [
+          "模拟喂食器4型",
+          60,
+          40,
+          66.67
+        ],
+        [
+          "模拟猫砂盆1型",
+          62,
+          42,
+          67.74
+        ],
+        [
+          "模拟猫砂盆2型",
+          50,
+          32,
+          64.0
+        ],
+        [
+          "模拟猫砂盆3型",
+          57,
+          34,
+          59.65
+        ],
+        [
+          "模拟猫砂盆4型",
+          42,
+          23,
+          54.76
+        ],
+        [
+          "模拟饮水机1型",
+          47,
+          37,
+          78.72
+        ],
+        [
+          "模拟饮水机2型",
+          61,
+          42,
+          68.85
+        ],
+        [
+          "模拟饮水机3型",
+          42,
+          24,
+          57.14
+        ],
+        [
+          "模拟饮水机4型",
+          25,
+          15,
+          60.0
+        ]
+      ],
+      "reference": {
+        "模拟饮水机2型": [
+          61,
+          42,
+          68.85
+        ],
+        "模拟喂食器4型": [
+          60,
+          40,
+          66.67
+        ],
+        "模拟猫砂盆1型": [
+          62,
+          42,
+          67.74
+        ],
+        "模拟喂食器1型": [
+          40,
+          28,
+          70.0
+        ],
+        "模拟饮水机1型": [
+          47,
+          37,
+          78.72
+        ],
+        "模拟猫砂盆2型": [
+          50,
+          32,
+          64.0
+        ],
+        "模拟饮水机4型": [
+          25,
+          15,
+          60.0
+        ],
+        "模拟猫砂盆4型": [
+          42,
+          23,
+          54.76
+        ],
+        "模拟喂食器2型": [
+          62,
+          41,
+          66.13
+        ],
+        "模拟猫砂盆3型": [
+          57,
+          34,
+          59.65
+        ],
+        "模拟喂食器3型": [
+          47,
+          32,
+          68.09
+        ],
+        "模拟饮水机3型": [
+          42,
+          24,
+          57.14
+        ]
+      },
+      "generation_attempts": 1,
+      "elapsed_seconds": 7.9,
+      "mock_used": false
+    },
+    {
+      "id": "E03",
+      "subject": "global_analyst",
+      "regions": [],
+      "metric_id": "service30",
+      "question": "2026年6月售出设备按型号看30天售后设备率。仅取已观察满30天的批次，含退款设备，同一台多次报修只记一台；返回型号、设备分母、售后设备分子和百分数。",
+      "status": "success",
+      "passed": false,
+      "reason": "cohort named-column contract mismatch",
+      "error": "",
+      "sql": "SELECT \"dp\".\"product_name\" AS \"型号\", COUNT(DISTINCT \"bod\".\"device_id\") AS \"设备分母\", COUNT(DISTINCT CASE WHEN NOT \"fst\".\"device_id\" IS NULL THEN \"fst\".\"device_id\" END) AS \"售后设备分子\", ROUND(COUNT(DISTINCT CASE WHEN NOT \"fst\".\"device_id\" IS NULL THEN \"fst\".\"device_id\" END) * 100.0 / COUNT(DISTINCT \"bod\".\"device_id\"), 2) AS \"百分数\" FROM \"fact_order\" AS \"fo\" JOIN \"fact_order_item\" AS \"foi\" ON \"fo\".\"order_id\" = \"foi\".\"order_id\" JOIN \"bridge_order_device\" AS \"bod\" ON \"foi\".\"item_id\" = \"bod\".\"item_id\" JOIN \"dim_device\" AS \"dd\" ON \"bod\".\"device_id\" = \"dd\".\"device_id\" JOIN \"dim_product\" AS \"dp\" ON \"dd\".\"product_id\" = \"dp\".\"product_id\" LEFT JOIN \"fact_service_ticket\" AS \"fst\" ON \"bod\".\"device_id\" = \"fst\".\"device_id\" AND \"fst\".\"created_date\" <= \"fo\".\"paid_date\" + INTERVAL '30' DAY WHERE \"fo\".\"paid_date\" >= '2026-06-01' AND \"fo\".\"paid_date\" <= '2026-06-30' AND \"fo\".\"status\" = '已支付' GROUP BY \"dp\".\"product_name\" ORDER BY \"型号\" LIMIT 1001",
+      "columns": [
+        "型号",
+        "设备分母",
+        "售后设备分子",
+        "百分数"
+      ],
+      "result_rows": [
+        [
+          "模拟喂食器1型",
+          40,
+          1,
+          2.5
+        ],
+        [
+          "模拟喂食器2型",
+          62,
+          1,
+          1.61
+        ],
+        [
+          "模拟喂食器3型",
+          47,
+          7,
+          14.89
+        ],
+        [
+          "模拟喂食器4型",
+          60,
+          3,
+          5.0
+        ],
+        [
+          "模拟猫砂盆1型",
+          62,
+          5,
+          8.06
+        ],
+        [
+          "模拟猫砂盆2型",
+          50,
+          1,
+          2.0
+        ],
+        [
+          "模拟猫砂盆3型",
+          57,
+          0,
+          0.0
+        ],
+        [
+          "模拟猫砂盆4型",
+          42,
+          4,
+          9.52
+        ],
+        [
+          "模拟饮水机1型",
+          47,
+          2,
+          4.26
+        ],
+        [
+          "模拟饮水机2型",
+          61,
+          1,
+          1.64
+        ],
+        [
+          "模拟饮水机3型",
+          42,
+          2,
+          4.76
+        ],
+        [
+          "模拟饮水机4型",
+          25,
+          0,
+          0.0
+        ]
+      ],
+      "reference": {
+        "模拟饮水机2型": [
+          61,
+          1,
+          1.64
+        ],
+        "模拟喂食器4型": [
+          60,
+          3,
+          5.0
+        ],
+        "模拟猫砂盆1型": [
+          62,
+          5,
+          8.06
+        ],
+        "模拟喂食器1型": [
+          40,
+          1,
+          2.5
+        ],
+        "模拟饮水机1型": [
+          47,
+          2,
+          4.26
+        ],
+        "模拟猫砂盆2型": [
+          50,
+          1,
+          2.0
+        ],
+        "模拟饮水机4型": [
+          25,
+          0,
+          0.0
+        ],
+        "模拟猫砂盆4型": [
+          42,
+          4,
+          9.52
+        ],
+        "模拟喂食器2型": [
+          62,
+          1,
+          1.61
+        ],
+        "模拟猫砂盆3型": [
+          57,
+          0,
+          0.0
+        ],
+        "模拟喂食器3型": [
+          47,
+          7,
+          14.89
+        ],
+        "模拟饮水机3型": [
+          42,
+          2,
+          4.76
+        ]
+      },
+      "generation_attempts": 2,
+      "elapsed_seconds": 11.65,
+      "mock_used": false
+    }
+  ],
+  "completed": false,
+  "isolated_directory": "D:\\projects\\lingxi\\reports\\controlled_e2e_runs\\c668d3fe88d3\\isolated_data",
+  "maximum_questions": 7,
+  "maximum_generation_attempts": 14,
+  "stop_reason": "First failed case; halt further paid questions for diagnosis",
+  "passed": 2,
+  "attempted": 3,
+  "generation_attempts": 4,
+  "original_warehouse_unchanged": true,
+  "original_pointer_unchanged": true
+}

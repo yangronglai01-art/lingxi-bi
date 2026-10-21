@@ -30,8 +30,24 @@ data/*.duckdb
 .DS_Store
 
 # 面试讲解稿（仅本地留存，不随仓库分发）
-docs/interview_guide.md
+docs/面试全攻略_最终版.md
 
 # 评测运行日志（构建产物）
 reports/*.log
 reports/*.err
+
+# 500-table generated snapshots, histories and traces
+data/petkit500/
+
+.env.*
+!.env.example
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+reports/**/isolated_data/
+**/vector_cache/
+**/simulated_credentials.json
+**/simulated_logs/
+*.log
+*.err
