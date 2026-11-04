@@ -54,12 +54,12 @@ def register(app,identity,AskRequest):
 
     @app.get('/ops/health')
     def health_snapshot(window_minutes:int=15,principal=Depends(identity)):
-        import sqlite3
+        from src.storage import Error as StorageError
         from .diagnostics import snapshot
         try:return snapshot(principal,window_minutes)
         except PermissionError as exc:raise HTTPException(403,str(exc)) from exc
         except ValueError as exc:raise HTTPException(422,str(exc)) from exc
-        except sqlite3.Error as exc:raise HTTPException(503,'运维存储暂不可用') from exc
+        except StorageError as exc:raise HTTPException(503,'运维存储暂不可用') from exc
 
     @app.get('/ops/summary')
     def summary(principal=Depends(identity)):
@@ -77,6 +77,6 @@ def register(app,identity,AskRequest):
         if principal.role!='analyst' or principal.regions: raise HTTPException(403,'仅全局分析账号可查看接入状态')
         if not 1<=limit<=100: raise HTTPException(422,'limit应在1到100之间')
         with control.db() as c:
-            if not c.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='ingestion_attempts'").fetchone(): return dict(items=[])
+            if not c.execute("SELECT 1 FROM information_schema.tables WHERE table_schema='public' AND table_name='ingestion_attempts'").fetchone(): return dict(items=[])
             rows=c.execute('SELECT id,source,batch_id,parent,candidate,state,error,created,updated FROM ingestion_attempts ORDER BY created DESC LIMIT ?',(limit,)).fetchall()
         return dict(items=[dict(r) for r in rows])

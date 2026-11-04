@@ -1,0 +1,23 @@
+name: lingxi-enterprise-qa
+services:
+  postgres:
+    image: postgres:17
+    ports: ["127.0.0.1:56103:5432"]
+    environment:
+      POSTGRES_DB: lingxi_enterprise_qa
+      POSTGRES_USER: analytics_qa
+      POSTGRES_PASSWORD: analytics_qa_only
+    volumes: ["pg_qa:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U analytics_qa -d lingxi_enterprise_qa"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+  starrocks:
+    image: starrocks/allin1-ubuntu:3.5.21
+    ports: ["127.0.0.1:59030:9030", "127.0.0.1:58030:8030"]
+    mem_limit: 5g
+    volumes: ["sr_qa:/data"]
+volumes:
+  pg_qa:
+  sr_qa:

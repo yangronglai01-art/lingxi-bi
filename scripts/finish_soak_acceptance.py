@@ -1,10 +1,11 @@
 """Supplement finalization of an already completed load phase; preserve failures."""
-import json,sqlite3,sys,time
+import json,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from scripts.local_load_transport import LocalLoadClient
 from scripts.start_simulated import running
 from scripts.accept_durable_stability import free,job_fingerprint,sha
+from scripts.pg_control import control_rows,control_scalar
 from src.petkit.settings import DATA
 
 def main():
@@ -17,12 +18,11 @@ def main():
     assert stage['completed']==stage['counts']['submitted'] and all(d['oracle_passed'] for d in stage['details'])
     assert source['children_stopped'] and source['original_jobs_unchanged']
     data=Path(source['isolated_directory'])
-    with sqlite3.connect(data/'control.sqlite3') as c:
-        assert c.execute("SELECT count(*) FROM jobs WHERE state IN ('queued','running')").fetchone()[0]==0
-        actual={r[0]:r[1:] for r in c.execute('SELECT id,state,result FROM jobs')}
-        for detail in stage['details']:
-            state,result=actual[detail['id']]
-            assert state=='completed' and json.loads(result)['status']==detail['answer_status']
+    assert control_scalar(data,"SELECT count(*) FROM jobs WHERE state IN ('queued','running')")==0
+    actual={r[0]:r[1:] for r in control_rows(data,'SELECT id,state,result FROM jobs')}
+    for detail in stage['details']:
+        state,result=actual[detail['id']]
+        assert state=='completed' and json.loads(result)['status']==detail['answer_status']
     before=job_fingerprint(data)
     original=job_fingerprint(DATA)
     generation=source['generation'];warehouse=sha(DATA/generation/'warehouse.duckdb')

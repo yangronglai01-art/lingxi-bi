@@ -1,5 +1,5 @@
 """Real automatic worker restart, lease expiry and restart-budget drill; no paid LLM."""
-import hashlib,json,socket,sqlite3,sys,time
+import hashlib,json,socket,sys,time
 from pathlib import Path
 from urllib.request import Request,urlopen
 from urllib.error import HTTPError
@@ -11,8 +11,8 @@ from src.petkit.settings import DATA
 def free():
     with socket.socket() as s:s.bind(('127.0.0.1',0));return s.getsockname()[1]
 def fingerprint(root):
-    with sqlite3.connect(root/'control.sqlite3') as c:rows=c.execute('SELECT id,state,updated FROM jobs ORDER BY id').fetchall()
-    return hashlib.sha256(json.dumps(rows).encode()).hexdigest()
+    from scripts.pg_control import jobs_fingerprint
+    return jobs_fingerprint(root)
 def file_hash(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
 def main():

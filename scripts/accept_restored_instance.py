@@ -33,9 +33,8 @@ def main():
             time.sleep(.15)
         assert job['state']=='completed' and job['result']['status']=='success',job.get('error')
         # Verify that new task exists only in restored control storage.
-        import sqlite3
-        with sqlite3.connect(DATA/'control.sqlite3') as c:
-            assert c.execute('SELECT count(*) FROM jobs WHERE id=?',(task,)).fetchone()[0]==0
+        from scripts.pg_control import control_scalar
+        assert control_scalar(DATA,'SELECT count(*) FROM jobs WHERE id=?',(task,))==0
         children=services['processes']
     assert all(p.poll() is not None for p in children)
     report.update(restored_application_ready=True,restored_regional_job_succeeded=True,original_instance_untouched=True,

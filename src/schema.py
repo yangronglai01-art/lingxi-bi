@@ -6,7 +6,7 @@
 1. DuckDB 建表 DDL（含中文注释）；
 2. 供 Text-to-SQL 使用的 schema 中文说明文档（docs/schema.md 的字段部分据此维护）。
 
-后续任何阶段（Text-to-SQL、FastAPI、Streamlit）都应把本模块作为 schema 的唯一来源，
+后续任何阶段（Text-to-SQL、FastAPI、React）都应把本模块作为 schema 的唯一来源，
 避免字段口径漂移。
 
 6 张表（星型模型）：

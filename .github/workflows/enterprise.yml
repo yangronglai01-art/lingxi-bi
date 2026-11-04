@@ -1,0 +1,50 @@
+name: enterprise-starrocks
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: lingxi_enterprise_qa
+          POSTGRES_USER: analytics_qa
+          POSTGRES_PASSWORD: analytics_qa_only
+        ports: ["56103:5432"]
+        options: --health-cmd "pg_isready -U analytics_qa" --health-interval 5s --health-retries 30
+      starrocks:
+        image: starrocks/allin1-ubuntu:3.5.21
+        ports: ["9030:9030", "8030:8030"]
+    env:
+      QUERY_ENGINE: starrocks
+      LINGXI_QA_CONFIRM: lingxi_enterprise_qa
+      PYTHONPATH: .
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with: {python-version: "3.12"}
+    - uses: actions/setup-node@v4
+      with: {node-version: "22"}
+    - run: pip install -r requirements-production.txt pytest
+    - name: Wait for real engines, fail after finite deadline
+      run: |
+        python - <<'PY'
+        import time,pymysql,psycopg2
+        for i in range(90):
+          try:
+            c=pymysql.connect(host='127.0.0.1',port=9030,user='root',connect_timeout=2)
+            q=c.cursor();q.execute('SHOW BACKENDS');assert q.fetchall();c.close()
+            c=psycopg2.connect('postgresql://analytics_qa:analytics_qa_only@127.0.0.1:56103/lingxi_enterprise_qa');c.close()
+            break
+          except Exception:
+            if i==89:raise
+            time.sleep(2)
+        PY
+    - run: python scripts/seed_enterprise_qa.py
+    - run: pytest enterprise_tests operator_tests -q --junitxml=reports/enterprise/ci/junit.xml
+    - run: npm ci && npm run build && npm test && npm audit --registry=https://registry.npmjs.org --audit-level=moderate
+      working-directory: web
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with: {name: enterprise-proof, path: reports/enterprise/}

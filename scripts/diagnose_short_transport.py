@@ -8,7 +8,6 @@ import json
 import math
 import os
 from pathlib import Path
-import sqlite3
 import sys
 import threading
 import time
@@ -21,6 +20,7 @@ sys.path.insert(0,str(ROOT))
 from scripts.start_simulated import running
 from scripts.backup_simulated import backup,restore_drill
 from scripts.accept_durable_stability import free,job_fingerprint,sha
+from scripts.pg_control import control_rows,control_db_size
 from src.petkit.settings import DATA
 from src.petkit.reference import expected
 from scripts.windows_process_metrics import snapshot as process_snapshot
@@ -87,8 +87,7 @@ def main():
             'regional_supply':('2026年9月各仓库采购收货数量','received_units'),
             'restricted_viewer':('各型号净销售额',None),
         }
-        with sqlite3.connect(data/'control.sqlite3') as c:
-            regions={subject:json.loads(value) for subject,value in c.execute('SELECT subject,regions FROM users')}
+        regions={subject:json.loads(value) for subject,value in control_rows(data,'SELECT subject,regions FROM users')}
         references={}
         for subject,(_,metric) in questions.items():
             if not metric: continue
@@ -132,7 +131,7 @@ def main():
                 answer=wait(subject,value['id'])[0]['result']
                 assert answer['status']==('success' if metric else 'denied')
             baseline={name:process_snapshot(process.pid) for name,process in services['current_processes'].items()}
-            baseline_disk=sum(p.stat().st_size for p in data.iterdir() if p.is_file() and p.name.startswith('control.sqlite3'))
+            baseline_disk=control_db_size(data)
             report.update(warmup_excluded=True,resource_baseline=baseline,
                 resource_growth_limits=dict(worker_rss_mb=1536,api_rss_mb=512,ui_rss_mb=256,handles_per_process=512,control_disk_mb=512))
             save()
@@ -154,7 +153,7 @@ def main():
                             if status!=200 or not value['ready'] or value['supervisor']['restarts']!=0:
                                 raise RuntimeError('Health degraded or worker restarted')
                             resources={name:process_snapshot(process.pid) for name,process in services['current_processes'].items()}
-                            disk=sum(p.stat().st_size for p in data.iterdir() if p.is_file() and p.name.startswith('control.sqlite3'))
+                            disk=control_db_size(data)
                             for name,current in resources.items():
                                 limit={'worker':1536,'api':512,'ui':256}[name]
                                 if current['rss_mb']-baseline[name]['rss_mb']>limit or current['handles']-baseline[name]['handles']>512:

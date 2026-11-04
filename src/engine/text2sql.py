@@ -12,6 +12,7 @@ from typing import List, Optional, Tuple
 
 from src import config
 from src.engine import llm_client
+from src.engine.db import date_fmt
 from src.engine.prompts import build_repair_messages, build_sql_messages
 
 
@@ -92,7 +93,7 @@ def _mock_region() -> str:
 
 def _mock_monthly() -> str:
     return (
-        "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) AS total_amount "
+        f"SELECT {date_fmt('s.sale_date')} AS ym, ROUND(SUM(s.amount), 2) AS total_amount "
         "FROM fact_sales s GROUP BY ym ORDER BY ym"
     )
 
@@ -115,7 +116,7 @@ def _mock_quality() -> str:
 
 def _mock_production() -> str:
     return (
-        "SELECT strftime(p.prod_date, '%Y-%m') AS ym, "
+        f"SELECT {date_fmt('p.prod_date')} AS ym, "
         "ROUND(SUM(p.actual_qty) * 100.0 / SUM(p.planned_qty), 2) AS achievement_rate "
         "FROM fact_production p GROUP BY ym ORDER BY ym"
     )

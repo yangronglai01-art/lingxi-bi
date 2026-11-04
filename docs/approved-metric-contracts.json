@@ -1,0 +1,232 @@
+{
+  "governance": {
+    "approval_id": null,
+    "status": "not_business_approved"
+  },
+  "metrics": [
+    {
+      "id": "net_sales",
+      "name": "净销售额",
+      "aliases": [
+        "销售额",
+        "收入",
+        "销售趋势"
+      ],
+      "definition": "订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分",
+      "dependencies": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_sku",
+        "dim_product",
+        "dim_channel"
+      ],
+      "grain": "订单行先汇总退款再关联；按支付日统计",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "CNY",
+      "currency": "CNY (unconfirmed)",
+      "approved_dimensions": [
+        "product",
+        "channel",
+        "month"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract"
+    },
+    {
+      "id": "activation30",
+      "name": "售出30天激活率",
+      "aliases": [
+        "激活率",
+        "激活"
+      ],
+      "definition": "截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备",
+      "dependencies": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_device_activation"
+      ],
+      "grain": "设备去重；排除未成熟观察窗",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "percent",
+      "currency": null,
+      "approved_dimensions": [
+        "product"
+      ],
+      "zero_denominator": "NULL",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract"
+    },
+    {
+      "id": "service30",
+      "name": "售出30天售后设备率",
+      "aliases": [
+        "售后率",
+        "故障率",
+        "售后设备占比"
+      ],
+      "definition": "观察满30天售出设备，支付日起0至30天有工单的设备去重数/售出设备去重数；包含退款设备；不是工单数占比",
+      "dependencies": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_service_ticket"
+      ],
+      "grain": "设备去重；工单先按设备归并",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "percent",
+      "currency": null,
+      "approved_dimensions": [
+        "product"
+      ],
+      "zero_denominator": "NULL",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract"
+    },
+    {
+      "id": "offline_rate",
+      "name": "设备离线率",
+      "aliases": [
+        "离线率",
+        "离线",
+        "在线率"
+      ],
+      "definition": "观测设备日中online=0的记录数/总设备日记录数；仅覆盖采样观察日，不代表全量设备实时状态",
+      "dependencies": [
+        "fact_device_day",
+        "dim_device",
+        "dim_product",
+        "dim_firmware"
+      ],
+      "grain": "设备日",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "percent",
+      "currency": null,
+      "approved_dimensions": [
+        "firmware",
+        "product"
+      ],
+      "zero_denominator": "NULL",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract"
+    },
+    {
+      "id": "tickets",
+      "name": "工单数量",
+      "aliases": [
+        "工单数",
+        "工单",
+        "故障分类"
+      ],
+      "definition": "按工单创建日统计工单数，不等同于售后设备数",
+      "dependencies": [
+        "fact_service_ticket",
+        "dim_fault",
+        "dim_device",
+        "dim_product"
+      ],
+      "grain": "工单",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "ticket",
+      "currency": null,
+      "approved_dimensions": [
+        "fault",
+        "product"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract"
+    },
+    {
+      "id": "received_units",
+      "name": "采购收货数量",
+      "aliases": [
+        "收货量",
+        "收货数量",
+        "收货件数",
+        "入库收货量"
+      ],
+      "definition": "按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货",
+      "dependencies": [
+        "fact_receipt",
+        "dim_warehouse"
+      ],
+      "grain": "采购行每次收货事实；按收货日统计",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "piece",
+      "currency": null,
+      "approved_dimensions": [
+        "warehouse"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract"
+    },
+    {
+      "id": "inventory",
+      "name": "期末库存",
+      "aliases": [
+        "库存",
+        "结存"
+      ],
+      "definition": "每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照",
+      "dependencies": [
+        "fact_inventory_day",
+        "dim_sku",
+        "dim_product",
+        "dim_warehouse"
+      ],
+      "grain": "商品仓库快照",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "piece",
+      "currency": null,
+      "approved_dimensions": [
+        "product"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract"
+    }
+  ]
+}

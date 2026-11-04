@@ -31,17 +31,14 @@ def test_managed_audit_failure_suppresses_result(org,monkeypatch):
     answer=service.ask('各型号净销售额',principals['east'])
     assert answer.status=='error' and answer.result is None and '审计' in answer.error
 
-def test_operations_workbench_auth_and_persistent_recent_jobs(org,monkeypatch):
-    from pathlib import Path
-    from streamlit.testing.v1 import AppTest
+def test_operations_workbench_recent_jobs_api(org):
+    from fastapi.testclient import TestClient
+    from src.petkit.api import app
     principals,keys,_=org
     control.submit(principals['east'],'各型号净销售额')
-    monkeypatch.setenv('PETKIT_LOCAL_UI_TOKEN',keys['east'])
-    app=AppTest.from_file(str(Path(__file__).resolve().parents[1]/'src/app.py')).run(timeout=30)
-    assert not app.exception
-    assert any('模拟业务工作台' in x.value for x in app.subheader)
-    recent=next(x for x in app.selectbox if x.label=='最近提交的任务')
-    assert len(recent.options)==1
+    with TestClient(app) as client:
+        body=client.get('/jobs',headers={'Authorization':'Bearer '+keys['east']}).json()
+    assert len(body['items'])==1 and body['items'][0]['question']=='各型号净销售额'
 
 
 def test_managed_cohort_result_has_versioned_unit_contract(org):

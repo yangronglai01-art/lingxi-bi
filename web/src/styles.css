@@ -1,0 +1,285 @@
+.root {
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #f6f7f9;
+  color: #1f2329;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #1f2329;
+  color: #fff;
+}
+
+.brand {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  padding: 16px 20px;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-self: start;
+}
+
+.ask-area textarea {
+  width: 100%;
+  min-height: 88px;
+  resize: vertical;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #d0d5da;
+  border-radius: 8px;
+}
+
+.ask-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  background: #2563eb;
+  color: #fff;
+}
+
+button:disabled {
+  background: #a8b3c2;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background: #eef1f5;
+  color: #1f2329;
+}
+
+button.ghost {
+  background: transparent;
+  color: #2563eb;
+  padding: 4px 8px;
+}
+
+.examples {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.example-chip {
+  background: #eef4ff;
+  color: #2563eb;
+  border: 1px solid #d4e2ff;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.error-banner {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.answer {
+  margin-top: 16px;
+}
+
+.sql-block {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin: 14px 0 6px;
+}
+
+.insights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.insights li {
+  padding: 6px 0;
+  border-bottom: 1px dashed #e6e8eb;
+  font-size: 14px;
+}
+
+table.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+table.result-table th,
+table.result-table td {
+  border: 1px solid #e6e8eb;
+  padding: 6px 10px;
+  text-align: left;
+}
+
+table.result-table th {
+  background: #f1f4f8;
+  font-weight: 600;
+}
+
+.history-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #eef1f5;
+}
+
+.history-item .q {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.history-item .meta {
+  font-size: 12px;
+  color: #8a94a3;
+  margin-top: 4px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.schema-search input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d0d5da;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.schema-table {
+  margin-top: 12px;
+}
+
+.schema-table .name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.schema-table .desc {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.badge {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 12px;
+  background: #eef1f5;
+  color: #374151;
+}
+
+.badge.role {
+  background: #e0f2fe;
+  color: #075985;
+}
+
+.muted {
+  color: #8a94a3;
+  font-size: 13px;
+}
+
+.login-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 16px;
+  text-align: center;
+}
+
+.indicator-value {
+  font-size: 44px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.indicator-title {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.chart-container {
+  margin-top: 12px;
+}
+
+.chart-container svg {
+  max-width: 100%;
+  height: auto;
+}

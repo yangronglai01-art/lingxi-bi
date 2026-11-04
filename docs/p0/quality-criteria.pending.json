@@ -1,0 +1,30 @@
+{
+  "owner": null,
+  "approval_reference": null,
+  "by_difficulty": {
+    "simple": {
+      "min_cases": 100,
+      "min_correct_rate": null,
+      "max_wrong_answer_rate": null,
+      "max_p95_seconds": null
+    },
+    "join": {
+      "min_cases": 100,
+      "min_correct_rate": null,
+      "max_wrong_answer_rate": null,
+      "max_p95_seconds": null
+    },
+    "complex": {
+      "min_cases": 100,
+      "min_correct_rate": null,
+      "max_wrong_answer_rate": null,
+      "max_p95_seconds": null
+    },
+    "behavior": {
+      "min_cases": 50,
+      "min_correct_rate": null,
+      "max_wrong_answer_rate": null,
+      "max_p95_seconds": null
+    }
+  }
+}

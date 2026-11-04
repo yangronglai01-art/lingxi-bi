@@ -1,4 +1,8 @@
 """Single-worker durable query processing, with leases and cooperative cancellation."""
+
+import os as _runtime_os
+if _runtime_os.getenv('APP_ENV') in {'staging','production'}:
+    raise RuntimeError('Legacy worker disabled; use src.enterprise.worker')
 import os
 import threading
 import uuid

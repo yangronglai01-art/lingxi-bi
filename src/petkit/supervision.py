@@ -1,8 +1,10 @@
 """Bounded process-exit supervision; interrupted jobs retain their existing leases."""
-import json,sqlite3,threading,time
+import json,threading,time
+from src.storage import db
 
 def heartbeat(data):
-    with sqlite3.connect(data/'control.sqlite3',timeout=10) as c:
+    # data 仅用于兼容旧签名；控制面已迁至 Postgres，不再依赖本地 SQLite 路径。
+    with db() as c:
         row=c.execute("SELECT value,updated FROM runtime WHERE name='worker'").fetchone()
     if not row:return None
     try:value=json.loads(row[0])
@@ -12,7 +14,7 @@ def heartbeat(data):
 
 def persist(data,state,event=None):
     now=time.time();payload=json.dumps(state,ensure_ascii=False)
-    with sqlite3.connect(data/'control.sqlite3',timeout=10) as c:
+    with db() as c:
         c.execute("INSERT INTO runtime VALUES('supervisor',?,?) ON CONFLICT(name) DO UPDATE SET value=excluded.value,updated=excluded.updated",(payload,now))
         if event:c.execute('INSERT INTO audit(created,subject,event,payload) VALUES(?,?,?,?)',(now,'local-supervisor',event,payload))
 

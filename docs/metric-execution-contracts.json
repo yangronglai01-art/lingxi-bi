@@ -1,0 +1,412 @@
+{
+  "schema_version": 1,
+  "business_approval": false,
+  "source": "existing synthetic technical catalog; no new business approval",
+  "as_of": "2026-10-16",
+  "contracts": [
+    {
+      "schema_version": "metric-execution-v1",
+      "metric": "net_sales",
+      "metric_version": "petkit-v1.3",
+      "definition": "订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分",
+      "unit": "CNY",
+      "time_column": "fact_order.paid_date",
+      "time_range": {
+        "kind": "published_snapshot",
+        "start": null,
+        "end_exclusive": null,
+        "as_of": "2026-10-16",
+        "assumption": "未指定月份时使用发布快照内全部观察记录，非默认本月"
+      },
+      "grain": "order item; refunds aggregated by item_id before LEFT JOIN",
+      "formula": "SUM(order_item.amount - COALESCE(refunds_by_item.refunded, 0))",
+      "rules": [
+        "退款截至快照日累计，归原支付月；不按退款发生月归属",
+        "退款先按item_id求和再LEFT JOIN，禁止直接关联多条退款或SUM(DISTINCT amount)",
+        "模板使用发布快照内全部订单；订单取消/支付状态的源纳入规则需Owner批准，不能自行添加过滤"
+      ],
+      "group": "channel",
+      "dependencies": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_sku",
+        "dim_product",
+        "dim_channel"
+      ],
+      "output_metrics": [
+        "net_sales"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty rows; never replace errors with zero",
+      "business_approval_status": "technical_contract_only",
+      "sha256": "3b4012a76a4ba4b9da576af0ce53332d51880fe645237d5046c27564e63d1cbf"
+    },
+    {
+      "schema_version": "metric-execution-v1",
+      "metric": "net_sales",
+      "metric_version": "petkit-v1.3",
+      "definition": "订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分",
+      "unit": "CNY",
+      "time_column": "fact_order.paid_date",
+      "time_range": {
+        "kind": "published_snapshot",
+        "start": null,
+        "end_exclusive": null,
+        "as_of": "2026-10-16",
+        "assumption": "未指定月份时使用发布快照内全部观察记录，非默认本月"
+      },
+      "grain": "order item; refunds aggregated by item_id before LEFT JOIN",
+      "formula": "SUM(order_item.amount - COALESCE(refunds_by_item.refunded, 0))",
+      "rules": [
+        "退款截至快照日累计，归原支付月；不按退款发生月归属",
+        "退款先按item_id求和再LEFT JOIN，禁止直接关联多条退款或SUM(DISTINCT amount)",
+        "模板使用发布快照内全部订单；订单取消/支付状态的源纳入规则需Owner批准，不能自行添加过滤"
+      ],
+      "group": "model",
+      "dependencies": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_sku",
+        "dim_product",
+        "dim_channel"
+      ],
+      "output_metrics": [
+        "net_sales"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty rows; never replace errors with zero",
+      "business_approval_status": "technical_contract_only",
+      "sha256": "2c1325631a4abc88d5078024c78b34a41089e1c74f12b7c7f53a1a6e37605110"
+    },
+    {
+      "schema_version": "metric-execution-v1",
+      "metric": "net_sales",
+      "metric_version": "petkit-v1.3",
+      "definition": "订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分",
+      "unit": "CNY",
+      "time_column": "fact_order.paid_date",
+      "time_range": {
+        "kind": "published_snapshot",
+        "start": null,
+        "end_exclusive": null,
+        "as_of": "2026-10-16",
+        "assumption": "未指定月份时使用发布快照内全部观察记录，非默认本月"
+      },
+      "grain": "order item; refunds aggregated by item_id before LEFT JOIN",
+      "formula": "SUM(order_item.amount - COALESCE(refunds_by_item.refunded, 0))",
+      "rules": [
+        "退款截至快照日累计，归原支付月；不按退款发生月归属",
+        "退款先按item_id求和再LEFT JOIN，禁止直接关联多条退款或SUM(DISTINCT amount)",
+        "模板使用发布快照内全部订单；订单取消/支付状态的源纳入规则需Owner批准，不能自行添加过滤"
+      ],
+      "group": "month",
+      "dependencies": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_sku",
+        "dim_product",
+        "dim_channel"
+      ],
+      "output_metrics": [
+        "net_sales"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty rows; never replace errors with zero",
+      "business_approval_status": "technical_contract_only",
+      "sha256": "ec2cff7a89d96187012433b6b0af54893e629b6007f60110b6418076c45d6f1a"
+    },
+    {
+      "schema_version": "metric-execution-v1",
+      "metric": "activation30",
+      "metric_version": "petkit-v1.3",
+      "definition": "截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备",
+      "unit": "percent",
+      "time_column": "fact_order.paid_date",
+      "time_range": {
+        "kind": "published_snapshot",
+        "start": null,
+        "end_exclusive": null,
+        "as_of": "2026-10-16",
+        "assumption": "未指定月份时使用发布快照内全部观察记录，非默认本月"
+      },
+      "grain": "distinct sold device in mature cohort",
+      "formula": "100 * distinct activated devices / distinct mature sold devices",
+      "rules": [
+        "支付日起0至30天（两端含）激活；只纳入观察满30天的售出设备",
+        "分母保留无事件、晚激活和后续退款设备；按device_id去重",
+        "事件窗口放在ON或独立outcomes CTE，不得在LEFT JOIN后WHERE缩小分母"
+      ],
+      "group": "model",
+      "dependencies": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_device_activation"
+      ],
+      "output_metrics": [
+        "devices",
+        "matched_devices",
+        "rate_percent"
+      ],
+      "zero_denominator": "NULL",
+      "empty_result": "empty rows; never replace errors with zero",
+      "business_approval_status": "technical_contract_only",
+      "maturity_cutoff": "2026-09-16",
+      "sha256": "416ca2a9bce2b087e06e6b81d50517eddabf7060c9a040b4d5d9fc0955e4126d"
+    },
+    {
+      "schema_version": "metric-execution-v1",
+      "metric": "service30",
+      "metric_version": "petkit-v1.3",
+      "definition": "观察满30天售出设备，支付日起0至30天有工单的设备去重数/售出设备去重数；包含退款设备；不是工单数占比",
+      "unit": "percent",
+      "time_column": "fact_order.paid_date",
+      "time_range": {
+        "kind": "published_snapshot",
+        "start": null,
+        "end_exclusive": null,
+        "as_of": "2026-10-16",
+        "assumption": "未指定月份时使用发布快照内全部观察记录，非默认本月"
+      },
+      "grain": "distinct sold device in mature cohort",
+      "formula": "100 * distinct devices with tickets / distinct mature sold devices",
+      "rules": [
+        "支付日起0至30天（两端含）有工单的设备数，不是工单条数",
+        "只纳入观察满30天的售出设备，分母保留无工单、晚工单和后续退款设备",
+        "事件先按设备去重，不得在LEFT JOIN后WHERE缩小分母"
+      ],
+      "group": "model",
+      "dependencies": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_service_ticket"
+      ],
+      "output_metrics": [
+        "devices",
+        "matched_devices",
+        "rate_percent"
+      ],
+      "zero_denominator": "NULL",
+      "empty_result": "empty rows; never replace errors with zero",
+      "business_approval_status": "technical_contract_only",
+      "maturity_cutoff": "2026-09-16",
+      "sha256": "b0390990f6b60ab940f42d4d4156d8a97731899dce8d810a49010a9229da4d04"
+    },
+    {
+      "schema_version": "metric-execution-v1",
+      "metric": "offline_rate",
+      "metric_version": "petkit-v1.3",
+      "definition": "观测设备日中online=0的记录数/总设备日记录数；仅覆盖采样观察日，不代表全量设备实时状态",
+      "unit": "percent",
+      "time_column": "fact_device_day.event_date",
+      "time_range": {
+        "kind": "published_snapshot",
+        "start": null,
+        "end_exclusive": null,
+        "as_of": "2026-10-16",
+        "assumption": "未指定月份时使用发布快照内全部观察记录，非默认本月"
+      },
+      "grain": "observed device day",
+      "formula": "100 * COUNT_IF(online=0) / COUNT(*)",
+      "rules": [
+        "只统计采样设备日，不代表实时离线设备比例；不等于在线率",
+        "输出百分数必须乘100；不得按设备去重后替代设备日分母"
+      ],
+      "group": "firmware",
+      "dependencies": [
+        "fact_device_day",
+        "dim_device",
+        "dim_product",
+        "dim_firmware"
+      ],
+      "output_metrics": [
+        "device_days",
+        "offline_percent"
+      ],
+      "zero_denominator": "NULL",
+      "empty_result": "empty rows; never replace errors with zero",
+      "business_approval_status": "technical_contract_only",
+      "sha256": "ca88f077c58f5ce6e014ba08a1285ec22743ce486be7eb72b3155d72bdfa2797"
+    },
+    {
+      "schema_version": "metric-execution-v1",
+      "metric": "offline_rate",
+      "metric_version": "petkit-v1.3",
+      "definition": "观测设备日中online=0的记录数/总设备日记录数；仅覆盖采样观察日，不代表全量设备实时状态",
+      "unit": "percent",
+      "time_column": "fact_device_day.event_date",
+      "time_range": {
+        "kind": "published_snapshot",
+        "start": null,
+        "end_exclusive": null,
+        "as_of": "2026-10-16",
+        "assumption": "未指定月份时使用发布快照内全部观察记录，非默认本月"
+      },
+      "grain": "observed device day",
+      "formula": "100 * COUNT_IF(online=0) / COUNT(*)",
+      "rules": [
+        "只统计采样设备日，不代表实时离线设备比例；不等于在线率",
+        "输出百分数必须乘100；不得按设备去重后替代设备日分母"
+      ],
+      "group": "model",
+      "dependencies": [
+        "fact_device_day",
+        "dim_device",
+        "dim_product",
+        "dim_firmware"
+      ],
+      "output_metrics": [
+        "device_days",
+        "offline_percent"
+      ],
+      "zero_denominator": "NULL",
+      "empty_result": "empty rows; never replace errors with zero",
+      "business_approval_status": "technical_contract_only",
+      "sha256": "8cd3c4b4c7bc35bcc643d64bff85f323ee50bef795091726eaa503bd62dbddcd"
+    },
+    {
+      "schema_version": "metric-execution-v1",
+      "metric": "tickets",
+      "metric_version": "petkit-v1.3",
+      "definition": "按工单创建日统计工单数，不等同于售后设备数",
+      "unit": "ticket",
+      "time_column": "fact_service_ticket.created_date",
+      "time_range": {
+        "kind": "published_snapshot",
+        "start": null,
+        "end_exclusive": null,
+        "as_of": "2026-10-16",
+        "assumption": "未指定月份时使用发布快照内全部观察记录，非默认本月"
+      },
+      "grain": "service ticket",
+      "formula": "COUNT(*)",
+      "rules": [
+        "按创建日统计工单条数，不是设备数或售后率"
+      ],
+      "group": "fault",
+      "dependencies": [
+        "fact_service_ticket",
+        "dim_fault",
+        "dim_device",
+        "dim_product"
+      ],
+      "output_metrics": [
+        "tickets"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty rows; never replace errors with zero",
+      "business_approval_status": "technical_contract_only",
+      "sha256": "bc6ad33b68a30eca0c66a8b33ccbd8e65b379b0c28dce6451fd4a1bef10260f5"
+    },
+    {
+      "schema_version": "metric-execution-v1",
+      "metric": "tickets",
+      "metric_version": "petkit-v1.3",
+      "definition": "按工单创建日统计工单数，不等同于售后设备数",
+      "unit": "ticket",
+      "time_column": "fact_service_ticket.created_date",
+      "time_range": {
+        "kind": "published_snapshot",
+        "start": null,
+        "end_exclusive": null,
+        "as_of": "2026-10-16",
+        "assumption": "未指定月份时使用发布快照内全部观察记录，非默认本月"
+      },
+      "grain": "service ticket",
+      "formula": "COUNT(*)",
+      "rules": [
+        "按创建日统计工单条数，不是设备数或售后率"
+      ],
+      "group": "model",
+      "dependencies": [
+        "fact_service_ticket",
+        "dim_fault",
+        "dim_device",
+        "dim_product"
+      ],
+      "output_metrics": [
+        "tickets"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty rows; never replace errors with zero",
+      "business_approval_status": "technical_contract_only",
+      "sha256": "d18feb3f57ce3905eee8483c5e7a9e110603c330123c0f533a8a7d8081704038"
+    },
+    {
+      "schema_version": "metric-execution-v1",
+      "metric": "received_units",
+      "metric_version": "petkit-v1.3",
+      "definition": "按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货",
+      "unit": "piece",
+      "time_column": "fact_receipt.receipt_date",
+      "time_range": {
+        "kind": "published_snapshot",
+        "start": null,
+        "end_exclusive": null,
+        "as_of": "2026-10-16",
+        "assumption": "未指定月份时使用发布快照内全部观察记录，非默认本月"
+      },
+      "grain": "receipt fact",
+      "formula": "SUM(fact_receipt.quantity)",
+      "rules": [
+        "按收货日汇总已接收件数；仅关联仓库维表",
+        "不是订购量、库存余额或收货单条数；不得关联采购行重复放大数量"
+      ],
+      "group": "warehouse",
+      "dependencies": [
+        "fact_receipt",
+        "dim_warehouse"
+      ],
+      "output_metrics": [
+        "received_units"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty rows; never replace errors with zero",
+      "business_approval_status": "technical_contract_only",
+      "sha256": "69be0b7c3dc40868d16f37818399ee3c349503d33c013314a9c890c653cfb49f"
+    },
+    {
+      "schema_version": "metric-execution-v1",
+      "metric": "inventory",
+      "metric_version": "petkit-v1.3",
+      "definition": "每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照",
+      "unit": "piece",
+      "time_column": "fact_inventory_day.stock_date",
+      "time_range": {
+        "kind": "published_snapshot",
+        "start": null,
+        "end_exclusive": null,
+        "as_of": "2026-10-16",
+        "assumption": "未指定月份时使用发布快照内全部观察记录，非默认本月"
+      },
+      "grain": "latest snapshot per (sku_id, warehouse_id)",
+      "formula": "SUM(latest quantity)",
+      "rules": [
+        "每个SKU和仓库分别选范围内最新快照，再按型号汇总",
+        "不能取全表统一MAX日期，不跨日期累加快照"
+      ],
+      "group": "model",
+      "dependencies": [
+        "fact_inventory_day",
+        "dim_sku",
+        "dim_product",
+        "dim_warehouse"
+      ],
+      "output_metrics": [
+        "stock_quantity"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty rows; never replace errors with zero",
+      "business_approval_status": "technical_contract_only",
+      "sha256": "fc3f072e81764ea46df48fc651eefd0e57ad93bcb9ee7854cc1ed07026084cd6"
+    }
+  ]
+}

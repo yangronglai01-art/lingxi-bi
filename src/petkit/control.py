@@ -1,13 +1,12 @@
 """Persistent simulated organization, token digests, job state and audit."""
-from contextlib import contextmanager
 import hashlib
 import os
 import json
 import secrets
-import sqlite3
 import time
 import uuid
 from .settings import DATA
+from src.storage import db
 
 USER_QUEUE_LIMIT=20
 GLOBAL_QUEUE_LIMIT=200
@@ -18,36 +17,57 @@ class QueueFull(ValueError):
         self.scope=scope
         super().__init__('待处理队列已达配额：'+scope)
 
-def path(): return DATA/'control.sqlite3'
+# 提交路径串行化的顾问锁键。等价于旧 SQLite 的 BEGIN IMMEDIATE：让「幂等检查 + 配额
+# 检查 + 插入」成为原子步骤，避免并发提交突破配额或竞争同一幂等键。
+_SUBMIT_LOCK_KEY = 5150
 
-@contextmanager
-def db():
-    DATA.mkdir(parents=True,exist_ok=True)
-    conn=sqlite3.connect(path(),timeout=10); conn.row_factory=sqlite3.Row
+def initialized():
+    """控制面是否已初始化（users 表已建且至少开通一个账号）。"""
     try:
-        conn.execute('PRAGMA foreign_keys=ON')
-        yield conn
-        conn.commit()
-    except BaseException:
-        conn.rollback(); raise
-    finally: conn.close()
+        with db() as c:
+            c.execute("SELECT 1 FROM information_schema.tables WHERE table_schema='public' AND table_name='users'")
+            if c.fetchone() is None:
+                return False
+            c.execute('SELECT count(*) FROM users')
+            return c.fetchone()[0] > 0
+    except Exception:
+        return False
 
 def initialize():
     with db() as c:
-        c.execute('PRAGMA journal_mode=WAL')
         c.executescript('''
-        CREATE TABLE IF NOT EXISTS runtime(name TEXT PRIMARY KEY,value TEXT NOT NULL,updated REAL NOT NULL);
+        CREATE TABLE IF NOT EXISTS runtime(name TEXT PRIMARY KEY,value TEXT NOT NULL,updated DOUBLE PRECISION NOT NULL);
         CREATE TABLE IF NOT EXISTS users(subject TEXT PRIMARY KEY,department TEXT NOT NULL,role TEXT NOT NULL,
           regions TEXT NOT NULL,enabled INTEGER NOT NULL,version INTEGER NOT NULL);
-        CREATE TABLE IF NOT EXISTS tokens(digest TEXT PRIMARY KEY,subject TEXT NOT NULL REFERENCES users(subject),created REAL NOT NULL);
-        CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY AUTOINCREMENT,created REAL NOT NULL,subject TEXT NOT NULL,event TEXT NOT NULL,payload TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS tokens(digest TEXT PRIMARY KEY,subject TEXT NOT NULL REFERENCES users(subject),created DOUBLE PRECISION NOT NULL);
+        CREATE TABLE IF NOT EXISTS audit(id BIGSERIAL PRIMARY KEY,created DOUBLE PRECISION NOT NULL,subject TEXT NOT NULL,event TEXT NOT NULL,payload TEXT NOT NULL);
         CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY,subject TEXT NOT NULL,policy_version INTEGER NOT NULL,
-          generation TEXT NOT NULL,question TEXT NOT NULL,state TEXT NOT NULL,created REAL NOT NULL,updated REAL NOT NULL,
-          idempotency TEXT NOT NULL,result TEXT,error TEXT NOT NULL DEFAULT '',lease REAL,owner TEXT,
+          generation TEXT NOT NULL,question TEXT NOT NULL,state TEXT NOT NULL,created DOUBLE PRECISION NOT NULL,updated DOUBLE PRECISION NOT NULL,
+          idempotency TEXT NOT NULL,result TEXT,error TEXT NOT NULL DEFAULT '',lease DOUBLE PRECISION,owner TEXT,
           UNIQUE(subject,policy_version,idempotency));
         CREATE INDEX IF NOT EXISTS jobs_state_created ON jobs(state,created);
         CREATE INDEX IF NOT EXISTS jobs_updated ON jobs(updated);
+        CREATE OR REPLACE FUNCTION json_status(payload text) RETURNS text AS $$
+        BEGIN
+            RETURN payload::jsonb->>'status';
+        EXCEPTION WHEN OTHERS THEN
+            RETURN NULL;
+        END;
+        $$ LANGUAGE plpgsql;
         ''')
+
+def reset():
+    """清空控制面（含历史与接入台账）并重建结构。仅供测试隔离使用。"""
+    from src import config
+    from src.storage import current_database
+    database=current_database()
+    if (config.PG_HOST not in {"localhost","127.0.0.1"} or not database.endswith("_qa")
+        or os.getenv("LINGXI_TEST_ALLOW_RESET")!=database):
+        raise RuntimeError("Destructive reset requires an explicitly approved local *_qa database")
+    with db() as c:
+        c.execute("DROP TABLE IF EXISTS jobs,audit,tokens,users,runtime,ingestion_attempts,ingestion_batches,ingestion_events,history CASCADE")
+        c.execute("DROP FUNCTION IF EXISTS json_status(text)")
+    initialize()
 
 def audit(record,event='query'):
     with db() as c:
@@ -68,7 +88,6 @@ def _upsert_user(subject,department,role,regions=(),enabled=True):
         known={r[0] for r in warehouse.execute('SELECT region_id FROM dim_region').fetchall()}
     if set(regions)-known: raise ValueError('未知地区编码')
     with db() as c:
-        c.execute('BEGIN IMMEDIATE')
         previous=c.execute('SELECT * FROM users WHERE subject=?',(subject,)).fetchone()
         values=(department,role,json.dumps(regions),int(enabled))
         if previous and tuple(previous[k] for k in ['department','role','regions','enabled'])==values: return
@@ -114,7 +133,7 @@ def _submit(principal,question,key=None):
     generation=current_catalog()['generation']; now=time.time()
     key=hashlib.sha256((generation+':'+key).encode()).hexdigest()
     with db() as c:
-        c.execute('BEGIN IMMEDIATE')
+        c.execute('SELECT pg_advisory_xact_lock(%s)', (_SUBMIT_LOCK_KEY,))
         prior=c.execute('SELECT * FROM jobs WHERE subject=? AND policy_version=? AND idempotency=?',(principal.subject,principal.policy_version,key)).fetchone()
         if prior:
             if prior['question']!=question: raise ValueError('同一幂等键不能用于不同问题')
@@ -151,8 +170,7 @@ def recover():
 def _claim(owner):
     now=time.time()
     with db() as c:
-        c.execute('BEGIN IMMEDIATE')
-        row=c.execute("SELECT * FROM jobs WHERE state='queued' ORDER BY created,id LIMIT 1").fetchone()
+        row=c.execute("SELECT * FROM jobs WHERE state='queued' ORDER BY created,id LIMIT 1 FOR UPDATE SKIP LOCKED").fetchone()
         if not row: return None
         c.execute("UPDATE jobs SET state='running',owner=?,lease=?,updated=? WHERE id=?",(owner,now+60,now,row['id']))
         return dict(row)
@@ -166,11 +184,9 @@ def finish(job_id,owner,result=None,error=''):
         c.execute("UPDATE jobs SET state=?,result=?,error=?,updated=?,lease=NULL WHERE id=? AND owner=? AND state='running'",
           ('failed' if error else 'completed',json.dumps(result,ensure_ascii=False) if result else None,error,time.time(),job_id,owner))
 
-
 def tick(owner):
     with db() as c:
         c.execute("INSERT INTO runtime VALUES('worker',?,?) ON CONFLICT(name) DO UPDATE SET value=excluded.value,updated=excluded.updated",(json.dumps(dict(owner=owner,pid=os.getpid(),session=os.getenv("PETKIT_LAUNCH_SESSION",""))),time.time()))
-
 
 def _release_serialized(function,*args,**kwargs):
     from .releases import guard,reconcile_locked

@@ -1,0 +1,17 @@
+**
+!requirements-production.txt
+!src/
+!src/**
+!web/
+!web/**
+!deploy/
+!deploy/enterprise/
+!deploy/enterprise/Dockerfile
+**/__pycache__/**
+**/*.pyc
+**/node_modules/**
+web/dist/**
+**/.env*
+**/*secret*
+**/*.pem
+**/*.key

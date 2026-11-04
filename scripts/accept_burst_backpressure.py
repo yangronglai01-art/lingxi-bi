@@ -3,7 +3,6 @@ from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
 from pathlib import Path
-import sqlite3
 import sys
 import threading
 import time
@@ -16,6 +15,7 @@ sys.path.insert(0,str(ROOT))
 from scripts.start_simulated import running
 from scripts.backup_simulated import backup,restore_drill
 from scripts.accept_durable_stability import free,job_fingerprint,sha
+from scripts.pg_control import control_scalar
 from src.petkit.settings import DATA
 from src.petkit.reference import expected
 
@@ -79,11 +79,10 @@ def main():
                 return dict(index=index,key=key,status=status,id=value.get('id'),detail=value.get('detail'),retry_after=headers.get('retry-after'))
             value,status,_=request('global_analyst','/jobs',dict(question='各型号净销售额'),'warm-'+output.name)
             assert status==202 and correct(wait('global_analyst',value['id']))
-            with sqlite3.connect(data/'control.sqlite3') as c:baseline=c.execute('SELECT count(*) FROM jobs').fetchone()[0]
+            baseline=control_scalar(data,'SELECT count(*) FROM jobs')
             def sample():
                 while not stop.wait(.05):
-                    with sqlite3.connect(data/'control.sqlite3',timeout=10) as c:
-                        count=c.execute("SELECT count(*) FROM jobs WHERE subject='global_analyst' AND state IN ('queued','running')").fetchone()[0]
+                    count=control_scalar(data,"SELECT count(*) FROM jobs WHERE subject='global_analyst' AND state IN ('queued','running')")
                     samples.append(count)
             sampler=threading.Thread(target=sample,daemon=True)
             sampler.start()
@@ -95,11 +94,10 @@ def main():
             assert accepted and rejected and len(accepted)+len(rejected)==64
             assert all(r['retry_after']=='5' and r['detail']['code']=='queue_full' and r['detail']['scope']=='employee' for r in rejected)
             assert len({r['id'] for r in accepted})==len(accepted)
-            with sqlite3.connect(data/'control.sqlite3') as c:
-                assert c.execute('SELECT count(*) FROM jobs').fetchone()[0]-baseline==len(accepted)
-                for r in rejected:
-                    digest=hashlib.sha256((generation+':'+r['key']).encode()).hexdigest()
-                    assert c.execute('SELECT count(*) FROM jobs WHERE idempotency=?',(digest,)).fetchone()[0]==0
+            assert control_scalar(data,'SELECT count(*) FROM jobs')-baseline==len(accepted)
+            for r in rejected:
+                digest=hashlib.sha256((generation+':'+r['key']).encode()).hexdigest()
+                assert control_scalar(data,'SELECT count(*) FROM jobs WHERE idempotency=?',(digest,))==0
             chosen=accepted[0]
             def duplicate(_):return request('global_analyst','/jobs',dict(question='各型号净销售额'),chosen['key'])
             with ThreadPoolExecutor(max_workers=8) as pool:duplicates=list(pool.map(duplicate,range(16)))

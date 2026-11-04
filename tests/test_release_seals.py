@@ -47,5 +47,7 @@ def test_bad_quality_records_rejection_and_preserves_pointer(tmp_path,monkeypatc
 def test_initialized_instance_cannot_bypass_release_pipeline(tmp_path,monkeypatch):
     monkeypatch.setattr(builder,'DATA',tmp_path)
     monkeypatch.setattr(builder,'CURRENT',tmp_path/'current.json')
-    (tmp_path/'current.json').write_text('{}'); (tmp_path/'control.sqlite3').touch()
+    (tmp_path/'current.json').write_text('{}')
+    control.initialize()
+    with control.db() as c:c.execute("INSERT INTO users VALUES(?,?,?,?,?,?)",('east','销售一部','analyst',json.dumps(['R1']),1,1))
     with pytest.raises(ValueError,match='发布门禁'): builder.build()

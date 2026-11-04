@@ -29,18 +29,19 @@ def build_environment(mode):
         from dotenv import dotenv_values
         key=env.get('API_KEY') or dotenv_values(ROOT/'.env').get('API_KEY','')
         if not key or key=='your_api_key_here': raise RuntimeError('llm模式需要在.env配置可用API_KEY')
-    token=secrets.token_urlsafe(32)
+    from src.petkit.oidc import LocalOIDCProvider
+    idp=LocalOIDCProvider(client_id='lingxi').start()
+    token=idp.issue_token('local-interview',role='analyst')
     env.update(PROJECT_PROFILE='petkit',PETKIT_MODE=mode,
-        PETKIT_API_TOKENS=json.dumps({token:{'subject':'local-interview','role':'analyst'}}),
-        PETKIT_LOCAL_UI_TOKEN=token)
-    return env,token
+        OIDC_ISSUER=idp.issuer,OIDC_CLIENT_ID=idp.client_id)
+    return env,token,idp
 
 
 @contextmanager
 def running(mode='demo',api_port=8000,ui_port=8501):
     if api_port==ui_port or not all(1<=p<=65535 for p in [api_port,ui_port]):
         raise ValueError('请使用两个不同的有效端口')
-    env,token=build_environment(mode)
+    env,token,idp=build_environment(mode)
     children=[]
     flags=subprocess.CREATE_NO_WINDOW if sys.platform=='win32' else 0
     logs=ROOT/'data/petkit500/launcher_logs'
@@ -48,15 +49,14 @@ def running(mode='demo',api_port=8000,ui_port=8501):
     handles=[]
     try:
         for name,command in [
-            ('api',[sys.executable,'-m','uvicorn','src.api.main:app','--host','127.0.0.1','--port',str(api_port)]),
-            ('ui',[sys.executable,'-m','streamlit','run','src/app.py','--server.address','127.0.0.1',
-                   '--server.port',str(ui_port),'--server.headless','true'])]:
+            ('api',[sys.executable,'-m','uvicorn','src.api.main:app','--host','127.0.0.1','--port',str(api_port)])]:
             log=(logs/(name+'-'+secrets.token_hex(4)+'.log')).open('w',encoding='utf-8')
             handles.append(log)
             children.append(subprocess.Popen(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,creationflags=flags))
+        # 前端 React（web/dist）由 FastAPI 同源托管在 `/`，故 ui_url=api_url。
         api=f'http://127.0.0.1:{api_port}'
-        ui=f'http://127.0.0.1:{ui_port}'
-        for url in [api+'/health',ui+'/_stcore/health']:
+        ui=api
+        for url in [api+'/health']:
             deadline=time.monotonic()+30
             while True:
                 if any(p.poll() is not None for p in children):
@@ -76,13 +76,14 @@ def running(mode='demo',api_port=8000,ui_port=8501):
             except subprocess.TimeoutExpired:
                 process.kill(); process.wait(timeout=5)
         for handle in handles: handle.close()
+        idp.stop()
 
 
 def main():
     parser=argparse.ArgumentParser(description='仅本机访问的灵犀面试演示')
     parser.add_argument('--mode',choices=['demo','llm'],default='demo')
     parser.add_argument('--api-port',type=int,default=8000)
-    parser.add_argument('--ui-port',type=int,default=8501)
+    parser.add_argument('--ui-port',type=int,default=8501,help='已废弃：前端由 API 进程同源托管，忽略此端口')
     parser.add_argument('--no-browser',action='store_true')
     args=parser.parse_args()
     try:

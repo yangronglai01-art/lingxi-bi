@@ -1,3 +1,13 @@
+# 灵犀企业问数：StarRocks / PostgreSQL / 企业授权
+
+当前正式实现和验收状态见[企业一期状态](docs/enterprise-current-status.md)、[实施清单](docs/enterprise-implementation-plan.md)、[部署](docs/enterprise-deployment.md)、[迁移回滚](docs/enterprise-migration-and-rollback.md)与[证据边界](docs/enterprise-verification.md)。
+
+正式入口：`src.enterprise.api:create_app`，worker：`python -m src.enterprise.worker`；安装`requirements-production.txt`。四环境统一StarRocks，问数只走内网local-chat，禁止云端回退。已完成隔离集成，尚未企业预生产验收或生产上线。
+
+下面为**原模拟项目历史说明**，保留原日期/成绩供追溯。旧启动器与旧数据不是正式部署入口，不能将历史压测或模板成绩当成当前27B生产准确率。
+
+---
+
 # 灵犀：500表智能问数模拟业务实例
 
 以小佩智能宠物硬件业务背景构建的自有模拟项目，覆盖销售、设备、售后和供应链。没有接入小佩公司的内部数据或接口，不代表真实企业交付。

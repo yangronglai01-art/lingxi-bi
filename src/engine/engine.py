@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """问数引擎门面（Engine）：串联 Text-to-SQL → SQL 安全 → 执行 → 选图 → 洞察。
 
-对外暴露 ask()，供 scripts/ask.py 与后续 FastAPI / Streamlit 复用。
+对外暴露 ask()，供 scripts/ask.py 与后续 FastAPI / React 复用。
 """
 
 from __future__ import annotations

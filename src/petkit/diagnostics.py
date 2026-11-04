@@ -18,7 +18,6 @@ def snapshot(principal,window_minutes=15):
     if type(window_minutes) is not int or not 1<=window_minutes<=1440:raise ValueError('时间窗必须为1至1440分钟')
     now=time.time();cutoff=now-window_minutes*60
     with control.db() as c:
-        c.execute('BEGIN')
         runtime={r['name']:dict(r) for r in c.execute("SELECT name,value,updated FROM runtime WHERE name IN ('worker','supervisor')")}
         users=c.execute('SELECT count(*) FROM users WHERE enabled=1').fetchone()[0]
         counts={r['state']:r['n'] for r in c.execute('SELECT state,count(*) n FROM jobs GROUP BY state')}
@@ -27,7 +26,7 @@ def snapshot(principal,window_minutes=15):
         max_employee=c.execute("SELECT MAX(n) FROM (SELECT count(*) n FROM jobs WHERE state IN ('queued','running') GROUP BY subject)").fetchone()[0] or 0
         total=c.execute("SELECT count(*) FROM jobs WHERE updated BETWEEN ? AND ? AND state IN ('completed','failed','interrupted','cancelled','superseded')",(cutoff,now)).fetchone()[0]
         rows=[dict(r) for r in c.execute("""SELECT id,state,created,updated,
-          CASE WHEN json_valid(result) THEN json_extract(result,'$.status') ELSE NULL END answer_status
+          json_status(result) answer_status
           FROM jobs WHERE updated BETWEEN ? AND ? AND state IN ('completed','failed','interrupted','cancelled','superseded') ORDER BY updated DESC,id LIMIT ?""",(cutoff,now,LIMIT))]
     health=evaluate(now,runtime,users);worker_age=age(runtime.get('worker'),now);supervisor_age=age(runtime.get('supervisor'),now)
     state=runtime_value(runtime.get('supervisor'));session=os.getenv('PETKIT_LAUNCH_SESSION')

@@ -1,4 +1,5 @@
-import json,os,sqlite3,time
+import json,os,time
+import psycopg2
 import pytest
 from test_simulated_rollout import org
 from src.petkit import control,diagnostics,health_checks
@@ -85,24 +86,10 @@ def test_invalid_window_and_auth_store_failure_are_safe(healthy,monkeypatch):
     _,keys,_=healthy
     with TestClient(api.app) as client:
         assert client.get('/ops/health?window_minutes=0',headers={'Authorization':'Bearer '+keys['global']}).status_code==422
-        def fail(token):raise sqlite3.OperationalError('PRIVATE-TOKEN-OR-PATH')
+        def fail(token):raise psycopg2.OperationalError('PRIVATE-TOKEN-OR-PATH')
         monkeypatch.setattr(api,'authenticate',fail)
         response=client.get('/ops/health',headers={'Authorization':'Bearer '+keys['global']})
         assert response.status_code==503 and 'PRIVATE-TOKEN-OR-PATH' not in response.text
-
-def test_workbench_panel_is_on_demand_and_global_only(healthy,monkeypatch):
-    from pathlib import Path
-    from streamlit.testing.v1 import AppTest
-    _,keys,_=healthy
-    monkeypatch.setenv('PETKIT_LOCAL_UI_TOKEN',keys['global'])
-    app=AppTest.from_file(str(Path(__file__).resolve().parents[1]/'src/app.py')).run(timeout=30)
-    assert not app.exception
-    button=next(b for b in app.button if b.label=='读取运维快照');button.click();app.run(timeout=30)
-    assert not app.exception and any(e.label=='运维诊断' for e in app.expander)
-    assert any(m.label=='排队任务' for m in app.metric)
-    monkeypatch.setenv('PETKIT_LOCAL_UI_TOKEN',keys['east'])
-    regional=AppTest.from_file(str(Path(__file__).resolve().parents[1]/'src/app.py')).run(timeout=30)
-    assert not regional.exception and all(b.label!='读取运维快照' for b in regional.button)
 
 def test_recent_window_excludes_future_timestamps(healthy):
     principals,_,_=healthy

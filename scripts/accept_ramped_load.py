@@ -4,7 +4,6 @@ import json
 import math
 import os
 from pathlib import Path
-import sqlite3
 import sys
 import threading
 import time
@@ -17,6 +16,7 @@ sys.path.insert(0,str(ROOT))
 from scripts.start_simulated import running
 from scripts.backup_simulated import backup,restore_drill
 from scripts.accept_durable_stability import free,job_fingerprint,sha
+from scripts.pg_control import control_rows
 from src.petkit.settings import DATA
 from src.petkit.reference import expected
 
@@ -65,8 +65,7 @@ def main():
             'regional_supply':('2026年9月各仓库采购收货数量','received_units'),
             'restricted_viewer':('各型号净销售额',None),
         }
-        with sqlite3.connect(data/'control.sqlite3') as c:
-            regions={subject:json.loads(value) for subject,value in c.execute('SELECT subject,regions FROM users')}
+        regions={subject:json.loads(value) for subject,value in control_rows(data,'SELECT subject,regions FROM users')}
         references={}
         for subject,(_,metric) in questions.items():
             if not metric: continue

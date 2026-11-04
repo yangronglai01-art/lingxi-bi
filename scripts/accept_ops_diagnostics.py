@@ -1,5 +1,5 @@
 """Independent real API/worker diagnostics acceptance; no external LLM calls."""
-import hashlib,json,socket,sqlite3,sys,time
+import hashlib,json,socket,sys,time
 from pathlib import Path
 from urllib.request import Request,urlopen
 from urllib.error import HTTPError
@@ -11,7 +11,8 @@ from src.petkit.settings import DATA
 def free():
     with socket.socket() as s:s.bind(('127.0.0.1',0));return s.getsockname()[1]
 def jobs_hash(root):
-    with sqlite3.connect(root/'control.sqlite3') as c:values=c.execute('SELECT id,state,updated,result,error FROM jobs ORDER BY id').fetchall()
+    from scripts.pg_control import control_rows
+    values=control_rows(root,'SELECT id,state,updated,result,error FROM jobs ORDER BY id')
     return hashlib.sha256(json.dumps(values).encode()).hexdigest()
 def file_hash(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 

@@ -1,6 +1,8 @@
 """Fail-closed AST allowlist. It is not a substitute for production DB authorization."""
 from dataclasses import dataclass
 
+from src import config
+
 
 @dataclass
 class Checked:
@@ -8,11 +10,21 @@ class Checked:
     tables: list
 
 
-FUNCTIONS={"SUM","AVG","COUNT","MIN","MAX","ROUND","ABS","COALESCE","NULLIF",
- "CAST","TRY_CAST","TIME_TO_STR","STRFTIME","DATE_TRUNC","TIMESTAMP_TRUNC","EXTRACT",
- "YEAR","MONTH","DAY","LOWER","UPPER","LENGTH","CONCAT","SUBSTRING","TRIM",
- "ROW_NUMBER","RANK","DENSE_RANK","LAG","LEAD","CASE","IF","CURRENT_DATE",
- "DATE_DIFF","DATEDIFF","DATE_ADD","DATE_SUB","TS_OR_DS_TO_DATE","TIME_STR_TO_TIME"}
+# 目标方言：生产(starrocks) 与 开发/测试(duckdb) 使用不同的解析方言。
+DIALECT = "starrocks" if config.QUERY_ENGINE == "starrocks" else "duckdb"
+
+# 关键：sqlglot 会把不同方言的同语义函数归一化成同一内部名（实测 strftime 与 date_format
+# 都归为 TIME_TO_STR、date_trunc 归为 TIMESTAMP_TRUNC）。因此白名单统一使用 sqlglot 规范名，
+# 方言差异（谁算合法函数、输出什么拼写）完全由 read/dialect 参数负责，无需按方言拆白名单。
+FUNCTIONS = {"SUM","AVG","COUNT","MIN","MAX","ROUND","ABS","COALESCE","NULLIF",
+ "CAST","TRY_CAST","TIME_TO_STR","TIMESTAMP_TRUNC","EXTRACT","YEAR","MONTH","DAY",
+ "LOWER","UPPER","LENGTH","CONCAT","SUBSTRING","TRIM","ROW_NUMBER","RANK","DENSE_RANK",
+ "LAG","LEAD","CASE","IF","CURRENT_DATE","DATEDIFF","DATE_ADD","DATE_SUB",
+ # sqlglot 在解析 StarRocks 日期函数时会自动在 DATE 列上插入类型强制的“包裹函数”
+ # (TsOrDsTo* / TsOrDsAdd / TsOrDsDiff)，它们是纯类型转换、语义等同 CAST，而非用户
+ # 手写的真实函数。实测 date_format→TsOrDsToTimestamp、year/month/day→TsOrDsToDate。
+ "TS_OR_DS_TO_DATE","TS_OR_DS_TO_TIME","TS_OR_DS_TO_TIMESTAMP","TS_OR_DS_TO_DATETIME",
+ "TS_OR_DS_TO_DATE_STR","TS_OR_DS_ADD","TS_OR_DS_DIFF"}
 
 
 def check(sql,context,max_rows=1000):
@@ -21,12 +33,14 @@ def check(sql,context,max_rows=1000):
     from sqlglot.optimizer.qualify import qualify
     from sqlglot.optimizer.scope import traverse_scope
     from sqlglot.optimizer.normalize_identifiers import normalize_identifiers
-    parsed=sqlglot.parse(sql,read="duckdb")
+    parsed=sqlglot.parse(sql,read=DIALECT)
     statements=[s for s in parsed if s is not None]
     if len(statements)!=1 or not isinstance(statements[0],exp.Select):
         raise PermissionError("只允许单条SELECT，可包含非递归CTE")
-    tree=normalize_identifiers(statements[0],dialect="duckdb")
+    tree=normalize_identifiers(statements[0],dialect=DIALECT)
     for node in tree.walk():
+        if isinstance(node,(exp.Hint,exp.SessionParameter,exp.Parameter,exp.Placeholder)):
+            raise PermissionError("禁止优化器提示、系统变量及参数注入")
         if node.key in {"insert","update","delete","create","drop","alter","copy","command",
                         "into","lock","transaction","pragma","attach","detach"}:
             raise PermissionError("禁止写入、管理或外部访问")
@@ -72,7 +86,7 @@ def check(sql,context,max_rows=1000):
             if not approved: raise PermissionError("关联条件必须包含不同数据源列之间的等值条件")
     if not physical: raise PermissionError("查询必须引用批准的业务表")
     schema={n:{c:v["type"] for c,v in t["columns"].items()} for n,t in context["tables"].items()}
-    tree=qualify(tree,dialect="duckdb",schema=schema,validate_qualify_columns=True,
+    tree=qualify(tree,dialect=DIALECT,schema=schema,validate_qualify_columns=True,
                  quote_identifiers=True,identify=True)
     if len(list(tree.find_all(exp.Join)))>12: raise PermissionError("关联数量超过12个")
     # Outer limit is replaced as a unit. Nested limits cannot weaken it.
@@ -84,4 +98,4 @@ def check(sql,context,max_rows=1000):
         requested=min(requested,int(value.this))
         if requested<0: raise PermissionError("LIMIT不能为负数")
     tree=tree.limit(requested)
-    return Checked(tree.sql(dialect="duckdb"),sorted(physical))
+    return Checked(tree.sql(dialect=DIALECT,comments=False),sorted(physical))

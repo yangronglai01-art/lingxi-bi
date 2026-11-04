@@ -4,7 +4,6 @@ import os
 import sys
 from collections import defaultdict
 from datetime import date,timedelta
-from pathlib import Path
 
 os.environ['PROJECT_PROFILE']='petkit'
 os.environ['PETKIT_MODE']='demo'
@@ -294,14 +293,17 @@ def test_result_bytes_and_concurrency_limits_release_slots(monkeypatch,context):
     assert result.rows==[[12]]
 
 
-def test_api_history_identity_isolation_and_paging(monkeypatch,tmp_path):
+def test_api_history_identity_isolation_and_paging(monkeypatch,tmp_path,idp):
     from fastapi.testclient import TestClient
-    from src.petkit import api,history
+    from src.petkit import api,history,oidc
+    from src import config
     monkeypatch.setattr(history,'DATA',tmp_path)
-    monkeypatch.setenv('PETKIT_API_TOKENS',json.dumps({
-        'test-a':{'subject':'alice','role':'analyst'},'test-b':{'subject':'bob','role':'viewer'}}))
+    monkeypatch.setattr(config,'OIDC_ISSUER',idp.issuer)
+    monkeypatch.setattr(config,'OIDC_CLIENT_ID',idp.client_id)
+    oidc._resource_server=None
+    a_token=idp.issue_token('alice',role='analyst'); b_token=idp.issue_token('bob',role='viewer')
     client=TestClient(api.app)
-    a={'Authorization':'Bearer test-a'}; b={'Authorization':'Bearer test-b'}
+    a={'Authorization':f'Bearer {a_token}'}; b={'Authorization':f'Bearer {b_token}'}
     assert client.get('/health').status_code==200
     assert client.get('/schema').status_code==401
     assert client.get('/schema',headers={'Authorization':'Bearer wrong'}).status_code==401
@@ -375,18 +377,3 @@ def test_llm_policy_denial_never_executes_or_repairs(monkeypatch):
     monkeypatch.setattr(service,'execute',forbidden)
     a=QueryEngine().ask('各型号净销售额')
     assert a.status=='denied' and a.result is None and len(calls)==1
-
-
-def test_workbench_renders_and_executes(monkeypatch,tmp_path):
-    from streamlit.testing.v1 import AppTest
-    from src.petkit import history
-    monkeypatch.setattr(history,'DATA',tmp_path)
-    monkeypatch.delenv('PETKIT_API_TOKENS',raising=False)
-    at=AppTest.from_file(str(Path(__file__).resolve().parents[1]/'src'/'app.py')).run(timeout=30)
-    assert not at.exception,[e.message for e in at.exception]
-    assert [m.value for m in at.metric][:2]==['500','40']
-    at.selectbox[0].select('各型号净销售额').run(timeout=30)
-    button=next(b for b in at.button if b.label=='开始分析')
-    button.click().run(timeout=30)
-    assert not at.exception,[e.message for e in at.exception]
-    assert at.session_state['petkit-answer'].status=='success'

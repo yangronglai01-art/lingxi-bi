@@ -25,11 +25,15 @@ def running(mode='llm',api_port=18000,ui_port=18501,data_dir=None,supervise=True
     if type(max_worker_restarts) is not int or not 0<=max_worker_restarts<=10 or not .1<=restart_backoff<=10:raise ValueError('无效重启预算或退避时间')
     from src.petkit.settings import DATA as DEFAULT_DATA
     from src.petkit.supervision import WorkerSupervisor,heartbeat,persist
+    from src.petkit import control
     from filelock import FileLock,Timeout
     data=Path(data_dir).resolve() if data_dir else DEFAULT_DATA
-    if not (data/'control.sqlite3').is_file():raise RuntimeError('先运行 scripts/provision_simulated.py')
-    env=os.environ.copy();env.update(PROJECT_PROFILE='petkit',PETKIT_DEPLOYMENT='simulated',PETKIT_MODE=mode,PETKIT_DATA_DIR=str(data),PYTHONIOENCODING='utf-8')
-    for key in ['PETKIT_LOCAL_UI_TOKEN','PETKIT_API_TOKENS','PETKIT_LAUNCH_SESSION']:env.pop(key,None)
+    from scripts.pg_control import db_name_for
+    prev_pg_db=os.environ.get('PG_DATABASE')
+    os.environ['PG_DATABASE']=db_name_for(data)
+    if not control.initialized():raise RuntimeError('先运行 scripts/provision_simulated.py')
+    env=os.environ.copy();env.update(PROJECT_PROFILE='petkit',PETKIT_DEPLOYMENT='simulated',PETKIT_MODE=mode,PETKIT_DATA_DIR=str(data),PG_DATABASE=db_name_for(data),PYTHONIOENCODING='utf-8')
+    for key in ['PETKIT_API_TOKENS','PETKIT_LAUNCH_SESSION']:env.pop(key,None)
     session=uuid.uuid4().hex
     if supervise:env['PETKIT_LAUNCH_SESSION']=session
     config=data/'embedding_runtime.json'
@@ -51,14 +55,14 @@ def running(mode='llm',api_port=18000,ui_port=18501,data_dir=None,supervise=True
         children.append(process);return process
     worker_command=[interpreter,'-m','src.petkit.worker']
     try:
-        for name,command in [('worker',worker_command),('api',[interpreter,'-m','uvicorn','src.api.main:app','--host','127.0.0.1','--port',str(api_port)]),
-              ('ui',[interpreter,'-m','streamlit','run','src/app.py','--server.address','127.0.0.1','--server.port',str(ui_port),'--server.headless','true'])]:
+        for name,command in [('worker',worker_command),('api',[interpreter,'-m','uvicorn','src.api.main:app','--host','127.0.0.1','--port',str(api_port)])]:
             current[name]=launch(name,command)
         if supervise:
             guard=WorkerSupervisor(current,lambda:launch('worker',worker_command),lambda state,event:persist(data,state,event),lambda:heartbeat(data),stop_process,session,max_worker_restarts,restart_backoff)
             guard.start()
-        api=f'http://127.0.0.1:{api_port}';ui=f'http://127.0.0.1:{ui_port}'
-        for url in [api+'/ready',ui+'/_stcore/health']:
+        # 前端已改为 React（web/dist），由同一 FastAPI 进程托管在 `/`，故 ui_url=api_url。
+        api=f'http://127.0.0.1:{api_port}';ui=api
+        for url in [api+'/ready']:
             deadline=time.monotonic()+45
             while True:
                 if guard and guard.failed.is_set():raise RuntimeError('模拟守护启动失败：'+guard.reason)
@@ -75,21 +79,23 @@ def running(mode='llm',api_port=18000,ui_port=18501,data_dir=None,supervise=True
         yield dict(api_url=api,ui_url=ui,processes=children,current_processes=current,supervisor=guard,session=session)
     finally:
         if guard:guard.close()
-        for name in ['ui','api','worker']:
+        for name in ['api','worker']:
             if name in current:stop_process(current[name])
         for process in children:stop_process(process)
         for handle in handles:handle.close()
         lock.release()
+        if prev_pg_db is None:os.environ.pop('PG_DATABASE',None)
+        else:os.environ['PG_DATABASE']=prev_pg_db
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--mode',choices=['demo','llm'],default='llm')
-    parser.add_argument('--api-port',type=int,default=18000);parser.add_argument('--ui-port',type=int,default=18501)
+    parser.add_argument('--api-port',type=int,default=18000);parser.add_argument('--ui-port',type=int,default=18501,help='已废弃：前端由 API 进程同源托管，忽略此端口')
     parser.add_argument('--data-dir',default=None);parser.add_argument('--no-supervise',action='store_true',help='仅用于人工故障验收，关闭自动工作进程守护')
     parser.add_argument('--max-worker-restarts',type=int,default=3);parser.add_argument('--restart-backoff',type=float,default=.5)
     args=parser.parse_args()
     try:
         with running(args.mode,args.api_port,args.ui_port,args.data_dir,not args.no_supervise,args.max_worker_restarts,args.restart_backoff) as services:
-            print('模拟业务工作台：'+services['ui_url'],flush=True);print('API：'+services['api_url']+'/docs',flush=True)
+            print('灵犀工作台（React）：'+services['ui_url'],flush=True);print('API 文档：'+services['api_url']+'/docs',flush=True)
             print('使用本机员工凭据登录；Ctrl+C停止。工作进程守护：'+('开启' if services['supervisor'] else '关闭'),flush=True)
             guard=services['supervisor']
             if guard:

@@ -1,6 +1,6 @@
 """Global 200-job admission check on an isolated supervised instance; no LLM."""
 from concurrent.futures import ThreadPoolExecutor
-import hashlib,json,secrets,sqlite3,sys,threading,time,uuid
+import hashlib,json,secrets,sys,threading,time,uuid
 from pathlib import Path
 from urllib.request import Request,urlopen
 from urllib.error import HTTPError
@@ -8,12 +8,12 @@ ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from scripts.start_simulated import running
 from scripts.backup_simulated import backup,restore_drill
 from scripts.accept_durable_stability import free,job_fingerprint,sha
+from scripts.pg_control import control_rows,control_scalar,control_cursor,db_name_for
 from src.petkit.settings import DATA
 from src.petkit.reference import expected
 
 def identity_fingerprint(data):
-    with sqlite3.connect(data/'control.sqlite3') as c:
-        values=[c.execute('SELECT * FROM users ORDER BY subject').fetchall(),c.execute('SELECT * FROM tokens ORDER BY digest').fetchall()]
+    values=[control_rows(data,'SELECT * FROM users ORDER BY subject'),control_rows(data,'SELECT * FROM tokens ORDER BY digest')]
     return hashlib.sha256(json.dumps(values).encode()).hexdigest()
 
 def main():
@@ -31,11 +31,11 @@ def main():
         keys=json.loads((DATA/'simulated_credentials.json').read_text(encoding='utf-8'))
         # Explicit test fixture in the copied control store only. No secrets on disk.
         subjects=['load_global_'+str(i).zfill(2) for i in range(16)]
-        with sqlite3.connect(data/'control.sqlite3') as c:
+        with control_cursor(db_name_for(data)) as c:
             for subject in subjects:
                 token=secrets.token_urlsafe(40);keys[subject]=token
-                c.execute('INSERT INTO users VALUES(?,?,?,?,?,?)',(subject,'压测临时账号','analyst','[]',1,1))
-                c.execute('INSERT INTO tokens VALUES(?,?,?)',(hashlib.sha256(token.encode()).hexdigest(),subject,time.time()))
+                c.execute('INSERT INTO users(subject,department,role,regions,enabled,version) VALUES(?,?,?,?,?,?)',(subject,'压测临时账号','analyst','[]',1,1))
+                c.execute('INSERT INTO tokens(digest,subject,created) VALUES(?,?,?)',(hashlib.sha256(token.encode()).hexdigest(),subject,time.time()))
             c.execute('INSERT INTO audit(created,subject,event,payload) VALUES(?,?,?,?)',
                 (time.time(),'load-fixture','test_only_identity_fixture',json.dumps(dict(users=16))))
         save()
@@ -72,12 +72,11 @@ def main():
                 raise TimeoutError('Accepted job did not finish within 120 seconds')
             value,status,_=request('global_analyst','/jobs',dict(question='各型号净销售额'),'warm-'+folder.name)
             assert status==202;check(wait('global_analyst',value['id']))
-            with sqlite3.connect(data/'control.sqlite3') as c:baseline=c.execute('SELECT count(*) FROM jobs').fetchone()[0]
+            baseline=control_scalar(data,'SELECT count(*) FROM jobs')
             def sample():
                 while not stop.wait(.05):
                     try:
-                        with sqlite3.connect(data/'control.sqlite3',timeout=10) as c:
-                            counts=c.execute("SELECT subject,count(*) FROM jobs WHERE state IN ('queued','running') GROUP BY subject").fetchall()
+                        counts=control_rows(data,"SELECT subject,count(*) FROM jobs WHERE state IN ('queued','running') GROUP BY subject")
                         samples.append(dict(pending=sum(r[1] for r in counts),max_employee=max((r[1] for r in counts),default=0)))
                     except Exception as exc:sample_errors.append(type(exc).__name__);stop.set()
             sampler=threading.Thread(target=sample,daemon=True);sampler.start()
@@ -95,11 +94,10 @@ def main():
             assert accepted and rejected and len(accepted)+len(rejected)==320
             assert all(r['retry_after']=='5' and r['detail']['scope']=='global' and r['detail']['code']=='queue_full' for r in rejected)
             assert len({r['id'] for r in accepted})==len(accepted)
-            with sqlite3.connect(data/'control.sqlite3') as c:
-                assert c.execute('SELECT count(*) FROM jobs').fetchone()[0]-baseline==len(accepted)
-                for r in rejected:
-                    digest=hashlib.sha256((generation+':'+r['key']).encode()).hexdigest()
-                    assert c.execute('SELECT count(*) FROM jobs WHERE subject=? AND idempotency=?',(r['subject'],digest)).fetchone()[0]==0
+            assert control_scalar(data,'SELECT count(*) FROM jobs')-baseline==len(accepted)
+            for r in rejected:
+                digest=hashlib.sha256((generation+':'+r['key']).encode()).hexdigest()
+                assert control_scalar(data,'SELECT count(*) FROM jobs WHERE subject=? AND idempotency=?',(r['subject'],digest))==0
             report.update(all_429_global_scope=True,all_429_retry_after_seconds=5,rejected_jobs_not_persisted=True);save()
             # Cross-account read/cancel must remain unavailable during backlog.
             first=accepted[0]

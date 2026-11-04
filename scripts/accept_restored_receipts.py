@@ -1,9 +1,10 @@
 """No-paid-model warehouse acceptance in the independent restored instance."""
-import json,socket,sys,time,sqlite3
+import json,socket,sys,time
 from pathlib import Path
 from urllib.request import Request,urlopen
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from scripts.start_simulated import running
+from scripts.pg_control import control_scalar
 from src.petkit.settings import DATA
 
 def free():
@@ -30,7 +31,7 @@ def main():
         answer=job.get('result') or {};assert answer.get('status')=='success'
         result=answer['result'];idx=result['columns'].index('received_units')
         assert len(result['rows'])==1 and result['rows'][0][idx]==10
-        with sqlite3.connect(DATA/'control.sqlite3') as c:assert c.execute('SELECT count(*) FROM jobs WHERE id=?',(task,)).fetchone()[0]==0
+        assert control_scalar(DATA,'SELECT count(*) FROM jobs WHERE id=?',(task,))==0
         children=services['processes']
     assert all(p.poll() is not None for p in children)
     report=dict(generation=answer['generation'],restored_directory=str(restored),warehouse_role='supply',regions=identity['regions'],regional_received_units=10,examples_filtered=True,original_instance_untouched=True,real_llm_called=False,children_stopped=True,passed=True)

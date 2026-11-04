@@ -3,15 +3,16 @@ import re
 from datetime import date
 from .settings import AS_OF
 from .catalog import METRICS
+from .sql_dialect import date_fmt
 
 
 def normalize(text): return re.sub(r"[\s？?，,。！!]","",text)
 
 
 def sales_sql(group="model",month=None):
-    dimensions={"model":"p.product_name", "channel":"c.channel_name", "month":"strftime(o.paid_date, '%Y-%m')"}
+    dimensions={"model":"p.product_name", "channel":"c.channel_name", "month":date_fmt("o.paid_date")}
     dim=dimensions[group]
-    where=f"WHERE strftime(o.paid_date, '%Y-%m') = '{month}'" if month else ""
+    where=f"WHERE {date_fmt('o.paid_date')} = '{month}'" if month else ""
     return f"""WITH refunds AS (
         SELECT item_id, SUM(amount) AS refunded FROM fact_refund GROUP BY item_id
     ) SELECT {dim} AS dimension, ROUND(SUM(i.amount-COALESCE(r.refunded,0)),2) AS net_sales
@@ -22,15 +23,15 @@ def sales_sql(group="model",month=None):
     GROUP BY {dim} ORDER BY {('dimension' if group=='month' else 'net_sales DESC')}"""
 
 
-def cohort_sql(kind,month=None):
+def cohort_sql(kind,month=None,as_of=AS_OF):
     target="fact_device_activation" if kind=="activation30" else "fact_service_ticket"
     event="activation_date" if kind=="activation30" else "created_date"
-    where=f"AND strftime(o.paid_date, '%Y-%m') = '{month}'" if month else ""
+    where=f"AND {date_fmt('o.paid_date')} = '{month}'" if month else ""
     return f"""WITH cohort AS (
       SELECT b.device_id, d.product_id, o.paid_date FROM bridge_order_device b
       JOIN fact_order_item i ON b.item_id=i.item_id JOIN fact_order o ON i.order_id=o.order_id
       JOIN dim_device d ON b.device_id=d.device_id
-      WHERE o.paid_date <= DATE '{AS_OF}' - INTERVAL '30 days' {where}
+      WHERE o.paid_date <= DATE '{as_of}' - INTERVAL '30 days' {where}
     ), outcomes AS (
       SELECT DISTINCT c.device_id FROM cohort c JOIN {target} e ON c.device_id=e.device_id
       WHERE e.{event} BETWEEN c.paid_date AND c.paid_date + INTERVAL '30 days'
@@ -41,12 +42,12 @@ def cohort_sql(kind,month=None):
     LEFT JOIN outcomes e ON c.device_id=e.device_id GROUP BY p.product_name ORDER BY rate_percent DESC"""
 
 
-def template_sql(metric,group="model",month=None):
+def template_sql(metric,group="model",month=None,as_of=AS_OF):
     if metric=="net_sales": return sales_sql(group,month)
-    if metric in {"activation30","service30"}: return cohort_sql(metric,month)
+    if metric in {"activation30","service30"}: return cohort_sql(metric,month,as_of)
     if metric=="offline_rate":
         dim="f.firmware_name" if group=="firmware" else "p.product_name"
-        where=f"WHERE strftime(x.event_date, '%Y-%m')='{month}'" if month else ""
+        where=f"WHERE {date_fmt('x.event_date')}='{month}'" if month else ""
         return f"""SELECT {dim} AS dimension, COUNT(*) AS device_days,
           ROUND(100.0*SUM(CASE WHEN x.online=0 THEN 1 ELSE 0 END)/NULLIF(COUNT(*),0),2) AS offline_percent
           FROM fact_device_day x JOIN dim_device d ON x.device_id=d.device_id
@@ -54,18 +55,18 @@ def template_sql(metric,group="model",month=None):
           {where} GROUP BY {dim} ORDER BY offline_percent DESC"""
     if metric=="tickets":
         dim="f.fault_name" if group=="fault" else "p.product_name"
-        where=f"WHERE strftime(t.created_date, '%Y-%m')='{month}'" if month else ""
+        where=f"WHERE {date_fmt('t.created_date')}='{month}'" if month else ""
         return f"""SELECT {dim} AS dimension,COUNT(*) AS tickets FROM fact_service_ticket t
           JOIN dim_device d ON t.device_id=d.device_id JOIN dim_product p ON d.product_id=p.product_id
           JOIN dim_fault f ON t.fault_id=f.fault_id {where} GROUP BY {dim} ORDER BY tickets DESC"""
     if metric=="received_units":
-        where=f"WHERE strftime(r.receipt_date, '%Y-%m')='{month}'" if month else ""
+        where=f"WHERE {date_fmt('r.receipt_date')}='{month}'" if month else ""
         return f"""SELECT w.warehouse_name,SUM(r.quantity) AS received_units FROM fact_receipt r
           JOIN dim_warehouse w ON r.warehouse_id=w.warehouse_id
           {where} GROUP BY w.warehouse_name ORDER BY received_units DESC"""
     if metric=="inventory":
         # Latest snapshot per SKU and warehouse; updates need not arrive together.
-        restriction=f"AND strftime(y.stock_date, '%Y-%m')='{month}'" if month else ""
+        restriction=f"AND {date_fmt('y.stock_date')}='{month}'" if month else ""
         return f"""SELECT p.product_name,SUM(x.quantity) AS stock_quantity FROM fact_inventory_day x
           JOIN dim_sku s ON x.sku_id=s.sku_id JOIN dim_product p ON s.product_id=p.product_id
           WHERE x.stock_date=(SELECT MAX(y.stock_date) FROM fact_inventory_day y
@@ -74,7 +75,7 @@ def template_sql(metric,group="model",month=None):
     raise ValueError("没有批准的离线模板")
 
 
-def examples():
+def examples(as_of=AS_OF):
     result=[]
     base=[("各型号净销售额","net_sales","model"),("各渠道净销售额","net_sales","channel"),
           ("各型号售出30天激活率","activation30","model"),
@@ -86,7 +87,7 @@ def examples():
         for text,metric,group in base:
             question=prefix+text
             result.append(dict(question=question,metric_id=metric,group=group,month=month,
-                               sql=template_sql(metric,group,month)))
+                               sql=template_sql(metric,group,month,as_of)))
     result.extend([
         dict(question="每月净销售额趋势",metric_id="net_sales",group="month",month=None,sql=sales_sql("month")),
         dict(question="各型号期末库存",metric_id="inventory",group="model",month=None,sql=template_sql("inventory")),
@@ -94,8 +95,8 @@ def examples():
     return result
 
 
-def plan(question,demo=False):
-    registry={normalize(x["question"]):x for x in examples()}
+def plan(question,demo=False,as_of=AS_OF):
+    registry={normalize(x["question"]):x for x in examples(as_of)}
     approved=registry.get(normalize(question))
     if approved:
         metric=next(m for m in METRICS if m["id"]==approved["metric_id"])

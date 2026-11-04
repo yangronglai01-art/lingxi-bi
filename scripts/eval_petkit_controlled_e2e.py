@@ -7,7 +7,6 @@ import math
 import os
 from pathlib import Path
 import shutil
-import sqlite3
 import sys
 import time
 import uuid
@@ -31,11 +30,11 @@ def main():
     pointer_hash=filehash(original/'current.json')
     shutil.copytree(active,data/pointer['generation'])
     shutil.copy2(original/'current.json',data/'current.json')
-    with sqlite3.connect(original/'control.sqlite3') as source,sqlite3.connect(data/'control.sqlite3') as target:
-        source.backup(target)
+    from scripts.pg_control import clone_control_plane
+    db=clone_control_plane(data,original)
     if (original/'vector_cache').exists(): shutil.copytree(original/'vector_cache',data/'vector_cache')
     os.environ.update(PROJECT_PROFILE='petkit',PETKIT_MODE='llm',PETKIT_DEPLOYMENT='simulated',
-        PETKIT_DATA_DIR=str(data),PETKIT_EMBEDDING_MODEL=r'D:\projects\Zhixi\models\bge-m3')
+        PETKIT_DATA_DIR=str(data),PETKIT_EMBEDDING_MODEL=r'D:\projects\Zhixi\models\bge-m3',PG_DATABASE=db)
     import duckdb
     from src import config
     from src.petkit.control import principal_for

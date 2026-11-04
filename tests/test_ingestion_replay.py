@@ -80,7 +80,7 @@ def test_oversized_batch_rejected_before_storage(feed,monkeypatch):
     monkeypatch.setattr(ingestion,'MAX_BYTES',10)
     path.write_bytes(b'x'*11)
     with pytest.raises(ValueError,match='超过'): ingestion.ingest(path)
-    assert not (data/'control.sqlite3').exists()
+    with control.db() as c: assert c.execute("SELECT 1 FROM information_schema.tables WHERE table_schema='public' AND table_name='ingestion_attempts'").fetchone() is None
 
 def test_stale_lineage_requires_parent_cas_or_explicit_historical_rollback(publication):
     releases.write(publication/NEW/'lineage.json',dict(parent_generation='another-parent'))

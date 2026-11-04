@@ -137,7 +137,8 @@ def generate(orders=3000, extension_periods=12):
 
 
 def build(orders=3000, extension_periods=12, publish=True):
-    if publish and CURRENT.exists() and (DATA/"control.sqlite3").exists():
+    from . import control
+    if publish and CURRENT.exists() and control.initialized():
         raise ValueError("业务实例已初始化，请构建publish=False候选版本并通过发布门禁")
     import duckdb
     import pandas as pd
@@ -194,8 +195,9 @@ def build(orders=3000, extension_periods=12, publish=True):
     (folder/"summary.json").write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding="utf-8")
     if publish:
         from .releases import guard,write
+        from . import control
         with guard(str(DATA)):
-            if CURRENT.exists() and (DATA/"control.sqlite3").exists():
+            if CURRENT.exists() and control.initialized():
                 raise ValueError("业务实例已初始化，候选版本未发布，请通过发布门禁")
             write(CURRENT,dict(generation=generation,version=VERSION))
     summary["published"]=publish

@@ -1,5 +1,5 @@
 """Bounded demo-mode multi-user load and real worker process failure drill."""
-import concurrent.futures,hashlib,json,math,os,socket,sqlite3,statistics,subprocess,sys,time,uuid
+import concurrent.futures,hashlib,json,math,os,socket,statistics,subprocess,sys,time,uuid
 from pathlib import Path
 from urllib.request import Request,urlopen
 from urllib.error import HTTPError
@@ -12,7 +12,8 @@ from src.petkit.reference import expected
 def free():
     with socket.socket() as s:s.bind(('127.0.0.1',0));return s.getsockname()[1]
 def job_fingerprint(root):
-    with sqlite3.connect(root/'control.sqlite3') as c:rows=c.execute('SELECT id,state,updated FROM jobs ORDER BY id').fetchall()
+    from scripts.pg_control import control_rows
+    rows=control_rows(root,'SELECT id,state,updated FROM jobs ORDER BY id')
     return dict(count=len(rows),sha=hashlib.sha256(json.dumps(rows).encode()).hexdigest())
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def latency(values):
@@ -28,7 +29,7 @@ def main():
     def save():output.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     save();owned=[];handles=[];children=[]
     env=os.environ.copy();env.update(PROJECT_PROFILE='petkit',PETKIT_DEPLOYMENT='simulated',PETKIT_MODE='demo',PETKIT_DATA_DIR=str(data))
-    env.pop('PETKIT_LOCAL_UI_TOKEN',None);env.pop('PETKIT_API_TOKENS',None)
+    env.pop('PETKIT_API_TOKENS',None)
     config=data/'embedding_runtime.json'
     if config.exists():env['PETKIT_EMBEDDING_MODEL']=json.loads(config.read_text(encoding='utf-8'))['model']
     interpreter=child_python(env)

@@ -24,6 +24,8 @@ from __future__ import annotations
 from decimal import Decimal
 from typing import Any, Dict, List, Optional, Tuple
 
+from src.engine.db import date_fmt
+
 # ---------------------------------------------------------------------------
 # 评测用例（参考答案来自真实数仓，见 reports/_reference_values.json）
 # ---------------------------------------------------------------------------
@@ -119,7 +121,7 @@ EVAL_CASES: List[Dict[str, Any]] = [
         "question": "2026年上半年每个月的销售额趋势？",
         "categories": ["时间范围", "分组"],
         "reference_sql": (
-            "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) "
+            f"SELECT {date_fmt('s.sale_date')} AS ym, ROUND(SUM(s.amount), 2) "
             "FROM fact_sales s WHERE s.sale_date BETWEEN '2026-01-01' AND '2026-06-30' "
             "GROUP BY ym ORDER BY ym"
         ),
@@ -141,8 +143,8 @@ EVAL_CASES: List[Dict[str, Any]] = [
         "question": "2026年2月和3月的销售额分别是多少（用于环比对比）？",
         "categories": ["同比环比", "时间范围"],
         "reference_sql": (
-            "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) "
-            "FROM fact_sales s WHERE strftime(s.sale_date, '%Y-%m') IN ('2026-02', '2026-03') "
+            f"SELECT {date_fmt('s.sale_date')} AS ym, ROUND(SUM(s.amount), 2) "
+            f"FROM fact_sales s WHERE {date_fmt('s.sale_date')} IN ('2026-02', '2026-03') "
             "GROUP BY ym ORDER BY ym"
         ),
         "expected": {
@@ -239,7 +241,7 @@ EVAL_CASES: List[Dict[str, Any]] = [
         "categories": ["时间范围", "条件过滤"],
         "reference_sql": (
             "SELECT ROUND(SUM(amount), 2) FROM fact_sales "
-            "WHERE strftime(sale_date, '%Y-%m') = '2026-01'"
+            f"WHERE {date_fmt('sale_date')} = '2026-01'"
         ),
         "expected": {"type": "scalar", "value": 25982460.0},
     },
@@ -248,7 +250,7 @@ EVAL_CASES: List[Dict[str, Any]] = [
         "question": "2026年上半年每个月的产量达成率？",
         "categories": ["时间范围", "分组", "多表关联"],
         "reference_sql": (
-            "SELECT strftime(prod_date, '%Y-%m') AS ym, "
+            f"SELECT {date_fmt('prod_date')} AS ym, "
             "ROUND(SUM(actual_qty) * 100.0 / SUM(planned_qty), 2) FROM fact_production "
             "WHERE prod_date BETWEEN '2026-01-01' AND '2026-06-30' GROUP BY ym ORDER BY ym"
         ),

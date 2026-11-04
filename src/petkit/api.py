@@ -1,6 +1,9 @@
+import os as _runtime_os
+if _runtime_os.getenv('APP_ENV') in {'staging','production'}:
+    raise RuntimeError('Legacy HTTP entry is disabled; use src.enterprise.api:create_app')
 """New API. Principal comes only from trusted token mapping, not request role fields."""
-import sqlite3
 from dataclasses import asdict
+from src.storage import Error as StorageError
 from typing import Optional
 from fastapi import Depends, FastAPI, Header, HTTPException
 from pydantic import BaseModel, Field
@@ -21,7 +24,7 @@ engine=QueryEngine()
 def identity(authorization: Optional[str]=Header(default=None)):
     token=(authorization or "").removeprefix("Bearer ")
     try: return authenticate(token)
-    except sqlite3.Error as exc: raise HTTPException(503,"身份存储暂不可用") from exc
+    except StorageError as exc: raise HTTPException(503,"身份存储暂不可用") from exc
     except (PermissionError,ValueError,KeyError) as exc: raise HTTPException(401,str(exc)) from exc
 
 
@@ -120,3 +123,40 @@ def delete(history_id:int,principal=Depends(identity)):
 
 from .operations_api import register
 register(app,identity,AskRequest)
+
+# ---- React 前端托管（web/dist）+ 运行时配置注入 + SPA 回退 ----
+# 必须放在所有 API 路由之后，避免 /{full_path:path} 抢占 /health、/ask 等。
+import json as _json
+from pathlib import Path as _Path
+from fastapi.responses import FileResponse as _FileResponse, Response as _Response
+from fastapi.staticfiles import StaticFiles as _StaticFiles
+
+_WEB_DIST = _Path(__file__).resolve().parents[2] / "web" / "dist"
+
+
+@app.get("/config.js", include_in_schema=False)
+def _runtime_config():
+    """前端运行时配置。本地 IdP / API 端口运行时才确定，故由后端注入而非构建期 bake。"""
+    cfg = {
+        "apiBase": "",  # React 与 API 同源，走相对路径
+        "oidcIssuer": (config.OIDC_ISSUER or "").rstrip("/"),
+        "oidcClientId": config.OIDC_CLIENT_ID,
+        "oidcRole": "analyst",
+        "oidcLoginHint": "local-interview",
+    }
+    body = "window.__LINGXI_CONFIG__=" + _json.dumps(cfg, ensure_ascii=False) + ";"
+    return _Response(body, media_type="application/javascript")
+
+
+if _WEB_DIST.is_dir():
+    _assets = _WEB_DIST / "assets"
+    if _assets.is_dir():
+        app.mount("/assets", _StaticFiles(directory=str(_assets)), name="assets")
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    def _spa(full_path: str):
+        if full_path:
+            candidate = (_WEB_DIST / full_path).resolve()
+            if candidate.is_file() and candidate.is_relative_to(_WEB_DIST.resolve()):
+                return _FileResponse(candidate)
+        return _FileResponse(_WEB_DIST / "index.html")

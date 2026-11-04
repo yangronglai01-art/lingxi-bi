@@ -11,10 +11,10 @@ from datetime import date, datetime, time
 from decimal import Decimal
 from typing import Any, List
 
-import duckdb
 from pydantic import BaseModel, Field
 
 from src import config
+from src.engine.db import connect
 
 
 class QueryResult(BaseModel):
@@ -56,13 +56,13 @@ def execute_sql(sql: str) -> QueryResult:
     异常:
         ExecutionError: 数仓文件缺失或 SQL 执行报错。
     """
-    if not config.WAREHOUSE_PATH.exists():
+    if config.QUERY_ENGINE == "duckdb" and not config.WAREHOUSE_PATH.exists():
         raise ExecutionError(
             f"数仓文件不存在：{config.WAREHOUSE_PATH}，请先运行 scripts/build_all.py 构建"
         )
 
     try:
-        conn = duckdb.connect(str(config.WAREHOUSE_PATH), read_only=True)
+        conn = connect(read_only=True)
         try:
             cur = conn.execute(sql)
             columns = [d[0] for d in cur.description] if cur.description else []

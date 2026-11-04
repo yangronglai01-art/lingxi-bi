@@ -5,7 +5,6 @@ from .settings import DATA, MAX_BYTES, MAX_ROWS, QUERY_SECONDS
 
 SLOTS=threading.BoundedSemaphore(3)
 
-
 def execute(checked,generation,principal=None):
     import os
     if principal is not None and principal.managed:
@@ -13,23 +12,33 @@ def execute(checked,generation,principal=None):
         verify(principal)
     elif os.getenv("PETKIT_DEPLOYMENT")=="simulated":
         raise PermissionError("模拟落地执行必须使用持久身份")
-    import duckdb
+    from src import config
     from src.engine.executor import QueryResult, _to_native
     folder=DATA/generation
     if folder.parent.resolve()!=DATA.resolve(): raise ValueError("无效快照")
     if not SLOTS.acquire(timeout=1): raise TimeoutError("查询并发已满，请稍后重试")
     conn=None; timer=None; timed_out=threading.Event()
     try:
-        conn=duckdb.connect(str(folder/"warehouse.duckdb"),read_only=True,
-            config={"enable_external_access":"false","memory_limit":"512MB","threads":"2",
-                    "max_temp_directory_size":"0B"})
         if principal is not None:
             from .retrieval import load_catalog
             catalog=load_catalog(generation)
             if any(not principal.allowed(catalog["tables"][name]) for name in checked.tables):
                 raise PermissionError("执行表超出当前授权")
-            from .row_policy import install
-            install(conn,principal,checked.tables)
+            if config.QUERY_ENGINE == "starrocks":
+                from .row_policy import rewrite
+                from .guard import Checked
+                checked=Checked(sql=rewrite(checked.sql, principal, dialect="starrocks"), tables=checked.tables)
+        if config.QUERY_ENGINE == "starrocks":
+            from src.engine.db import connect
+            conn=connect(read_only=True)
+        else:
+            import duckdb
+            conn=duckdb.connect(str(folder/"warehouse.duckdb"),read_only=True,
+                config={"enable_external_access":"false","memory_limit":"512MB","threads":"2",
+                        "max_temp_directory_size":"0B"})
+            if principal is not None:
+                from .row_policy import install
+                install(conn,principal,checked.tables)
         def cancel():
             timed_out.set()
             conn.interrupt()

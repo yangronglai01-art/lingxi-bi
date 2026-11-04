@@ -30,9 +30,9 @@ def initialize():
     control.initialize()
     with control.db() as c:
         c.executescript('''
-        CREATE TABLE IF NOT EXISTS ingestion_batches(source TEXT NOT NULL,batch_id TEXT NOT NULL,digest TEXT NOT NULL,archive TEXT NOT NULL,created REAL NOT NULL,PRIMARY KEY(source,batch_id));
-        CREATE TABLE IF NOT EXISTS ingestion_events(source TEXT NOT NULL,event_id TEXT NOT NULL,digest TEXT NOT NULL,created REAL NOT NULL,PRIMARY KEY(source,event_id));
-        CREATE TABLE IF NOT EXISTS ingestion_attempts(id TEXT PRIMARY KEY,source TEXT,batch_id TEXT,parent TEXT,candidate TEXT,state TEXT NOT NULL,archive TEXT NOT NULL,error TEXT NOT NULL,created REAL NOT NULL,updated REAL NOT NULL);
+        CREATE TABLE IF NOT EXISTS ingestion_batches(source TEXT NOT NULL,batch_id TEXT NOT NULL,digest TEXT NOT NULL,archive TEXT NOT NULL,created DOUBLE PRECISION NOT NULL,PRIMARY KEY(source,batch_id));
+        CREATE TABLE IF NOT EXISTS ingestion_events(source TEXT NOT NULL,event_id TEXT NOT NULL,digest TEXT NOT NULL,created DOUBLE PRECISION NOT NULL,PRIMARY KEY(source,event_id));
+        CREATE TABLE IF NOT EXISTS ingestion_attempts(id TEXT PRIMARY KEY,source TEXT,batch_id TEXT,parent TEXT,candidate TEXT,state TEXT NOT NULL,archive TEXT NOT NULL,error TEXT NOT NULL,created DOUBLE PRECISION NOT NULL,updated DOUBLE PRECISION NOT NULL);
         ''')
 
 def lineage(folder):
@@ -169,7 +169,7 @@ def ingest(path):
             with control.db() as c:
                 observed=c.execute('SELECT digest FROM ingestion_batches WHERE source=? AND batch_id=?',(source,batch_id)).fetchone()
                 if observed and observed[0]!=batch_hash: raise ValueError('相同批次ID内容冲突')
-                c.execute('INSERT OR IGNORE INTO ingestion_batches VALUES(?,?,?,?,?)',(source,batch_id,batch_hash,str(archive),time.time()))
+                c.execute('INSERT INTO ingestion_batches VALUES(?,?,?,?,?) ON CONFLICT(source,batch_id) DO NOTHING',(source,batch_id,batch_hash,str(archive),time.time()))
                 for event in batch.events:
                     seen=c.execute('SELECT digest FROM ingestion_events WHERE source=? AND event_id=?',(source,event.event_id)).fetchone()
                     key=identity(source,event.event_id)
@@ -205,8 +205,7 @@ def ingest(path):
                 releases.write(target/'lineage.json',prior)
                 state='staged'
             with control.db() as c:
-                c.execute('BEGIN IMMEDIATE')
-                for event in batch.events: c.execute('INSERT OR IGNORE INTO ingestion_events VALUES(?,?,?,?)',(source,event.event_id,event_hashes[identity(source,event.event_id)],time.time()))
+                for event in batch.events: c.execute('INSERT INTO ingestion_events VALUES(?,?,?,?) ON CONFLICT(source,event_id) DO NOTHING',(source,event.event_id,event_hashes[identity(source,event.event_id)],time.time()))
                 c.execute('UPDATE ingestion_attempts SET source=?,batch_id=?,parent=?,candidate=?,state=?,archive=?,updated=? WHERE id=?',(source,batch_id,parent,candidate,state,str(archive),time.time(),attempt))
                 c.execute('INSERT INTO audit(created,subject,event,payload) VALUES(?,?,?,?)',(time.time(),'local-operator','ingestion_'+state,json.dumps(dict(attempt=attempt,source=source,batch_id=batch_id,parent=parent,candidate=candidate,applied=len(pending)),ensure_ascii=False)))
             return dict(attempt=attempt,source=source,batch_id=batch_id,parent=parent,candidate=candidate,state=state,applied=len(pending),skipped=len(batch.events)-len(pending))

@@ -2,7 +2,7 @@
 """FastAPI 接口层：把「问数引擎」包装为 HTTP 服务。
 
 对外提供健康检查、数据字典、中文问数、历史记录与收藏等接口，
-供 Streamlit 工作台或任何第三方前端调用。
+供 React 前端或任何第三方客户端调用。
 
 接口一览：
 - GET  /health                健康检查
@@ -53,7 +53,7 @@ app.add_middleware(
 # 引擎单例（每次 ask 都会连接 DuckDB 只读查询，无状态，可安全复用）
 engine = QueryEngine()
 
-# 历史记录仓库（与 Streamlit 共用同一个 data/history.db）
+# 历史记录仓库（与前端共用同一个 data/history.db）
 store = HistoryStore()
 
 

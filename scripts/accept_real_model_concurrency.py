@@ -1,17 +1,18 @@
 """Bounded real-model client concurrency and separately measured adapter overlap."""
-import argparse,hashlib,json,os,sqlite3,subprocess,sys,threading,time,uuid
+import argparse,hashlib,json,os,subprocess,sys,threading,time,uuid
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def jobs(data):
-    with sqlite3.connect(data/'control.sqlite3') as c:rows=c.execute('SELECT id,state,updated FROM jobs ORDER BY id').fetchall()
-    return hashlib.sha256(json.dumps(rows).encode()).hexdigest()
+    from scripts.pg_control import jobs_fingerprint
+    return jobs_fingerprint(data)
 
 def child(args):
     data=Path(args.data_dir);output=Path(args.report_file)
-    os.environ.update(PROJECT_PROFILE='petkit',PETKIT_MODE='llm',PETKIT_DEPLOYMENT='simulated',PETKIT_DATA_DIR=str(data))
+    from scripts.pg_control import db_name_for
+    os.environ.update(PROJECT_PROFILE='petkit',PETKIT_MODE='llm',PETKIT_DEPLOYMENT='simulated',PETKIT_DATA_DIR=str(data),PG_DATABASE=db_name_for(data))
     embedding=json.loads((data/'embedding_runtime.json').read_text(encoding='utf-8'))
     os.environ['PETKIT_EMBEDDING_MODEL']=embedding['model']
     import duckdb

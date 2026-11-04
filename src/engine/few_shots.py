@@ -10,6 +10,8 @@ from __future__ import annotations
 
 from typing import Dict, List
 
+from src.engine.db import date_fmt
+
 # 每条示例：{"question": 中文问题, "sql": 目标 SQL}
 FEW_SHOTS: List[Dict[str, str]] = [
     {
@@ -27,7 +29,7 @@ FEW_SHOTS: List[Dict[str, str]] = [
     {
         "question": "2026年上半年每个月的销售额趋势？",
         "sql": (
-            "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) AS total_amount "
+            f"SELECT {date_fmt('s.sale_date')} AS ym, ROUND(SUM(s.amount), 2) AS total_amount "
             "FROM fact_sales s WHERE s.sale_date BETWEEN '2026-01-01' AND '2026-06-30' "
             "GROUP BY ym ORDER BY ym"
         ),
@@ -55,8 +57,8 @@ FEW_SHOTS: List[Dict[str, str]] = [
     {
         "question": "2026年2月和3月的销售额分别是多少（用于环比对比）？",
         "sql": (
-            "SELECT strftime(s.sale_date, '%Y-%m') AS ym, ROUND(SUM(s.amount), 2) AS total_amount "
-            "FROM fact_sales s WHERE strftime(s.sale_date, '%Y-%m') IN ('2026-02', '2026-03') "
+            f"SELECT {date_fmt('s.sale_date')} AS ym, ROUND(SUM(s.amount), 2) AS total_amount "
+            f"FROM fact_sales s WHERE {date_fmt('s.sale_date')} IN ('2026-02', '2026-03') "
             "GROUP BY ym ORDER BY ym"
         ),
     },

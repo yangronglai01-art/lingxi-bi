@@ -1,12 +1,12 @@
 """Frozen development evaluation, prepared first; bounded paid execution only."""
-import argparse,hashlib,json,math,os,shutil,sqlite3,sys,time,uuid
+import argparse,hashlib,json,math,os,shutil,sys,time,uuid
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def jobs_hash(data):
-    with sqlite3.connect(data/'control.sqlite3') as c:rows=c.execute('SELECT id,state,updated FROM jobs ORDER BY id').fetchall()
-    return hashlib.sha256(json.dumps(rows).encode()).hexdigest()
+    from scripts.pg_control import jobs_fingerprint
+    return jobs_fingerprint(data)
 
 def main():
     parser=argparse.ArgumentParser()
@@ -31,10 +31,11 @@ def main():
     run=ROOT/'reports/expanded_eval_runs'/uuid.uuid4().hex[:12];data=run/'isolated_data';data.mkdir(parents=True)
     shutil.copytree(source/pointer['generation'],data/pointer['generation'])
     shutil.copy2(source/'current.json',data/'current.json')
-    with sqlite3.connect(source/'control.sqlite3') as origin,sqlite3.connect(data/'control.sqlite3') as target:origin.backup(target)
+    from scripts.pg_control import clone_control_plane
+    db=clone_control_plane(data,source)
     if args.mode!='prepare' and (source/'vector_cache').exists():shutil.copytree(source/'vector_cache',data/'vector_cache')
     os.environ.update(PROJECT_PROFILE='petkit',PETKIT_MODE='llm',PETKIT_DEPLOYMENT='simulated',
-        PETKIT_DATA_DIR=str(data),PETKIT_EMBEDDING_MODEL=r'D:\projects\Zhixi\models\bge-m3')
+        PETKIT_DATA_DIR=str(data),PETKIT_EMBEDDING_MODEL=r'D:\projects\Zhixi\models\bge-m3',PG_DATABASE=db)
     import duckdb
     from src import config
     from src.petkit.control import principal_for

@@ -1,8 +1,7 @@
 """Demo policy is trusted server configuration, never a user-supplied role header."""
-import hmac
-import json
 import os
 from dataclasses import dataclass
+from src import config
 
 SHARED={"shared","product"}
 ROLES={
@@ -38,13 +37,9 @@ def authenticate(token=""):
     if os.getenv("PETKIT_DEPLOYMENT")=="simulated":
         from .control import authenticate as persistent_authenticate
         return persistent_authenticate(token)
-    raw=os.getenv("PETKIT_API_TOKENS","")
-    if raw:
-        mapping=json.loads(raw)
-        for secret, identity in mapping.items():
-            if hmac.compare_digest(secret,token):
-                if identity["role"] not in ROLES: raise PermissionError("角色配置无效")
-                return Principal(identity["subject"],identity["role"])
-        raise PermissionError("无效凭据")
-    if MODE!="demo": raise PermissionError("非演示模式必须配置PETKIT_API_TOKENS")
+    # OIDC 资源服务器（fail-closed）：配置了 OIDC_ISSUER 即校验 JWT，取代本地静态令牌身份。
+    if config.OIDC_ISSUER:
+        from . import oidc
+        return oidc.resource_server().authenticate(token)
+    if MODE!="demo": raise PermissionError("未配置 OIDC 资源服务器（OIDC_ISSUER）")
     return Principal()

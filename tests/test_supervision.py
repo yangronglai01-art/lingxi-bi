@@ -70,8 +70,8 @@ def test_ready_requires_current_session_pid_and_running_supervisor(org,monkeypat
     monkeypatch.setenv('PETKIT_LAUNCH_SESSION','current-session')
     def state(pid=12,phase='running',session='current-session'):
         with control.db() as c:
-            c.execute("INSERT OR REPLACE INTO runtime VALUES('worker',?,?)",(json.dumps(dict(pid=pid,session=session)),time.time()))
-            c.execute("INSERT OR REPLACE INTO runtime VALUES('supervisor',?,?)",(json.dumps(dict(worker_pid=12,session='current-session',phase=phase)),time.time()))
+            c.execute("INSERT INTO runtime VALUES('worker',?,?) ON CONFLICT(name) DO UPDATE SET value=excluded.value,updated=excluded.updated",(json.dumps(dict(pid=pid,session=session)),time.time()))
+            c.execute("INSERT INTO runtime VALUES('supervisor',?,?) ON CONFLICT(name) DO UPDATE SET value=excluded.value,updated=excluded.updated",(json.dumps(dict(worker_pid=12,session='current-session',phase=phase)),time.time()))
     with TestClient(app) as client:
         state(pid=11);assert client.get('/ready').status_code==503
         state(session='old');assert client.get('/ready').status_code==503

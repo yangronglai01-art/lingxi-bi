@@ -1,0 +1,47 @@
+{
+  "status": "not_connected",
+  "source_owner": null,
+  "source_system": null,
+  "source_database_type": null,
+  "source_database_version": null,
+  "approved_objects": [],
+  "primary_keys": {},
+  "timezone": null,
+  "currency": null,
+  "cdc": {
+    "flink_version": null,
+    "cdc_connector_version": null,
+    "starrocks_connector_version": null,
+    "source_position_format": null,
+    "checkpoint_location_reference": null,
+    "checkpoint_retention_seconds": null,
+    "source_log_retention_seconds": null,
+    "full_snapshot_boundary": null,
+    "update_delete_mapping": null,
+    "delivery_semantics": null,
+    "schema_change_policy": null
+  },
+  "warehouse": {
+    "ods_objects": [],
+    "dwd_objects": [],
+    "dim_objects": [],
+    "dws_objects": [],
+    "ads_objects": [],
+    "scope_release_mapping": null
+  },
+  "reconciliation": {
+    "independent_reference_owner": null,
+    "count_checks": [],
+    "decimal_controls": [],
+    "key_hash_checks": [],
+    "freshness_sla_seconds": null
+  },
+  "recovery": {
+    "rpo_seconds": null,
+    "rto_seconds": null,
+    "source_checkpoint_restore_proof": null,
+    "starrocks_restore_proof": null,
+    "pg_restore_proof": null
+  },
+  "note": "References only; do not store secrets or raw customer records in this file. Connector versions must be checked against the actual source and platform before deployment."
+}

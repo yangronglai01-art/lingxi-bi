@@ -1,0 +1,6 @@
+FROM lingxi-enterprise:20261023
+USER root
+RUN pip install --no-cache-dir pytest==9.1.1
+USER 10001:10001
+ENV APP_ENV=integration PYTHONPATH=/app:/qa LINGXI_QA_CONFIRM=lingxi_enterprise_qa
+CMD ["python","-m","pytest","/qa","-q","-p","no:cacheprovider","--junitxml=/evidence/linux312.xml"]

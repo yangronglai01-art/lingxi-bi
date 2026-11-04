@@ -45,9 +45,7 @@ def test_catalog_validation_rejects_tampered_candidate(parent,kind):
 def test_catalog_evidence_validates_in_restore_without_parent_folder(parent,tmp_path,monkeypatch):
     result=catalog.stage();restored=tmp_path/'restored';restored.mkdir()
     shutil.copytree(parent/result['candidate'],restored/result['candidate'])
-    # SQLite is closed here, so a file copy creates the independent fixture.
-    shutil.copy2(parent/'control.sqlite3',restored/'control.sqlite3')
-    monkeypatch.setattr(control,'DATA',restored)
+    # 控制面已迁至 Postgres（共享实例），审计记录天然随实例存在，无需复制 SQLite 文件。
     assert not (restored/BASE).exists()
     assert catalog.validate(restored/result['candidate'])['source_events_preserved']==1
 

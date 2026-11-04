@@ -1,5 +1,5 @@
 """Read-only reconstruction of the historical short-connection timeout window."""
-import datetime,hashlib,inspect,json,os,platform,re,sqlite3,subprocess,sys,urllib.request
+import datetime,hashlib,inspect,json,os,platform,re,subprocess,sys,urllib.request
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -9,9 +9,9 @@ def main():
     data=Path(original['isolated_directory']).resolve()
     assert data.is_relative_to((ROOT/'data/petkit500').resolve())
     ids=[d['id'] for d in stage['details']]
-    with sqlite3.connect(str(data/'control.sqlite3')) as c:
-        bound=c.execute('SELECT MIN(created),MAX(updated),COUNT(*) FROM jobs WHERE id IN ('+','.join('?' for _ in ids)+')',ids).fetchone()
-        rows=c.execute('SELECT id,state,created,updated FROM jobs WHERE created BETWEEN ? AND ?',(bound[0]-.02,bound[1]+.5)).fetchall()
+    from scripts.pg_control import control_rows
+    bound=control_rows(data,'SELECT MIN(created),MAX(updated),COUNT(*) FROM jobs WHERE id IN ('+','.join('?' for _ in ids)+')',ids)[0]
+    rows=control_rows(data,'SELECT id,state,created,updated FROM jobs WHERE created BETWEEN ? AND ?',(bound[0]-.02,bound[1]+.5))
     unexpected=[dict(id=r[0],state=r[1],created=r[2],updated=r[3]) for r in rows if r[0] not in set(ids)]
     source=inspect.getsource(urllib.request.AbstractHTTPHandler.do_open)
     evidence='except OSError as err' in source and 'raise URLError(err)' in source

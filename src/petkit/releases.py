@@ -39,7 +39,7 @@ def sha(path):
 
 def code_seal():
     names=['releases','reference','planning','guard','semantic','result_contract','row_policy','retrieval','embedding',
-        'builder','catalog','control','access','execution','worker','settings','service','ingestion','ingestion_models','fulfillment','procurement','catalog_release','api','operations_api','supervision','health_checks','diagnostics','operations_ui','operations_panel']
+        'builder','catalog','control','access','execution','worker','settings','service','ingestion','ingestion_models','fulfillment','procurement','catalog_release','api','operations_api','supervision','health_checks','diagnostics']
     return {**{name:sha(ROOT/'src/petkit'/f'{name}.py') for name in names},'simulated_launcher':sha(ROOT/'scripts/start_simulated.py')}
 
 def file_seal(folder):
@@ -57,10 +57,9 @@ def embedding_config(root):
 
 def check_regions(conn):
     from . import control
-    if not control.path().exists(): return
+    if not control.initialized(): return
     with control.db() as c:
-        exists=c.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='users'").fetchone()
-        rows=c.execute('SELECT regions FROM users WHERE enabled=1').fetchall() if exists else []
+        rows=c.execute('SELECT regions FROM users WHERE enabled=1').fetchall()
     known={r[0] for r in conn.execute('SELECT region_id FROM dim_region').fetchall()}
     if any(set(json.loads(r[0]))-known for r in rows): raise ValueError('候选数据缺少已授权员工的地区')
 
@@ -201,7 +200,6 @@ def reconcile_locked(root):
     if current!=state['target']: raise RuntimeError('发布日志与当前指针冲突，拒绝继续领取任务')
     check_receipt(current['generation'],root)
     with control.db() as c:
-        c.execute('BEGIN IMMEDIATE')
         key='release:'+state['id']
         if not c.execute('SELECT 1 FROM runtime WHERE name=?',(key,)).fetchone():
             c.execute("UPDATE jobs SET state='superseded',error='数据版本已发布，请重新提交',updated=? WHERE state='queued' AND generation<>?",(time.time(),current['generation']))

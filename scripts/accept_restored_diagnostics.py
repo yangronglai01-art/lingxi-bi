@@ -1,5 +1,5 @@
 """Final restored application: ops authorization, read-only snapshot and warehouse job."""
-import hashlib,json,socket,sqlite3,sys,time
+import hashlib,json,socket,sys,time
 from pathlib import Path
 from urllib.request import Request,urlopen
 from urllib.error import HTTPError
@@ -10,8 +10,8 @@ from src.petkit.settings import DATA
 def free():
     with socket.socket() as s:s.bind(('127.0.0.1',0));return s.getsockname()[1]
 def jobs_hash(root):
-    with sqlite3.connect(root/'control.sqlite3') as c:values=c.execute('SELECT id,state,updated FROM jobs ORDER BY id').fetchall()
-    return hashlib.sha256(json.dumps(values).encode()).hexdigest()
+    from scripts.pg_control import jobs_fingerprint
+    return jobs_fingerprint(root)
 
 def main():
     backup=json.loads((ROOT/'reports/petkit500_backup_drill.json').read_text(encoding='utf-8'));restored=Path(backup['restored_directory'])

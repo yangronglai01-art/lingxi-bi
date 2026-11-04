@@ -4,7 +4,6 @@ import hashlib
 import json
 from pathlib import Path
 import shutil
-import sqlite3
 import sys
 import time
 import uuid
@@ -23,10 +22,9 @@ def _backup_locked():
     destination=DATA/'backups'/name
     temporary=destination.with_name('.building-'+name)
     temporary.mkdir(parents=True,exist_ok=False)
-    with control.db() as source:
-        target=sqlite3.connect(temporary/'control.sqlite3')
-        try: source.backup(target)
-        finally: target.close()
+    from scripts.pg_control import pg_dump_control, control_scalar
+    pg_dump_control(temporary/'control.sql')
+    control_counts=dict(users=control_scalar(DATA,'SELECT count(*) FROM users'),jobs=control_scalar(DATA,'SELECT count(*) FROM jobs'))
     shutil.copytree(folder,temporary/manifest['generation'])
     ingestion=DATA/'ingestion'
     if ingestion.exists(): shutil.copytree(ingestion,temporary/'ingestion',ignore=shutil.ignore_patterns('*.tmp'))
@@ -40,7 +38,7 @@ def _backup_locked():
     if receipt.exists():
         (temporary/'releases').mkdir(exist_ok=True); shutil.copy2(receipt,temporary/'releases'/receipt.name)
     hashes={str(p.relative_to(temporary)):digest(p) for p in temporary.rglob('*') if p.is_file()}
-    (temporary/'backup_manifest.json').write_text(json.dumps(dict(generation=manifest['generation'],sha256=hashes,plaintext_credentials_included=False,model_weights_included=False),ensure_ascii=False,indent=2),encoding='utf-8')
+    (temporary/'backup_manifest.json').write_text(json.dumps(dict(generation=manifest['generation'],sha256=hashes,control_counts=control_counts,plaintext_credentials_included=False,model_weights_included=False),ensure_ascii=False,indent=2),encoding='utf-8')
     temporary.rename(destination)
     control.audit(dict(subject='system',backup_id=name,generation=manifest['generation']),'backup_completed')
     return destination
@@ -53,11 +51,12 @@ def restore_drill(source):
     restored=DATA/'restore_drills'/uuid.uuid4().hex[:12]
     restored.parent.mkdir(parents=True,exist_ok=True)
     shutil.copytree(source,restored)
-    with sqlite3.connect(restored/'control.sqlite3') as c:
-        assert c.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
-        assert not c.execute('PRAGMA foreign_key_check').fetchall()
-        users=c.execute('SELECT count(*) FROM users').fetchone()[0]
-        jobs=c.execute('SELECT count(*) FROM jobs').fetchone()[0]
+    from scripts.pg_control import restore_dump, table_count, db_name_for
+    db=restore_dump(restored/'control.sql',db_name_for(restored))
+    users=table_count(db,'users'); jobs=table_count(db,'jobs')
+    expected=manifest.get('control_counts') or {}
+    if 'users' in expected: assert users==expected['users'],(users,expected['users'])
+    if 'jobs' in expected: assert jobs==expected['jobs'],(jobs,expected['jobs'])
     import duckdb
     with duckdb.connect(str(restored/manifest['generation']/'warehouse.duckdb'),read_only=True) as c:
         tables=c.execute("SELECT count(*) FROM information_schema.tables WHERE table_schema='main'").fetchone()[0]
@@ -65,7 +64,7 @@ def restore_drill(source):
         orders=c.execute('SELECT count(*) FROM fact_order').fetchone()[0]
     for name,expected in manifest['sha256'].items():
         assert digest(restored/name)==expected
-    return dict(restored_directory=str(restored),users=users,jobs=jobs,physical_tables=tables,orders=orders,sqlite_integrity=True,file_hashes_verified=True,existing_instance_overwritten=False,scope='offline fresh-directory restore; no service cutover')
+    return dict(restored_directory=str(restored),control_database=db,users=users,jobs=jobs,physical_tables=tables,orders=orders,control_plane_integrity=True,file_hashes_verified=True,existing_instance_overwritten=False,scope='offline fresh-directory restore; no service cutover')
 
 def backup():
     from src.petkit.releases import guard,reconcile_locked

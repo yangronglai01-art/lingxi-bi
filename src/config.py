@@ -11,7 +11,8 @@ from pathlib import Path
 try:  # 读取 .env 环境变量（若 python-dotenv 已安装）
     from dotenv import load_dotenv
 
-    load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+    if os.getenv("LINGXI_LOAD_LEGACY_ENV")=="1" and os.getenv("APP_ENV","development") not in {"staging","production"}:
+        load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 except Exception:  # pragma: no cover - 无 python-dotenv 时退化为仅读系统环境变量
     pass
 
@@ -45,10 +46,10 @@ END_DATE = "2026-08-31"  # 结束日期（含）
 # ---------------------------------------------------------------------------
 # 大模型（LLM）配置：OpenAI 兼容接口（Text-to-SQL / AI 洞察用）
 # ---------------------------------------------------------------------------
-MODEL_PROVIDER = os.getenv("MODEL_PROVIDER", "deepseek")  # 服务商（仅记录）
-MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-v4-pro")  # 模型名
+MODEL_PROVIDER = os.getenv("MODEL_PROVIDER", "ai_platform")  # 服务商（仅记录）
+MODEL_NAME = os.getenv("MODEL_NAME", "local-chat")  # 模型名
 API_KEY = os.getenv("API_KEY", "")  # API Key
-BASE_URL = os.getenv("BASE_URL", "https://api.deepseek.com/v1")  # 兼容接口根地址
+BASE_URL = os.getenv("BASE_URL", "")  # 兼容接口根地址
 REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "60"))  # 请求超时（秒）
 MAX_RETRIES = int(os.getenv("MAX_RETRIES", "1"))  # SQL 自动修正重试次数
 
@@ -59,6 +60,36 @@ ENABLE_MOCK = os.getenv("ENABLE_MOCK", "false").strip().lower() in ("true", "1",
 # 查询引擎配置
 # ---------------------------------------------------------------------------
 MAX_RESULT_ROWS = 1000  # SQL 安全校验强制的结果行数上限（LIMIT）
+
+# 四环境正式路径统一StarRocks；仅隔离历史回归可显式启用旧引擎。
+QUERY_ENGINE = os.getenv("QUERY_ENGINE", "starrocks").strip().lower()
+if QUERY_ENGINE not in {"starrocks","duckdb"}:
+    raise RuntimeError("Unknown query engine; no automatic fallback")
+if QUERY_ENGINE=="duckdb" and (os.getenv("APP_ENV") in {"staging","production"} or os.getenv("LINGXI_LEGACY_TESTS")!="1"):
+    raise RuntimeError("DuckDB is restricted to explicitly isolated legacy tests")
+
+# StarRocks 连接（生产，MySQL 协议）
+STARROCKS_HOST = os.getenv("STARROCKS_HOST", "127.0.0.1")
+STARROCKS_PORT = int(os.getenv("STARROCKS_PORT", "9030"))
+STARROCKS_USER = os.getenv("STARROCKS_USER", "lingxi_reader")
+STARROCKS_PASSWORD = os.getenv("STARROCKS_PASSWORD", "")
+STARROCKS_DATABASE = os.getenv("STARROCKS_DATABASE", "petkit500")
+
+# Postgres 17 控制面存储（身份 / 任务 / 审计 / 历史 / 接入台账，取代 SQLite）
+PG_HOST = os.getenv("PG_HOST", "127.0.0.1")
+PG_PORT = int(os.getenv("PG_PORT", "5433"))
+PG_USER = os.getenv("PG_USER", "lingxi")
+PG_PASSWORD = os.getenv("PG_PASSWORD", "")
+PG_DATABASE = os.getenv("PG_DATABASE", "lingxi")
+
+# OIDC 资源服务器（fail-closed）。配置了 OIDC_ISSUER 即启用 OIDC 校验，取代本地静态
+# 令牌（PETKIT_API_TOKENS）身份；未配置且非 demo 模式一律拒绝匿名访问。
+OIDC_ISSUER = os.getenv("OIDC_ISSUER", "")
+OIDC_CLIENT_ID = os.getenv("OIDC_CLIENT_ID", "lingxi")
+OIDC_JWKS_URI = os.getenv("OIDC_JWKS_URI", "")      # 可选：直接指定，否则走 issuer/.well-known 发现
+OIDC_ROLE_CLAIM = os.getenv("OIDC_ROLE_CLAIM", "roles")
+OIDC_REGIONS_CLAIM = os.getenv("OIDC_REGIONS_CLAIM", "regions")
+OIDC_DEPARTMENT_CLAIM = os.getenv("OIDC_DEPARTMENT_CLAIM", "department")
 
 # New simulation profile. Set legacy to retain original six-table behavior.
 PROJECT_PROFILE = os.getenv("PROJECT_PROFILE", "petkit")

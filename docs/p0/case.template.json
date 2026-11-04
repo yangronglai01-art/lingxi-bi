@@ -1,0 +1,16 @@
+{
+  "id": null,
+  "question": null,
+  "group_id": null,
+  "difficulty": "simple",
+  "requires_model": true,
+  "source_kind": "enterprise",
+  "reference_owner": null,
+  "reference_provenance": null,
+  "expected_status": "ok",
+  "expected_columns": null,
+  "expected_rows": null,
+  "ordered": false,
+  "decimal_tolerance": "0",
+  "zero_tolerance": false
+}

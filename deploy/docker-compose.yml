@@ -1,0 +1,36 @@
+# 灵犀问数 开发/隔离集成 基础设施（Compose）
+# 依据：07号方案「开发可缩为单 FE/BE」+ 12号任务书 G 阶段「Compose 仅隔离开发/集成」
+# 说明：StarRocks 走 allin1（单容器 FE+BE，缩配后约 5GB 内存），PG17 承载业务状态。
+services:
+  starrocks:
+    image: starrocks/allin1-ubuntu:3.5.21
+    container_name: lingxi-starrocks
+    ports:
+      - "9030:9030"   # FE MySQL 查询端口（应用连接）
+      - "8030:8030"   # FE HTTP
+      - "8040:8040"   # BE HTTP
+    volumes:
+      - ./starrocks/fe.conf:/data/deploy/starrocks/fe/conf/fe.conf
+      - ./starrocks/be.conf:/data/deploy/starrocks/be/conf/be.conf
+      - starrocks-meta:/data/deploy/starrocks/fe/meta
+      - starrocks-storage:/data/deploy/starrocks/be/storage
+    mem_limit: 5g
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:17
+    container_name: lingxi-postgres
+    environment:
+      POSTGRES_USER: lingxi
+      POSTGRES_PASSWORD: lingxi_dev_only
+      POSTGRES_DB: lingxi
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  starrocks-meta:
+  starrocks-storage:
+  postgres-data:

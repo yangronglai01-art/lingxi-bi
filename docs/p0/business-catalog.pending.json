@@ -1,0 +1,1045 @@
+{
+  "governance": {
+    "approval_id": null,
+    "status": "not_business_approved"
+  },
+  "metrics": [
+    {
+      "id": "net_sales",
+      "name": "净销售额",
+      "aliases": [
+        "销售额",
+        "收入",
+        "销售趋势"
+      ],
+      "definition": "订单行实付减截至数据截止日该行退款；退款归属原订单支付日；元人民币，不做税额拆分",
+      "dependencies": [
+        "fact_order",
+        "fact_order_item",
+        "fact_refund",
+        "dim_sku",
+        "dim_product",
+        "dim_channel"
+      ],
+      "grain": "订单行先汇总退款再关联；按支付日统计",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "CNY",
+      "currency": "CNY (unconfirmed)",
+      "approved_dimensions": [
+        "product",
+        "channel",
+        "month"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract",
+      "freshness_sla_seconds": null,
+      "source_policies": {
+        "inclusion": null,
+        "deletion": null,
+        "time_attribution": null,
+        "nulls": null
+      },
+      "source_mapping": {
+        "fact_order": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "order_id": null,
+            "customer_id": null,
+            "channel_id": null,
+            "region_id": null,
+            "paid_date": null,
+            "paid_amount": null,
+            "status": null
+          }
+        },
+        "fact_order_item": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "item_id": null,
+            "order_id": null,
+            "sku_id": null,
+            "quantity": null,
+            "amount": null,
+            "cost": null
+          }
+        },
+        "fact_refund": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "refund_id": null,
+            "item_id": null,
+            "refund_date": null,
+            "amount": null
+          }
+        },
+        "dim_sku": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "sku_id": null,
+            "product_id": null,
+            "sku_name": null
+          }
+        },
+        "dim_product": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "product_id": null,
+            "product_name": null,
+            "category": null,
+            "unit_price": null
+          }
+        },
+        "dim_channel": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "channel_id": null,
+            "channel_name": null
+          }
+        }
+      }
+    },
+    {
+      "id": "activation30",
+      "name": "售出30天激活率",
+      "aliases": [
+        "激活率",
+        "激活"
+      ],
+      "definition": "截至2026-10-16观察满30天的售出设备，支付日起0至30天激活的设备数/该批设备数；含后续退款设备",
+      "dependencies": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_device_activation"
+      ],
+      "grain": "设备去重；排除未成熟观察窗",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "percent",
+      "currency": null,
+      "approved_dimensions": [
+        "product"
+      ],
+      "zero_denominator": "NULL",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract",
+      "freshness_sla_seconds": null,
+      "source_policies": {
+        "inclusion": null,
+        "deletion": null,
+        "time_attribution": null,
+        "nulls": null
+      },
+      "source_mapping": {
+        "fact_order": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "order_id": null,
+            "customer_id": null,
+            "channel_id": null,
+            "region_id": null,
+            "paid_date": null,
+            "paid_amount": null,
+            "status": null
+          }
+        },
+        "fact_order_item": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "item_id": null,
+            "order_id": null,
+            "sku_id": null,
+            "quantity": null,
+            "amount": null,
+            "cost": null
+          }
+        },
+        "bridge_order_device": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "device_id": null,
+            "item_id": null
+          }
+        },
+        "dim_device": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "device_id": null,
+            "product_id": null,
+            "manufactured_date": null
+          }
+        },
+        "dim_product": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "product_id": null,
+            "product_name": null,
+            "category": null,
+            "unit_price": null
+          }
+        },
+        "fact_device_activation": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "device_id": null,
+            "activation_date": null
+          }
+        }
+      }
+    },
+    {
+      "id": "service30",
+      "name": "售出30天售后设备率",
+      "aliases": [
+        "售后率",
+        "故障率",
+        "售后设备占比"
+      ],
+      "definition": "观察满30天售出设备，支付日起0至30天有工单的设备去重数/售出设备去重数；包含退款设备；不是工单数占比",
+      "dependencies": [
+        "fact_order",
+        "fact_order_item",
+        "bridge_order_device",
+        "dim_device",
+        "dim_product",
+        "fact_service_ticket"
+      ],
+      "grain": "设备去重；工单先按设备归并",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "percent",
+      "currency": null,
+      "approved_dimensions": [
+        "product"
+      ],
+      "zero_denominator": "NULL",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract",
+      "freshness_sla_seconds": null,
+      "source_policies": {
+        "inclusion": null,
+        "deletion": null,
+        "time_attribution": null,
+        "nulls": null
+      },
+      "source_mapping": {
+        "fact_order": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "order_id": null,
+            "customer_id": null,
+            "channel_id": null,
+            "region_id": null,
+            "paid_date": null,
+            "paid_amount": null,
+            "status": null
+          }
+        },
+        "fact_order_item": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "item_id": null,
+            "order_id": null,
+            "sku_id": null,
+            "quantity": null,
+            "amount": null,
+            "cost": null
+          }
+        },
+        "bridge_order_device": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "device_id": null,
+            "item_id": null
+          }
+        },
+        "dim_device": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "device_id": null,
+            "product_id": null,
+            "manufactured_date": null
+          }
+        },
+        "dim_product": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "product_id": null,
+            "product_name": null,
+            "category": null,
+            "unit_price": null
+          }
+        },
+        "fact_service_ticket": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "ticket_id": null,
+            "device_id": null,
+            "fault_id": null,
+            "employee_id": null,
+            "created_date": null,
+            "status": null
+          }
+        }
+      }
+    },
+    {
+      "id": "offline_rate",
+      "name": "设备离线率",
+      "aliases": [
+        "离线率",
+        "离线",
+        "在线率"
+      ],
+      "definition": "观测设备日中online=0的记录数/总设备日记录数；仅覆盖采样观察日，不代表全量设备实时状态",
+      "dependencies": [
+        "fact_device_day",
+        "dim_device",
+        "dim_product",
+        "dim_firmware"
+      ],
+      "grain": "设备日",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "percent",
+      "currency": null,
+      "approved_dimensions": [
+        "firmware",
+        "product"
+      ],
+      "zero_denominator": "NULL",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract",
+      "freshness_sla_seconds": null,
+      "source_policies": {
+        "inclusion": null,
+        "deletion": null,
+        "time_attribution": null,
+        "nulls": null
+      },
+      "source_mapping": {
+        "fact_device_day": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "device_id": null,
+            "event_date": null,
+            "firmware_id": null,
+            "online": null,
+            "active": null,
+            "event_count": null
+          }
+        },
+        "dim_device": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "device_id": null,
+            "product_id": null,
+            "manufactured_date": null
+          }
+        },
+        "dim_product": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "product_id": null,
+            "product_name": null,
+            "category": null,
+            "unit_price": null
+          }
+        },
+        "dim_firmware": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "firmware_id": null,
+            "firmware_name": null,
+            "release_date": null
+          }
+        }
+      }
+    },
+    {
+      "id": "tickets",
+      "name": "工单数量",
+      "aliases": [
+        "工单数",
+        "工单",
+        "故障分类"
+      ],
+      "definition": "按工单创建日统计工单数，不等同于售后设备数",
+      "dependencies": [
+        "fact_service_ticket",
+        "dim_fault",
+        "dim_device",
+        "dim_product"
+      ],
+      "grain": "工单",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "ticket",
+      "currency": null,
+      "approved_dimensions": [
+        "fault",
+        "product"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract",
+      "freshness_sla_seconds": null,
+      "source_policies": {
+        "inclusion": null,
+        "deletion": null,
+        "time_attribution": null,
+        "nulls": null
+      },
+      "source_mapping": {
+        "fact_service_ticket": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "ticket_id": null,
+            "device_id": null,
+            "fault_id": null,
+            "employee_id": null,
+            "created_date": null,
+            "status": null
+          }
+        },
+        "dim_fault": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "fault_id": null,
+            "fault_name": null
+          }
+        },
+        "dim_device": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "device_id": null,
+            "product_id": null,
+            "manufactured_date": null
+          }
+        },
+        "dim_product": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "product_id": null,
+            "product_name": null,
+            "category": null,
+            "unit_price": null
+          }
+        }
+      }
+    },
+    {
+      "id": "received_units",
+      "name": "采购收货数量",
+      "aliases": [
+        "收货量",
+        "收货数量",
+        "收货件数",
+        "入库收货量"
+      ],
+      "definition": "按收货日期汇总fact_receipt.quantity已接收数量；按仓库分组；不是采购订购数量、收货单数、库存余额或金额；包含历史种子及新增收货",
+      "dependencies": [
+        "fact_receipt",
+        "dim_warehouse"
+      ],
+      "grain": "采购行每次收货事实；按收货日统计",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "piece",
+      "currency": null,
+      "approved_dimensions": [
+        "warehouse"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract",
+      "freshness_sla_seconds": null,
+      "source_policies": {
+        "inclusion": null,
+        "deletion": null,
+        "time_attribution": null,
+        "nulls": null
+      },
+      "source_mapping": {
+        "fact_receipt": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "receipt_id": null,
+            "purchase_item_id": null,
+            "warehouse_id": null,
+            "receipt_date": null,
+            "quantity": null
+          }
+        },
+        "dim_warehouse": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "warehouse_id": null,
+            "warehouse_name": null,
+            "region_id": null
+          }
+        }
+      }
+    },
+    {
+      "id": "inventory",
+      "name": "期末库存",
+      "aliases": [
+        "库存",
+        "结存"
+      ],
+      "definition": "每个SKU和仓库分别选取范围内最新快照，再按型号汇总；不跨日期累计库存快照",
+      "dependencies": [
+        "fact_inventory_day",
+        "dim_sku",
+        "dim_product",
+        "dim_warehouse"
+      ],
+      "grain": "商品仓库快照",
+      "version": "petkit-v1.3",
+      "owner": null,
+      "approval_id": null,
+      "approval_status": "technical_contract_only",
+      "timezone": "Asia/Shanghai (unconfirmed business assumption)",
+      "unit": "piece",
+      "currency": null,
+      "approved_dimensions": [
+        "product"
+      ],
+      "zero_denominator": "not_applicable",
+      "empty_result": "empty_rows; failures are never zero",
+      "cancelled_orders": "Business source inclusion policy requires Owner confirmation",
+      "source_kind": "synthetic_technical_contract",
+      "freshness_sla_seconds": null,
+      "source_policies": {
+        "inclusion": null,
+        "deletion": null,
+        "time_attribution": null,
+        "nulls": null
+      },
+      "source_mapping": {
+        "fact_inventory_day": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "stock_date": null,
+            "sku_id": null,
+            "warehouse_id": null,
+            "quantity": null
+          }
+        },
+        "dim_sku": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "sku_id": null,
+            "product_id": null,
+            "sku_name": null
+          }
+        },
+        "dim_product": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "product_id": null,
+            "product_name": null,
+            "category": null,
+            "unit_price": null
+          }
+        },
+        "dim_warehouse": {
+          "source_object": null,
+          "primary_key": null,
+          "fields": {
+            "warehouse_id": null,
+            "warehouse_name": null,
+            "region_id": null
+          }
+        }
+      }
+    }
+  ],
+  "synthetic": true,
+  "tables": {
+    "fact_device_activation": {
+      "name": "fact_device_activation",
+      "domain": "device",
+      "description": "首次激活 售出后30天激活率分子来源",
+      "grain": "每激活设备一行",
+      "columns": {
+        "device_id": {
+          "type": "VARCHAR",
+          "description": "设备编码"
+        },
+        "activation_date": {
+          "type": "DATE",
+          "description": "首次激活日期"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "fact_service_ticket": {
+      "name": "fact_service_ticket",
+      "domain": "service",
+      "description": "售后工单 一台设备可以多次报障",
+      "grain": "每工单一行",
+      "columns": {
+        "ticket_id": {
+          "type": "VARCHAR",
+          "description": "工单编码"
+        },
+        "device_id": {
+          "type": "VARCHAR",
+          "description": "设备编码"
+        },
+        "fault_id": {
+          "type": "VARCHAR",
+          "description": "故障编码"
+        },
+        "employee_id": {
+          "type": "VARCHAR",
+          "description": "客服编码"
+        },
+        "created_date": {
+          "type": "DATE",
+          "description": "创建日期"
+        },
+        "status": {
+          "type": "VARCHAR",
+          "description": "工单状态"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "dim_warehouse": {
+      "name": "dim_warehouse",
+      "domain": "supply",
+      "description": "仓库",
+      "grain": "每仓库一行",
+      "columns": {
+        "warehouse_id": {
+          "type": "VARCHAR",
+          "description": "仓库编码"
+        },
+        "warehouse_name": {
+          "type": "VARCHAR",
+          "description": "仓库名称"
+        },
+        "region_id": {
+          "type": "VARCHAR",
+          "description": "区域编码"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "fact_receipt": {
+      "name": "fact_receipt",
+      "domain": "supply",
+      "description": "采购收货",
+      "grain": "每收货一行",
+      "columns": {
+        "receipt_id": {
+          "type": "VARCHAR",
+          "description": "收货编码"
+        },
+        "purchase_item_id": {
+          "type": "VARCHAR",
+          "description": "采购行编码"
+        },
+        "warehouse_id": {
+          "type": "VARCHAR",
+          "description": "仓库编码"
+        },
+        "receipt_date": {
+          "type": "DATE",
+          "description": "收货日期"
+        },
+        "quantity": {
+          "type": "BIGINT",
+          "description": "收货数量"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "dim_sku": {
+      "name": "dim_sku",
+      "domain": "product",
+      "description": "商品SKU 包装规格",
+      "grain": "每SKU一行",
+      "columns": {
+        "sku_id": {
+          "type": "VARCHAR",
+          "description": "商品编码"
+        },
+        "product_id": {
+          "type": "VARCHAR",
+          "description": "型号编码"
+        },
+        "sku_name": {
+          "type": "VARCHAR",
+          "description": "商品名称"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "fact_order": {
+      "name": "fact_order",
+      "domain": "sales",
+      "description": "已支付订单头 订单金额不要与明细重复累计",
+      "grain": "每订单一行",
+      "columns": {
+        "order_id": {
+          "type": "VARCHAR",
+          "description": "订单编码"
+        },
+        "customer_id": {
+          "type": "VARCHAR",
+          "description": "客户编码"
+        },
+        "channel_id": {
+          "type": "VARCHAR",
+          "description": "渠道编码"
+        },
+        "region_id": {
+          "type": "VARCHAR",
+          "description": "区域编码"
+        },
+        "paid_date": {
+          "type": "DATE",
+          "description": "支付日期"
+        },
+        "paid_amount": {
+          "type": "DOUBLE",
+          "description": "实付金额元"
+        },
+        "status": {
+          "type": "VARCHAR",
+          "description": "订单状态"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "bridge_order_device": {
+      "name": "bridge_order_device",
+      "domain": "sales",
+      "description": "订单行与实际设备桥接 每台售出设备只对应一行",
+      "grain": "每售出设备一行",
+      "columns": {
+        "device_id": {
+          "type": "VARCHAR",
+          "description": "设备编码"
+        },
+        "item_id": {
+          "type": "VARCHAR",
+          "description": "订单行编码"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "dim_fault": {
+      "name": "dim_fault",
+      "domain": "service",
+      "description": "售后故障分类",
+      "grain": "每故障类别一行",
+      "columns": {
+        "fault_id": {
+          "type": "VARCHAR",
+          "description": "故障编码"
+        },
+        "fault_name": {
+          "type": "VARCHAR",
+          "description": "故障名称"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "fact_refund": {
+      "name": "fact_refund",
+      "domain": "sales",
+      "description": "退款 按订单行归属原支付月",
+      "grain": "每退款一行",
+      "columns": {
+        "refund_id": {
+          "type": "VARCHAR",
+          "description": "退款编码"
+        },
+        "item_id": {
+          "type": "VARCHAR",
+          "description": "订单行编码"
+        },
+        "refund_date": {
+          "type": "DATE",
+          "description": "退款日期"
+        },
+        "amount": {
+          "type": "DOUBLE",
+          "description": "退款金额"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "dim_firmware": {
+      "name": "dim_firmware",
+      "domain": "device",
+      "description": "固件版本",
+      "grain": "每版本一行",
+      "columns": {
+        "firmware_id": {
+          "type": "VARCHAR",
+          "description": "版本编码"
+        },
+        "firmware_name": {
+          "type": "VARCHAR",
+          "description": "固件版本"
+        },
+        "release_date": {
+          "type": "DATE",
+          "description": "发布日期"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "dim_channel": {
+      "name": "dim_channel",
+      "domain": "sales",
+      "description": "销售渠道 电商 自营 经销",
+      "grain": "每渠道一行",
+      "columns": {
+        "channel_id": {
+          "type": "VARCHAR",
+          "description": "渠道编码"
+        },
+        "channel_name": {
+          "type": "VARCHAR",
+          "description": "渠道名称"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "fact_device_day": {
+      "name": "fact_device_day",
+      "domain": "device",
+      "description": "设备每日活跃在线统计 仅采样观察窗口",
+      "grain": "每设备每日一行",
+      "columns": {
+        "device_id": {
+          "type": "VARCHAR",
+          "description": "设备编码"
+        },
+        "event_date": {
+          "type": "DATE",
+          "description": "事件日期"
+        },
+        "firmware_id": {
+          "type": "VARCHAR",
+          "description": "固件版本"
+        },
+        "online": {
+          "type": "BIGINT",
+          "description": "当日在线标识"
+        },
+        "active": {
+          "type": "BIGINT",
+          "description": "当日活跃标识"
+        },
+        "event_count": {
+          "type": "BIGINT",
+          "description": "事件次数"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "dim_product": {
+      "name": "dim_product",
+      "domain": "product",
+      "description": "智能宠物硬件产品型号 主数据",
+      "grain": "每型号一行",
+      "columns": {
+        "product_id": {
+          "type": "VARCHAR",
+          "description": "型号编码"
+        },
+        "product_name": {
+          "type": "VARCHAR",
+          "description": "型号名称"
+        },
+        "category": {
+          "type": "VARCHAR",
+          "description": "类别 喂食器 饮水机 猫砂盆"
+        },
+        "unit_price": {
+          "type": "DOUBLE",
+          "description": "标准售价元"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "fact_order_item": {
+      "name": "fact_order_item",
+      "domain": "sales",
+      "description": "订单行 含SKU和数量",
+      "grain": "每订单行一行",
+      "columns": {
+        "item_id": {
+          "type": "VARCHAR",
+          "description": "明细编码"
+        },
+        "order_id": {
+          "type": "VARCHAR",
+          "description": "订单编码"
+        },
+        "sku_id": {
+          "type": "VARCHAR",
+          "description": "商品编码"
+        },
+        "quantity": {
+          "type": "BIGINT",
+          "description": "设备数量"
+        },
+        "amount": {
+          "type": "DOUBLE",
+          "description": "明细实付金额"
+        },
+        "cost": {
+          "type": "DOUBLE",
+          "description": "明细成本"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "dim_device": {
+      "name": "dim_device",
+      "domain": "device",
+      "description": "实物设备 序列号及型号",
+      "grain": "每台设备一行",
+      "columns": {
+        "device_id": {
+          "type": "VARCHAR",
+          "description": "设备编码"
+        },
+        "product_id": {
+          "type": "VARCHAR",
+          "description": "型号编码"
+        },
+        "manufactured_date": {
+          "type": "DATE",
+          "description": "生产日期"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    },
+    "fact_inventory_day": {
+      "name": "fact_inventory_day",
+      "domain": "supply",
+      "description": "每日库存快照",
+      "grain": "每商品仓库每日一行",
+      "columns": {
+        "stock_date": {
+          "type": "DATE",
+          "description": "快照日期"
+        },
+        "sku_id": {
+          "type": "VARCHAR",
+          "description": "商品编码"
+        },
+        "warehouse_id": {
+          "type": "VARCHAR",
+          "description": "仓库编码"
+        },
+        "quantity": {
+          "type": "BIGINT",
+          "description": "结存数量"
+        }
+      },
+      "core": true,
+      "aliases": [],
+      "source": "自建模拟数据"
+    }
+  }
+}

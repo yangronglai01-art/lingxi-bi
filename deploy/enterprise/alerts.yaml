@@ -1,0 +1,31 @@
+# Import into the enterprise Prometheus rule pipeline; metrics endpoint must be private.
+groups:
+- name: lingxi
+  rules:
+  - alert: LingxiQueueBacklog
+    expr: lingxi_queued_jobs > 150
+    for: 5m
+    labels: {severity: warning}
+    annotations: {summary: "Lingxi query backlog approaching quota"}
+  - alert: LingxiInterruptedJobs
+    expr: lingxi_recent_interrupted_jobs > 0
+    labels: {severity: warning}
+    annotations: {summary: "Inspect worker lease expiry and model availability"}
+
+  - alert: LingxiQueueDelay
+    expr: lingxi_oldest_queued_seconds > 60
+    for: 5m
+    labels: {severity: warning}
+    annotations: {summary: "Lingxi queued requests waiting over technical threshold"}
+  - alert: LingxiStaleWatermark
+    expr: lingxi_watermark_valid == 0 or lingxi_watermark_age_seconds > lingxi_watermark_sla_seconds
+    for: 5m
+    labels: {severity: warning}
+    annotations: {summary: "Confirm source freshness and business refresh SLA"}
+
+  # Technical starting threshold; business/platform must approve before production.
+  - alert: LingxiQueryFailureRatio
+    expr: sum(rate(lingxi_stage_seconds_count{stage="total",outcome="error"}[5m])) / clamp_min(sum(rate(lingxi_stage_seconds_count{stage="total"}[5m])), 0.001) > 0.05
+    for: 5m
+    labels: {severity: warning}
+    annotations: {summary: "Inspect stage failures, model service and data dependencies"}

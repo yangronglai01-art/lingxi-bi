@@ -165,7 +165,8 @@ def validate_metric(sql,context):
     import sqlglot
     from sqlglot import exp
     from sqlglot.optimizer.scope import traverse_scope
-    tree=sqlglot.parse_one(sql,read='duckdb')
+    from .guard import DIALECT
+    tree=sqlglot.parse_one(sql,read=DIALECT)
     _validate_enums(tree,context)
     if metric.get('id')=='received_units':
         tables=list(tree.find_all(exp.Table));selects=list(tree.find_all(exp.Select))

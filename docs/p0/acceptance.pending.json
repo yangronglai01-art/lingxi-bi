@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "environment": "production",
+  "tenant": "",
+  "release": "",
+  "model_revision": "",
+  "embedding_revision": "",
+  "packages": {
+    "P0-01": {
+      "status": "pending",
+      "provenance": "not_connected",
+      "reviewer": "",
+      "approval_reference": "",
+      "reviewed_at": "",
+      "artifacts": []
+    },
+    "P0-02": {
+      "status": "pending",
+      "provenance": "not_connected",
+      "reviewer": "",
+      "approval_reference": "",
+      "reviewed_at": "",
+      "artifacts": []
+    },
+    "P0-03": {
+      "status": "pending",
+      "provenance": "not_connected",
+      "reviewer": "",
+      "approval_reference": "",
+      "reviewed_at": "",
+      "artifacts": []
+    },
+    "P0-04": {
+      "status": "pending",
+      "provenance": "not_connected",
+      "reviewer": "",
+      "approval_reference": "",
+      "reviewed_at": "",
+      "artifacts": []
+    },
+    "P0-05": {
+      "status": "pending",
+      "provenance": "not_connected",
+      "reviewer": "",
+      "approval_reference": "",
+      "reviewed_at": "",
+      "artifacts": []
+    },
+    "P0-06": {
+      "status": "pending",
+      "provenance": "not_connected",
+      "reviewer": "",
+      "approval_reference": "",
+      "reviewed_at": "",
+      "artifacts": []
+    },
+    "P0-07": {
+      "status": "pending",
+      "provenance": "not_connected",
+      "reviewer": "",
+      "approval_reference": "",
+      "reviewed_at": "",
+      "artifacts": []
+    }
+  },
+  "note": "Checks bind reviewed files and declared provenance; they do not authenticate reviewers or prove real infrastructure. Enterprise approval workflow remains authoritative."
+}
