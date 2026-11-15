@@ -59,6 +59,19 @@ def source_quality(catalog,rows,keys):
     return normalized
 
 
+def summarize_channel_coverage(channels):
+    if not isinstance(channels, dict) or not channels or any(
+        not isinstance(channel, str) or not channel.strip() or type(verified) is not bool
+        for channel, verified in channels.items()
+    ):
+        raise ValueError('Expected channel names and verification flags')
+    covered = sorted(channel for channel, verified in channels.items() if verified)
+    return {
+        'status': 'complete' if len(covered) == len(channels) else 'incomplete',
+        'covered_channels': covered,
+    }
+
+
 def with_channel_coverage(watermark, scopes):
     """Derive release coverage from connector-declared partition reconciliation."""
     partitions = watermark.get('net_sales_partitions')
@@ -68,20 +81,70 @@ def with_channel_coverage(watermark, scopes):
         raise ValueError('Invalid net sales coverage scopes')
     coverage = {}
     for scope, channels in partitions.items():
-        if not isinstance(channels, dict) or not channels or any(
-            not isinstance(channel, str) or not channel.strip() or type(verified) is not bool
-            for channel, verified in channels.items()
-        ):
-            raise ValueError('Expected channel names and verification flags')
-        covered = sorted(channel for channel, verified in channels.items() if verified)
-        coverage[scope] = {
-            'status': 'complete' if len(covered) == len(channels) else 'incomplete',
-            'covered_channels': covered,
-        }
+        if isinstance(channels, dict) and set(channels) == {'by_month'}:
+            from datetime import date
+
+            months = channels['by_month']
+            if not isinstance(months, dict) or not months:
+                raise ValueError('Monthly channel coverage cannot be empty')
+            monthly = {}
+            for month, entries in months.items():
+                if not isinstance(month, str) or len(month) != 7 or date.fromisoformat(month + '-01').isoformat()[:7] != month:
+                    raise ValueError('Coverage month must use YYYY-MM')
+                if not isinstance(entries, dict) or not entries:
+                    raise ValueError('Expected channels for each coverage month')
+                for sources in entries.values():
+                    if not isinstance(sources, dict) or set(sources) != {'sales', 'refunds'}:
+                        raise ValueError('Sales and refunds reconciliation flags are required')
+                    if any(type(flag) is not bool for flag in sources.values()):
+                        raise ValueError('Reconciliation flags must be boolean')
+                monthly[month] = summarize_channel_coverage({
+                    channel: all(sources.values()) for channel, sources in entries.items()
+                })
+            coverage[scope] = {'by_month': monthly}
+        else:
+            coverage[scope] = summarize_channel_coverage(channels)
     result = dict(watermark)
     result.pop('net_sales_partitions')
     result['metric_coverage'] = {**watermark.get('metric_coverage', {}), 'net_sales': coverage}
     return result
+
+
+def reconcile_net_sales(cursor, database, mapping, rows):
+    """Compare source-derived channel/month amounts with the loaded snapshot."""
+    required = {'fact_order_item', 'fact_order', 'fact_refund', 'dim_channel'}
+    if not required <= rows.keys():
+        return None
+    orders = {row['order_id']: row for row in rows['fact_order']}
+    channels = {row['channel_id']: row['channel_name'] for row in rows['dim_channel']}
+    refunded = {}
+    for row in rows['fact_refund']:
+        key = row['item_id']
+        refunded[key] = refunded.get(key, Decimal(0)) + Decimal(str(row['amount']))
+    expected = {}
+    for item in rows['fact_order_item']:
+        order = orders[item['order_id']]
+        key = (str(order['paid_date'])[:7], channels[order['channel_id']])
+        expected[key] = expected.get(key, Decimal(0)) + Decimal(str(item['amount'])) - refunded.get(item['item_id'], Decimal(0))
+
+    def table(logical):
+        return f"`{name(database)}`.`{name(mapping[logical])}`"
+
+    cursor.execute(f"""
+        WITH refunds AS (SELECT item_id,SUM(amount) AS refunded
+                         FROM {table('fact_refund')} GROUP BY item_id)
+        SELECT DATE_FORMAT(o.paid_date,'%Y-%m'),c.channel_name,
+               SUM(i.amount-COALESCE(r.refunded,0))
+        FROM {table('fact_order_item')} i
+        JOIN {table('fact_order')} o ON i.order_id=o.order_id
+        JOIN {table('dim_channel')} c ON o.channel_id=c.channel_id
+        LEFT JOIN refunds r ON i.item_id=r.item_id
+        GROUP BY DATE_FORMAT(o.paid_date,'%Y-%m'),c.channel_name
+    """)
+    actual = {(month, channel): Decimal(str(amount)) for month, channel, amount in cursor.fetchall()}
+    if actual != expected:
+        raise ValueError('Independent net sales channel/month reconciliation failed')
+    return {'passed': True, 'channel_month_groups': len(expected)}
 
 
 def load(settings,store,admin,release,catalog,rows,keys,watermark):
@@ -130,6 +193,7 @@ def _load(settings,store,admin,release,catalog,rows,keys,watermark):
                         actual_total=cursor.fetchone()[0]
                         if (Decimal(str(actual_total)) if actual_total is not None else Decimal(0))!=value:raise ValueError('Independent Decimal control total mismatch')
                         totals[logical+'.'+col]=str(value)
+            net_sales_proofs = {'global': reconcile_net_sales(cursor, db, mapping, rows)}
             all_mappings={'global':mapping};all_counts={'global':counts}
             pending_grants=[(db,physical,name(settings.scopes['global']['user'])) for physical in mapping.values()]
             for scope,config in settings.scopes.items():
@@ -154,10 +218,11 @@ def _load(settings,store,admin,release,catalog,rows,keys,watermark):
                     if got!=wanted:raise ValueError('Independent regional lineage reconciliation failed')
                     regional_mapping[logical]=physical;regional_counts[logical]=len(records)
                     pending_grants.append((scoped_db,physical,name(config['user'])))
+                net_sales_proofs[scope] = reconcile_net_sales(cursor, scoped_db, regional_mapping, expected)
                 all_mappings[scope]=regional_mapping;all_counts[scope]=regional_counts
             for scope_db,physical,user in pending_grants:
                 cursor.execute(f'GRANT SELECT ON TABLE `{scope_db}`.`{physical}` TO USER {user}')
-        proof=dict(passed=True,manifest_hash=manifest,source_counts=all_counts,decimal_totals=totals)
+        proof=dict(passed=True,manifest_hash=manifest,source_counts=all_counts,decimal_totals=totals,net_sales_reconciliation=net_sales_proofs)
         store.stage_release(settings.tenant,release,catalog,all_mappings,watermark)
         with store.db() as c:
             c.execute("UPDATE analytics_loads SET state='applied',proof=%s WHERE tenant=%s AND release=%s",(Json(proof),settings.tenant,release))

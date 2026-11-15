@@ -317,3 +317,20 @@ def test_channel_net_sales_multiple_refunds_matches_independent_amounts(harness)
     actual={name:Decimal(str(amount)) for name,amount in result['result']['rows']}
     assert actual=={'A':Decimal(100)-Decimal(10)-Decimal(15),'B':Decimal(80)}
     assert not calls
+
+def test_net_sales_monthly_coverage_requires_both_dependencies(harness):
+    from src.enterprise.loader import with_channel_coverage
+    settings,store,principal,job,_=harness
+    store.release()['watermark']=with_channel_coverage({
+        'net_sales_partitions': {'global': {'by_month': {
+            '2026-09': {'A': {'sales': True, 'refunds': False},
+                        'B': {'sales': True, 'refunds': True}}
+        }}}
+    }, settings.scopes)
+    query,calls,executions=runner(harness,[],lambda *_:dict(
+        columns=['dimension','net_sales'],rows=[['A','12.30'],['B','20.00']],row_count=2,truncated=False))
+    result=query.run(dict(job,question='2026年9月各渠道净销售额'),principal)
+    assert result['answer_policy']=='partial'
+    assert result['result']['rows']==[['B','20.00']]
+    assert query.run(dict(job,question='各渠道净销售额'),principal)['answer_policy']=='withheld'
+    assert len(executions)==1 and not calls

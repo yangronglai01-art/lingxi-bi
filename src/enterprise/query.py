@@ -79,6 +79,8 @@ class Query:
         base['intent']=intent.payload()
         contract=resolve(intent,release['catalog']);base['metric_contract']=contract
         coverage = release['watermark'].get('metric_coverage', {}).get(metric['id'], {}).get(p.scope)
+        if metric['id'] == 'net_sales' and coverage and 'by_month' in coverage:
+            coverage = coverage['by_month'].get(intent.month, {'status': 'incomplete'})
         policy = 'full' if coverage and coverage.get('status') == 'complete' else 'coverage_unverified'
         covered = set()
         if metric['id'] == 'net_sales' and coverage and coverage.get('status') == 'incomplete':
