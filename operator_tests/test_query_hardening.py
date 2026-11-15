@@ -254,3 +254,66 @@ def test_http_clarification_includes_reason_and_missing_slots(harness):
     r=TestClient(app).post('/api/v1/analytics/queries',headers={'Authorization':'Bearer qa','Idempotency-Key':'qa-id'},json={'question':'各型号净销售额'})
     assert r.status_code==422 and r.json()['clarification_details']['missing_slots']==['calendar_month']
     assert r.json()['clarification_reason']=='time_range'
+
+@pytest.mark.parametrize('question,policy', [('各渠道净销售额','partial'),('各型号净销售额','withheld')])
+def test_net_sales_incomplete_coverage(harness,question,policy):
+    settings,store,principal,job,_=harness
+    store.release()['watermark']['metric_coverage']={
+        'net_sales':{'global':{'status':'incomplete','covered_channels':['A']}}}
+    query,calls,executions=runner(harness,[],lambda *_:dict(
+        columns=['dimension','net_sales'],rows=[['A','12.30'],['B','20.00']],row_count=2,truncated=False))
+    result=query.run(dict(job,question=question),principal)
+    assert result['answer_policy']==policy
+    assert not calls
+    if policy=='partial':
+        assert result['result']['rows']==[['A','12.30']] and len(executions)==1
+    else:
+        assert result['result'] is None and not executions
+
+def test_release_channel_manifest_drives_net_sales_policy(harness):
+    from src.enterprise.loader import with_channel_coverage
+    settings,store,principal,job,_=harness
+    watermark=store.release()['watermark']
+    query,calls,executions=runner(harness,[])
+    for flags,expected in [({'QA model':True,'missing':False},'partial'),({'QA model':True},'full')]:
+        manifest=with_channel_coverage(dict(watermark,net_sales_partitions={'global':flags}),settings.scopes)
+        store.release()['watermark']=manifest
+        result=query.run(dict(job,question='各渠道净销售额'),principal)
+        assert result['answer_policy']==expected
+        assert result['result']['rows']==[['QA model','12.30']]
+    assert not calls and len(executions)==2
+    with pytest.raises(ValueError):
+        with_channel_coverage({'net_sales_partitions':{'other':{'A':True}}},settings.scopes)
+
+def test_channel_net_sales_multiple_refunds_matches_independent_amounts(harness):
+    import sqlite3
+    from contextlib import closing
+    from decimal import Decimal
+
+    settings,store,principal,job,_=harness
+    store.release()['watermark']['metric_coverage']={
+        'net_sales':{'global':{'status':'complete','covered_channels':['A','B']}}}
+    with closing(sqlite3.connect(':memory:')) as db:
+        db.executescript("""
+          CREATE TABLE qa_fact_order_item(item_id INT, order_id INT, sku_id INT, amount NUMERIC);
+          CREATE TABLE qa_fact_order(order_id INT, channel_id INT);
+          CREATE TABLE qa_fact_refund(item_id INT, amount NUMERIC);
+          CREATE TABLE qa_dim_sku(sku_id INT, product_id INT);
+          CREATE TABLE qa_dim_product(product_id INT, product_name TEXT);
+          CREATE TABLE qa_dim_channel(channel_id INT, channel_name TEXT);
+          INSERT INTO qa_fact_order_item VALUES(1,1,1,100),(2,2,1,80);
+          INSERT INTO qa_fact_order VALUES(1,1),(2,2);
+          INSERT INTO qa_fact_refund VALUES(1,10),(1,15);
+          INSERT INTO qa_dim_sku VALUES(1,1);
+          INSERT INTO qa_dim_product VALUES(1,'QA');
+          INSERT INTO qa_dim_channel VALUES(1,'A'),(2,'B');
+        """)
+        def execute(_,args,kwargs):
+            cursor=db.execute(args[1])
+            rows=[list(row) for row in cursor.fetchall()]
+            return dict(columns=[column[0] for column in cursor.description],rows=rows,row_count=len(rows),truncated=False)
+        query,calls,_=runner(harness,[],execute)
+        result=query.run(dict(job,question='各渠道净销售额'),principal)
+    actual={name:Decimal(str(amount)) for name,amount in result['result']['rows']}
+    assert actual=={'A':Decimal(100)-Decimal(10)-Decimal(15),'B':Decimal(80)}
+    assert not calls

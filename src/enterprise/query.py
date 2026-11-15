@@ -6,7 +6,7 @@ from .intent import derive,verify_sql,Clarify,approved_intent_example
 from .review import review
 from functools import lru_cache
 from src.petkit.guard import check
-from src.petkit.planning import plan,examples,normalize
+from src.petkit.planning import plan,examples,normalize,sales_sql
 from src.petkit.retrieval import Index
 from src.petkit.semantic import validate_metric
 from .execution import Executor,bind
@@ -51,7 +51,7 @@ class Query:
             return result
         except Clarify as exc:
             outcome='clarification'
-            return dict(status='clarification',question=job['question'],request_id=job['id'],generation=job['release'],elapsed_ms=int((time.monotonic()-started)*1000),context={},plan={},sql='',result=None,chart=None,insights=[],error=str(exc),mock_used=False,truncated=False,clarification_reason=exc.reason,clarification_details=exc.details,semantic_review=exc.details if exc.reason=='review' else None)
+            return dict(status='clarification',answer_policy='clarify',question=job['question'],request_id=job['id'],generation=job['release'],elapsed_ms=int((time.monotonic()-started)*1000),context={},plan={},sql='',result=None,chart=None,insights=[],error=str(exc),mock_used=False,truncated=False,clarification_reason=exc.reason,clarification_details=exc.details,semantic_review=exc.details if exc.reason=='review' else None)
         finally:
             trace['durations'].append((trace['stage'],outcome,time.monotonic()-trace['at']))
             trace['durations'].append(('total',outcome,time.monotonic()-started))
@@ -78,6 +78,16 @@ class Query:
                           details={'missing_slots':['enabled_metric'],'requires_owner_approval':True})
         base['intent']=intent.payload()
         contract=resolve(intent,release['catalog']);base['metric_contract']=contract
+        coverage = release['watermark'].get('metric_coverage', {}).get(metric['id'], {}).get(p.scope)
+        policy = 'full' if coverage and coverage.get('status') == 'complete' else 'coverage_unverified'
+        covered = set()
+        if metric['id'] == 'net_sales' and coverage and coverage.get('status') == 'incomplete':
+            covered = set(coverage.get('covered_channels') or [])
+            if intent.group != 'channel' or not covered:
+                return dict(base, status='error', answer_policy='withheld',
+                            error_code='METRIC_COVERAGE_INCOMPLETE',
+                            error='当前权限范围内的净销售额数据覆盖不完整，暂缓出数。')
+            policy = 'partial'
         phase('retrieval')
         retrieval_begin=time.monotonic()
         context=self.context(p,release,question,metric)
@@ -87,6 +97,9 @@ class Query:
         if approved is None and getattr(self.settings,'approved_intent_routing',True):
             approved=approved_intent_example(intent,release['catalog'])
             if approved:route='validated_intent_signature'
+        if policy == 'partial':
+            approved = {'sql': sales_sql('channel', intent.month)}
+            route = 'coverage_channel_template'
         mode='approved_template' if approved else 'local-chat'
         base['routing']=dict(policy='approved-intent-v1',reason=route or 'model_required',
                              model_bypassed=bool(approved))
@@ -105,7 +118,7 @@ class Query:
                     phase('model')
                     obj=generator.generate(question,context,contract,alive,previous)
                     if obj['status']=='clarification':
-                        return dict(base,status='clarification',error=obj['message'][:1000],
+                        return dict(base,status='clarification',answer_policy='clarify',error=obj['message'][:1000],
                             clarification_reason='model',generation_attempts=attempts+[dict(attempt=attempt,outcome='clarification')])
                     sql=obj['sql']
                 phase('semantic')
@@ -123,6 +136,14 @@ class Query:
                 result=self.executor.run(p.scope,physical,alive,lambda cid:self.store.executing(job,cid),deadline=sql_deadline)
                 try:validate(metric,result)
                 except ValueError as exc:raise ResultContractError('RESULT_CONTRACT_INVALID') from exc
+                if policy == 'partial':
+                    if 'dimension' not in result['columns'] or result['truncated']:
+                        return dict(base,status='error',answer_policy='withheld',
+                                    error_code='PARTIAL_RESULT_INVALID',error='无法确认渠道覆盖范围，暂缓出数。')
+                    column = result['columns'].index('dimension')
+                    rows = [row for row in result['rows'] if row[column] in covered]
+                    result = dict(result,rows=rows,row_count=len(rows))
+                    base['covered_channels'] = sorted(covered)
                 attempts.append(dict(attempt=attempt,outcome='passed'))
                 break
             except Exception as exc:
@@ -140,6 +161,6 @@ class Query:
                 phase('repair',outcome='error')
         model_elapsed=generator.spent
         self.store.verify(p)
-        return dict(base,status='ok',elapsed_ms=int((time.monotonic()-begin)*1000),model_elapsed_seconds=round(model_elapsed,4),retrieval_seconds=round(retrieval_elapsed,4),truncated=result['truncated'],chart=None,insights=[],error='',sql=checked.sql,plan=dict(intent.payload(),dimensions=[{'model':'product'}.get(intent.group,intent.group)],time_range={'month':intent.month,'as_of':intent.as_of},grain=metric.get('grain'),unit=metric.get('unit'),approved_dependencies=metric['dependencies'],assumptions=[metric['definition']],source='server_approved_intent'),
+        return dict(base,status='ok',answer_policy=policy,elapsed_ms=int((time.monotonic()-begin)*1000),model_elapsed_seconds=round(model_elapsed,4),retrieval_seconds=round(retrieval_elapsed,4),truncated=result['truncated'],chart=None,insights=[],error='',sql=checked.sql,plan=dict(intent.payload(),dimensions=[{'model':'product'}.get(intent.group,intent.group)],time_range={'month':intent.month,'as_of':intent.as_of},grain=metric.get('grain'),unit=metric.get('unit'),approved_dependencies=metric['dependencies'],assumptions=[metric['definition']],source='server_approved_intent'),
             generation_attempts=attempts,repair_count=max(0,len(attempts)-1),result=result,context={k:v for k,v in context.items() if k!='tables'},generation_mode=mode,
             semantic_validation=semantic,semantic_review=review_result,freshness_sla_seconds=metric.get('freshness_sla_seconds'),metric_version=context['version'],source_kind=release['watermark'].get('source_kind','unverified'))

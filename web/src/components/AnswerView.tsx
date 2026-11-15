@@ -9,6 +9,7 @@ export function AnswerView({ answer, onFeedback }: { answer: Answer; onFeedback?
   const [comment, setComment] = useState("");
   const [feedbackState, setFeedbackState] = useState("");
   const result = answer.result;
+  const metadata = answer as unknown as { answer_policy?: string; covered_channels?: string[] };
   const watermark = (answer.context?.watermark ?? (answer as unknown as Record<string, unknown>).watermark) as Record<string, unknown> | undefined;
   const cutoff = String(watermark?.event_time ?? answer.context?.data_as_of ?? "未提供");
   const approvedSla = answer.freshness_sla_seconds;
@@ -19,6 +20,8 @@ export function AnswerView({ answer, onFeedback }: { answer: Answer; onFeedback?
     <div className="answer">
       <p className="muted">数据截至：{cutoff}</p>
       {stale && <p role="alert">{approvedSla ? `数据水位超过批准的${sla}秒刷新要求或无法确认` : "数据水位超过24小时技术警戒值或无法确认（业务SLA待签收）"}，请核对同步状态；本结果不代表最新经营状态。</p>}
+      {metadata.answer_policy === "partial" && <p role="alert">仅展示已覆盖渠道：{metadata.covered_channels?.join("、")}。全渠道合计暂缓。</p>}
+      {metadata.answer_policy === "coverage_unverified" && <p>当前快照的数据覆盖范围尚未验证。</p>}
       {answer.error && <div className="error-banner">{answer.error}</div>}
 
       <p className="muted">数据版本：{answer.generation} · 路径：{String((answer as unknown as Record<string, unknown>).generation_mode ?? "未标记")}</p>

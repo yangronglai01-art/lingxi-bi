@@ -59,6 +59,31 @@ def source_quality(catalog,rows,keys):
     return normalized
 
 
+def with_channel_coverage(watermark, scopes):
+    """Derive release coverage from connector-declared partition reconciliation."""
+    partitions = watermark.get('net_sales_partitions')
+    if partitions is None:
+        return watermark
+    if not isinstance(partitions, dict) or set(partitions) - set(scopes):
+        raise ValueError('Invalid net sales coverage scopes')
+    coverage = {}
+    for scope, channels in partitions.items():
+        if not isinstance(channels, dict) or not channels or any(
+            not isinstance(channel, str) or not channel.strip() or type(verified) is not bool
+            for channel, verified in channels.items()
+        ):
+            raise ValueError('Expected channel names and verification flags')
+        covered = sorted(channel for channel, verified in channels.items() if verified)
+        coverage[scope] = {
+            'status': 'complete' if len(covered) == len(channels) else 'incomplete',
+            'covered_channels': covered,
+        }
+    result = dict(watermark)
+    result.pop('net_sales_partitions')
+    result['metric_coverage'] = {**watermark.get('metric_coverage', {}), 'net_sales': coverage}
+    return result
+
+
 def load(settings,store,admin,release,catalog,rows,keys,watermark):
     from .recovery import release_lock
     with release_lock(store,settings.tenant,release):
@@ -71,6 +96,7 @@ def _load(settings,store,admin,release,catalog,rows,keys,watermark):
     if not all(k in watermark for k in ('source_version','event_time','ingested_at','batch_id','source_kind')):
         raise ValueError('Complete source watermark required')
     if settings.environment in {'staging','production'} and catalog.get('synthetic',True):raise ValueError('Synthetic snapshot cannot be published as enterprise data')
+    watermark=with_channel_coverage(watermark,settings.scopes)
     rows=source_quality(catalog,rows,keys)
     manifest=digest(dict(catalog=catalog,rows=rows,keys=keys,watermark=watermark))
     with store.db() as c:
