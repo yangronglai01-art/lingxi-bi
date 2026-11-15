@@ -127,6 +127,29 @@ class Store:
             c.execute('INSERT INTO analytics_active VALUES(%s,%s) ON CONFLICT(tenant) DO UPDATE SET release=excluded.release',(tenant,release))
             self.event(c,tenant,'release_operator',release,'release_published',{'previous':expected,'approval':approval})
 
+    def withdraw_active_release(self,tenant,release,replacement,reason):
+        reason=reason.strip()
+        if not reason or len(reason)>1000 or release==replacement:
+            raise ValueError('A different replacement and withdrawal reason are required')
+        with self.db() as c:
+            c.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))',('analytics-release:'+tenant,))
+            c.execute('SELECT release FROM analytics_active WHERE tenant=%s FOR UPDATE',(tenant,))
+            active=c.fetchone()
+            if not active or active['release']!=release:
+                raise Conflict('Active release changed')
+            c.execute("SELECT 1 FROM analytics_releases WHERE tenant=%s AND id=%s AND state='published'",(tenant,replacement))
+            if not c.fetchone():
+                raise Conflict('Replacement must be a previously published release')
+            c.execute("UPDATE analytics_releases SET state='withdrawn' WHERE tenant=%s AND id=%s AND state='published'",(tenant,release))
+            if c.rowcount!=1:
+                raise Conflict('Release unavailable')
+            c.execute('UPDATE analytics_active SET release=%s WHERE tenant=%s',(replacement,tenant))
+            c.execute("""UPDATE analytics_jobs SET state='cancelled',result=NULL,error_code='RELEASE_WITHDRAWN',
+                lease_until=NULL,updated=clock_timestamp()
+                WHERE tenant=%s AND release=%s AND state IN ('queued','running','completed')""",(tenant,release))
+            self.event(c,tenant,'release_operator',release,'release_withdrawn',
+                       {'replacement':replacement,'reason':reason,'invalidated_jobs':c.rowcount})
+
     def release(self,tenant,release=None):
         with self.db() as c:
             if not release:
@@ -149,6 +172,7 @@ class Store:
         if parent_job:identity['parent_job']=parent_job
         fingerprint=digest(identity)
         with self.db() as c:
+            c.execute('SELECT pg_advisory_xact_lock_shared(hashtextextended(%s,0))',('analytics-release:'+p.tenant,))
             c.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))',('analytics-submit:'+p.tenant,))
             self.verify(p,cursor=c)
             c.execute('SELECT * FROM analytics_jobs WHERE tenant=%s AND subject=%s AND idempotency=%s',(p.tenant,p.subject,key));old=c.fetchone()
@@ -186,6 +210,17 @@ class Store:
               WHERE tenant=%s AND subject=%s AND policy_version=%s ORDER BY created DESC LIMIT %s''',
               (p.tenant,p.subject,p.policy_version,limit))
             return [dict(r) for r in c.fetchall()]
+
+    def inspect_job(self,tenant,job_id):
+        """Operator metadata for reconciling an interrupted query."""
+        with self.db() as c:
+            c.execute("""SELECT id,release,scope,state,error_code,attempt,connection_id,
+                lease_until,created,updated FROM analytics_jobs WHERE tenant=%s AND id=%s""",
+                (tenant,job_id))
+            row=c.fetchone()
+            if not row:
+                raise Conflict('Query unavailable')
+            return dict(row)
 
     def claim(self,owner,tenant=None):
         with self.db() as c:

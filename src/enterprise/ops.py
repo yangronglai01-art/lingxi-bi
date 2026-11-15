@@ -26,9 +26,18 @@ def verify_release(settings,store,release,counts):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('action',choices=['migrate','stage','index','publish','grant'])
+    parser=argparse.ArgumentParser();parser.add_argument('action',choices=['migrate','stage','index','publish','withdraw','grant','inspect-job'])
+    parser.add_argument('--job')
+    parser.add_argument('--replacement');parser.add_argument('--reason')
     parser.add_argument('--file');parser.add_argument('--release');parser.add_argument('--expected');parser.add_argument('--approval');parser.add_argument('--acceptance',help='Production reviewed evidence bundle JSON')
     args=parser.parse_args();s=Settings.from_env();store=Store(s.dsn)
+    if args.action=='inspect-job':
+        if not args.job:parser.error('inspect-job requires --job')
+        job=store.inspect_job(s.tenant,args.job)
+        scope=s.scopes.get(job['scope'])
+        job['configured_endpoint']={key:scope[key] for key in ('host','port','database') if key in scope} if scope else None
+        print(json.dumps(job,default=str,ensure_ascii=False))
+        return
     if args.action=='migrate':store.migrate();Batches(store).migrate()
     elif args.action=='stage':
         payload=json.loads(Path(args.file).read_text(encoding='utf-8'))
@@ -54,6 +63,10 @@ def main():
                 if c.fetchone()['n']!=len(catalog['tables']):raise ValueError('Complete pinned embedding index required')
         if not payload.get('independent_totals_passed'):raise ValueError('Independent metric totals must be confirmed')
         store.publish(s.tenant,args.release,args.expected,args.approval+':'+proof['manifest_hash'])
+    elif args.action=='withdraw':
+        if not all((args.release,args.replacement,args.reason)):
+            parser.error('withdraw requires --release, --replacement and --reason')
+        store.withdraw_active_release(s.tenant,args.release,args.replacement,args.reason)
     else:
         p=json.loads(Path(args.file).read_text(encoding='utf-8'))
         if p['scope'] not in s.scopes or tuple(s.scopes[p['scope']].get('regions',[]))!=tuple(p['regions']):raise ValueError('Unconfigured scope')

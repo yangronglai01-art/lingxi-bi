@@ -365,3 +365,50 @@ def test_partial_load_not_publishable_and_rebuild(settings,store):
         proof=load(only,store,admin,'rebuilt_'+uuid.uuid4().hex,catalog,rows,keys,watermark)
         assert proof['passed'] and proof['source_counts']['global']=={'qa_one':1,'qa_two':1}
     finally:admin.close()
+
+
+def test_withdraw_active_release_fences_jobs_and_results(store):
+    tenant = 'withdraw_' + uuid.uuid4().hex
+    store.grant(tenant, 'operator_test', 'analyst', [], 'global')
+    principal = store.principal(tenant, 'operator_test')
+    for version, previous in [('v1', None), ('v2', 'v1')]:
+        store.stage_release(tenant, version, {}, {'global': {}}, {})
+        store.publish(tenant, version, previous, 'isolated withdrawal regression')
+        if version == 'v1':
+            old_job = store.submit(principal, 'old version query', 'old')
+    assert store.get(principal, old_job)['state'] == 'queued'
+    old_claim = store.claim('old-owner', tenant)
+    store.finish(old_claim, principal, {'status': 'clarification'})
+    completed_id = store.submit(principal, 'completed query', 'completed')
+    completed = store.claim('completed-owner', tenant)
+    assert completed['id'] == completed_id
+    store.finish(completed, principal, {'status': 'clarification', 'result': 'invalid'})
+    running_id = store.submit(principal, 'running query', 'running')
+    running = store.claim('running-owner', tenant)
+    assert running['id'] == running_id
+    store.executing(running, 31415)
+    queued = store.submit(principal, 'queued query', 'queued')
+    with pytest.raises(Conflict):
+        store.withdraw_active_release(tenant, 'v2', 'missing', 'invalid replacement')
+    assert store.release(tenant)['id'] == 'v2'
+    store.withdraw_active_release(tenant, 'v2', 'v1', 'incorrect calculation')
+    assert store.release(tenant)['id'] == 'v1'
+    assert store.get(principal, old_job)['state'] == 'completed'
+    for job_id in [completed_id, running_id, queued]:
+        job = store.get(principal, job_id)
+        assert job['state'] == 'cancelled'
+        assert job['error_code'] == 'RELEASE_WITHDRAWN'
+        assert job['result'] is None
+    inspected = store.inspect_job(tenant, running_id)
+    assert inspected['connection_id'] == 31415
+    assert inspected['release'] == 'v2' and inspected['state'] == 'cancelled'
+    assert 'result' not in inspected and 'question' not in inspected
+    with pytest.raises(Conflict):
+        store.inspect_job('another_tenant', running_id)
+    assert not store.running(running)
+    with pytest.raises(Conflict):
+        store.finish(running, principal, {'status': 'clarification'})
+    with pytest.raises(Conflict):
+        store.release(tenant, 'v2')
+    new_id = store.submit(principal, 'new query', 'new')
+    assert store.get(principal, new_id)['release'] == 'v1'
